@@ -85,6 +85,8 @@ web pages (no is simpler).
 From the egui proposal's order, the minimum:
 1. Shell, Rail (groups, collapse, resize, the drawer below 768), TopBar (trail, search, actions),
    StatusLine. **Built** (`widgets/frame.rs`) except rail resize, the drawer and the search field.
+   The rail, the top bar and the status line now have specs of their own (`parts/rail`,
+   `parts/top-bar`, `parts/status-line`), whose drift lists what is still to build.
 2. PageHeader, Section, PageState (loading, failed, empty). PageHeader and PageState are built
    (`widgets/page.rs`); Section is not yet.
 3. The table's list variant. **Built** (`widgets/table.rs`), with the table variant too; see the table
@@ -130,6 +132,11 @@ These were found while writing the specs. Nothing was changed.
 | Where | Finding | Question |
 |---|---|---|
 | sokkel-ui `DataTable` | In the table view no key sorts; the head buttons are not tab stops | Should the keyboard map include sorting? |
+| sokkel-ui `Rail` | Its expanded and collapsed entries have no focus ring of their own. They take the browser's outline in `ring/50` (`base.css`). The head's collapse control draws a 2px `ring` outline 2 off, and the home link and the strip's entries a 2px `ring/50` ring | Should the frame's controls share one keyboard focus look, and which one? |
+| sokkel-ui `Shell` top bar | The menu button keeps `density.control` below 768, while the palette's button beside it is a finger square. It has no hover ink and no focus ring of its own | Should it be a finger square below 768, and look like the rail's collapse control? |
+| sokkel-ui `StatusLine` | It draws only the strip's contents. `Shell` draws the strip, and the `Patterns/Status line` story rebuilds the strip by hand (`h-shell-foot`, the rule, the ground, `px-3`) | Should `StatusLine` own the strip, as egui's does, so a story and an app draw one part? |
+| sokkel-ui `TopBar` | The palette's button stands before the screen's actions, which end the bar. The shell spec used to put the palette's button at the end, and egui follows that | `parts/top-bar` states today's order (actions last), and egui's drift asks it to follow. Is that the order wanted? |
+| sokkel-ui `Shell` | Its doc comment says the rail's head and the top bar share one rule. The head draws none, so the top bar's rule stops at the rail's edge | Should a rule run under the rail's head too? |
 
 ## Tokens the specs ask for
 
