@@ -19,7 +19,9 @@ select column) are listed as missing tokens in open questions.
 a chip by `radius-chip`, and so on. Each is derived from the one `radius` a theme sets. **Why.** One
 theme has sharp surfaces and round controls and another the reverse, with no part knowing.
 **Renderer.** Read the role's token (`radius-control`). A small size may cap it (a 24 button caps
-at 10) but never invents it.
+at 10) but never invents it. A native renderer that keeps a corner in whole points floors a
+half-point radius (4.5 draws as 4): egui feathers its edges, so rounding up to 5 read about 40
+percent rounder than Chromium at 2x (10 px against 7, measured), where 4 reads 8 against 7.
 
 ### 3. Text by role
 
