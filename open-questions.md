@@ -88,7 +88,9 @@ From the egui proposal's order, the minimum:
    The rail, the top bar and the status line now have specs of their own (`parts/rail`,
    `parts/top-bar`, `parts/status-line`), whose drift lists what is still to build.
 2. PageHeader, Section, PageState (loading, failed, empty). PageHeader and PageState are built
-   (`widgets/page.rs`); Section is not yet.
+   (`widgets/page.rs`); Section is not yet (`Card` with its bar is the nearest). Each now has a spec
+   of its own (`parts/page-header`, `parts/section`, `parts/page-state`), whose drift lists what is
+   still to build.
 3. The table's list variant. **Built** (`widgets/table.rs`), with the table variant too; see the table
    spec's drift for what is still missing.
 4. Dialog with SettingsDialog, the CommandPalette, a DropdownMenu (the account menu), a Tooltip, and
@@ -137,6 +139,10 @@ These were found while writing the specs. Nothing was changed.
 | sokkel-ui `StatusLine` | It draws only the strip's contents. `Shell` draws the strip, and the `Patterns/Status line` story rebuilds the strip by hand (`h-shell-foot`, the rule, the ground, `px-3`) | Should `StatusLine` own the strip, as egui's does, so a story and an app draw one part? |
 | sokkel-ui `TopBar` | The palette's button stands before the screen's actions, which end the bar. The shell spec used to put the palette's button at the end, and egui follows that | `parts/top-bar` states today's order (actions last), and egui's drift asks it to follow. Is that the order wanted? |
 | sokkel-ui `Shell` | Its doc comment says the rail's head and the top bar share one rule. The head draws none, so the top bar's rule stops at the rail's edge | Should a rule run under the rail's head too? |
+| sokkel-ui `PageHeader` | It draws `trail` over the title outside a `Shell`, and inside one too unless `trailInTop` is set. Principle 8 says the page header never draws a trail | Should `trailInTop` be the default inside a `Shell`, so a page in the frame cannot draw a second trail? |
+| sokkel-ui `PageState` | With `frame={false}` a warning keeps its `warning/8` wash (and sets an edge color with no width), though the frame's doc comment says an unframed state has no edge or ground of its own. egui draws none | Should the wash stay without the box, which sets the warning apart in a panel, or should unframed mean no ground in every tone? |
+| sokkel-ui `Section` | The boxed head's title is `text.head`, the table head's size, weight and tracking, but not its case (`table-head-transform`). In terminal, table heads are in capitals and section heads keep their case with the heads' tracking | Should the boxed head follow the table head's case too, since it is set like one? |
+| sokkel-ui `PageHeader`, `Section` | A count beside a title is drawn two ways: the page header's `count` in the body face with tabular figures, a section's `meta` in the code face | Should a count beside a title look the same in both heads? |
 
 ## Tokens the specs ask for
 

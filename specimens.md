@@ -58,12 +58,21 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Top bar/Current | full; pair at 390; pair with hover and focus | the trail to the current screen and the palette's button; at 390 the last crumb and the icon; the button hovered and focused |
 | Patterns/Top bar/Ancestors | full; pair at 390 | the trail ending at the screen above; at 390 the way back |
 | Patterns/Status line/Tones | full | each tone, the live dot, code and plain facts |
+| Patterns/Page header/Actions | full | a title with its count and two actions, the primary last |
+| Patterns/Page header/Details | full; pair at 390 | the name over its code, a sentence, facts and three actions; at 390 the actions under the title |
+| Patterns/Page header/Folding | full; pair at 390 | five items before the primary; at 390 they fold into More |
+| Patterns/Sections/Boxed | full | a page of boxed sections, each with its head bar |
+| Patterns/Sections/Flat | full | the same page with flat headings over rules |
+| Patterns/Sections/Critical | full | the critical box's rule and mark; a body on the graph's dot grid |
+| Patterns/States/Page state | full | loading, refused, missing, not answering, empty, an empty state with its way in |
+| Patterns/States/Secondary read | full | a side read failing in the warning tone beside the page's own content |
+| Patterns/States/Failed page | pair | the failure as the page's heading |
 | Patterns/Shell/Search field | full; pair at 390 | the whole frame; at 390 the menu button, the last crumb, the palette icon |
 | Patterns/Shell/Drawer | pair | the drawer open at 390 |
 | Apps/Settings/Navbar | pair; pair at 390 | the settings dialog; at 390 a full-screen sheet on its list |
 
-That is 27 stories across the full matrix (324 captures) and 29 captures across the pair matrix
-(58), **382 per side**.
+That is 35 stories across the full matrix (420 captures) and 32 captures across the pair matrix
+(64), **484 per side**.
 
 ## How a state is reached
 

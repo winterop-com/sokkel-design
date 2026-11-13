@@ -6,14 +6,15 @@ the page with its header as the one thing that scrolls, the status foot, setting
 own route over the page, and pages whose reads land in distinct states. This is what makes a native
 app and a web app "built in a similar fashion". The structured spec is [`shell.json`](shell.json).
 
-The rail, the top bar and the status line are parts with specs of their own:
-[`parts/rail`](../parts/rail.md), [`parts/top-bar`](../parts/top-bar.md) and
-[`parts/status-line`](../parts/status-line.md). This pattern says how the frame lays them out and
-what it holds besides them.
+The rail, the top bar, the status line, the page header, the section and the page state are parts
+with specs of their own: [`parts/rail`](../parts/rail.md), [`parts/top-bar`](../parts/top-bar.md),
+[`parts/status-line`](../parts/status-line.md), [`parts/page-header`](../parts/page-header.md),
+[`parts/section`](../parts/section.md) and [`parts/page-state`](../parts/page-state.md). This
+pattern says how the frame lays them out and what it holds besides them.
 
 Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `ShellWords`),
-`PageHeader.tsx`, `SettingsDialog.tsx` with `settings-parts.tsx` (`SETTINGS_WORDS`), `PageState.tsx`;
-the settings route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is
+`SettingsDialog.tsx` with `settings-parts.tsx` (`SETTINGS_WORDS`); the settings route is
+`useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is
 `docs/plan.md`'s Themes section. sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (`Shell`, story
 `Patterns/Shell`), with working apps on it, `examples/runs` and `examples/tasks`.
 
@@ -26,9 +27,9 @@ the settings route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The con
 | panel toggle | A side panel's toggle in the window's top-right corner: over the top bar's end while the panel is closed or a sheet, in the panel header's corner while it is a column and open |
 | banner | A state that holds (the server not answering), between the top bar and the content, not scrolling |
 | content | The one scroller, with a thin track that keeps its room either way: proposed 10 wide, solid, `scroll-track` with a `scroll-thumb` (egui's bars float over the content unless set solid) |
-| page header | Title (the name, else the code), the code under it, a count, a description, meta, an aside picture, actions with the primary last and the rest folding into More. Held above the scroller with `ShellHead`. **No trail: the trail lives in the top bar** |
-| page | Content at the page inset, sections a page gap apart |
-| page state | Loading, failed, empty, or the content |
+| page header | [`parts/page-header`](../parts/page-header.md): the title, what is known about it, the actions with the primary last. Held above the scroller with `ShellHead`. **No trail: the trail lives in the top bar** |
+| page | Content at the page inset, its sections ([`parts/section`](../parts/section.md)) a page gap apart |
+| page state | [`parts/page-state`](../parts/page-state.md): loading, failed, empty, or the content |
 | panel | Optional: a right column, a sheet, or tabs in a strip at the foot |
 | foot | [`parts/status-line`](../parts/status-line.md): one fixed row, level with the rail's foot cell so account and status read as one bar |
 | overlays | Command palette (Mod+K), settings dialog (`#/settings`), shortcuts dialog (`?`), the drawer (below 768) |
@@ -62,13 +63,10 @@ table stacks by its own box.
 
 - Panel toggle: `muted-foreground`, hover `hover` and `foreground`, `foreground` while the panel is
   open; keyboard focus a 2px `ring` outline 2 off.
-- page: `background`, `foreground`. Title: `text.page-title` in `typeface-heading`, ink
-  `page-title-ink`, falling back to `foreground` where a theme leaves it `currentcolor`.
+- page: `background`, `foreground`.
 - Dialogs: `popover` on `radius-surface`, over `shade/10`. The drawer and sheets: `sidebar`, with
   `elevation-pop` and `scrim`.
-- Page states: loading `muted-foreground`; failed on `card` with `border-strong` and a
-  `destructive` mark.
-- The rail, the top bar and the foot: in their parts.
+- The rail, the top bar, the foot, the page header, sections and page states: in their parts.
 
 ## The settings route
 
@@ -95,10 +93,10 @@ bar's (`/` for its search) are in their parts.
 
 ## Words
 
-The shell's, page header's, palette's, settings dialog's and page states' default words are in the
-JSON (`Open the navigation`, `Close the navigation`, `Search or run a command`, `Changes are saved
-as you make them`, `Done`, `Reset to defaults`, `Try again`, ...). The rail's and the top bar's are
-in their parts. The app gives its name, its places, the trail, page titles and the settings'
+The shell's, palette's and settings dialog's default words are in the JSON (`Open the navigation`,
+`Close the navigation`, `Search or run a command`, `Changes are saved as you make them`, `Done`,
+`Reset to defaults`, ...). The rail's, the top bar's, the page header's and the page states' are in
+their parts. The app gives its name, its places, the trail, page titles and the settings'
 sections. Actions follow their context: on Runs the button is "New", not "New run".
 
 ## Renderer-specific
@@ -116,9 +114,9 @@ sections. Actions follow their context: on Runs the button is "New", not "New ru
 
 - **sokkel-ui-egui:** as of 267236c, `Shell` lays out the `Rail`, the `TopBar` and the `StatusLine`
   (each with its own spec and drift) with the rail's foot cell level with the status line, and it
-  has `PageHeader` and `PageState`, `SettingsDialog` with the appearance settings and setting rows,
-  `Dialog`, `Select` and the tooltip, `DropdownMenu`, and `CommandPalette` on Mod+K.
-  `examples/runs` and `examples/tasks` are working apps on it, with settings over the page on
-  Mod+comma and from the rail. Still to build: the drawer below 768, the panel and its toggle, and
-  the banner. Settings is not a route: egui has no URL, so the dialog is open state the app holds.
+  has `PageHeader` and `PageState` (each with its own spec and drift), `SettingsDialog` with the
+  appearance settings and setting rows, `Dialog`, `Select` and the tooltip, `DropdownMenu`, and
+  `CommandPalette` on Mod+K. `examples/runs` and `examples/tasks` are working apps on it, with
+  settings over the page on Mod+comma and from the rail. Still to build: the drawer below 768, the
+  panel and its toggle, the banner, and Section (`parts/section`). Settings is not a route: egui has no URL, so the dialog is open state the app holds.
   The page's scroll gutter is 11, where the spec proposes 10.
