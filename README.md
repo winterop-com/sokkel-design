@@ -10,8 +10,8 @@ It has the same shape as sokkel-api: one contract, an implementation per stack, 
 them. The contract decides and each renderer stays idiomatic. When a renderer drifts, a check fails
 in that renderer's CI before any app sees it.
 
-This is a draft for judging the format. It covers three parts (button, text field, table) and one
-pattern (the shell). Nothing here is wired to either renderer yet.
+This is a draft for judging the format. It covers six parts (button, text field, table, rail, top
+bar, status line) and one pattern (the shell). Nothing here is wired to either renderer yet.
 
 ## Layers
 
@@ -33,8 +33,8 @@ sokkel-design/
     index.json                  contract version, breakpoints, widths, every part and pattern
     schema/part.schema.json     JSON Schema 2020-12 for parts/*.json and patterns/*.json
     schema/paints.schema.json   the resolved paints renderers read
-    parts/      button  text-field  table   (.md + .json)
-    patterns/   shell                       (.md + .json)
+    parts/      button  text-field  table  rail  top-bar  status-line   (.md + .json)
+    patterns/   shell                                               (.md + .json)
     tokens/     tokens.json, tokens.resolved.json, the resolver   (once moved; not in this draft)
 ```
 
@@ -210,7 +210,7 @@ From the egui side (proposal, section a). Each step is a spec here first, then a
 
 | Step | Parts | Spec here |
 |---|---|---|
-| 1 | Shell, Rail, TopBar, StatusLine | `patterns/shell` (draft) |
+| 1 | Shell, Rail, TopBar, StatusLine | `patterns/shell`, `parts/rail`, `parts/top-bar`, `parts/status-line` (draft) |
 | 2 | PageHeader, Section, page states | In `patterns/shell` for now |
 | 3 | DataTable, the list variant first | `parts/table` (draft) |
 | 4 | Select, Dialog with SettingsDialog, DropdownMenu, Tooltip, CommandPalette | Settings in `patterns/shell`; the rest to come |

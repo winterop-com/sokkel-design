@@ -50,12 +50,20 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Data table/Empty | full | the heads and the words |
 | Patterns/Data table/Loading | full | placeholder rows |
 | Patterns/States/In a table | full | a refused read in a table's place, with Try again |
+| Patterns/Rail/Expanded | full; pair with hover and edge focus | titled groups, the active bar, counts and a dot, the account; an entry under the pointer; the edge's line on keyboard focus |
+| Patterns/Rail/Collapsed | full | icons alone, counts over them, rules for the group titles |
+| Patterns/Rail/Described | full | a second line under each label |
+| Patterns/Rail/Nested | full | a parent unfolded over the active entry, another folded beside its chevron |
+| Patterns/Rail/Counts | full | the strip: icons over labels, counts at their corners, a dot |
+| Patterns/Top bar/Current | full; pair at 390; pair with hover and focus | the trail to the current screen and the palette's button; at 390 the last crumb and the icon; the button hovered and focused |
+| Patterns/Top bar/Ancestors | full; pair at 390 | the trail ending at the screen above; at 390 the way back |
+| Patterns/Status line/Tones | full | each tone, the live dot, code and plain facts |
 | Patterns/Shell/Search field | full; pair at 390 | the whole frame; at 390 the menu button, the last crumb, the palette icon |
 | Patterns/Shell/Drawer | pair | the drawer open at 390 |
 | Apps/Settings/Navbar | pair; pair at 390 | the settings dialog; at 390 a full-screen sheet on its list |
 
-That is 19 stories across the full matrix (228 captures) and 23 captures across the pair matrix
-(46), **274 per side**.
+That is 27 stories across the full matrix (324 captures) and 29 captures across the pair matrix
+(58), **382 per side**.
 
 ## How a state is reached
 

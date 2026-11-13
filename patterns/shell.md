@@ -6,42 +6,43 @@ the page with its header as the one thing that scrolls, the status foot, setting
 own route over the page, and pages whose reads land in distinct states. This is what makes a native
 app and a web app "built in a similar fashion". The structured spec is [`shell.json`](shell.json).
 
-Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `ShellWords`), `Rail.tsx`
-(`RailGroup`, `RailEntry`, `RailWords`), `TopBar.tsx`, `PageHeader.tsx`, `StatusLine.tsx`,
-`SettingsDialog.tsx` with `settings-parts.tsx` (`SETTINGS_WORDS`), `PageState.tsx`; the settings
-route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is `docs/plan.md`'s Themes
-section. sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (story `Patterns/Shell`), with a working app on it,
-`examples/runs`.
+The rail, the top bar and the status line are parts with specs of their own:
+[`parts/rail`](../parts/rail.md), [`parts/top-bar`](../parts/top-bar.md) and
+[`parts/status-line`](../parts/status-line.md). This pattern says how the frame lays them out and
+what it holds besides them.
+
+Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `ShellWords`),
+`PageHeader.tsx`, `SettingsDialog.tsx` with `settings-parts.tsx` (`SETTINGS_WORDS`), `PageState.tsx`;
+the settings route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is
+`docs/plan.md`'s Themes section. sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (`Shell`, story
+`Patterns/Shell`), with working apps on it, `examples/runs` and `examples/tasks`.
 
 ## Anatomy
 
 | Region | What it holds |
 |---|---|
-| rail | Head (mark and name, leading home, as tall as the top bar); groups with optional titles; entries (icon, label, optional second line, a count or an unread dot, children folded under it); foot cell (the account menu). Its edge resizes it, and pulled outward expands a collapsed rail |
-| top bar | Search field at its start (`/`), the trail after it, the app's actions, the palette button with its keys at the end, the panel toggle in the corner. It and the rail's head share one rule across the window |
+| rail | The app's places at the window's start: [`parts/rail`](../parts/rail.md). Its foot cell (the account) stands level with the foot |
+| top bar | Over the content: [`parts/top-bar`](../parts/top-bar.md). It is as tall as the rail's head, so the two read as one strip across the window |
+| panel toggle | A side panel's toggle in the window's top-right corner: over the top bar's end while the panel is closed or a sheet, in the panel header's corner while it is a column and open |
 | banner | A state that holds (the server not answering), between the top bar and the content, not scrolling |
 | content | The one scroller, with a thin track that keeps its room either way: proposed 10 wide, solid, `scroll-track` with a `scroll-thumb` (egui's bars float over the content unless set solid) |
 | page header | Title (the name, else the code), the code under it, a count, a description, meta, an aside picture, actions with the primary last and the rest folding into More. Held above the scroller with `ShellHead`. **No trail: the trail lives in the top bar** |
 | page | Content at the page inset, sections a page gap apart |
 | page state | Loading, failed, empty, or the content |
 | panel | Optional: a right column, a sheet, or tabs in a strip at the foot |
-| foot | The status line: a short note at the start and facts at the end, one fixed row, level with the rail's foot cell so account and status read as one bar |
+| foot | [`parts/status-line`](../parts/status-line.md): one fixed row, level with the rail's foot cell so account and status read as one bar |
 | overlays | Command palette (Mod+K), settings dialog (`#/settings`), shortcuts dialog (`?`), the drawer (below 768) |
 
-The places are **data** (`{ id, title?, entries: [{ id, label, description?, icon?, href?, count?,
-unread?, entries? }] }`), and so are the settings sections and the palette's groups. The same data
-draws the frame on every target.
+The places are **data** (the rail's groups), and so are the settings sections and the palette's
+groups. The same data draws the frame on every target.
 
 ## Sizes
 
 | | Value |
 |---|---|
-| Top bar, rail head | `spacing-shell-top` (46) |
-| Foot | `spacing-shell-foot` (46) |
-| Rail | 240 by default, dragged between 200 and 360 and kept; collapsed 57; strip variant 72 |
-| Rail entry | `density.row` (40 / 34), a finger tall below 768; collapsed 36 wide |
-| Palette button | `density.control` tall (32 / 28), level with the search field; 224 wide with no search field; below 768 an icon, a finger square |
-| Search field | `density.control` tall, 224 to 320 wide (256 from 1024) |
+| Top bar, rail head | `spacing-shell-top` (46): see the parts |
+| Foot, rail foot cell | `spacing-shell-foot` (46): see the parts |
+| Panel toggle | `density.control` square (32 / 28), `radius-md`, icon 16; centered in the top bar's height, 8 from the window's end |
 | Page | inset `density.page-inset-wide` (32 / 16) when the content box is 640 or wider, else `-narrow` (16 / 12); top `density.page-top`; gap `density.page-gap`; 40 at the foot |
 | Panel strip tab | `spacing-shell-tabs` (56) |
 | Desktop window, title bar hidden | `spacing-traffic-lights` (80) left for the window's buttons |
@@ -50,7 +51,7 @@ draws the frame on every target.
 
 | Window | Form factors | The frame |
 |---|---|---|
-| below 768 | foldable folded 344; phone 360, 390, 430; foldable open 690 | The rail becomes a **drawer** from a menu button at the top bar's start. It is drawn expanded with the account in it, and closed by a press outside, a link, Escape or a route change. The search gives way to the palette button. The trail shows its last crumb only. The panel is a sheet, or a tab strip at the foot. Dialogs fill the screen, and settings opens on its list of sections. Rows and tabs are a finger tall. The frame keeps clear of the notch and home indicator |
+| below 768 | foldable folded 344; phone 360, 390, 430; foldable open 690 | The rail becomes a **drawer** from the top bar's menu button (the rail's `drawer` state). It is drawn expanded with the account in it, and closed by a press outside, a link, Escape or a route change. The top bar keeps its last crumb and its palette's button is an icon (the top bar's `phone` state). The panel is a sheet, or a tab strip at the foot. Dialogs fill the screen, and settings opens on its list of sections. Rows and tabs are a finger tall. The frame keeps clear of the notch and home indicator |
 | 768 to 1023 | tablet 768 | The rail is in the frame, as the app holds it. The panel is a sheet from the right |
 | from 1024 | tablet 1024; desktop 1280, 1440, 1920 | The panel is the right column, level with the top bar. Desktop is the main target |
 
@@ -59,21 +60,15 @@ table stacks by its own box.
 
 ## Tokens
 
-- rail: `sidebar`, `sidebar-foreground`, edge `border-strong`.
-- Entries: `muted-foreground`, hover `hover` and `foreground`. Active: `sidebar-accent` and
-  `sidebar-accent-foreground` at 500, with a 2px `sidebar-primary` bar at the start.
-- Group titles: `faint`, `text.help` at 500, upper case; collapsed, a rule.
-- top bar: `sidebar` ground, `border-strong` rule.
-- Trail: `muted-foreground`, the current crumb `foreground` at 500, chevrons `faint`.
-- Palette button: `field`, `border`, `muted-foreground`; hover `border-strong`, `foreground`.
+- Panel toggle: `muted-foreground`, hover `hover` and `foreground`, `foreground` while the panel is
+  open; keyboard focus a 2px `ring` outline 2 off.
 - page: `background`, `foreground`. Title: `text.page-title` in `typeface-heading`, ink
   `page-title-ink`, falling back to `foreground` where a theme leaves it `currentcolor`.
-- foot: `page-foot-ground`, `page-foot-line`, `page-foot-ink`, `text.help`. The note's tone is live
-  `info`, warn `warning`, error `destructive`.
 - Dialogs: `popover` on `radius-surface`, over `shade/10`. The drawer and sheets: `sidebar`, with
   `elevation-pop` and `scrim`.
 - Page states: loading `muted-foreground`; failed on `card` with `border-strong` and a
   `destructive` mark.
+- The rail, the top bar and the foot: in their parts.
 
 ## The settings route
 
@@ -91,20 +86,20 @@ route is app state with a back stack, and "settings open" keeps the page under i
 ## Keyboard
 
 `Mod+K` opens the palette (a second press closes it; on a Mac Ctrl+K too). `?` opens the shortcuts
-dialog. `/` focuses the search. Escape closes the layer on top and gives focus back. On a collapsed
-rail's edge, Enter, Space or Right expands it. On an expanded rail's edge, Left and Right resize it.
-A sequence such as G then D goes to a place, its second key within a second. Keys are named by the
-character they type, so `?` and `/` work on a Norwegian keyboard. Keys are quiet in a field and
-under an overlay unless a binding asks. A route change moves focus to the new page's heading. How long
-sokkel-ui waits for a page still loading (3 s) is its own detail.
+dialog. Escape closes the layer on top and gives focus back. A sequence such as G then D goes to a
+place, its second key within a second. Keys are named by the character they type, so `?` and `/`
+work on a Norwegian keyboard. Keys are quiet in a field and under an overlay unless a binding asks.
+A route change moves focus to the new page's heading. How long sokkel-ui waits for a page still
+loading (3 s) is its own detail. The rail's keys (its parents, its edge, reordering) and the top
+bar's (`/` for its search) are in their parts.
 
 ## Words
 
-The shell's, rail's, top bar's, page header's, palette's, settings dialog's and page states' default
-words are all in the JSON (`Open the navigation`, `All places`, `Where you are`, `Search or run a
-command`, `Changes are saved as you make them`, `Done`, `Reset to defaults`, `Try again`, ...). The
-app gives its name, its places, the trail, page titles and the settings' sections. Actions follow
-their context: on Runs the button is "New", not "New run".
+The shell's, page header's, palette's, settings dialog's and page states' default words are in the
+JSON (`Open the navigation`, `Close the navigation`, `Search or run a command`, `Changes are saved
+as you make them`, `Done`, `Reset to defaults`, `Try again`, ...). The rail's and the top bar's are
+in their parts. The app gives its name, its places, the trail, page titles and the settings'
+sections. Actions follow their context: on Runs the button is "New", not "New run".
 
 ## Renderer-specific
 
@@ -119,11 +114,11 @@ their context: on Runs the button is "New", not "New run".
 
 ## Where the renderers differ from the spec today
 
-- **sokkel-ui-egui:** as of 38693ff it has `Shell`, `Rail` (groups, counts, collapse at 240 / 57),
-  `TopBar` (the trail with chevrons in `faint`, on `sidebar` with a `border-strong` rule), `StatusLine`
-  (`spacing-shell-foot` tall, its tones), `PageHeader` and `PageState`, `SettingsDialog` with the
-  appearance settings and setting rows, `Dialog`, `Select` and the tooltip, `DropdownMenu`, and
-  `CommandPalette` on Mod+K. `examples/runs` is a working app on it, with settings over the page on
-  Mod+comma and from the rail. Still to build: rail resize by drag, the drawer below 768, the search
-  field in the top bar and the panel. Settings is not a route: egui has no URL, so the dialog is open
-  state the app holds.
+- **sokkel-ui-egui:** as of 267236c, `Shell` lays out the `Rail`, the `TopBar` and the `StatusLine`
+  (each with its own spec and drift) with the rail's foot cell level with the status line, and it
+  has `PageHeader` and `PageState`, `SettingsDialog` with the appearance settings and setting rows,
+  `Dialog`, `Select` and the tooltip, `DropdownMenu`, and `CommandPalette` on Mod+K.
+  `examples/runs` and `examples/tasks` are working apps on it, with settings over the page on
+  Mod+comma and from the rail. Still to build: the drawer below 768, the panel and its toggle, and
+  the banner. Settings is not a route: egui has no URL, so the dialog is open state the app holds.
+  The page's scroll gutter is 11, where the spec proposes 10.

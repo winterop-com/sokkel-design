@@ -192,6 +192,102 @@
             "shows": "The pointer over the second row; keyboard focus on the table with the third row active."
         },
         {
+            "id": "Patterns/Rail/Expanded",
+            "part": "rail",
+            "matrix": "full",
+            "canvas": [320, 720],
+            "shows": "Titled groups, Runs active with its bar and count, counts at the rows' ends, a dot on Jobs, the account in the foot."
+        },
+        {
+            "id": "Patterns/Rail/Collapsed",
+            "part": "rail",
+            "matrix": "full",
+            "canvas": [320, 720],
+            "shows": "The icons alone: counts over the icons, a dot on Jobs, rules in the group titles' places, the mark that expands it."
+        },
+        {
+            "id": "Patterns/Rail/Described",
+            "part": "rail",
+            "matrix": "full",
+            "canvas": [320, 720],
+            "shows": "A second line under each label, Runs active with its count level with the label, a long line wrapping."
+        },
+        {
+            "id": "Patterns/Rail/Nested",
+            "part": "rail",
+            "matrix": "full",
+            "canvas": [320, 720],
+            "shows": "Parents: Evaluate unfolded over the active Compare, Services folded with a page of its own beside its chevron."
+        },
+        {
+            "id": "Patterns/Rail/Counts",
+            "part": "rail",
+            "matrix": "full",
+            "canvas": [320, 720],
+            "shows": "The strip variant: each place an icon over its label, counts at the icons' corners from 3 to 99+, a dot on Files."
+        },
+        {
+            "id": "Patterns/Rail/Expanded",
+            "part": "rail",
+            "matrix": "pair",
+            "canvas": [320, 720],
+            "each": ["hover", "edge"],
+            "steps": [
+                {"when": "hover", "do": "hover", "target": "link:Schedules"},
+                {"when": "edge", "do": "keyFocus", "target": "separator:Resize the navigation"}
+            ],
+            "shows": "The pointer over an entry; keyboard focus on the edge, its line drawn."
+        },
+        {
+            "id": "Patterns/Top bar/Current",
+            "part": "top-bar",
+            "matrix": "full",
+            "canvas": [1280, 400],
+            "shows": "The trail ending at the current screen (harbor, Runs, Run 1842) and the palette's button, in the shell.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 768 the menu button, the last crumb alone, and the palette's button as a finger-square icon."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Top bar/Ancestors",
+            "part": "top-bar",
+            "matrix": "full",
+            "canvas": [1280, 400],
+            "shows": "The trail ending at the screen above: every crumb a link and a chevron after the last.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 768 the last crumb alone, after a back chevron, as the way back."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Top bar/Current",
+            "part": "top-bar",
+            "matrix": "pair",
+            "canvas": [1280, 400],
+            "each": ["hover", "focus"],
+            "steps": [
+                {"when": "hover", "do": "hover", "target": "button:Search"},
+                {"when": "focus", "do": "keyFocus", "target": "button:Search"}
+            ],
+            "shows": "The palette's button under the pointer (border-strong, foreground) and with keyboard focus (the ring edge and a 1px ring)."
+        },
+        {
+            "id": "Patterns/Status line/Tones",
+            "part": "status-line",
+            "matrix": "full",
+            "canvas": [960, 400],
+            "shows": "A live note with its pulsing dot and a code fact, a quiet note, a warning, an error, and facts alone."
+        },
+        {
             "id": "Patterns/Shell/Search field",
             "part": "shell",
             "matrix": "full",
@@ -230,5 +326,5 @@
             "shows": "The settings dialog over the page."
         }
     ],
-    "count": {"full": "19 stories x 12 appearances = 228", "pair": "23 captures x 2 appearances = 46", "perSide": 274}
+    "count": {"full": "27 stories x 12 appearances = 324", "pair": "29 captures x 2 appearances = 58", "perSide": 382}
 }

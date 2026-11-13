@@ -57,9 +57,10 @@ window, so it holds up in any container.
 ### 7. One frame for every app
 
 **Rule.** Every app sits in the same frame: the rail of places, the top bar with the trail, search
-and palette, the page, the status foot (`patterns/shell`). **Why.** Apps on any target read as one
-family, and a reader who knows one knows them all. **Renderer.** Build the frame once in the
-renderer. The app gives its places, settings and pages as data and parts.
+and palette, the page, the status foot (`patterns/shell`, with `parts/rail`, `parts/top-bar` and
+`parts/status-line`). **Why.** Apps on any target read as one family, and a reader who knows one
+knows them all. **Renderer.** Build the frame once in the renderer. The app gives its places,
+settings and pages as data and parts.
 
 ### 8. The trail lives in the top bar only
 
