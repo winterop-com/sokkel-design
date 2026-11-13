@@ -288,6 +288,85 @@
             "shows": "A live note with its pulsing dot and a code fact, a quiet note, a warning, an error, and facts alone."
         },
         {
+            "id": "Patterns/Page header/Actions",
+            "part": "page-header",
+            "matrix": "full",
+            "canvas": [960, 160],
+            "shows": "A listing's head: Jobs with 5 jobs on its baseline, Import and New at the row's end, New last."
+        },
+        {
+            "id": "Patterns/Page header/Details",
+            "part": "page-header",
+            "matrix": "full",
+            "canvas": [960, 240],
+            "shows": "One thing's page: Nightly export over its code, a sentence, a line of facts, and three actions with Run last.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "The header has no room for the actions beside the title: they wrap under it, then onto lines of their own."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Page header/Folding",
+            "part": "page-header",
+            "matrix": "full",
+            "canvas": [960, 200],
+            "shows": "Sync inventory with five items before Run, all in the row at this width.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "The items fold into More from the last while Run stays, and the title keeps its width."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Sections/Boxed",
+            "part": "section",
+            "matrix": "full",
+            "canvas": [1280, 800],
+            "shows": "A job's overview in the shell: Graph, Recent runs (its count and actions in the head) and Details, each a box with a head bar."
+        },
+        {
+            "id": "Patterns/Sections/Flat",
+            "part": "section",
+            "matrix": "full",
+            "canvas": [1280, 800],
+            "shows": "The same page with flat sections: headings over rules, the content on the page's ground."
+        },
+        {
+            "id": "Patterns/Sections/Critical",
+            "part": "section",
+            "matrix": "full",
+            "canvas": [960, 640],
+            "shows": "A failed run's box: the critical rule across its top and the warning mark before its title, with Retry; under it the run on the graph's dot grid."
+        },
+        {
+            "id": "Patterns/States/Page state",
+            "part": "page-state",
+            "matrix": "full",
+            "canvas": [960, 960],
+            "shows": "Loading; refused with its diagnostic; refused with Try again; missing; not answering; empty in one line; and an empty state with its way in."
+        },
+        {
+            "id": "Patterns/States/Secondary read",
+            "part": "page-state",
+            "matrix": "full",
+            "canvas": [960, 360],
+            "shows": "A run's facts, and under them its artifacts' read failing in the warning tone, with Try again."
+        },
+        {
+            "id": "Patterns/States/Failed page",
+            "part": "page-state",
+            "matrix": "pair",
+            "canvas": [960, 240],
+            "shows": "A run's record that failed to load: the failure headed as the page's h1, with Try again."
+        },
+        {
             "id": "Patterns/Shell/Search field",
             "part": "shell",
             "matrix": "full",
@@ -326,5 +405,5 @@
             "shows": "The settings dialog over the page."
         }
     ],
-    "count": {"full": "27 stories x 12 appearances = 324", "pair": "29 captures x 2 appearances = 58", "perSide": 382}
+    "count": {"full": "35 stories x 12 appearances = 420", "pair": "32 captures x 2 appearances = 64", "perSide": 484}
 }
