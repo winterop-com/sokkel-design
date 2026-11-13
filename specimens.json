@@ -1,0 +1,234 @@
+{
+    "$description": "The fixed list both renderers draw, to compare by eye. A specimen's id is a Storybook story path (title/story name, as sokkel-ui's sidebar shows it); the egui storybook has a story at the same path, so the two pair by name with no mapping. Both capture the story's canvas only, never the storybook's chrome.",
+    "scale": 2,
+    "slug": "The id in lower case with every / and space turned into _, as sokkel-ui-egui's snapshot test names its files today.",
+    "file": "{slug}--{theme}-{scheme}-{density}.png",
+    "eachFile": "{slug}--{each}--{theme}-{scheme}-{density}.png",
+    "matrices": {
+        "full": {
+            "themes": ["tidevann", "paper", "contrast"],
+            "schemes": ["light", "dark"],
+            "densities": ["regular", "compact"]
+        },
+        "pair": {"themes": ["tidevann"], "schemes": ["light", "dark"], "densities": ["regular"]}
+    },
+    "steps": {
+        "hover": "The pointer rests over the target's center. Web: locator.hover(). egui_kittest: the node's hover().",
+        "press": "The pointer is down on the target and held. Web: mouse.down() over it. egui: a pointer-down event held across the captured frame.",
+        "click": "A press and release on the target. Web: locator.click(). egui_kittest: the node's click(), then frames until it settles.",
+        "keyFocus": "The target gets keyboard focus. Web: Tab until it is focused, so :focus-visible matches. egui: Tab key events until the node has focus, so the last input kind is the keyboard.",
+        "key": "A key pressed while the focus is where the last step left it.",
+        "resize": "The canvas is this wide for the capture."
+    },
+    "targets": "A target is a role and a name, as a screen reader would find it: button:Run now, textbox:Job name, row:2, table. Playwright's getByRole and egui_kittest's AccessKit queries both find it.",
+    "content": "An existing story's content is what sokkel-ui's story draws (its data and its doc comment); the egui story at the same path draws the same. A story marked new does not exist yet: sokkel-ui adds it under the real title, from the fixtures here.",
+    "fixtures": {
+        "button": {"label": "Run now", "icon": "play", "iconButton": {"label": "Refresh", "icon": "refresh-cw"}},
+        "field": {
+            "label": "Job name",
+            "value": "nightly-export",
+            "placeholder": "sync-inventory",
+            "help": "Letters, digits and dashes.",
+            "error": "A job named nightly-export already exists.",
+            "errorDetail": "Job names are unique within harbor.",
+            "errorAction": "Use nightly-export-2",
+            "warning": "Names over 24 characters are cut short in the rail."
+        }
+    },
+    "specimens": [
+        {"id": "Primitives/Actions/Button/Variants", "part": "button", "matrix": "full", "canvas": [720, 360]},
+        {
+            "id": "Primitives/Actions/Button/States",
+            "part": "button",
+            "matrix": "full",
+            "canvas": [720, 200],
+            "shows": "disabled, disabled outline, invalid, busy."
+        },
+        {"id": "Primitives/Actions/Button/Busy", "part": "button", "matrix": "full", "canvas": [720, 200]},
+        {"id": "Primitives/Actions/Button/Reason", "part": "button", "matrix": "full", "canvas": [720, 200]},
+        {
+            "id": "Primitives/Actions/Button/Sizes",
+            "part": "button",
+            "new": true,
+            "matrix": "full",
+            "canvas": [720, 240],
+            "shows": "Rows xs, sm, default, lg; columns label, icon and label, icon at the end, icon only (as an icon button of that row's size). fixtures.button.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 768 every size but xs is a finger tall."
+                }
+            ]
+        },
+        {"id": "Primitives/Actions/Icon button/Variants", "part": "button", "matrix": "full", "canvas": [720, 320]},
+        {
+            "id": "Primitives/Actions/Button/Variants",
+            "part": "button",
+            "matrix": "pair",
+            "canvas": [720, 360],
+            "each": [
+                "hover-default",
+                "hover-outline",
+                "hover-secondary",
+                "hover-ghost",
+                "hover-destructive",
+                "hover-link",
+                "focus-default",
+                "focus-outline",
+                "focus-destructive",
+                "press-default",
+                "press-outline",
+                "press-ghost"
+            ],
+            "steps": "Each `<step>-<variant>` does that step on the first button of that variant: hover, keyFocus or press.",
+            "shows": "The interaction states, one capture each."
+        },
+        {
+            "id": "Primitives/Actions/Button/Reason",
+            "part": "button",
+            "matrix": "pair",
+            "canvas": [720, 200],
+            "each": ["focus"],
+            "steps": [{"do": "keyFocus", "target": "the first button"}],
+            "shows": "A reasoned button with keyboard focus: the focus ring and the reason in its tooltip."
+        },
+        {"id": "Primitives/Inputs/Text field/Plain", "part": "text-field", "matrix": "full", "canvas": [480, 120]},
+        {"id": "Primitives/Inputs/Text field/With help", "part": "text-field", "matrix": "full", "canvas": [480, 140]},
+        {"id": "Primitives/Inputs/Text field/Error", "part": "text-field", "matrix": "full", "canvas": [480, 140]},
+        {"id": "Primitives/Inputs/Text field/Multiline", "part": "text-field", "matrix": "full", "canvas": [480, 220]},
+        {
+            "id": "Primitives/Inputs/Text field/States",
+            "part": "text-field",
+            "new": true,
+            "matrix": "full",
+            "canvas": [720, 360],
+            "shows": "Empty with its placeholder, disabled, read only, a warning. fixtures.field."
+        },
+        {
+            "id": "Primitives/Inputs/Text field/Issue open",
+            "part": "text-field",
+            "new": true,
+            "matrix": "full",
+            "canvas": [480, 320],
+            "shows": "An invalid field with its popover open (issueOpen): the error, its detail and its action. fixtures.field."
+        },
+        {
+            "id": "Primitives/Inputs/Text field/Plain",
+            "part": "text-field",
+            "matrix": "pair",
+            "canvas": [480, 120],
+            "each": ["hover", "focus"],
+            "steps": [
+                {"when": "hover", "do": "hover", "target": "the input"},
+                {"when": "focus", "do": "keyFocus", "target": "the input"}
+            ],
+            "shows": "Hover (no look of its own today) and focus."
+        },
+        {
+            "id": "Primitives/Inputs/Text field/Error",
+            "part": "text-field",
+            "matrix": "pair",
+            "canvas": [480, 140],
+            "each": ["focus"],
+            "steps": [{"do": "keyFocus", "target": "the input"}],
+            "shows": "invalid+focus: the critical edge and the 3px ring, which shows only with focus."
+        },
+        {
+            "id": "Patterns/Data table/Sorted",
+            "part": "table",
+            "matrix": "full",
+            "canvas": [1280, 600],
+            "shows": "500 runs sorted by duration, longest first."
+        },
+        {
+            "id": "Patterns/Data table/Selection",
+            "part": "table",
+            "matrix": "full",
+            "canvas": [1280, 600],
+            "shows": "Three runs selected and the selection bar."
+        },
+        {
+            "id": "Patterns/Data table/Stack width",
+            "part": "table",
+            "matrix": "full",
+            "canvas": [720, 720],
+            "shows": "A list below its stack width (64rem of its own box): every row a card."
+        },
+        {
+            "id": "Patterns/Data table/Empty",
+            "part": "table",
+            "matrix": "full",
+            "canvas": [960, 240],
+            "shows": "A search that matches nothing: the heads and the words."
+        },
+        {
+            "id": "Patterns/Data table/Loading",
+            "part": "table",
+            "matrix": "full",
+            "canvas": [960, 360],
+            "shows": "Placeholder rows, the pulse stopped."
+        },
+        {
+            "id": "Patterns/States/In a table",
+            "part": "table",
+            "matrix": "full",
+            "canvas": [960, 280],
+            "shows": "A refused read said in a table's place: the heading, the diagnostic, the problems, Try again."
+        },
+        {
+            "id": "Patterns/Data table/Sorted",
+            "part": "table",
+            "matrix": "pair",
+            "canvas": [1280, 600],
+            "each": ["hover", "active"],
+            "steps": [
+                {"when": "hover", "do": "hover", "target": "row:2"},
+                {"when": "active", "do": "keyFocus", "target": "table"},
+                {"when": "active", "do": "key", "key": "ArrowDown"},
+                {"when": "active", "do": "key", "key": "ArrowDown"}
+            ],
+            "shows": "The pointer over the second row; keyboard focus on the table with the third row active."
+        },
+        {
+            "id": "Patterns/Shell/Search field",
+            "part": "shell",
+            "matrix": "full",
+            "canvas": [1280, 800],
+            "shows": "The whole frame: rail, top bar with its search and trail, page, foot."
+        },
+        {
+            "id": "Patterns/Shell/Search field",
+            "part": "shell",
+            "matrix": "pair",
+            "canvas": [1280, 800],
+            "each": ["phone"],
+            "steps": [{"do": "resize", "width": 390}],
+            "shows": "The frame at 390: the menu button, the last crumb, the palette as an icon."
+        },
+        {
+            "id": "Patterns/Shell/Drawer",
+            "part": "shell",
+            "matrix": "pair",
+            "canvas": [390, 844],
+            "shows": "The drawer open below 768."
+        },
+        {
+            "id": "Apps/Settings/Navbar",
+            "part": "shell",
+            "matrix": "pair",
+            "canvas": [1280, 800],
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 768 the dialog fills the screen and opens on its list."
+                }
+            ],
+            "shows": "The settings dialog over the page."
+        }
+    ],
+    "count": {"full": "19 stories x 12 appearances = 228", "pair": "23 captures x 2 appearances = 46", "perSide": 274}
+}
