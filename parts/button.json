@@ -92,7 +92,8 @@
             "radius": "radius-control",
             "radiusMax": 10,
             "phoneMinHeight": null,
-            "note": "Not raised to a finger below md, unlike every other size. Height landing in sokkel-ui: 24 regular, 20 compact."
+            "phoneHitArea": "spacing-finger",
+            "note": "Keeps its drawn size below md, unlike every other size, and takes a finger-square hit area centered on it instead (FINGER_HIT in lib/finger), unless it is placed by its own position (takesFinger)."
         },
         "sm": {
             "height": "density.control-sm",
@@ -103,8 +104,7 @@
             "text": "text.badge",
             "radius": "radius-control",
             "radiusMax": 12,
-            "phoneMinHeight": "spacing-finger",
-            "note": "Height landing in sokkel-ui: 28 regular, 24 compact."
+            "phoneMinHeight": "spacing-finger"
         },
         "default": {
             "height": "density.control",
@@ -114,8 +114,7 @@
             "icon": 16,
             "text": "text.action",
             "radius": "radius-control",
-            "phoneMinHeight": "spacing-finger",
-            "note": "Height landing in sokkel-ui: 32 regular, 28 compact. Today fixed at 32."
+            "phoneMinHeight": "spacing-finger"
         },
         "lg": {
             "height": "density.control-lg",
@@ -125,8 +124,7 @@
             "icon": 16,
             "text": "text.action",
             "radius": "radius-control",
-            "phoneMinHeight": "spacing-finger",
-            "note": "Height landing in sokkel-ui: 36 regular, 32 compact."
+            "phoneMinHeight": "spacing-finger"
         },
         "icon-xs": {
             "height": "density.control-xs",
@@ -135,7 +133,9 @@
             "radius": "radius-control",
             "radiusMax": 10,
             "phoneMinHeight": null,
-            "phoneMinWidth": null
+            "phoneMinWidth": null,
+            "phoneHitArea": "spacing-finger",
+            "note": "Keeps its drawn size below md and takes a finger-square hit area, as xs does."
         },
         "icon-sm": {
             "height": "density.control-sm",
@@ -170,7 +170,7 @@
         "linkUnderlineOffset": 4,
         "controlHeights": {
             "value": "density.control",
-            "note": "Landing in sokkel-ui (PR in progress): density control-xs, control-sm, control, control-lg = 24/28/32/36 regular (today's look), 20/24/28/32 compact; final compact values may shift slightly. Button, Input and the select trigger read them."
+            "note": "density control-xs, control-sm, control, control-lg: 24/28/32/36 regular, 20/24/28/32 compact. Button (its icon squares too), Input, the select triggers, the input group and the other controls read them, so controls side by side stand level at either density."
         }
     },
     "states": {
@@ -199,7 +199,13 @@
         "invalid": {
             "means": "Marked invalid by a form, as a control in a refused group.",
             "reached": "aria-invalid",
-            "sokkel-ui": "aria-invalid:border-destructive ring-3 ring-destructive/20; no prop sets it"
+            "sokkel-ui": "aria-invalid:border-destructive, the edge alone at rest; no prop sets it"
+        },
+        "invalid+focus": {
+            "means": "An invalid button with keyboard focus: the focus outline and a 3px ring. The ring shows only with focus, never at rest.",
+            "reached": "Tab onto an invalid button",
+            "on": "keyboard",
+            "sokkel-ui": "aria-invalid:focus-visible:ring-3 ring-destructive/20, dark ring-destructive/40"
         },
         "busy": {
             "means": "A press started work that is under way.",
@@ -271,11 +277,8 @@
     "pieces": {
         "container": {
             "rest": {"radius": "radius-control", "note": "Over every variant: what is the same whatever the variant."},
-            "invalid": {
-                "edge": "destructive",
-                "ring": {"color": "destructive/20", "width": 3},
-                "dark": {"edge": "destructive/50", "ring": {"color": "destructive/40", "width": 3}}
-            }
+            "invalid": {"edge": "destructive", "dark": {"edge": "destructive/50"}},
+            "invalid+focus": {"ring": {"color": "destructive/20", "width": 3, "dark": {"color": "destructive/40"}}}
         }
     },
     "keyboard": [
@@ -309,12 +312,6 @@
     },
     "drift": [
         {
-            "renderer": "sokkel-ui",
-            "what": "heights per density",
-            "spec": "density.control-xs, -sm, control, -lg: one step smaller at compact.",
-            "today": "Fixed 24/28/32/36 at both densities until the control-height tokens land (PR in progress)."
-        },
-        {
             "renderer": "sokkel-ui-egui",
             "what": "secondary hover",
             "spec": "The resolved paint button.secondary.hover.container (mix(secondary, foreground 5%) in oklch, resolved at build time).",
@@ -330,7 +327,7 @@
         {
             "renderer": "sokkel-ui-egui",
             "what": "missing options and states",
-            "spec": "Icon sizes, IconButton (label, pressed, shortcut), destructiveHover, opensMenu and open, inGroup, iconPlace end, invalid, phone heights below md. Heights from the density control tokens.",
+            "spec": "Icon sizes, IconButton (label, pressed, shortcut), destructiveHover, opensMenu and open, inGroup, iconPlace end, invalid, phone heights below md and the xs hit area.",
             "today": "Not built."
         }
     ]

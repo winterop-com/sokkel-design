@@ -9,7 +9,7 @@ app and a web app "built in a similar fashion". The structured spec is [`shell.j
 Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `ShellWords`), `Rail.tsx`
 (`RailGroup`, `RailEntry`, `RailWords`), `TopBar.tsx`, `PageHeader.tsx`, `StatusLine.tsx`,
 `SettingsDialog.tsx` with `settings-parts.tsx` (`SETTINGS_WORDS`), `PageState.tsx`; the settings
-route is `useOverlayRoute` in `examples/shared/router.ts`. The context is `docs/plan.md`'s Themes
+route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is `docs/plan.md`'s Themes
 section. sokkel-ui-egui: `crates/core/src/widgets/frame.rs`, in progress (story `Patterns/Shell`).
 
 ## Anatomy
@@ -39,7 +39,7 @@ draws the frame on every target.
 | Foot | `spacing-shell-foot` (46) |
 | Rail | 240 by default, dragged between 200 and 360 and kept; collapsed 57; strip variant 72 |
 | Rail entry | `density.row` (40 / 34), a finger tall below 768; collapsed 36 wide |
-| Palette button | 32 tall, 224 wide with no search field; below 768 an icon, a finger square |
+| Palette button | `density.control` tall (32 / 28), level with the search field; 224 wide with no search field; below 768 an icon, a finger square |
 | Search field | `density.control` tall, 224 to 320 wide (256 from 1024) |
 | Page | inset `density.page-inset-wide` (32 / 16) when the content box is 640 or wider, else `-narrow` (16 / 12); top `density.page-top`; gap `density.page-gap`; 40 at the foot |
 | Panel strip tab | `spacing-shell-tabs` (56) |
@@ -80,8 +80,12 @@ Settings are only ever a dialog over the page the reader is on, on `#/settings`.
 page, and never set into the layout. Back, Done or Escape returns to that page. A link that opens
 the app on `#/settings` draws the app's home under the dialog. The footer says changes are kept as
 they are made, ends with Done, and offers Reset to defaults for the shown section (a section with
-nothing to put back has none). In egui there is no URL: the route is app state with a back stack,
-and "settings open" keeps the page under it.
+nothing to put back has none). In sokkel-ui, `useOverlayRoute(route, 'settings')` draws it: handed
+the app's route as its parts, it says whether the dialog is open and which page to draw under it,
+and `close` goes back to that page, back in the history when the dialog was opened from it, so Back
+afterwards does not open it again. It goes through the history and the hash unless the app hands it
+its router's `back` and `replace`, so the library needs no router. In egui there is no URL: the
+route is app state with a back stack, and "settings open" keeps the page under it.
 
 ## Keyboard
 
@@ -104,8 +108,9 @@ their context: on Runs the button is "New", not "New run".
 ## Renderer-specific
 
 - **sokkel-ui:** media queries at 768 and 1024, and a `cqi` clamp for the page inset. Real anchors
-  through `LinkProvider`. `useOverlay` makes the page inert under an overlay. `useScrollMemory`. The
-  safe-area insets. In Electron and Tauri the top strip is the title bar.
+  through `LinkProvider`. `useOverlayRoute` for the settings route. `useOverlay` makes the page inert
+  under an overlay. `useScrollMemory`. The safe-area insets. In Electron and Tauri the top strip is
+  the title bar.
 - **sokkel-ui-egui:** the available rect for the window's width, and the content rect for the inset
   (wide or narrow end only). A route is app state with a back stack. `Modal` serves dialogs and the
   drawer, and `Popup` serves menus. The page must refuse input under them. A hidden title bar drags
@@ -118,7 +123,4 @@ their context: on Runs the button is "New", not "New run".
   `border-strong` rule), `StatusLine` (`spacing-shell-foot` tall, its tones), `PageHeader` and
   `PageState`. Still to build: rail resize, the drawer below 768, search and the palette, the
   settings dialog and its route. Before an egui app can follow the shell it needs those, plus a
-  dropdown menu (the account menu) and a tooltip; see open questions. One detail to recheck: the
-  collapsed rail's group rule reads `sidebar-border` where the spec has `border-strong`.
-- **sokkel-ui:** the settings route is part of the frame, but `useOverlayRoute` lives in
-  `examples/shared/router.ts`, so each app wires `#/settings` itself.
+  dropdown menu (the account menu) and a tooltip; see open questions.

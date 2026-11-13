@@ -32,23 +32,28 @@ Sources: sokkel-ui `packages/core/src/components/ui/button.tsx` (`Button`, `butt
 
 ## Sizes
 
-Heights come from the control-height density tokens **landing in sokkel-ui** (a PR in progress):
-`density.control-xs`, `-sm`, `density.control`, `-lg`. They are today's look at regular and one
-step smaller at compact (the compact values may still shift slightly). Until the PR lands,
-`button.tsx` fixes them at 24/28/32/36 at both densities.
+Heights come from the control-height density tokens: `density.control-xs`, `-sm`,
+`density.control`, `-lg`, 24/28/32/36 at regular and one step smaller at compact (`button.tsx`
+reads them as `h-(--density-control-*)`, and the icon sizes as squares). Input, the select
+triggers, the input group and the other controls read the same tokens, so a button beside a field
+beside a select stands level at either density.
 
 | Size | Height (regular / compact) | Pad x (with icon) | Gap | Icon | Text | Corners | Below 768 |
 |---|---|---|---|---|---|---|---|
-| xs | `density.control-xs` 24 / 20 | 8 (6) | 4 | 12 | `text.badge` 13/20/500 | `radius-control`, at most 10 | unchanged |
+| xs | `density.control-xs` 24 / 20 | 8 (6) | 4 | 12 | `text.badge` 13/20/500 | `radius-control`, at most 10 | drawn size kept; a 44 hit area |
 | sm | `density.control-sm` 28 / 24 | 10 (6) | 4 | 14 | `text.badge` | `radius-control`, at most 12 | min height `spacing-finger` (44) |
 | default | `density.control` 32 / 28 | 10 (8) | 6 | 16 | `text.action` 15/22/500 | `radius-control` | min height 44 |
 | lg | `density.control-lg` 36 / 32 | 10 (8) | 6 | 16 | `text.action` | `radius-control` | min height 44 |
-| icon-xs | square at `control-xs` | | | 12 | | at most 10 | unchanged |
+| icon-xs | square at `control-xs` | | | 12 | | at most 10 | drawn size kept; a 44 hit area |
 | icon-sm | square at `control-sm` | | | 16 | | at most 12 | 44 x 44 |
 | icon | square at `control` | | | 16 | | `radius-control` | 44 x 44 |
 | icon-lg | square at `control-lg` | | | 16 | | `radius-control` | 44 x 44 |
 
-Inside a group (`inGroup`), xs and sm take the full `radius-control`. The spinner has the icon's size.
+Below 768, xs and icon-xs keep their drawn size and take a hit area a finger square
+(`phoneHitArea: spacing-finger`), centered on them, so a row around them keeps its height. sokkel-ui
+draws it as an invisible `::after` (`FINGER_HIT` in `lib/finger.ts`), and leaves it off a button
+placed by its own position (`takesFinger`). Inside a group (`inGroup`), xs and sm take the full
+`radius-control`. The spinner has the icon's size.
 
 ## States
 
@@ -60,7 +65,8 @@ Inside a group (`inGroup`), xs and sm take the full `radius-control`. The spinne
 | pressed | Pointer down | Sinks 1px (`translate-y-px`); not when it opens a menu |
 | open | Its menu is open (`aria-expanded`) | outline and ghost: `hover` ground; secondary keeps its rest |
 | disabled | `reason` or `disabled` | Opacity 0.5, no presses. With `reason` it stays in the tab order and the reason shows on hover and on focus; `disabled` alone takes it out |
-| invalid | `aria-invalid` (no prop sets it) | Edge `destructive` and a 3px `destructive/20` ring (dark: `destructive/50` and `destructive/40`) |
+| invalid | `aria-invalid` (no prop sets it) | Edge `destructive` (dark `destructive/50`), the edge alone at rest |
+| invalid+focus | Keyboard focus on an invalid button | The focus outline, and a 3px `destructive/20` ring (dark `destructive/40`), only while it has focus |
 | busy | `busy` | The spinner shows. Presses are ignored. It keeps focus and its rest look at full opacity, with no hover (`aria-busy`, `aria-disabled`) |
 
 ## Tokens per variant
@@ -104,15 +110,12 @@ the `reason`, the `tooltip` and the `shortcut` (as `shortcutLabel` writes it).
 
 ## Where sokkel-ui-egui differs today
 
-As read on 2026-11-13. The hover now replaces the ground, and busy and reasoned buttons keep their
-focus, so those are off this list.
+As read on 2026-11-13. The hover now replaces the ground, busy and reasoned buttons keep their
+focus, and the heights read the density's control sizes, so those are off this list.
 1. **Secondary hover** blends in gamma space (`lerp_to_gamma`). It goes away once the widget reads
    the resolved paint.
 2. **The focus ring shows on any focus**, not only keyboard focus. Keyboard-only means tracking the
    last input kind.
 3. `sm` with an icon pads 8 where the spec says 6.
 4. Not built yet: the icon sizes and IconButton, `destructiveHover`, `opensMenu` with `open`,
-   `inGroup`, an icon at the end, `invalid`, the finger heights below 768, and heights from the
-   control density tokens (fixed 24/28/32/36 today).
-
-In sokkel-ui, the heights are fixed until the control-height tokens land.
+   `inGroup`, an icon at the end, `invalid`, the finger heights below 768 and the xs hit area.

@@ -8,7 +8,8 @@ RESOLVED = json.load(open(sys.argv[2]))
 schema = json.load(open(ROOT / 'schema/part.schema.json'))
 jsonschema.Draft202012Validator.check_schema(json.load(open(ROOT / 'schema/paints.schema.json')))
 index = json.load(open(ROOT / 'index.json'))
-landing = {k for k in index['tokens']['landing'] if not k.startswith('$')}
+# Names a sokkel-ui change is adding that do not resolve yet; index.json lists them only while one is in progress.
+landing = {k for k in index['tokens'].get('landing', {}) if not k.startswith('$')}
 themes = index['themes']['specimens']
 sets = [RESOLVED['themes'][th][s] for th in themes for s in ('light', 'dark')]
 colors = set.intersection(*[set(d['colors']) for d in sets])

@@ -14,8 +14,8 @@ findings that need a call, the tokens the specs ask for, and what does not fit e
   lacks. The move happens with the open-sourcing at 1.0.
 - **c. Never.** The tokens stay in sokkel-ui and sokkel-design holds only specs.
 
-Recommendation: **b.** It costs sokkel-ui nothing now. The control-height tokens landing today show
-that tokens still move weekly.
+Recommendation: **b.** It costs sokkel-ui nothing now. The control-height tokens that landed in
+sokkel-ui 0.25.0 show that tokens still move weekly.
 
 ### 2. The resolver's home and language
 
@@ -128,20 +128,14 @@ These were found while writing the specs. Nothing was changed.
 
 | Where | Finding | Question |
 |---|---|---|
-| sokkel-ui `IssueMark` | `PREFIX` ("Error: ", "Warning: ") is a constant, not words | Make them words? |
-| sokkel-ui `DataTable` | Failed is not a table state. `PageState` wraps the table, or stands in its `empty` slot unframed (`Patterns/States/In a table`) | Give the table `error` and `onRetry`, so a listing's failure is one part? |
-| sokkel-ui `DataTable`, `PageState` | Two loading looks: skeleton rows, and a spinner line | One, as the roadmap's "one loading part"? |
 | sokkel-ui `DataTable` | In the table view no key sorts; the head buttons are not tab stops | Should the keyboard map include sorting? |
-| sokkel-ui `button.tsx` | `xs` and `icon-xs` are not raised to a finger below 768 | Intended (they never stand alone on a phone)? |
-| sokkel-ui `examples/shared` | `useOverlayRoute` (settings on `#/settings`) is not in the library, though the rule is | Move into the library? |
-| sokkel-ui-egui `Rail` | The collapsed rail's group rule is `sidebar-border` (as read on 2026-11-13; the review lists it as fixed) | Recheck: the spec says `border-strong` |
+| sokkel-ui `Field`, `ui/input.tsx` | An invalid text field's tints come from two places. In light, `Field`'s critical tone rings it at `critical/25`, since its class follows the primitive's `destructive/20` at equal weight. In dark, the primitive's `dark:aria-invalid` classes outweigh `Field`'s, so the edge at rest is `destructive/50` (not `critical/80`) and the ring `destructive/40` | One set of values in one place, and which: the spec's (`critical/20` and `/40`, edge `critical/80`) or `Field`'s? |
 
 ## Tokens the specs ask for
 
-**Landing in sokkel-ui now** (no longer missing): the control heights per size, `density.control-xs`,
-`density.control-sm`, `density.control`, `density.control-lg`. They are 24/28/32/36 at regular and
-one step smaller at compact. Button, Input and the select trigger read them. `index.json` lists them
-under `tokens.landing` until they resolve.
+**Landed in sokkel-ui 0.25.0:** the control heights per size, `density.control-xs`,
+`density.control-sm`, `density.control`, `density.control-lg`, 24/28/32/36 at regular and one step
+smaller at compact. Every control reads them, and they resolve in `tokens.resolved.json`.
 
 **Proposed** (from the egui proposal, section b, and these specs). Each renderer guesses these
 today:
