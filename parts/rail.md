@@ -126,7 +126,7 @@ every group title, label, description and keyword, and a body's title.
 ## Where sokkel-ui-egui differs today
 
 As of 267236c, `Rail` has titled groups, entries with an icon and a count, the active bar and wash,
-the hover wash, and collapse at 240 / 57 with tooltips. Its head, entry rows and group titles match
+the hover wash, and collapse at 240 / 57 with hover names. Its head, entry rows and group titles match
 sokkel-ui within a point. The differences:
 1. **Entry inset:** the icon at 10 and the label at 38, where the spec's 2 wide bar inside a 12 pad
    puts them at 12 and 40.
@@ -137,7 +137,9 @@ sokkel-ui within a point. The differences:
 4. **Collapsed groups:** 26 from one group's last entry to the next one's first, with the rule 20
    down. The spec keeps the title's room, 46, with the rule 26 down.
 5. **Keyboard focus:** entries paint none.
-6. **Not built:** descriptions, the unread and color dots, entries without icons, parents, counts
+6. **Collapsed entry tooltip:** egui's own `on_hover_text` (`frame.rs:202`), where the spec has the
+   library's token-painted tooltip, 8 away and padded 8 by 4.
+7. **Not built:** descriptions, the unread and color dots, entries without icons, parents, counts
    over a collapsed icon, the head's collapse control and the mark as the expand control,
    `markHref`, resizing and expanding by the edge, the strip, a body, reordering, the drawer,
    finger-tall rows below 768, and room for the window's buttons.

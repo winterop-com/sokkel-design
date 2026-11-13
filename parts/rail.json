@@ -492,6 +492,12 @@
         },
         {
             "renderer": "sokkel-ui-egui",
+            "what": "collapsed entry tooltip",
+            "spec": "A collapsed entry's name shows in the library's token-painted tooltip, 8 away and padded 8 by 4.",
+            "today": "As of 267236c: egui's own on_hover_text (frame.rs:202), not the library's tooltip."
+        },
+        {
+            "renderer": "sokkel-ui-egui",
             "what": "not built yet",
             "spec": "This spec.",
             "today": "As of 267236c, Rail has groups with titles, entries with an icon and a count, the active entry's bar and wash, the hover wash, and collapse at 240 / 57 with tooltips. Not yet: descriptions, the unread and color dots, entries without icons, parents (fold, chevron, flyout), counts over a collapsed icon, the head's collapse control and the mark as the expand control, markHref, resize and expand by the edge, the strip variant, a body, reordering, the drawer, finger-tall rows below 768, and room for the window's buttons."
