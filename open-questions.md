@@ -84,13 +84,14 @@ web pages (no is simpler).
 
 From the egui proposal's order, the minimum:
 1. Shell, Rail (groups, collapse, resize, the drawer below 768), TopBar (trail, search, actions),
-   StatusLine. **Built** (`widgets/frame.rs`) except rail resize, the drawer, search and the palette
-   button.
+   StatusLine. **Built** (`widgets/frame.rs`) except rail resize, the drawer and the search field.
 2. PageHeader, Section, PageState (loading, failed, empty). PageHeader and PageState are built
    (`widgets/page.rs`); Section is not yet.
-3. The table's list variant.
-4. Dialog with SettingsDialog and its route, the CommandPalette, a DropdownMenu (the account menu),
-   a Tooltip, and Select (a settings row).
+3. The table's list variant. **Built** (`widgets/table.rs`), with the table variant too; see the table
+   spec's drift for what is still missing.
+4. Dialog with SettingsDialog, the CommandPalette, a DropdownMenu (the account menu), a Tooltip, and
+   Select (a settings row). **Built**; settings is open state the app holds, not a route, since egui
+   has no URL.
 5. Not visual, but part of the frame: a shortcuts registry (Mod+K, `?`, `/`), a back stack with the
    settings overlay, and the appearance kept (`Appearance` exists).
 

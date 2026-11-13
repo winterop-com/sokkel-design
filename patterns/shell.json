@@ -378,7 +378,7 @@
             "renderer": "sokkel-ui-egui",
             "what": "still to build",
             "spec": "This spec.",
-            "today": "As read on 2026-11-13: Shell, Rail (groups, counts, collapse), TopBar (trail with chevrons, on sidebar with border-strong), StatusLine (spacing-shell-foot), PageHeader and PageState exist. Not yet: rail resize, the drawer below 768, search and the palette, the settings dialog and its route."
+            "today": "As of sokkel-ui-egui 38693ff: Shell, Rail (groups, counts, collapse at 240 / 57), TopBar (the trail with chevrons, on sidebar with a border-strong rule), StatusLine (spacing-shell-foot), PageHeader and PageState, SettingsDialog with appearance settings and setting rows, Dialog, Select and the tooltip, DropdownMenu, and CommandPalette on Mod+K. A working app runs on it (examples/runs), with settings over the page on Mod+comma and from the rail. Not yet: rail resize by drag, the drawer below 768, the search field in the top bar, the panel, and settings as a route: egui has no URL, so the dialog is open state the app holds."
         }
     ]
 }

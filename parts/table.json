@@ -400,9 +400,9 @@
     "drift": [
         {
             "renderer": "sokkel-ui-egui",
-            "what": "the whole part",
+            "what": "the parts not built yet",
             "spec": "This spec.",
-            "today": "Not built; step 3 of the order, the list variant first."
+            "today": "Built in crates/core/src/widgets/table.rs (as of sokkel-ui-egui 38693ff). Has: rows at density.row, drawing only those in view; heads in table-head-* that sort (ascending, descending, as given) and resize by their edge with a 64 minimum; selection with a head checkbox and a \"{count} selected\" bar with Clear; an opened row on secondary; zebra from table-zebra; Table and List variants (the list head at density.panel-head); words as fields. Not yet: grouping, trees, detail rows, the stacked cards below 576, row actions and menus, paging, cell editing, row reorder, its own loading and failed states (it is wrapped in PageState), keyboard row navigation."
         },
         {
             "renderer": "sokkel-ui",

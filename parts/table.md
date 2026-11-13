@@ -7,8 +7,8 @@ resize. Rows select with a bar, or one row is picked for a detail beside the lis
 
 Sources: sokkel-ui `packages/core/src/components/DataTable.tsx` (`DataTableProps`, `DataColumn`,
 `DataTableWords`/`WORDS`, `onKeyDown`, `stacksAt`), `lib/table.ts` (`TABLE_HEAD_ROW`,
-`TABLE_HEAD_TEXT`), `PageState.tsx` (drawn unframed for a failed read). sokkel-ui-egui has no table
-yet. It is step 3 of the order, the list variant first.
+`TABLE_HEAD_TEXT`), `PageState.tsx` (drawn unframed for a failed read). sokkel-ui-egui:
+`crates/core/src/widgets/table.rs`, the table and list variants, built in step 3 of the order.
 
 ## Anatomy
 
@@ -120,5 +120,11 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
 
 ## Where the renderers differ from the spec today
 
-- **sokkel-ui-egui:** the whole part is to be built.
+- **sokkel-ui-egui:** as of 38693ff it has rows at `density.row`, drawing only those in view; heads in
+  `table-head-*` that sort (ascending, descending, as given) and resize by their edge with a 64
+  minimum; selection with a head checkbox and a "{count} selected" bar with Clear; an opened row on
+  `secondary`; zebra from `table-zebra`; the Table and List variants (the list head at
+  `density.panel-head`); words as fields. Not yet: grouping, trees, detail rows, the stacked cards
+  below 576, row actions and menus, paging, cell editing, row reorder, its own loading and failed
+  states (it is wrapped in `PageState`), keyboard row navigation.
 - **sokkel-ui, counts:** formatted with `en-US` in `WORDS`.

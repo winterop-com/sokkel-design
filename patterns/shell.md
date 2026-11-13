@@ -10,7 +10,8 @@ Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `Shell
 (`RailGroup`, `RailEntry`, `RailWords`), `TopBar.tsx`, `PageHeader.tsx`, `StatusLine.tsx`,
 `SettingsDialog.tsx` with `settings-parts.tsx` (`SETTINGS_WORDS`), `PageState.tsx`; the settings
 route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is `docs/plan.md`'s Themes
-section. sokkel-ui-egui: `crates/core/src/widgets/frame.rs`, in progress (story `Patterns/Shell`).
+section. sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (story `Patterns/Shell`), with a working app on it,
+`examples/runs`.
 
 ## Anatomy
 
@@ -118,9 +119,11 @@ their context: on Runs the button is "New", not "New run".
 
 ## Where the renderers differ from the spec today
 
-- **sokkel-ui-egui:** in progress. As read on 2026-11-13, it has `Shell`, `Rail` (groups, counts,
-  collapse at 240 / 57), `TopBar` (the trail with chevrons in `faint`, on `sidebar` with a
-  `border-strong` rule), `StatusLine` (`spacing-shell-foot` tall, its tones), `PageHeader` and
-  `PageState`. Still to build: rail resize, the drawer below 768, search and the palette, the
-  settings dialog and its route. Before an egui app can follow the shell it needs those, plus a
-  dropdown menu (the account menu) and a tooltip; see open questions.
+- **sokkel-ui-egui:** as of 38693ff it has `Shell`, `Rail` (groups, counts, collapse at 240 / 57),
+  `TopBar` (the trail with chevrons in `faint`, on `sidebar` with a `border-strong` rule), `StatusLine`
+  (`spacing-shell-foot` tall, its tones), `PageHeader` and `PageState`, `SettingsDialog` with the
+  appearance settings and setting rows, `Dialog`, `Select` and the tooltip, `DropdownMenu`, and
+  `CommandPalette` on Mod+K. `examples/runs` is a working app on it, with settings over the page on
+  Mod+comma and from the rail. Still to build: rail resize by drag, the drawer below 768, the search
+  field in the top bar and the panel. Settings is not a route: egui has no URL, so the dialog is open
+  state the app holds.
