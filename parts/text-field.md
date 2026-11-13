@@ -114,8 +114,6 @@ percent, on focus only) is the spec's.
 
 sokkel-ui itself: its height reads `density.control`, an invalid control draws its edge alone at
 rest and the 3px ring only on focus (`src/rules.test.ts` fails a ring drawn at rest), and the spoken
-prefixes are words. One difference is left, the **invalid tints**. In light, `Field`'s critical
-tone rings the control at `critical/25`, since its class follows the primitive's `destructive/20` at
-equal weight. In dark, the primitive's `dark:aria-invalid` classes outweigh `Field`'s, so the edge at
-rest is `destructive/50` and the ring `destructive/40`. Which values the spec takes is an open
-question.
+prefixes are words. Every invalid control, `Field`'s and a bare primitive alike, takes its tints
+from one place (`lib/issue-edge.ts`): the edge `critical/80` at rest and `critical` on focus, the
+ring 3px `critical/20` (dark `critical/40`) on focus only, in both schemes. No difference is left.

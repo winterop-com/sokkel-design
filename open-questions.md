@@ -130,7 +130,6 @@ These were found while writing the specs. Nothing was changed.
 | Where | Finding | Question |
 |---|---|---|
 | sokkel-ui `DataTable` | In the table view no key sorts; the head buttons are not tab stops | Should the keyboard map include sorting? |
-| sokkel-ui `Field`, `ui/input.tsx` | An invalid text field's tints come from two places. In light, `Field`'s critical tone rings it at `critical/25`, since its class follows the primitive's `destructive/20` at equal weight. In dark, the primitive's `dark:aria-invalid` classes outweigh `Field`'s, so the edge at rest is `destructive/50` (not `critical/80`) and the ring `destructive/40` | One set of values in one place, and which: the spec's (`critical/20` and `/40`, edge `critical/80`) or `Field`'s? |
 
 ## Tokens the specs ask for
 
