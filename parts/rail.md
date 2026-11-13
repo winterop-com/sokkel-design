@@ -121,7 +121,7 @@ every group title, label, description and keyword, and a body's title.
   `RailDrops`. A body stays mounted while hidden. In a desktop window the head is a drag region.
 - **sokkel-ui-egui:** there are no URLs, so a press sets the app's active place. The rail fills the
   rect the `Shell` gives it, and a width the reader drags is app state the `Shell` is told. A
-  collapsed entry's name shows with `on_hover_text`.
+  collapsed entry's name shows in the library's tooltip.
 
 ## Where sokkel-ui-egui differs today
 

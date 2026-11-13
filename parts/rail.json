@@ -455,7 +455,7 @@
         "sokkel-ui-egui": [
             "There are no URLs: a press on an entry sets the app's active place, which the app routes by.",
             "The rail fills the rect the Shell gives it; a width the reader drags is app state the Shell is told.",
-            "A collapsed entry's name shows with on_hover_text.",
+            "A collapsed entry's name shows in the library's tooltip.",
             "Keyboard-only focus needs the last input kind tracked, as for every part."
         ]
     },
