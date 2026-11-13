@@ -65,8 +65,8 @@ placed by its own position (`takesFinger`). Inside a group (`inGroup`), xs and s
 | pressed | Pointer down | Sinks 1px (`translate-y-px`); not when it opens a menu |
 | open | Its menu is open (`aria-expanded`) | outline and ghost: `hover` ground; secondary keeps its rest |
 | disabled | `reason` or `disabled` | Opacity 0.5, no presses. With `reason` it stays in the tab order and the reason shows on hover and on focus; `disabled` alone takes it out |
-| invalid | `aria-invalid` (no prop sets it) | Edge `destructive` (dark `destructive/50`), the edge alone at rest |
-| invalid+focus | Keyboard focus on an invalid button | The focus outline, and a 3px `destructive/20` ring (dark `destructive/40`), only while it has focus |
+| invalid | `aria-invalid` (no prop sets it) | Edge `critical/80` in both schemes, the edge alone at rest: the same issue edge every control wears |
+| invalid+focus | Keyboard focus on an invalid button | The focus outline, and a 3px `critical/20` ring (dark `critical/40`), only while it has focus |
 | busy | `busy` | The spinner shows. Presses are ignored. It keeps focus and its rest look at full opacity, with no hover (`aria-busy`, `aria-disabled`) |
 
 ## Tokens per variant
