@@ -15,7 +15,7 @@
             "packages/core/src/components/settings-parts.tsx",
             "packages/core/src/components/PageState.tsx",
             "packages/core/src/components/ui/dialog.tsx",
-            "examples/shared/router.ts"
+            "packages/core/src/hooks/use-overlay-route.ts"
         ],
         "sokkel-ui-egui": [
             "crates/core/src/widgets/frame.rs (Shell, Rail, TopBar, StatusLine)",
@@ -104,7 +104,7 @@
         "railCollapsedEntry": {"height": "density.row", "width": 36},
         "foot": {"height": "spacing-shell-foot", "padX": 12, "gap": 12, "text": "text.help"},
         "paletteButton": {
-            "height": 32,
+            "height": "density.control",
             "padX": 10,
             "radius": "radius-control",
             "phoneMinHeight": "spacing-finger",
@@ -360,6 +360,7 @@
         "sokkel-ui": [
             "The window's width decides the frame (media queries at 768 and 1024); the page inset decides by the content's own box (a cqi clamp).",
             "Links are real anchors through LinkProvider, so a middle click opens a tab; routes are hash routes in the examples.",
+            "useOverlayRoute (hooks/use-overlay-route) draws #/settings over the page it was opened from: it reads the app's route and goes back through the history and the hash, or through the app's own back and replace with a client router.",
             "useOverlay makes the page inert under an overlay; useScrollMemory keeps each page's scroll; the safe-area insets pad the frame.",
             "In a desktop shell (Electron, Tauri) the top strip is the window's title bar.",
             "Shell's routeKey moves focus to the new page's first visible h1 after a route change, waiting up to 3000 ms while the page loads and until the reader presses a key or the pointer."
@@ -378,18 +379,6 @@
             "what": "still to build",
             "spec": "This spec.",
             "today": "As read on 2026-11-13: Shell, Rail (groups, counts, collapse), TopBar (trail with chevrons, on sidebar with border-strong), StatusLine (spacing-shell-foot), PageHeader and PageState exist. Not yet: rail resize, the drawer below 768, search and the palette, the settings dialog and its route."
-        },
-        {
-            "renderer": "sokkel-ui-egui",
-            "what": "collapsed group rule",
-            "spec": "border-strong.",
-            "today": "sidebar-border in widgets/frame.rs as read on 2026-11-13 (the review lists it as fixed; worth a second look)."
-        },
-        {
-            "renderer": "sokkel-ui",
-            "what": "the settings route",
-            "spec": "Settings on its own route over the page is part of the frame.",
-            "today": "useOverlayRoute lives in examples/shared/router.ts, not in the library; each app wires #/settings itself."
         }
     ]
 }

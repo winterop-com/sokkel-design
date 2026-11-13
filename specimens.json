@@ -58,7 +58,7 @@
                     "each": "phone",
                     "steps": [{"do": "resize", "width": 390}],
                     "matrix": "pair",
-                    "why": "Below 768 every size but xs is a finger tall."
+                    "why": "Below 768 every size but xs is a finger tall; xs keeps its drawn size and takes a finger's hit area."
                 }
             ]
         },

@@ -7,8 +7,8 @@ resize. Rows select with a bar, or one row is picked for a detail beside the lis
 
 Sources: sokkel-ui `packages/core/src/components/DataTable.tsx` (`DataTableProps`, `DataColumn`,
 `DataTableWords`/`WORDS`, `onKeyDown`, `stacksAt`), `lib/table.ts` (`TABLE_HEAD_ROW`,
-`TABLE_HEAD_TEXT`), `PageState.tsx` (the failed read). sokkel-ui-egui has no table yet. It is step 3
-of the order, the list variant first.
+`TABLE_HEAD_TEXT`), `PageState.tsx` (drawn unframed for a failed read). sokkel-ui-egui has no table
+yet. It is step 3 of the order, the list variant first.
 
 ## Anatomy
 
@@ -29,12 +29,14 @@ The full list is in the JSON. These shape the look:
   (the row leads to its own page).
 - `sort`, `groupBy`, `childRows` (a tree), `detail`, `rowActions` with `actionButton`, `rowTone`.
 - `search`, `toolbar`, `paging`, `loading`, `loadMore`, `card` (the grid view).
+- A failed read: `error` (the server's words), `status` (what it answered, which picks the
+  heading), `problems` (each failure it named) and `onRetry` (Try again).
 - `stackBelow` (576 px **of its own box**, never the window), `minWidth` (768 for a table, `auto`
   for a list, which never scrolls sideways), `stackLayout` (`labeled` or `compact`).
 - `rowHeight`, `resizable`, `reorderable`, `onReorder`, `framed`, `bar`, `columnHeads`, `hover`,
   `empty`.
-- Made explicit: `error`, the failed read (today `PageState` around the table), and `inSection`
-  (today `Section` around a `framed={false}` table, the section head as tall as the table head).
+- Made explicit: `inSection` (today `Section` around a `framed={false}` table, the section head as
+  tall as the table head).
 - Columns: `width` (a grid track, or `content`: as wide as its widest cell up to `maxWidth`, 320 by
   default), `align`, `sortValue`, `hideable`, `resizable`, `stack` (`lead`, `line`, `primary`,
   `secondary`, `none`), `band`, `aggregate`, `fill`, `edit`.
@@ -47,11 +49,16 @@ The full list is in the JSON. These shape the look:
 | List head row (`density.panel-head`) | 36 | 32 |
 | Cell padding x | 12 | 12 |
 | List row padding x (`density.panel-pad`), column gap | 12, 12 | 8, 12 |
+| Row menu button, inline row actions, view switch (`icon-xs`, `density.control-xs`) | 24 | 20 |
+| Sort and columns menus, pager, rows per page, Load more (`sm`, `icon-sm`, `density.control-sm`) | 28 | 24 |
+| A stacked card's edit field (`density.control`) | 32 | 28 |
 
-Fixed at both: select column 40, sort arrow 14, a resized column at least 64, row grip 22. Cards
-pad 12 x and 8 y, with a title line 24 and lines 20 (primary 22, facts 24). A stacked line's name
-is at most 192. A placeholder bar is 12 tall at 60 percent of its cell. Text is `text.body` in rows
-and `text.head` in the head.
+The table's controls are buttons and inputs at their sizes, so they follow the density's control
+heights; below 768 the `icon-xs` ones keep their size and take a finger's hit area. Fixed at both:
+select column 40, sort arrow 14, a resized column at least 64, row grip 22. Cards pad 12 x and 8 y,
+with a title line 24 and lines 20 (primary 22, facts 24). A stacked line's name is at most 192. A
+placeholder bar is 12 tall at 60 percent of its cell. Text is `text.body` in rows and `text.head` in
+the head.
 
 ## States and tokens
 
@@ -65,8 +72,8 @@ and `text.head` in the head.
 | active (with keyboard focus) | row: a 2px `ring` bar inside its start edge; card: ring 2 `ring` |
 | stacked | cards: ground `card`, edge `border`, `radius-surface`; a card's detail on `panel-ground` |
 | empty | `words.empty` ("Nothing here.") in `muted-foreground`, under the heads; an app's own `empty` stands alone without them unless a search or tools may have emptied it |
-| loading | placeholder rows under the heads: a `muted` bar per cell at row height, filling the view (three after the last row when loading more); they pulse unless motion is reduced |
-| failed | in the table's place: ground `card`, edge `border-strong`, a `destructive` mark, the heading by what the server answered (`refused`, `missing`, `unreachable`), the diagnostic in `text.help`, and Try again. Secondary data: `warning/8`, `warning/35`, `warning-ink`, `partRefused` |
+| loading | placeholder rows under the heads: a `muted` bar per cell at row height, filling the view (three after the last row when loading more); they pulse unless motion is reduced. The table's one loading look: the bar, its search, the heads and the frame keep their places, and the bar counts nothing while the first rows load |
+| failed | in place of the rows under the heads, unframed inside the table's frame, padded `density.panel-pad` across and 12 down: a `destructive` mark, the heading by what the server answered (`refused`, `missing`, `unreachable`) at 500, the diagnostic and each problem in `text.help` `muted-foreground`, and Try again (an outline sm button). The bar and the frame stay, the bar counting nothing. While `loading` reads again, placeholder rows take its place |
 | tone critical / warning | row ground `mix-oklab(critical 8%, card)` / `mix-oklab(warning 10%, card)`, opaque so a pinned cell keeps it |
 | muted | the cells' content at 0.6 |
 
@@ -93,11 +100,12 @@ The table is **one tab stop**. The head buttons and row boxes are not separate s
 ## Words
 
 Every default from `WORDS` in `DataTable.tsx`, written as templates (`{count} rows`, `Resize
-{column}`, `{from}–{to} of {total}`), plus `PageState`'s words for the failed and loading reads
-(`Loading`, `The server refused this read`, `Nothing is there`, `The server is not answering`, `Part
-of this page could not be read`, `Try again`). The empty line is "Nothing here." The app gives every
-column's `header` (used in its head, the columns menu, a stacked line and the resize handle's name)
-and each row's `expandLabel`.
+{column}`, `{from}–{to} of {total}`). `DataTableWords` also takes, with their owners' defaults, the
+words of a failed read from `PageState` (`refused` "The server refused this read", `missing`
+"Nothing is there", `unreachable` "The server is not answering", `retry` "Try again") and what an
+editable cell's issue mark says before its message (`issueCritical` "Error: ", `issueWarning`
+"Warning: "). The empty line is "Nothing here." The app gives every column's `header` (used in its
+head, the columns menu, a stacked line and the resize handle's name) and each row's `expandLabel`.
 
 ## Renderer-specific
 
@@ -113,10 +121,4 @@ and each row's `expandLabel`.
 ## Where the renderers differ from the spec today
 
 - **sokkel-ui-egui:** the whole part is to be built.
-- **sokkel-ui, failed:** not a table state. `PageState` wraps the table, or stands unframed in the
-  table's `empty` slot (`Patterns/States/In a table`), so a listing's failure, its retry and its
-  words live one level up. Should the table take `error` and `onRetry`? (open
-  questions)
-- **sokkel-ui, loading:** two looks. The table draws skeleton rows, and `PageState` draws a spinner
-  line. The roadmap's "one loading part" applies.
 - **sokkel-ui, counts:** formatted with `en-US` in `WORDS`.

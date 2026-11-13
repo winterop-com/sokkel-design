@@ -73,7 +73,11 @@
             "default": "none",
             "does": "Rows a page at a time with a pager at the foot."
         },
-        "loading": {"type": "boolean", "default": false, "does": "Rows are on their way: placeholder rows."},
+        "loading": {
+            "type": "boolean",
+            "default": false,
+            "does": "Rows are on their way: placeholder rows under the heads, filling the view, or three after the last row. The table's one loading look: the bar, its search, the heads and the frame keep their places."
+        },
         "loadMore": {
             "values": ["end", "button"],
             "default": "end",
@@ -117,9 +121,14 @@
         },
         "error": {
             "type": "node",
-            "does": "The failed read, said in the table's place with a way to read again.",
-            "sokkel-ui": "Not a DataTable prop: PageState wraps the table, or stands unframed in its empty slot."
+            "does": "Why the rows could not be read: the server's words, or a sentence in their place. Given, and while not loading, the failure stands in place of the rows under the heads."
         },
+        "status": {
+            "type": "number",
+            "does": "What the server answered the failed read, which picks the heading: an HTTP status (404 is missing, another refused), or unreachable for no answer."
+        },
+        "problems": {"type": "rows", "does": "Each failure the refusal named, listed under its diagnostic."},
+        "onRetry": {"type": "callback", "does": "Reads the rows again, from Try again under a failure."},
         "inSection": {
             "type": "boolean",
             "default": false,
@@ -164,6 +173,18 @@
             "note": "A stacked line's name is as wide as the widest, at most 12rem; one cut short says it all on hover."
         },
         "rowGrip": 22,
+        "rowButtons": {
+            "value": "density.control-xs",
+            "note": "A row's menu button and its inline actions, and the bar's view switch: icon-xs buttons, square at control-xs (24 / 20)."
+        },
+        "barControls": {
+            "value": "density.control-sm",
+            "note": "The sort menu (sm), the columns menu (icon-sm), Load more (sm), and the pager's buttons (icon-sm) and rows-per-page select (sm): control-sm (28 / 24)."
+        },
+        "stackedEditField": {
+            "value": "density.control",
+            "note": "A stacked card's edit field, and its open editor at the same size so the card does not move: control (32 / 28)."
+        },
         "groupHeadPadY": 6,
         "emptyPadY": 12,
         "placeholderBar": {"value": 12, "note": "A skeleton bar 12 tall at 60 percent of its cell, one per cell."},
@@ -196,13 +217,13 @@
         },
         "empty": {"means": "No rows and none on the way.", "reached": "rows empty, loading false"},
         "loading": {
-            "means": "Rows on their way: placeholder rows fill the view under the heads, or three follow the last row.",
-            "reached": "loading"
+            "means": "Rows on their way: placeholder rows fill the view under the heads, or three follow the last row. The bar counts nothing while the first rows load.",
+            "reached": "loading, also over a failure while it reads again"
         },
         "failed": {
-            "means": "The read failed: said in the table's place, headed by what the server answered, with Try again.",
-            "reached": "error",
-            "sokkel-ui": "PageState around the table, or unframed in its empty slot (Patterns/States/In a table)"
+            "means": "The read failed: said in place of the rows under the heads, headed by what the server answered, its diagnostic and problems under the heading, with Try again. The bar and the frame stay; the bar counts nothing.",
+            "reached": "error, while not loading",
+            "sokkel-ui": "DataTable error, status, problems, onRetry: an unframed PageState in place of the rows (Patterns/Data table/Failed, Patterns/States/In a table)"
         },
         "toneCritical": {"means": "A row about something that failed.", "reached": "rowTone critical"},
         "toneWarning": {"means": "A row about something to look at.", "reached": "rowTone warning"},
@@ -260,12 +281,9 @@
         "failure": {
             "rest": {"note": "Not drawn."},
             "failed": {
-                "ground": "card",
-                "edge": "border-strong",
-                "radius": "radius-surface",
                 "ink": "foreground",
                 "mark": "destructive",
-                "note": "Unframed inside a panel. The heading at 500; the server's diagnostic in text.help, muted-foreground; Try again as an outline sm button. For secondary data the page stands without (PageState tone warning): ground warning/8, edge warning/35, mark warning-ink, heading partRefused."
+                "note": "Unframed, under the heads inside the table's own frame, padded density.panel-pad across and 12 down. The heading at 500; the diagnostic and each problem in text.help, muted-foreground; Try again as an outline sm button."
             }
         },
         "dropLine": {"rest": {"ground": "primary", "note": "2 tall, where a dragged row lands."}}
@@ -350,11 +368,11 @@
         "notNumber": "Enter a number",
         "moveRow": "Move {row}",
         "rowMoved": "{row} moved to {place} of {count}",
-        "loading": "Loading",
+        "issueCritical": "Error: ",
+        "issueWarning": "Warning: ",
         "refused": "The server refused this read",
         "missing": "Nothing is there",
         "unreachable": "The server is not answering",
-        "partRefused": "Part of this page could not be read",
         "retry": "Try again"
     },
     "appText": {
@@ -385,18 +403,6 @@
             "what": "the whole part",
             "spec": "This spec.",
             "today": "Not built; step 3 of the order, the list variant first."
-        },
-        {
-            "renderer": "sokkel-ui",
-            "what": "failed",
-            "spec": "A state of the table: said in its place with Try again.",
-            "today": "Composed: PageState wraps the table, or stands unframed in the table's empty slot (Patterns/States/In a table). DataTable has no error prop."
-        },
-        {
-            "renderer": "sokkel-ui",
-            "what": "two loading looks",
-            "spec": "A table loading draws placeholder rows under its heads.",
-            "today": "DataTable draws skeleton rows; PageState around it draws a line with a spinner, and an app may use either."
         },
         {
             "renderer": "sokkel-ui",

@@ -73,8 +73,8 @@ never draws one itself.
 **Rule.** An app's preferences open only as the settings dialog over the page the reader is on, on
 `#/settings`. It is never a page and never set into the layout. Back returns to that page. Reset to
 defaults resets the shown section. **Why.** Settings are a detour, not a place. Closing them puts the
-reader back where they were. **Renderer.** On the web, a hash route drawn as an overlay. In a native
-app, an app state with a back stack.
+reader back where they were. **Renderer.** On the web, a hash route drawn as an overlay
+(`useOverlayRoute` in sokkel-ui). In a native app, an app state with a back stack.
 
 ### 10. A missing value is a quiet dash
 
@@ -88,8 +88,8 @@ Cells, description lists and facts draw the dash themselves when given no value.
 A failure is headed by what the server answered (refused, nothing there, not answering), with the
 diagnostic under it and a way to try again. A failed read of secondary data is a warning about part
 of the page, not the page's failure. **Why.** "Nothing here" must never be said of a read that
-failed or has not come back. **Renderer.** Model the read as those four states (`PageState`). Never
-draw empty while loading.
+failed or has not come back. **Renderer.** Model the read as those four states (`PageState`; a table
+draws them itself, under its heads). Never draw empty while loading.
 
 ### 12. A form never changes height
 

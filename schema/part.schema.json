@@ -2,7 +2,7 @@
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "sokkel-design/part.schema.json",
     "title": "A sokkel-design part or pattern",
-    "description": "One part (button, text-field, table) or pattern (shell), in its authoring form. Token names are resolved names, and each key takes one kind of name: color keys take color names, length keys take length or density names, text keys take text roles, radius keys take radius names. `check` verifies that each name is in its group in tokens.resolved.json (or in index.json's tokens.landing) and that every state painted is a state listed. The resolver turns every color expression here into plain colors in the resolved output's `paints`, which is what renderers read (see paints.schema.json).",
+    "description": "One part (button, text-field, table) or pattern (shell), in its authoring form. Token names are resolved names, and each key takes one kind of name: color keys take color names, length keys take length or density names, text keys take text roles, radius keys take radius names. `check` verifies that each name is in its group in tokens.resolved.json (or, while a sokkel-ui change adds it, in index.json's optional tokens.landing) and that every state painted is a state listed. The resolver turns every color expression here into plain colors in the resolved output's `paints`, which is what renderers read (see paints.schema.json).",
     "type": "object",
     "required": ["id", "kind", "status", "summary", "sources", "anatomy", "states", "keyboard", "words"],
     "additionalProperties": false,
@@ -171,6 +171,10 @@
                 "radiusMax": {"type": "number"},
                 "phoneMinHeight": {"oneOf": [{"$ref": "#/$defs/lengthName"}, {"type": "null"}]},
                 "phoneMinWidth": {"oneOf": [{"$ref": "#/$defs/lengthName"}, {"type": "null"}]},
+                "phoneHitArea": {
+                    "oneOf": [{"$ref": "#/$defs/lengthName"}, {"type": "null"}],
+                    "description": "Below md: a hit area this square, centered on the part, which keeps its drawn size."
+                },
                 "note": {"type": "string"}
             }
         },
@@ -223,8 +227,8 @@
                 },
                 "effect": {"$ref": "#/$defs/effect"},
                 "status": {
-                    "enum": ["today", "landing", "proposed"],
-                    "description": "landing: a sokkel-ui PR in progress; proposed: in the spec, not in sokkel-ui yet."
+                    "enum": ["today", "proposed"],
+                    "description": "today: what sokkel-ui does now; proposed: in the spec, not in sokkel-ui yet."
                 },
                 "sokkel-ui": {"type": "string"}
             }

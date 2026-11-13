@@ -52,7 +52,7 @@ section c).
 | `sources` | The files each renderer draws it from today, by repo |
 | `anatomy` | Each named piece and what it is; paint and sizes refer to these names |
 | `options` | What an app sets (variant, size, busy, ...), with values and default. CSS context styling becomes an explicit option here (see the rules below) |
-| `sizes` | Per size: `height`, `padX`, `gap`, `icon`, `text`, `radius`, `phoneMinHeight`, ... |
+| `sizes` | Per size: `height`, `padX`, `gap`, `icon`, `text`, `radius`, `phoneMinHeight`, `phoneHitArea` (a finger's hit area without growing), ... |
 | `layout` | Lengths that are not per size: insets, gaps, widths, breakpoints the part reads |
 | `states` | Every state: what it means, how it is reached, and its part-wide effect (opacity, ring, offset, focusable) |
 | `variants` / `pieces` | A paint map per variant (button) or per anatomy piece (text field, table): `state -> { ground, edge, ink, ring, ... }`. A state left out paints as `rest` |
@@ -71,7 +71,7 @@ schema and the check hold it:
 | Keys | Take |
 |---|---|
 | `ground`, `edge`, `ink`, `rule`, `mark`, `placeholder`, `ring.color` | A color name in the value grammar below; never a text role or a density name |
-| `height`, `width`, `padX`, `padXWithIcon`, `padY`, `gap`, `icon`, `phoneMinHeight`, `layout.*` | px, a length token (`spacing-finger`) or a density name (`density.row`) |
+| `height`, `width`, `padX`, `padXWithIcon`, `padY`, `gap`, `icon`, `phoneMinHeight`, `phoneMinWidth`, `phoneHitArea`, `layout.*` | px, a length token (`spacing-finger`) or a density name (`density.row`) |
 | `radius` | A corner role (`radius-control`) |
 | `text` | A text role (`text.body`), only here |
 
@@ -88,8 +88,8 @@ schema and the check hold it:
 - A paint may carry `dark: { ... }` for what changes in the dark scheme beyond the tokens themselves.
 - A paint map key joins states with `+` for their combination (`invalid+focus`). Each state named
   must be in `states`.
-- `tokens.landing` in `index.json` lists names landing in sokkel-ui that do not resolve yet (the
-  control heights). The check accepts them until they resolve.
+- While a sokkel-ui change adds tokens a spec already names, `index.json` lists them under
+  `tokens.landing`, and the check accepts them until they resolve. None are listed now.
 
 **Rules for writing a spec** (the egui side's section e, made rules):
 1. **Today's behavior, cited.** A spec states what sokkel-ui does now, with file and prop. A change
