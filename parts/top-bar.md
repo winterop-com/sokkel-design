@@ -50,7 +50,7 @@ closed, and the bar keeps 48 at its end for it. That toggle is the shell's (`pat
 | | Regular | Compact | |
 |---|---|---|---|
 | Bar | 46 | 46 | `spacing-shell-top`; pad 12; 8 between the menu button and the row, 12 between the row's pieces |
-| Menu button | 32 | 28 | `density.control` square, `radius-md`, icon 16. It keeps that size below 768 (open questions) |
+| Menu button | 32 | 28 | `density.control` square, `radius-md`, icon 16; a finger square (44) below 768 |
 | Palette button | 32 | 28 | `density.control`; 224 wide, pad 10, gap 8, icon 16, `radius-control`, `text.body`. Beside a field, pad 8. Below 768, a finger square (44) |
 | Key cap | 20 | 20 | at least 20 wide, pad 4, `radius-sm`, `text.badge` |
 
