@@ -6,15 +6,16 @@ cell, so the account and the status read as one bar. The structured spec is
 [`status-line.json`](status-line.json).
 
 Sources: sokkel-ui `packages/core/src/components/StatusLine.tsx` (`StatusLine`, `StatusLineProps`,
-`StatusTone`, `StatusItem`). `Shell.tsx` draws the strip around it (its `footer`, and an empty strip
-beside the rail's foot cell when there is no foot), and `Rail.tsx` the foot cell beside it.
+`StatusTone`, `StatusItem`), which draws the strip. `Shell.tsx` gives it its room (its `footer`, and
+an empty `StatusLine` beside the rail's foot cell when there is no foot), and `Rail.tsx` the foot
+cell beside it.
 sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (`StatusLine`, `StatusTone`).
 
 ## Anatomy
 
 | Piece | What it is |
 |---|---|
-| strip | `spacing-shell-foot` tall, `page-foot-ground` under a `page-foot-line` rule, across the window under the content and the panel, beside the rail's foot cell |
+| strip | Drawn by the status line itself: `spacing-shell-foot` tall, `page-foot-ground` under a `page-foot-line` rule, 12 across, under the content and the panel, beside the rail's foot cell. The shell gives it the room and draws no strip of its own |
 | note | The short note at the start, in its tone's ink, on one line; cut short first |
 | live dot | With `live`: an 8 dot before the note in its ink, a second one pulsing out from it |
 | facts | `StatusItem`s at the end, 12 apart, kept to at most 70 percent of the row |
@@ -30,8 +31,7 @@ sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (`StatusLine`, `StatusTone`).
 
 | | Value |
 |---|---|
-| Strip | `spacing-shell-foot` (46) at both densities; pad 12 at each end; `text.help` |
-| Row | the note, the room between and the facts, 12 apart |
+| Strip | `spacing-shell-foot` (46) at both densities; pad 12 at each end; `text.help`. One row: the note, the room between and the facts, 12 apart |
 | Note | the dot 8 before the words |
 | Live dot | 8 round |
 | Facts | 12 apart; label to value 6 |
@@ -49,13 +49,14 @@ Nothing wraps. A long note is cut short with an ellipsis, then a long fact.
 
 ## Keyboard and words
 
-No keys and no words of its own. The app gives the note and every fact.
+No keys, no words and no controls of its own. The app gives the note and every fact; a control it
+puts there is a button, which wears the frame's one focus look (`patterns/shell`).
 
 ## Renderer-specific
 
-- **sokkel-ui:** the shell's `footer` draws the strip (ground, rule, height, pad, ink) and
-  `StatusLine` draws the note and the facts in it. A shell with a bottom strip and a rail foot but
-  no `foot` draws the strip empty. The pulse is `animate-ping`, which `motion.css` stills when motion
+- **sokkel-ui:** `StatusLine` draws the strip (ground, rule, height, pad, ink) and the note and the
+  facts in it, so a story or an app draws one part; the shell's `footer` only gives it its room. A
+  shell with a bottom strip and a rail foot but no `foot` draws an empty `StatusLine`. The pulse is `animate-ping`, which `motion.css` stills when motion
   is reduced.
 - **sokkel-ui-egui:** `StatusLine` draws the strip and its contents in the rect the `Shell` gives
   its foot, laying out galleys cut short with an ellipsis.
