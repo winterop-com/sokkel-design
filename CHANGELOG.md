@@ -4,6 +4,12 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- table: a stacked card's edit field, and its open editor, stand at least a finger tall below 768,
+  and the line that holds them a finger and 4 (`layout.cardEditLine`, 36 from md); the cards are
+  placed at the height the line is drawn at.
+
 ## 0.28.1
 
 - top-bar: below 768 the menu button and the palette's button draw their focus outline its offset
