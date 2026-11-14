@@ -6,6 +6,12 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- Inks named where a part always stands on one surface, so a renderer without inheritance reads a
+  color: select's field trigger and text-field's label `foreground`; select's rows, dropdown-menu's
+  items, check items and submenu triggers, and settings-dialog's phone list entries
+  `popover-foreground`; page-state's failed heading `foreground`. `inherit` stays only where a part
+  follows its surroundings (outline and ghost buttons, the quiet select, status-line's live dot),
+  each saying so in its note, and the README says what it resolves to.
 - table: a stacked card's edit field, and its open editor, stand at least a finger tall below 768,
   and the line that holds them a finger and 4 (`layout.cardEditLine`, 36 from md); the cards are
   placed at the height the line is drawn at.
