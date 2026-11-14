@@ -68,15 +68,15 @@ now layers of x, y, blur, spread and color. `page-title-ink` and `section-head-i
   (F21); cmdk's Ctrl keys gone and Mod+K closing the open palette, in a Shell or not (F22); a
   running command holding it open against Escape, a press outside, its Close and Mod+K until it has
   run `busy-release` (`layout.busyRelease`, option `busyRelease`), when a Stop waiting row
-  (`stopWaiting`, state `released`), Escape and the Close let it go and its answer goes unheard
-  (F23); its width from 768 (`widthFrom` `breakpoint-md`). Stable.
+  (`stopWaiting`, state `released`), Escape and the Close let it go and its answer goes unheard,
+  the command's signal aborted so it can stop and the app say how it ended (F23); its width from 768 (`widthFrom` `breakpoint-md`). Stable.
 - dialog: a shut confirm at `disabled-opacity`; it opens over `motion-fast` on `layer-dialog`; one
   line at 768 (`phoneBelow` `breakpoint-md`): below it a sheet, with no edge or shadow, and a fit
   dialog a box at its width (F17); no blur under the backdrop, its `rendererSpecific` entry gone
   (F18); the box's `border-strong` edge on `elevation-dialog` (F19); a busy confirm releases the
   dialog after `busy-release` (`layout.busyRelease`, option `busyRelease`, state `released`):
   Escape closes and Cancel says Stop waiting (`stopWaiting`), the confirm busy until the work
-  settles (F23). Stable.
+  settles, and letting it go calls the confirm's `onStopWaiting` (F23). Stable.
 - dropdown-menu: disabled rows at `disabled-opacity`; it opens over `motion-fast` on
   `layer-popover`; rows `density.control` tall, a finger below 768 (F11); every popup's look, a
   `border-strong` edge on `elevation-pop`, the submenu's too (F16); the arrows stop at the ends

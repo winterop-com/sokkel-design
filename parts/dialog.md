@@ -70,7 +70,7 @@ confirm's `reason` and `busy`). sokkel-ui-egui: `crates/core/src/widgets/overlay
 | nested | `shade/40` over the whole box |
 | shut | the confirm at 0.5, `not-allowed`, still focusable; its reason in the library's tooltip on hover and on keyboard focus (principle 13) |
 | busy | the confirm's spinner before its busy label, at full strength and `progress`; Cancel and Back disabled; Escape and the backdrop do nothing |
-| released | after `busy-release` (5 seconds) busy: Cancel says "Stop waiting" and closes, and Escape closes; the backdrop still holds, the confirm stays busy until the work settles, nothing is cancelled |
+| released | after `busy-release` (5 seconds) busy: Cancel says "Stop waiting" and closes, and Escape closes; the backdrop still holds, the confirm stays busy until the work settles; letting it go calls the confirm's `onStopWaiting`, where the app stops the work if it can and says how it ended elsewhere |
 | held | `dismissible` false: no Cancel, no close; Escape and the backdrop do nothing |
 | phone | below 768, `sheet`: the box fills the screen with square corners, no edge and no shadow |
 
