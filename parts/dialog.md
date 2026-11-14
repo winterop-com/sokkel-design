@@ -88,9 +88,9 @@ reason, and the body.
 
 ## Renderer-specific
 
-- **sokkel-ui:** Base UI's Dialog, a portal on `z-50` over the page it makes inert; focus held
+- **sokkel-ui:** Base UI's Dialog, a portal on `layer-dialog` over the page it makes inert; focus held
   inside and given back on close. The backdrop's blur (above). Opening focuses the first field in
-  the body, once the body is drawn. The box fades and zooms in from 95 percent over 100 ms, as far as
+  the body, once the body is drawn. The box fades and zooms in from 95 percent over `motion-fast` (100 ms), as far as
   motion allows. The verbs wrap in reverse, each growing, so the confirm stands on top.
 - **sokkel-ui-egui:** `Dialog::new(id, title).description(..).width(..).show(ctx, body, footer)`
   returns true when it asks to close; the footer is laid out from the end, so the app adds the confirm

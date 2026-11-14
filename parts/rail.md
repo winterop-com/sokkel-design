@@ -74,7 +74,7 @@ icon, so its label stands under the parent's, and 22 in a rail of text. The chev
 4 from the row's end. A count over an icon is 16 tall, fully round, 11 text at 600, and 99+ above
 99. The unread dot is 8. The edge moves 16 a press. A flyout is at least 176 wide, 12 beside a
 collapsed rail (8 beside a strip). A tooltip is 8 away, padded 8 by 4, in `text.help`. The width
-eases over 200 ms as far as motion allows.
+eases over `motion-base` (200 ms) as far as motion allows.
 
 ## States and tokens
 

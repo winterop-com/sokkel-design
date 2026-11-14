@@ -74,7 +74,7 @@ The trigger follows the density; the list's rows do not.
 | chosen | the check shows |
 | disabled | trigger at 0.5, not focusable, `not-allowed`; a disabled row at 0.5 |
 | readOnly | no look of its own; the list opens to look through |
-| invalid | edge `critical/80`; with keyboard focus `critical` and a 3px `critical/20` ring (`critical/40` in dark) |
+| invalid | edge `critical/80`; with keyboard focus `critical` and the invalid ring (`invalid-ring`, `invalid-ring-width`) |
 | noTheme | the swatch's edge dashed in `border-strong`, no ground |
 
 The swatch wears its own theme (`data-theme-scope`): `background` ground, `border` edge, dots in

@@ -28,7 +28,7 @@ settings route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context
 | top bar | Over the content: [`parts/top-bar`](../parts/top-bar.md). It is as tall as the rail's head, so the two read as one strip across the window. Its rule ends at the rail's edge: the rail's head draws none, in the frame or in the drawer |
 | panel toggle | A side panel's toggle in the window's top-right corner: over the top bar's end while the panel is closed or a sheet, in the panel header's corner while it is a column and open |
 | banner | A state that holds (the server not answering), between the top bar and the content, not scrolling |
-| content | The one scroller, with a thin track that keeps its room either way: proposed 10 wide, solid, `scroll-track` with a `scroll-thumb` (egui's bars float over the content unless set solid) |
+| content | The one scroller, its bar `scrollbar-width` (10) wide on a solid track that keeps its room either way, `scroll-track` with a `scroll-thumb` (egui's bars float over the content unless set solid) |
 | page header | [`parts/page-header`](../parts/page-header.md): the title, what is known about it, the actions with the primary last. Held above the scroller with `ShellHead`. **No trail: the trail lives in the top bar**, where the page header states its own (`trailInTop`, its default in the frame) |
 | page | Content at the page inset, its sections ([`parts/section`](../parts/section.md)) a page gap apart |
 | page state | [`parts/page-state`](../parts/page-state.md): loading, failed, empty, or the content |
@@ -54,9 +54,9 @@ groups. The same data draws the frame on every target.
 
 | Window | Form factors | The frame |
 |---|---|---|
-| below 768 | foldable folded 344; phone 360, 390, 430; foldable open 690 | The rail becomes a **drawer** from the top bar's menu button (the rail's `drawer` state). It is drawn expanded with the account in it, and closed by a press outside, a link, Escape or a route change. The top bar keeps its last crumb and its palette's button is an icon (the top bar's `phone` state). The panel is a sheet, or a tab strip at the foot. Below 640 dialogs fill the screen and settings opens on its list of sections; between 640 and 768 they stay boxes (open questions). Rows and tabs are a finger tall. The frame keeps clear of the notch and home indicator |
+| below 768 (`breakpoint-md`) | foldable folded 344; phone 360, 390, 430; foldable open 690 | The rail becomes a **drawer** from the top bar's menu button (the rail's `drawer` state). It is drawn expanded with the account in it, and closed by a press outside, a link, Escape or a route change. The top bar keeps its last crumb and its palette's button is an icon (the top bar's `phone` state). The panel is a sheet, or a tab strip at the foot. Below 640 dialogs fill the screen and settings opens on its list of sections; between 640 and 768 they stay boxes (open questions). Rows and tabs are a finger tall. The frame keeps clear of the notch and home indicator |
 | 768 to 1023 | tablet 768 | The rail is in the frame, as the app holds it. The panel is a sheet from the right |
-| from 1024 | tablet 1024; desktop 1280, 1440, 1920 | The panel is the right column, level with the top bar. Desktop is the main target |
+| from 1024 (`breakpoint-lg`) | tablet 1024; desktop 1280, 1440, 1920 | The panel is the right column, level with the top bar. Desktop is the main target |
 
 The window's width decides the frame. The page inset decides by the content's own box (640), as the
 table stacks by its own box.
@@ -64,15 +64,36 @@ table stacks by its own box.
 ## Tokens
 
 - Panel toggle: `muted-foreground`, hover `hover` and `foreground`, `foreground` while the panel is
-  open; keyboard focus a 2px `ring` outline 2 off.
-- Focus: one keyboard focus look for every control of the frame, the button's own: a 2px `ring`
-  outline 2 off, on keyboard focus only. The rail's entries (expanded and collapsed), its mark,
+  open; keyboard focus a `ring` outline `focus-ring-width` (2) wide, `focus-ring-offset` (2) off.
+- Focus: one keyboard focus look for every control of the frame, the button's own: a `ring` outline
+  `focus-ring-width` wide, `focus-ring-offset` off, on keyboard focus only. The rail's entries (expanded and collapsed), its mark,
   home link and collapse control, the top bar's menu button, crumbs and palette's button, the panel
   toggle and the account control in the rail's foot cell all wear it.
 - page: `background`, `foreground`.
 - Dialogs: in [`parts/dialog`](../parts/dialog.md). The drawer and sheets: `sidebar`, with
-  `elevation-pop` and `scrim`.
+  `elevation-pop` and `scrim`, sliding in over `motion-base` on `motion-ease`, still when motion is
+  reduced.
+- Layers, from the bottom: the drawer (`layer-drawer`), dialogs and sheets (`layer-dialog`), popups
+  (`layer-popover`, so a popup opened in a dialog shows over it), toasts (`layer-toast`).
 - The rail, the top bar, the foot, the page header, sections and page states: in their parts.
+
+## Before an egui app follows the shell
+
+Decided (open questions, D7): this list is the gate. An egui app follows the shell only once
+sokkel-ui-egui has every item, its behavior and its accessibility included, not only its look:
+
+1. The rail's resize: its edge pulled, Enter, Space and the arrows, the width kept.
+2. The top bar's search field at its start, with `/` to focus it.
+3. Section (`parts/section`), with its boxed and flat heads.
+4. Keyboard navigation through the frame: Tab order, the rail's and the lists' arrows.
+5. Focus returned to what opened a layer when it closes, and moved to the new page's heading on a
+   route change.
+6. The shortcuts registry (Mod+K, `?`, `/`, sequences), quiet in a field and under an overlay.
+7. A back stack, settings over the page as one of its entries, Back closing it.
+8. The appearance kept: theme, scheme and density under the same keys as the web.
+
+The other patterns (forms with their issue count, list beside detail, dashboards) come when an egui
+app needs them (D5).
 
 ## The settings route
 
@@ -106,7 +127,7 @@ sections. Actions follow their context: on Runs the button is "New", not "New ru
 
 ## Renderer-specific
 
-- **sokkel-ui:** media queries at 768 and 1024, and a `cqi` clamp for the page inset. Real anchors
+- **sokkel-ui:** media queries at `breakpoint-md` and `breakpoint-lg` (768 and 1024), and a `cqi` clamp for the page inset. Real anchors
   through `LinkProvider`. `useOverlayRoute` for the settings route. `useOverlay` makes the page inert
   under an overlay. `useScrollMemory`. The safe-area insets. In Electron and Tauri the top strip is
   the title bar.
@@ -124,4 +145,4 @@ sections. Actions follow their context: on Runs the button is "New", not "New ru
   `CommandPalette` on Mod+K. `examples/runs` and `examples/tasks` are working apps on it, with
   settings over the page on Mod+comma and from the rail. Still to build: the drawer below 768, the
   panel and its toggle, the banner, and Section (`parts/section`). Settings is not a route: egui has no URL, so the dialog is open state the app holds.
-  The page's scroll gutter is 11, where the spec proposes 10.
+  The page's scroll gutter is 11, where the spec says `scrollbar-width` (10).

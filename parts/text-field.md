@@ -50,10 +50,10 @@ level. sokkel-ui does this with the `FieldRows` context and CSS subgrid.
 | hover | pointer | no change today |
 | focus (`on: any`) | Tab or a press | edge `ring`; effect: a 1px `ring` ring on the control |
 | pressed | | a press focuses it, no look of its own |
-| disabled | `disabled` | ground `input/50` (dark `input/80`), opacity 0.5, out of the tab order |
+| disabled | `disabled` | ground `input/50` (dark `input/80`), opacity `disabled-opacity` (0.5), out of the tab order |
 | readOnly | `readOnly` | no look of its own today |
 | invalid | `error` or a critical issue | edge `critical/80`, no ring at rest; mark in `critical-ink` |
-| invalid+focus | focus on an invalid control | edge `critical`; effect: a 3px ring, `critical/20` (dark `critical/40`), on the control, only while it has focus |
+| invalid+focus | focus on an invalid control | edge `critical`; effect: the invalid ring, `invalid-ring` (`critical` at 20 percent, 40 in dark) `invalid-ring-width` (3) wide, on the control, only while it has focus |
 | warning | a warning issue | edge `warning/80`; mark in `warning-ink` |
 | warning+focus | focus with a warning | edge `warning`; effect: a 1px `warning/25` ring |
 | issueOpen | a press on the mark, Enter or Space, or `issueOpen` | mark ground `hover`; popover on `popover` / `popover-foreground`, corners `radius-surface` |
@@ -116,4 +116,4 @@ sokkel-ui itself: its height reads `density.control`, an invalid control draws i
 rest and the 3px ring only on focus (`src/rules.test.ts` fails a ring drawn at rest), and the spoken
 prefixes are words. Every invalid control, `Field`'s and a bare primitive alike, takes its tints
 from one place (`lib/issue-edge.ts`): the edge `critical/80` at rest and `critical` on focus, the
-ring 3px `critical/20` (dark `critical/40`) on focus only, in both schemes. No difference is left.
+invalid ring (`invalid-ring`, `invalid-ring-width`) on focus only, in both schemes. No difference is left.

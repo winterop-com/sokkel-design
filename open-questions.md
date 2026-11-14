@@ -5,130 +5,66 @@ findings that need a call, the tokens the specs ask for, and what does not fit e
 
 ## Decisions
 
-### 1. Where `tokens.json` moves, and when
+Decided by the owner on 2026-11-14 (`sokkel-ui-egui/docs/proposals/open-questions-decided.md`, D1 to
+D10). Each says what was decided and where it stands.
 
-- **a. Now.** sokkel-design holds `tokens.json`, and sokkel-ui installs it. Every token change during
-  sokkel-ui's heavy development becomes two PRs and a version bump.
-- **b. Specs now, tokens at 1.0.** `tokens.json` stays in sokkel-ui until 1.0. sokkel-design reads
-  it at a pinned sokkel-ui version, and its check fails when a spec names a token that version
-  lacks. The move happens with the open-sourcing at 1.0.
-- **c. Never.** The tokens stay in sokkel-ui and sokkel-design holds only specs.
+### 1. Where `tokens.json` lives: specs now, tokens at 1.0
 
-Recommendation: **b.** It costs sokkel-ui nothing now. The control-height tokens that landed in
-sokkel-ui 0.25.0 show that tokens still move weekly.
+Decided **b**. `tokens.json` stays in sokkel-ui until 1.0. sokkel-design reads it at the commit
+`sokkel-ui.json` pins, and `check.py` fails a spec that names a token that version lacks, and a
+resolved file made from another commit. Done.
 
-### 2. The resolver's home and language
+### 2. The resolver: in sokkel-design, in TypeScript
 
-Today it is TypeScript in sokkel-ui-egui (`scripts/resolve.ts`, `resolve-tokens.ts`,
-`verify-colors.ts`), and it reads sokkel-ui. Options:
-- **a.** Move it to sokkel-design as it is, writing `tokens.resolved.json` beside `tokens.json`,
-  published on npm (`@winterop-com/sokkel-design`) and as a crate (`sokkel-design`, which embeds the
-  file).
-- **b.** Into sokkel-ui's `build-tokens.ts`, as the egui proposal patch
-  (`sokkel-ui-egui/docs/proposals/sokkel-ui-resolved-tokens.patch`) tried once.
-- **c.** A Rust port in a `build.rs`.
+Decided **a**, the TypeScript kept. `scripts/resolve.ts` (with `resolve-tokens.ts` and `paints.ts`)
+writes `tokens/tokens.resolved.json`, the tokens and the paints, here. `verify-colors` runs in this
+repository's CI (`.github/workflows/contract.yaml`) against the pinned sokkel-ui's generated CSS,
+the paints and elevations included. Done; sokkel-ui-egui takes the resolved file from here next.
 
-Recommendation: **a**, with the TypeScript kept. The resolver now also resolves every color the
-part specs name into `paints` (README, "Resolved paints"), so it reads the specs and belongs beside
-them. **b** would put the specs in sokkel-ui. `verify-colors` needs Chromium and sokkel-ui's
-generated CSS, so it runs in sokkel-design's CI against a pinned sokkel-ui. It checks the paints as
-well as the tokens.
+### 3. Versioning: in lockstep with sokkel-ui
 
-### 3. Versioning the contract
+Decided **a** before 1.0: `index.json`'s `version` is the sokkel-ui release the contract ships in
+(0.28.0), and egui states the sokkel-ui version whose contract it meets. Revisit at 1.0. Done.
 
-- **a. Lockstep with sokkel-ui.** One version for the contract and sokkel-ui. sokkel-ui-egui states
-  which contract version it implements. This is the egui proposal's "release at one version keeps it
-  bearable."
-- **b. Its own semver.** Each renderer declares the contract range it meets.
+### 4. Parts: one contract version, a status, a changelog
 
-Recommendation: **a** before 1.0, with breaking changes moving the minor, as sokkel-ui does. Decide
-**b** at 1.0 only if the renderers' paces split.
+Decided **a**: no version per part. Each part and pattern says `draft` or `stable` (README,
+"Status"), and `CHANGELOG.md` has a line for each change. Done.
 
-### 4. Numbering and versioning parts
+### 5. Patterns: the shell now
 
-- **a.** No per-part version. The contract version covers every file, and each part has `status`
-  (`draft` or `stable`) and a line in the contract's changelog. This draft does this.
-- **b.** Per-part semver in each file, which renderers pin part by part.
-
-Recommendation: **a.** Parts are not numbered. Their id is their name (`button`, `text-field`,
-`table`), and `index.json` sets their order.
-
-### 5. Are patterns in scope now?
-
-The shell is drafted because the goal ("web / Tauri / Electron / egui apps all in a similar
-fashion") is mostly the frame. Options: only the shell now, then dialogs and the settings dialog as
-step 4 asks; or patterns in general (forms with their issue count, list beside detail, dashboards)
-after the parts settle. Recommendation: **the shell now**, then others only as an egui app needs
-them.
+Decided: the shell now, other patterns when an egui app needs them. Recorded in the README and
+`patterns/shell.md`.
 
 ### 6. How a new app starts the same way on each target
 
-Today a sokkel-ui example is `examples/<name>/{web,electron,tauri}`, with `examples/shared` (fake
-backend, window frame, hash route, mark). Web, Electron and Tauri share one web app. An egui app
-shares nothing with it yet. What would make all four start alike:
-- **One app shape, as data.** The places (rail groups), the routes, the settings sections, the
-  palette's commands, the shortcuts and the words, in one file each target reads. Only the pages are
-  per target.
-- **A starter per target sharing that structure.** Web (Vite and sokkel-ui), the Electron and Tauri
-  shells over it (as today), and egui (eframe and sokkel-ui-egui with its `Shell`). Each opens on the
-  same frame with the same places, settings on its route, and the appearance kept under the same
-  keys (theme, scheme, density).
-- **Later, a scaffolder.** `sokkel new <name> --targets web,tauri,egui` writes them, as a bun script
-  or cargo-generate templates.
+Decided: one app shape as data is the plan (places, route ids, settings sections, commands,
+shortcuts, words, appearance keys), with starters in each renderer's `examples/`. Its schema and
+fixtures come when a second app is ported, sokkel-ui's tasks example the first to read it. No web
+pages inside an egui app, and no scaffolder yet. A plan, recorded in the README; nothing is built.
 
-To decide: where starters live (sokkel-design, a `sokkel-starter` repo, or each renderer's
-`examples/`), whether the app shape file is part of the contract, and whether an egui app may mix in
-web pages (no is simpler).
+### 7. What egui must have before an egui app follows the shell
 
-### 7. What egui must have before an egui app can follow the shell
+Decided: the listed minimum is the gate, behavior and accessibility included. `patterns/shell.md`
+("Before an egui app follows the shell") lists it. egui's work.
 
-From the egui proposal's order, the minimum:
-1. Shell, Rail (groups, collapse, resize, the drawer below 768), TopBar (trail, search, actions),
-   StatusLine. **Built** (`widgets/frame.rs`) except rail resize, the drawer and the search field.
-   The rail, the top bar and the status line now have specs of their own (`parts/rail`,
-   `parts/top-bar`, `parts/status-line`), whose drift lists what is still to build.
-2. PageHeader, Section, PageState (loading, failed, empty). PageHeader and PageState are built
-   (`widgets/page.rs`); Section is not yet (`Card` with its bar is the nearest). Each now has a spec
-   of its own (`parts/page-header`, `parts/section`, `parts/page-state`), whose drift lists what is
-   still to build.
-3. The table's list variant. **Built** (`widgets/table.rs`), with the table variant too; see the table
-   spec's drift for what is still missing.
-4. Dialog with SettingsDialog, the CommandPalette, a DropdownMenu (the account menu), a Tooltip, and
-   Select (a settings row). **Built**; settings is open state the app holds, not a route, since egui
-   has no URL. Select, DropdownMenu, Tooltip, Dialog (with ConfirmDialog), SettingsDialog and the
-   CommandPalette now have specs of their own (`parts/select`, `parts/dropdown-menu`,
-   `parts/tooltip`, `parts/dialog`, `parts/settings-dialog`, `parts/command-palette`), whose drift
-   lists what is still to build.
-5. Not visual, but part of the frame: a shortcuts registry (Mod+K, `?`, `/`), a back stack with the
-   settings overlay, and the appearance kept (`Appearance` exists).
+### 8. Specimens
 
-The rest of the field family (step 5), the short messages (step 6) and the add-ons (step 7) can follow
-apps rather than precede them.
-
-### 8. Specimens: new stories, and where the pairs are shown
-
-Specimen ids are now Storybook story paths, so egui's snapshots pair with them by name. Most are
-existing stories. Three are new stories under the real titles (`Button/Sizes`, `Text field/States`,
-`Text field/Issue open`), and they show real states, so they fit sokkel-ui's story rules. Two
-questions remain. Does an egui story copy the data of the sokkel-ui story at its path (the 500-run
-tables included)? And where is the side-by-side shown: a CI artifact only, or a page beside the
-published Storybook? Recommendation: copy the data, since pairing by name only works if the stories
-match, and keep the side-by-side as an artifact until the format has settled.
-
-### 10. Paints: how far renderers go without tokens
-
-With `paints` resolved at build time, should sokkel-ui-egui stop calling `color_at` and blending for
-anything a spec paints, with a check that fails a widget doing so? Should a paint carry lengths too
-(ring width and offset do already), or stay colors? Recommendation: yes to the first, since that is
-the point of resolving. Colors and rings only for now, with sizes staying in `sizes`, resolved per
-density.
+Decided: an egui story copies the data of the sokkel-ui story at its path, the 500-run tables
+included, and the pairs are a CI artifact until the format settles. egui's work.
 
 ### 9. Words as templates
 
-sokkel-ui's words are functions (`rows: (count) => ...`), and the spec writes them as templates with
-plural forms (`{ "one": "{count} row", "other": "{count} rows" }`). The check calls each function
-with sample arguments and compares. Should sokkel-ui's words become templates instead, which would
-also serve the coming `locale`? Recommendation: keep functions, and compare by sampling.
+Decided: sokkel-ui keeps its words as functions, and its parts test samples them. A spec's
+`samples` say what a word says at zero, one and many and with each value it interpolates, and
+`check.py` fails a templated or counted word without them. Done in sokkel-ui.
+
+### 10. Paints
+
+Decided: every color and ring a spec paints is drawn from the resolved paints, with a check that
+fails local mixing on those paths; sizes stay in `sizes`; colors an app supplies at run time stay
+free. Recorded as principle 20. sokkel-ui needed nothing: its parts test reads every spec paint
+from the class that draws it, mixes included. The check that fails mixing in egui is egui's work.
 
 ## Findings that need a call
 
@@ -168,24 +104,26 @@ These were found while writing the specs. Nothing was changed.
 `density.control-sm`, `density.control`, `density.control-lg`, 24/28/32/36 at regular and one step
 smaller at compact. Every control reads them, and they resolve in `tokens.resolved.json`.
 
-**Proposed** (from the egui proposal, section b, and these specs). Each renderer guesses these
-today:
+**Decided and adopted in sokkel-ui 0.28.0** (2026-11-14). Each is defined in sokkel-ui's
+`tokens.json`, used there in place of the literal, and named by the specs:
 
-| Token | Today | Proposal |
-|---|---|---|
-| Focus ring | 2px `ring`, 2px off, in each component's classes | `focus-ring-width`, `focus-ring-offset`; and the invalid ring (3px, `critical` at 20 / 40 percent) |
-| Disabled opacity | 0.5 in each component | `disabled-opacity` |
-| Motion | Tailwind defaults: 100 ms dialogs; 200 ms the rail's collapse, the drawer and sheets, `ease-out` | `motion-fast` (100), `motion-base` (200: rail collapse, drawer), `motion-ease`, honored by "motion reduced" |
-| Z-order | `z-40` drawer, `z-50` dialogs and popovers | `layer-drawer`, `layer-dialog`, `layer-popover`, `layer-toast` |
-| Spacing steps | Tailwind's 0.25rem scale (`px-2.5`, `gap-1.5`) | A named step scale, or named part spacings (`control-pad-x`) |
-| Elevation | `elevation-*` as box-shadow strings; the select's list and the menus wear Tailwind's `shadow-md` and `shadow-lg`; dialogs wear none; egui has one layer | Structured layers: `{ x, y, blur, spread, color }` each, one token per kind of surface (popover, dialog) |
-| `currentcolor` parts tokens | `page-title-ink`, `section-head-ink` have no color in some themes | A named fallback in the tokens (this draft writes `page-title-ink\|foreground` in the spec) |
-| State mixes | `mix(secondary, foreground 5%)` for a secondary hover; row tones `critical 8%`, `warning 10%` over `card` | `secondary-hover`, `row-critical`, `row-warning` |
-| Breakpoints | Tailwind's `md` and `lg`, and `MOBILE_QUERY` (767) | `breakpoint-md: 768`, `breakpoint-lg: 1024` |
-| Scroll bar | `scroller-thin`: the browser's thin width, room kept (`scrollbar-gutter: stable`) | `scrollbar-width: 10`, a solid track; egui's bars float over the content unless set solid |
+| Token | Value |
+|---|---|
+| Focus ring | `focus-ring-width` 2 and `focus-ring-offset` 2; the invalid ring `invalid-ring` (`critical` at 20 percent in light, 40 in dark) and `invalid-ring-width` 3 |
+| Disabled | `disabled-opacity` 0.5 |
+| Motion | `motion-fast` 100 ms, `motion-base` 200 ms, `motion-ease` ease-out (Tailwind's curve, 0, 0, 0.2, 1); all stilled when motion is reduced |
+| Layers | `layer-drawer` 40, `layer-dialog` 50, `layer-popover` 60, `layer-toast` 70, so a popup opened in a dialog shows over it |
+| Elevation | Structured: each `elevation-*` is layers of x, y, blur, spread and color (`elevations` in the resolved file); `elevation-dialog` added, `elevation-pop` until a theme sets its own |
+| Inks | `page-title-ink` and `section-head-ink` fall back to `foreground`, so the `a\|b` fallback is gone from the grammar |
+| Breakpoints | `breakpoint-md` 768 and `breakpoint-lg` 1024, the values Tailwind's `md` and `lg` use |
+| Scroll bar | `scrollbar-width` 10, on a solid track whose room is kept |
+
+**Later:** a named spacing scale (the specs keep exact part spacings meanwhile), and the state
+mixes (`secondary-hover`, `row-critical`, `row-warning`), resolved as paints until a theme needs
+them.
 
 **CSS-only, by design:** `density.page-inset` (a `cqi` clamp; egui takes its wide and narrow ends by
-the content's width) and `scrollbar`.
+the content's width) and `scrollbar` (the colors of the browser's own scroll bars).
 
 ## What does not fit egui's immediate mode
 
@@ -195,9 +133,9 @@ the content's width) and `scrollbar`.
 | A part sized by its content in a wrapping row | Wraps only before a child of known size | Rule 3: fixed heights and width rules |
 | `:focus-visible` | Focus is focus. Keyboard-only focus requires the renderer to track the last input kind, a key or a pointer, and draw the ring only after a key | Rule 4: `on: keyboard` or `any` per focus state; specimens reach focus by Tab |
 | A disabled button that is still focusable, its reason on focus | Disabled widgets are not focusable, and tooltips show on hover | `Sense::focusable_noninteractive` (sokkel-ui-egui does this now), and the tooltip shown on focus |
-| A scroller whose bar keeps its room | Bars float over the content unless the scroll style is solid | The shell gives the content scrollbar a width (10, proposed) and a solid track |
+| A scroller whose bar keeps its room | Bars float over the content unless the scroll style is solid | The shell gives the content's bar `scrollbar-width` (10) and a solid track |
 | How long a new page's heading is waited for before focus moves (3 s) | Its own frame timing | Renderer-specific (`Shell`'s `routeKey`); not in the contract |
-| Transitions, `animate-pulse`, spinners | Explicit animation, and a repaint each frame | Durations wait for motion tokens; specimens run with motion stopped |
+| Transitions, `animate-pulse`, spinners | Explicit animation, and a repaint each frame | Durations are `motion-fast` and `motion-base` on `motion-ease`; specimens run with motion stopped |
 | Media queries and container queries | Only the available rect | Breakpoints as px (rule 5). The table stacks by its own width, which egui knows; the page inset takes its two ends |
 | A route (`#/settings`), Back, deep links | No URL | A route is app state with a back stack; settings-open keeps the page under it |
 | An inert page under a dialog, focus returned on close | `Modal` blocks input; focus return is the widget's job | The shell spec lists Escape order and focus return |

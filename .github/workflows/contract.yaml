@@ -1,0 +1,45 @@
+name: contract
+
+# The contract against the sokkel-ui commit sokkel-ui.json pins: the resolved file is what that
+# commit's tokens.json and the specs make, every spec holds (schema, token names, states, word
+# samples), the JSON is formatted, and every resolved color, paint and elevation is what Chromium
+# draws from sokkel-ui's own CSS at that commit.
+on:
+    workflow_dispatch:
+    push:
+        branches: [main]
+    pull_request:
+
+concurrency:
+    group: contract-${{ github.head_ref || github.run_id }}
+    cancel-in-progress: true
+
+jobs:
+    check:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+            - id: pin
+              run: |
+                  echo "repo=$(jq -r '.repo | sub("^https://github.com/"; "")' sokkel-ui.json)" >> "$GITHUB_OUTPUT"
+                  echo "commit=$(jq -r .commit sokkel-ui.json)" >> "$GITHUB_OUTPUT"
+            # sokkel-ui is public: its pinned commit, its CSS generated from its tokens.json, and its
+            # install, which verify-colors takes Playwright and Chromium from.
+            - uses: actions/checkout@v5
+              with:
+                  repository: ${{ steps.pin.outputs.repo }}
+                  ref: ${{ steps.pin.outputs.commit }}
+                  path: build/sokkel-ui
+                  persist-credentials: false
+            - run: npm install -g bun
+            - run: bun install --frozen-lockfile
+              working-directory: build/sokkel-ui
+            - run: bun run tokens
+              working-directory: build/sokkel-ui
+            - run: bunx playwright install --with-deps chromium
+              working-directory: build/sokkel-ui
+            - uses: astral-sh/setup-uv@v6
+            - run: bun scripts/resolve.ts --check --from build/sokkel-ui
+            - run: uv run --with jsonschema python scripts/check.py
+            - run: python3 scripts/fmt.py index.json specimens.json schema/*.json parts/*.json patterns/*.json && git diff --exit-code
+            - run: bun scripts/verify-colors.ts --from build/sokkel-ui
