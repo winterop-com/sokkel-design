@@ -19,7 +19,7 @@ icon), `RailDrops.tsx` (reordering), `shell-context.ts` (`ShellDrawer`, `ShellRa
 | Piece | What it is |
 |---|---|
 | frame | The column, the window's full height: `sidebar` ground, a 1px edge at its end |
-| head | As tall as the top bar (`spacing-shell-top`), so the top bar's rule ends level with it. It draws no rule of its own. Expanded: the mark and the name (one link home with `markHref`), then the collapse control at its end, or in the drawer the control that closes the drawer. Collapsed: the mark alone, which expands the rail and shows the expand icon under the pointer |
+| head | As tall as the top bar (`spacing-shell-top`), so the top bar's rule ends level with it. It draws no rule of its own, in the frame or in the drawer. Expanded: the mark and the name (one link home with `markHref`), then the collapse control at its end, or in the drawer the control that closes the drawer. Collapsed: the mark alone, which expands the rail and shows the expand icon under the pointer |
 | groups | A titled group's title in upper case (`GroupLabel`); a group without a title stands at the top. Collapsed, a rule takes each title's place |
 | entry | Mark (an icon, a color `dot`, or nothing in a rail of text), label, optional `description` under the label, and at its end a count, an unread dot or a parent's chevron. The active one wears a 2 wide bar at its start over a wash |
 | parent | An entry with `entries`. Expanded, a chevron at its end folds them under it, lined up under its label. A parent with a page of its own has its own chevron button; one without folds on a press anywhere on its row. Collapsed or in a strip, it opens them in a flyout beside the rail |
@@ -67,7 +67,8 @@ the same on every target. The command palette lists them too (`placeCommands`).
 Fixed at both densities: the rail 240 wide (200 to 360), 57 collapsed (3.5rem and its edge), 72 as
 a strip. Groups pad 8 across, entries 4 apart. A group title has 16 above it, a 20 line and 6 below,
 8 in (16 from the rail's start), in `text.badge`, upper case and tracked 0.025em. A collapsed rail
-keeps the same room and centers its 1px rule in that 20 line. Expanded entries have `radius-sm` at
+keeps the same room and centers its 1px rule in that 20 line. A group without a title at the top
+keeps 4 above its first entry, room for the entry's focus look. Expanded entries have `radius-sm` at
 the start corners and `radius-md` at the end. A child row pads its start 38 under a parent with an
 icon, so its label stands under the parent's, and 22 in a rail of text. The chevron button is 28,
 4 from the row's end. A count over an icon is 16 tall, fully round, 11 text at 600, and 99+ above
@@ -81,7 +82,7 @@ eases over `motion-base` (200 ms) as far as motion allows.
 |---|---|
 | rest | frame: `sidebar`, ink `sidebar-foreground`, edge `border-strong`. mark: `primary` / `primary-foreground`. name: `text.detail-title` tracked -0.025em. group title: `faint`, `text.badge`. entry: ink `muted-foreground`, no ground. description: `muted-foreground`, `text.help`. count: `foreground` at 600. unread dot: `foreground`. chevron: `muted-foreground`. corner count: `critical` / `critical-foreground` at 600, ringed 2 in `sidebar` |
 | hover | entry, icon entry, collapse control: ground `hover`, ink `foreground`. chevron button: ground `hover`. strip entry: ink `foreground`, its tile `hover` |
-| focus (keyboard) | collapse control: 2px `ring` outline 2 off. home link and strip entry: 2px `ring/50` ring. Expanded and icon entries: the browser's outline in `ring/50` (no ring of their own; see open questions). edge: its line shows |
+| focus (keyboard) | every control of the rail (the home link, the collapse control, the collapsed mark, an expanded, icon or strip entry, a parent's chevron button): the button's own focus look, a 2px `ring` outline 2 off. edge: its line shows |
 | active | entry: ground `sidebar-accent`, ink `sidebar-accent-foreground` at 500, a 2 wide `sidebar-primary` bar at its start; hover leaves it as it is. Its description: `sidebar-accent-foreground/75`. icon entry and strip tile: `sidebar-accent` / `sidebar-accent-foreground` |
 | holding | a parent unfolded over the active entry: ink `foreground` at 500 |
 | open | a collapsed parent or a strip parent while its flyout is open: ground `hover`. An unfolded parent's chevron turns 90 degrees |
@@ -136,7 +137,9 @@ sokkel-ui within a point. The differences:
 3. **Count weight:** 500 (`TextRole::Badge`), where the spec says 600.
 4. **Collapsed groups:** 26 from one group's last entry to the next one's first, with the rule 20
    down. The spec keeps the title's room, 46, with the rule 26 down.
-5. **Keyboard focus:** entries paint none.
+5. **Keyboard focus:** entries paint none, where the spec draws the button's focus look.
+   An untitled group at the top has its first entry right under the head (as of d1b3b24), where
+   the spec keeps 4 above it, room for that look.
 6. **Collapsed entry tooltip:** egui's own `on_hover_text` (`frame.rs:202`), where the spec has the
    library's token-painted tooltip, 8 away and padded 8 by 4.
 7. **Not built:** descriptions, the unread and color dots, entries without icons, parents, counts

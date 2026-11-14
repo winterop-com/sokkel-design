@@ -22,9 +22,9 @@ Sources: sokkel-ui `packages/core/src/components/PageHeader.tsx` (`PageHeader`, 
 | title block | One line under another: the trail, the title with its count, the code, the description, the meta. Beside a back button or an aside it is a grid, so every line starts where the title starts |
 | back | With `onBack`: a ghost icon button with a back chevron, level with the title |
 | aside | A picture (an avatar, a project's mark, artwork) before the title block, centered on it down the side of every line; after the back button |
-| trail | The places above the page, small over the title, a chevron after each crumb (the last too), named "Where you are". Drawn only outside a `Shell`, or without `trailInTop` |
+| trail | The places above the page, small over the title, a chevron after each crumb (the last too), named "Where you are". Drawn only outside a `Shell`, or inside one with `trailInTop={false}` |
 | title | The page's `h1`, in the heading face: its name, else its code. It wraps. A code standing as the title, or `singleLine`, stays on one line, cut short with the whole of it on hover |
-| count | A short count on the title's baseline, 8 after it |
+| count | A short count on the title's baseline, 8 after it, in the body face with tabular figures; a section's count looks the same |
 | code | The addressable code under the title, in the code face, cut short; not drawn when it is the title |
 | description | A sentence under the title, at most a reading measure (65ch) wide |
 | meta | A line of small facts, wrapping |
@@ -39,8 +39,10 @@ Sources: sokkel-ui `packages/core/src/components/PageHeader.tsx` (`PageHeader`, 
 - `title`, `code`, `count`, `description`, `meta`, `aside`.
 - `actions` (the primary last), `lead`, `items` with `primary` and `wordsOnly`, and `actionsFill`
   (set by `items`): the actions take the room the title leaves rather than their own width.
-- `trail` (`{ label, href?, code? }`) and `trailInTop`. Inside a `Shell`, `trailInTop` states the
-  trail for the top bar (`useShellTrail`, ending at the place above) and draws none here.
+- `trail` (`{ label, href?, code? }`) and `trailInTop` (default true). Inside a `Shell` the header
+  states the trail for the top bar (`useShellTrail`, ending at the place above) and draws none
+  here, so a page in the frame never draws a second trail; `trailInTop={false}` draws it here
+  inside a `Shell` too. Outside one the trail is always drawn here.
 - `onBack`, `singleLine`, `words`.
 - Context made explicit (rule 2): `inShell`, the `Shell` around it (`ShellTrailAsk`), which is what
   sends the trail to the top bar.
@@ -72,13 +74,13 @@ How the row shares its width, by the header's own box:
 
 | State | Piece: paint |
 |---|---|
-| rest | title: `page-title-ink`, else `foreground`, in `text.page-title` and `typeface-heading`. count, code (code face), meta: `muted-foreground`, `text.help`. description: `muted-foreground`, `text.body`. crumb: `muted-foreground`. chevron: `faint`. back: `muted-foreground`, `radius-control` |
+| rest | title: `page-title-ink`, else `foreground`, in `text.page-title` and `typeface-heading`. count (body face, tabular figures), code (code face), meta: `muted-foreground`, `text.help`. description: `muted-foreground`, `text.body`. crumb: `muted-foreground`. chevron: `faint`. back: `muted-foreground`, `radius-control` |
 | hover | crumb link: `foreground`. back: ground `hover`, ink `foreground` |
 | focus (keyboard) | back: a 2px `ring` outline 2 off. A crumb's link: the browser's outline in `ring/50` |
 | wrapped | the actions under the title, 12 down |
 | folded | the items the row cannot hold in More, from the last |
 | codeTitle | the title in the code face, on one line, cut short |
-| trailInTop | the trail in the top bar, none here |
+| trailInTop | inside a `Shell`, unless `trailInTop` is false: the trail in the top bar, none here |
 
 The actions, More and the primary are buttons (`parts/button`): outline items, More an outline
 icon button, the primary filled.
@@ -100,8 +102,8 @@ the button is "New", not "New job"; an item's face may be shorter than the label
 
 - **sokkel-ui:** the header is a size container (`@container/page-header`, `@lg` = 512). Items fold
   by measuring their widths on the header (`Toolbar`), and More is Base UI's menu. The title is the
-  page's `h1`, so `Shell`'s `routeKey` moves focus to it. Crumbs are `Link`. `trailInTop` calls
-  `useShellTrail(trail, { ends: 'ancestor' })`. A cut-short title or code says the whole of it in
+  page's `h1`, so `Shell`'s `routeKey` moves focus to it. Crumbs are `Link`. Inside a `Shell`,
+  unless `trailInTop` is false, it calls `useShellTrail(trail, { ends: 'ancestor' })`. A cut-short title or code says the whole of it in
   its `title` attribute.
 - **sokkel-ui-egui:** `PageHeader::show(ui, actions)` lays the actions out right to left from the
   row's end, so the app adds the primary first. The header lays out by the available rect.

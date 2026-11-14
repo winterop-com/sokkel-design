@@ -21,8 +21,8 @@ Sources: sokkel-ui `packages/core/src/components/Section.tsx` (`Section`, `Secti
 | head | Boxed: the bar across the box's top on the section heads' ground over their rule. At least `density.panel-head` tall; it grows to hold a description |
 | flat head | Flat: the heading line over a rule on the page's ground, with no inset of its own |
 | mark | Tone critical: a warning mark before the title |
-| title | An `h2`, cut short on one line: `text.head` in the box, `text.section-title` in the flat head. The section is labelled by it |
-| meta | A count or short fact beside the title in the code face; it drops under the title when both do not fit |
+| title | An `h2`, cut short on one line: `text.head` in the box, in its own case, and `text.section-title` in the flat head. The section is labelled by it |
+| meta | A count or short fact beside the title, drawn as a page header's count: the body face with tabular figures. It drops under the title when both do not fit |
 | description | A sentence under the title, in the head |
 | actions | Controls at the head's end; under the title when they would squeeze it, wrapping from the end when wider than the head |
 | body | Padded `density.panel-pad` in the box unless `flush`; on the page's ground a section gap under a flat head. With `fill` it scrolls inside a box of the height given |
@@ -52,13 +52,16 @@ drops under it. The graph's dots are 1 in radius, one every 18 both ways, center
 
 | State | Piece: paint |
 |---|---|
-| rest | box: `card`, edge `border-strong`, `radius-surface`. head: `section-head-ground`, rule `section-head-line`. flat head: no ground, rule `border`. title: `section-head-ink`, else `foreground`, in `typeface-heading`, `text.head` in the box and `text.section-title` in the flat head. meta (code face) and description: `muted-foreground`, `text.help` |
+| rest | box: `card`, edge `border-strong`, `radius-surface`. head: `section-head-ground`, rule `section-head-line`. flat head: no ground, rule `border`. title: `section-head-ink`, else `foreground`, in `typeface-heading`, `text.head` in the box and `text.section-title` in the flat head. meta (body face, tabular figures) and description: `muted-foreground`, `text.help` |
 | described | the head grows to hold the description |
 | toneCritical | box: a 2 wide `critical` rule across its top, the rest of its edge as it was. flat head: its rule `critical`. mark: `critical` |
 | toneGraph | body: `canvas` with a dot of `panel-dot` every 18; rounded `radius-surface` under a flat head |
 | fill | the box takes the height given and its body scrolls |
 
-`text.head` carries the table head's size, weight and tracking, but the title keeps its own case.
+`text.head` carries the table head's size, weight and tracking, never its case: the title keeps its
+own, so a boxed head can hold a name such as a job's. A count beside the title looks the same as a
+page header's (`parts/page-header`): `text.help` in the body face, tabular figures,
+`muted-foreground`, 8 after the title. The code face is for codes.
 
 ## Keyboard and words
 

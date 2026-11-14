@@ -70,6 +70,7 @@ the head.
 | selected | row ground `secondary`, kept under the pointer; card ring 2 `primary`; the bar says `{count} selected` |
 | opened | row ground `secondary`; card ring 2 `ring/60` |
 | active (with keyboard focus) | row: a 2px `ring` bar inside its start edge; card: ring 2 `ring` |
+| head active (with keyboard focus) | the head the keys chose in the head row: a 2px `ring` outline 2 off around its name, as a focused button; the active row's mark waits meanwhile |
 | stacked | cards: ground `card`, edge `border`, `radius-surface`; a card's detail on `panel-ground` |
 | empty | `words.empty` ("Nothing here.") in `muted-foreground`, under the heads; an app's own `empty` stands alone without them unless a search or tools may have emptied it |
 | loading | placeholder rows under the heads: a `muted` bar per cell at row height, filling the view (three after the last row when loading more); they pulse unless motion is reduced. The table's one loading look: the bar, its search, the heads and the frame keep their places, and the bar counts nothing while the first rows load |
@@ -84,6 +85,11 @@ A missing value in a cell is a quiet dash, never a blank (principle 10).
 The table is **one tab stop**. The head buttons and row boxes are not separate stops.
 - Up and Down move the active row (a line of cards in the grid view). PageUp and PageDown move a
   view's worth. Home and End go to the first and the last row.
+- Sorting by keys: Up from the first row enters the head row, on the sorted column's head or else
+  the first sortable head. Left and Right choose the sortable head before or after, stopping at the
+  ends. Enter or Space turns its order: ascending, descending, then as given. Down goes back to the
+  first row. The rows' other keys stay in the head row; the table view only, as the grid's sort is
+  its menu.
 - Space selects the active row (Shift for a range), or picks it when the table does not select.
   Enter picks it: `onOpen`, or it opens and closes its detail.
 - Right opens a branch or a detail (the next card in the grid view). Left closes it or goes to the
@@ -94,8 +100,6 @@ The table is **one tab stop**. The head buttons and row boxes are not separate s
 - On a resize handle, Left and Right move the edge, and Enter or a double click puts the width back.
 - With `editing`: Enter, F2 or a typed character opens the cell. Enter saves and moves down, Tab
   saves and moves on, Escape drops the edit.
-- Sorting from the keyboard: the table view has none today. The head's sort buttons are not tab
-  stops, and the sort menu is in the grid view only.
 
 ## Words
 
@@ -109,14 +113,15 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
 
 ## Renderer-specific
 
-- **sokkel-ui:** a CSS grid per row, with a sticky head and first column. Content columns are
-  measured in the DOM, and again once fonts load. The checkbox and menus load after first paint.
-  Counts are formatted for `en-US` until the locale lands.
+- **sokkel-ui:** a CSS grid per row, with a sticky head and first column. In the head row the focus
+  is on the chosen head's sort button (tabindex -1, no tab stop), so its own focus look marks it.
+  Content columns are measured in the DOM, and again once fonts load. The checkbox and menus load
+  after first paint. Counts are formatted for `en-US` until the locale lands.
 - **sokkel-ui-egui:** colors from `paints` (`table.base.<state>.<piece>`), the row tones among them,
   so the widget mixes nothing. `ScrollArea::show_rows` at `density.row`. Content columns are measured from
   laid-out galleys. The table's box is the width egui gives it, which is exactly what `stackBelow`
   asks for, so no container query is needed. One focus stop, with the active row kept in the
-  widget's state.
+  widget's state, as the head the keys chose in the head row is.
 
 ## Where the renderers differ from the spec today
 
@@ -126,5 +131,5 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
   `secondary`; zebra from `table-zebra`; the Table and List variants (the list head at
   `density.panel-head`); words as fields. Not yet: grouping, trees, detail rows, the stacked cards
   below 576, row actions and menus, paging, cell editing, row reorder, its own loading and failed
-  states (it is wrapped in `PageState`), keyboard row navigation.
+  states (it is wrapped in `PageState`), keyboard row navigation, and the head row by keys.
 - **sokkel-ui, counts:** formatted with `en-US` in `WORDS`.

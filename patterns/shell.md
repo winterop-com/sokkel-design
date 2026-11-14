@@ -25,15 +25,15 @@ settings route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context
 | Region | What it holds |
 |---|---|
 | rail | The app's places at the window's start: [`parts/rail`](../parts/rail.md). Its foot cell (the account) stands level with the foot |
-| top bar | Over the content: [`parts/top-bar`](../parts/top-bar.md). It is as tall as the rail's head, so the two read as one strip across the window |
+| top bar | Over the content: [`parts/top-bar`](../parts/top-bar.md). It is as tall as the rail's head, so the two read as one strip across the window. Its rule ends at the rail's edge: the rail's head draws none, in the frame or in the drawer |
 | panel toggle | A side panel's toggle in the window's top-right corner: over the top bar's end while the panel is closed or a sheet, in the panel header's corner while it is a column and open |
 | banner | A state that holds (the server not answering), between the top bar and the content, not scrolling |
 | content | The one scroller, its bar `scrollbar-width` (10) wide on a solid track that keeps its room either way, `scroll-track` with a `scroll-thumb` (egui's bars float over the content unless set solid) |
-| page header | [`parts/page-header`](../parts/page-header.md): the title, what is known about it, the actions with the primary last. Held above the scroller with `ShellHead`. **No trail: the trail lives in the top bar** |
+| page header | [`parts/page-header`](../parts/page-header.md): the title, what is known about it, the actions with the primary last. Held above the scroller with `ShellHead`. **No trail: the trail lives in the top bar**, where the page header states its own (`trailInTop`, its default in the frame) |
 | page | Content at the page inset, its sections ([`parts/section`](../parts/section.md)) a page gap apart |
 | page state | [`parts/page-state`](../parts/page-state.md): loading, failed, empty, or the content |
 | panel | Optional: a right column, a sheet, or tabs in a strip at the foot |
-| foot | [`parts/status-line`](../parts/status-line.md): one fixed row, level with the rail's foot cell so account and status read as one bar |
+| foot | [`parts/status-line`](../parts/status-line.md): one fixed row, level with the rail's foot cell so account and status read as one bar. It draws the strip itself; the shell gives it the room |
 | overlays | [`parts/command-palette`](../parts/command-palette.md) (Mod+K), [`parts/settings-dialog`](../parts/settings-dialog.md) (`#/settings`), the shortcuts dialog (`?`) in [`parts/dialog`](../parts/dialog.md), the drawer (below 768) |
 
 The places are **data** (the rail's groups), and so are the settings sections and the palette's
@@ -65,6 +65,10 @@ table stacks by its own box.
 
 - Panel toggle: `muted-foreground`, hover `hover` and `foreground`, `foreground` while the panel is
   open; keyboard focus a `ring` outline `focus-ring-width` (2) wide, `focus-ring-offset` (2) off.
+- Focus: one keyboard focus look for every control of the frame, the button's own: a `ring` outline
+  `focus-ring-width` wide, `focus-ring-offset` off, on keyboard focus only. The rail's entries (expanded and collapsed), its mark,
+  home link and collapse control, the top bar's menu button, crumbs and palette's button, the panel
+  toggle and the account control in the rail's foot cell all wear it.
 - page: `background`, `foreground`.
 - Dialogs: in [`parts/dialog`](../parts/dialog.md). The drawer and sheets: `sidebar`, with
   `elevation-pop` and `scrim`, sliding in over `motion-base` on `motion-ease`, still when motion is
