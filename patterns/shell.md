@@ -6,15 +6,17 @@ the page with its header as the one thing that scrolls, the status foot, setting
 own route over the page, and pages whose reads land in distinct states. This is what makes a native
 app and a web app "built in a similar fashion". The structured spec is [`shell.json`](shell.json).
 
-The rail, the top bar, the status line, the page header, the section and the page state are parts
-with specs of their own: [`parts/rail`](../parts/rail.md), [`parts/top-bar`](../parts/top-bar.md),
+The rail, the top bar, the status line, the page header, the section, the page state, the dialog,
+the settings dialog and the command palette are parts with specs of their own:
+[`parts/rail`](../parts/rail.md), [`parts/top-bar`](../parts/top-bar.md),
 [`parts/status-line`](../parts/status-line.md), [`parts/page-header`](../parts/page-header.md),
-[`parts/section`](../parts/section.md) and [`parts/page-state`](../parts/page-state.md). This
-pattern says how the frame lays them out and what it holds besides them.
+[`parts/section`](../parts/section.md), [`parts/page-state`](../parts/page-state.md),
+[`parts/dialog`](../parts/dialog.md), [`parts/settings-dialog`](../parts/settings-dialog.md) and
+[`parts/command-palette`](../parts/command-palette.md). This pattern says how the frame lays them
+out and what it holds besides them.
 
-Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `ShellWords`),
-`SettingsDialog.tsx` with `settings-parts.tsx` (`SETTINGS_WORDS`); the settings route is
-`useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is
+Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `ShellWords`); the
+settings route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is
 `docs/plan.md`'s Themes section. sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (`Shell`, story
 `Patterns/Shell`), with working apps on it, `examples/runs` and `examples/tasks`.
 
@@ -32,7 +34,7 @@ Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `Shell
 | page state | [`parts/page-state`](../parts/page-state.md): loading, failed, empty, or the content |
 | panel | Optional: a right column, a sheet, or tabs in a strip at the foot |
 | foot | [`parts/status-line`](../parts/status-line.md): one fixed row, level with the rail's foot cell so account and status read as one bar |
-| overlays | Command palette (Mod+K), settings dialog (`#/settings`), shortcuts dialog (`?`), the drawer (below 768) |
+| overlays | [`parts/command-palette`](../parts/command-palette.md) (Mod+K), [`parts/settings-dialog`](../parts/settings-dialog.md) (`#/settings`), the shortcuts dialog (`?`) in [`parts/dialog`](../parts/dialog.md), the drawer (below 768) |
 
 The places are **data** (the rail's groups), and so are the settings sections and the palette's
 groups. The same data draws the frame on every target.
@@ -52,7 +54,7 @@ groups. The same data draws the frame on every target.
 
 | Window | Form factors | The frame |
 |---|---|---|
-| below 768 | foldable folded 344; phone 360, 390, 430; foldable open 690 | The rail becomes a **drawer** from the top bar's menu button (the rail's `drawer` state). It is drawn expanded with the account in it, and closed by a press outside, a link, Escape or a route change. The top bar keeps its last crumb and its palette's button is an icon (the top bar's `phone` state). The panel is a sheet, or a tab strip at the foot. Dialogs fill the screen, and settings opens on its list of sections. Rows and tabs are a finger tall. The frame keeps clear of the notch and home indicator |
+| below 768 | foldable folded 344; phone 360, 390, 430; foldable open 690 | The rail becomes a **drawer** from the top bar's menu button (the rail's `drawer` state). It is drawn expanded with the account in it, and closed by a press outside, a link, Escape or a route change. The top bar keeps its last crumb and its palette's button is an icon (the top bar's `phone` state). The panel is a sheet, or a tab strip at the foot. Below 640 dialogs fill the screen and settings opens on its list of sections; between 640 and 768 they stay boxes (open questions). Rows and tabs are a finger tall. The frame keeps clear of the notch and home indicator |
 | 768 to 1023 | tablet 768 | The rail is in the frame, as the app holds it. The panel is a sheet from the right |
 | from 1024 | tablet 1024; desktop 1280, 1440, 1920 | The panel is the right column, level with the top bar. Desktop is the main target |
 
@@ -64,7 +66,7 @@ table stacks by its own box.
 - Panel toggle: `muted-foreground`, hover `hover` and `foreground`, `foreground` while the panel is
   open; keyboard focus a 2px `ring` outline 2 off.
 - page: `background`, `foreground`.
-- Dialogs: `popover` on `radius-surface`, over `shade/10`. The drawer and sheets: `sidebar`, with
+- Dialogs: in [`parts/dialog`](../parts/dialog.md). The drawer and sheets: `sidebar`, with
   `elevation-pop` and `scrim`.
 - The rail, the top bar, the foot, the page header, sections and page states: in their parts.
 
@@ -93,10 +95,9 @@ bar's (`/` for its search) are in their parts.
 
 ## Words
 
-The shell's, palette's and settings dialog's default words are in the JSON (`Open the navigation`,
-`Close the navigation`, `Search or run a command`, `Changes are saved as you make them`, `Done`,
-`Reset to defaults`, ...). The rail's, the top bar's, the page header's and the page states' are in
-their parts. The app gives its name, its places, the trail, page titles and the settings'
+The shell's default words are in the JSON (`Open the navigation`, `Close the navigation`, `Open the
+command palette`, ...). The rail's, the top bar's, the page header's, the page states', the
+dialog's, the settings dialog's and the palette's are in their parts. The app gives its name, its places, the trail, page titles and the settings'
 sections. Actions follow their context: on Runs the button is "New", not "New run".
 
 ## Renderer-specific

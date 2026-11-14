@@ -95,8 +95,10 @@ From the egui proposal's order, the minimum:
    spec's drift for what is still missing.
 4. Dialog with SettingsDialog, the CommandPalette, a DropdownMenu (the account menu), a Tooltip, and
    Select (a settings row). **Built**; settings is open state the app holds, not a route, since egui
-   has no URL. Select, DropdownMenu and Tooltip now have specs of their own (`parts/select`,
-   `parts/dropdown-menu`, `parts/tooltip`), whose drift lists what is still to build.
+   has no URL. Select, DropdownMenu, Tooltip, Dialog (with ConfirmDialog), SettingsDialog and the
+   CommandPalette now have specs of their own (`parts/select`, `parts/dropdown-menu`,
+   `parts/tooltip`, `parts/dialog`, `parts/settings-dialog`, `parts/command-palette`), whose drift
+   lists what is still to build.
 5. Not visual, but part of the frame: a shortcuts registry (Mod+K, `?`, `/`), a back stack with the
    settings overlay, and the appearance kept (`Appearance` exists).
 
@@ -151,6 +153,14 @@ These were found while writing the specs. Nothing was changed.
 | sokkel-ui tooltip | Two looks. The tooltip primitive is inverted (`foreground` ground, `background` ink, 12 by 6, an arrow); the rail's collapsed entries and `SwitchField`'s reason draw their own on `popover` with `elevation-pop` (8 by 4, no arrow) | One tooltip look for the library, and which? |
 | sokkel-ui tooltip | A tooltip waits Base UI's 600 ms unless a `TooltipProvider` holds it, which sets 0. `Shell` holds no provider, so an app's tooltips wait 600 unless the app adds one; egui waits 0.5 s | Should the library give one delay, from a provider in `Shell` or from the primitive's own default? |
 | sokkel-ui `Select`, `DropdownMenu` | The popups wear Tailwind's `shadow-md` (a submenu `shadow-lg`), black at 10 percent in both schemes, not an elevation token. `AccountMenu`'s and `NavBar`'s menus restyle the same popup with a `border-strong` edge and `elevation-pop`, as `AsyncSelect`'s list and the rail's tooltip wear `elevation-pop` | One popup look: should every popup wear an elevation token (and an edge), so a theme sets it and egui reads it as structured layers, and the account menu needs no look of its own? |
+| sokkel-ui `DialogShell`, `SettingsDialog` | A dialog becomes a full-screen sheet below 640 (`max-sm`), and the settings dialog's entries a list to go into, while the shell pattern and principle 5 put the phone below 768. From 640 to 767 (the foldable open at 690) a dialog is a box | Should dialogs turn into sheets below 768, as the rest of the frame does, or is 640 the dialog's own line? |
+| sokkel-ui dialogs | The backdrop blurs what is under it (`backdrop-blur-xs`, 4px) where the browser can. egui cannot blur and only dims. The specs keep the blur out of every paint and say it in `rendererSpecific` | Keep the blur as a web-only touch, or drop it so both renderers draw the same backdrop? |
+| sokkel-ui dialogs | A dialog wears no shadow, only its 1px `foreground/10` ring, while the select's list and the menus wear `shadow-md` and the drawer `elevation-pop`. egui puts `elevation-pop`'s shadow under its dialogs, its settings dialog and its palette | Should a dialog wear an elevation token (one per kind of surface), or stay flat on the shade? |
+| sokkel-ui `CommandPalette` | The active row is washed `muted` in `foreground`, while the menus' and the select's highlighted rows wear `accent` in `accent-foreground` | One highlight for every list of choices, or is the palette's quieter wash on purpose? |
+| sokkel-ui `CommandPalette` | The arrows stop at the first and the last row (cmdk without `loop`), while a menu wraps around (Base UI's menu) and a select stops | Should every list of choices behave the same at its ends? |
+| sokkel-ui `CommandPalette` | cmdk's own Ctrl+N and Ctrl+J move down and Ctrl+P and Ctrl+K up. Ctrl+K is also the palette's key (Mod+K on Windows and Linux, and Ctrl+K on a Mac too): in a `Shell` it closes the palette, under `usePaletteShortcut` it moves the active row up | Turn cmdk's vim keys off (`vimBindings={false}`), so Ctrl+K means one thing? |
+| sokkel-ui `CommandPalette` | While a command's promise is pending, Escape and a press outside still close the palette, and its settling is let go. A dialog's busy confirm holds its dialog open until it is done | Should a busy palette hold as a busy dialog does, or is leaving a running command on purpose? |
+| sokkel-ui `CommandPalette` | A one-line row's `meta` is `muted-foreground`; a two-line row's (the search result's quiet fact at its end) is `faint` | One quiet ink for a meta? |
 
 ## Tokens the specs ask for
 
@@ -168,7 +178,7 @@ today:
 | Motion | Tailwind defaults: 100 ms dialogs; 200 ms the rail's collapse, the drawer and sheets, `ease-out` | `motion-fast` (100), `motion-base` (200: rail collapse, drawer), `motion-ease`, honored by "motion reduced" |
 | Z-order | `z-40` drawer, `z-50` dialogs and popovers | `layer-drawer`, `layer-dialog`, `layer-popover`, `layer-toast` |
 | Spacing steps | Tailwind's 0.25rem scale (`px-2.5`, `gap-1.5`) | A named step scale, or named part spacings (`control-pad-x`) |
-| Elevation | `elevation-*` as box-shadow strings; the select's list and the menus wear Tailwind's `shadow-md` and `shadow-lg`; egui has one layer | Structured layers: `{ x, y, blur, spread, color }` each, one token per kind of surface (popover, dialog) |
+| Elevation | `elevation-*` as box-shadow strings; the select's list and the menus wear Tailwind's `shadow-md` and `shadow-lg`; dialogs wear none; egui has one layer | Structured layers: `{ x, y, blur, spread, color }` each, one token per kind of surface (popover, dialog) |
 | `currentcolor` parts tokens | `page-title-ink`, `section-head-ink` have no color in some themes | A named fallback in the tokens (this draft writes `page-title-ink\|foreground` in the spec) |
 | State mixes | `mix(secondary, foreground 5%)` for a secondary hover; row tones `critical 8%`, `warning 10%` over `card` | `secondary-hover`, `row-critical`, `row-warning` |
 | Breakpoints | Tailwind's `md` and `lg`, and `MOBILE_QUERY` (767) | `breakpoint-md: 768`, `breakpoint-lg: 1024` |
@@ -194,4 +204,5 @@ the content's width) and `scrollbar`.
 | Hover known at once | Hover comes from last frame's rects, one frame behind | Specimen runners run frames until the board settles |
 | Fonts | Applied a frame after they are set | Handled in egui; runners skip the first frame |
 | A 16px text input on a phone (zoom guard) | No such zoom | Web-only, listed as renderer-specific |
+| A blur under a dialog's backdrop (`backdrop-filter`) | No blur; `Modal`'s backdrop is a fill | Renderer-specific: said in `rendererSpecific` and kept out of every paint (`parts/dialog`) |
 | Accessible names from the DOM | AccessKit from `WidgetInfo` | Specimen targets are role and name, so custom-painted parts (table rows) must report theirs |

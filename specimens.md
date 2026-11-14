@@ -81,12 +81,28 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Primitives/Menus/DropdownMenu/Items | full | check and radio rows, the gutter, inset, disabled and destructive rows |
 | Primitives/Menus/DropdownMenu/Checks | full | checks and plain rows, as wide as the longest |
 | Primitives/Menus/DropdownMenu/Submenus | full | two levels of submenus |
+| Patterns/Dialogs/Confirm | full; pair at 390 | a ConfirmDialog, 384 wide, a destructive answer; at 390 still a box sized to its content |
+| Patterns/Dialogs/Rename | full; pair with focus | a sm dialog with a shut confirm; with keyboard focus on it, its reason in the tooltip |
+| Patterns/Dialogs/Busy | full | the confirm's spinner and busy label, Cancel disabled |
+| Patterns/Dialogs/Run log | full | nothing to confirm: the corner close, actions alone in the footer |
+| Patterns/Dialogs/Nested | full | a ConfirmDialog over a dialog that wears the nested shade |
+| Patterns/Dialogs/Long content | pair; pair at 390 | a body that scrolls under its footer; at 390 a full-screen sheet |
+| Apps/Settings/Dialog | full; pair at 390; pair with an entry hovered and the reset asked | the settings dialog on General; at 390 the section with Back; an entry under the pointer; the reset's ConfirmDialog over it |
+| Apps/Settings/Search | full | the column and the pane narrowed by a search |
+| Apps/Settings/No reset | full | a section with reset false: no Reset to defaults |
+| Apps/Settings/Synced | full | the app's own footer note and a reset of every setting |
+| Patterns/Command palette/Long | full; pair at 390 | groups, icons, hints, codes and keys, the list scrolling; at 390 finger-tall rows |
+| Patterns/Command palette/Summaries | full; pair at 390 | a meta at each row's end, one in the critical ink (metaTone); at 390 folded under the label |
+| Patterns/Command palette/Chooser | full | two-line rows, a critical second line, a hint in the warning ink |
+| Patterns/Command palette/Foot | full | the strip at the foot |
+| Patterns/Command palette/No match | full | No command matches. |
+| Patterns/Command palette/Refused | pair with a row active and a command refused | the muted wash under the pointer; a refused command's words under the rows, the palette still open |
 | Patterns/Shell/Search field | full; pair at 390 | the whole frame; at 390 the menu button, the last crumb, the palette icon |
 | Patterns/Shell/Drawer | pair | the drawer open at 390 |
 | Apps/Settings/Navbar | pair; pair at 390 | the settings dialog; at 390 a full-screen sheet on its list |
 
-That is 48 stories across the full matrix (576 captures) and 41 captures across the pair matrix
-(82), **658 per side**.
+That is 62 stories across the full matrix (744 captures) and 52 captures across the pair matrix
+(104), **848 per side**.
 
 ## How a state is reached
 
