@@ -8,6 +8,16 @@ of their own (D4); a change to a part is a line here under its name.
 
 - top-bar: below 768 the menu button and the palette's button draw their focus outline its offset
   inside the square (`phone+focus`, ring `inset` all), so the window's top edge does not cut it.
+- tooltip: `tap`, a tap by touch or pen on the trigger shows the box, held `tip-hold` (4000 ms, a
+  new duration token) or until the next press anywhere or a second tap on the trigger
+  (`layout.tapHold`); a mouse press, hover and focus are as before.
+- button: a `reason` shows on a tap by touch or pen too, as a touch screen has no hover; an icon
+  button's as well.
+- command-palette: the app's search shows its wait only once it has run `wait-shown` (300 ms, a new
+  duration token, `layout.searchingAfter`): then Searching where nothing is listed, or the earlier
+  results dimmed and passed over (the new `searching` state). A sooner answer draws neither, the
+  earlier results only out of reach, and the empty line stands through it; `debounce` 0 asks each
+  change at once.
 
 ## 0.28.0
 

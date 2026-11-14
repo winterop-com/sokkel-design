@@ -15,7 +15,7 @@ Sources: sokkel-ui `packages/core/src/components/ui/button.tsx` (`Button`, `butt
 | label | The words, on one line and never wrapped (`whitespace-nowrap`) |
 | icon | A glyph before the label (`iconPlace: start`) or after it (`end`); all of an icon button |
 | spinner | While `busy`: in the leading icon's place, or before the label when there is none; the label stays |
-| tooltip | An icon button's `label`, a `reason`, and a `shortcut` drawn as a key |
+| tooltip | An icon button's `label`, a `reason`, and a `shortcut` drawn as a key; a reason shows on a tap by touch or pen too |
 
 ## Options
 
@@ -64,7 +64,7 @@ placed by its own position (`takesFinger`). Inside a group (`inGroup`), xs and s
 | focus | Keyboard (`on: keyboard`, `:focus-visible`) | A `ring` outline `focus-ring-width` (2) wide, `focus-ring-offset` (2) off the box |
 | pressed | Pointer down | Sinks 1px (`translate-y-px`); not when it opens a menu |
 | open | Its menu is open (`aria-expanded`) | outline and ghost: `hover` ground; secondary keeps its rest |
-| disabled | `reason` or `disabled` | Opacity `disabled-opacity` (0.5), no presses. With `reason` it stays in the tab order and the reason shows on hover and on focus; `disabled` alone takes it out |
+| disabled | `reason` or `disabled` | Opacity `disabled-opacity` (0.5), no presses. With `reason` it stays in the tab order and the reason shows on hover, on focus and on a tap by touch or pen, held `tip-hold` (4000 ms) or until the next press (parts/tooltip `tap`); `disabled` alone takes it out |
 | invalid | `aria-invalid` (no prop sets it) | Edge `critical/80` in both schemes, the edge alone at rest: the same issue edge every control wears |
 | invalid+focus | Keyboard focus on an invalid button | The focus outline, and the invalid ring (`invalid-ring`, `critical` at 20 percent and 40 in dark, `invalid-ring-width` 3 wide), only while it has focus |
 | busy | `busy` | The spinner shows. Presses are ignored. It keeps focus and its rest look at full opacity, with no hover (`aria-busy`, `aria-disabled`) |
@@ -100,9 +100,11 @@ the `reason`, the `tooltip` and the `shortcut` (as `shortcutLabel` writes it).
 ## Renderer-specific
 
 - **sokkel-ui:** Base UI's `Button` with `focusableWhenDisabled`. The tooltip is the library's
-  (`parts/tooltip`), wrapped around the button. A `reason` is also the button's description:
-  `aria-describedby` names a visually hidden copy of it, always in the page beside the button, so a
-  screen reader says it whether or not the tooltip is open (`IconButton`'s too). The spinner is
+  (`parts/tooltip`), wrapped around the button; with a `reason` it takes a tap (`tap`), so a touch
+  screen, which has no hover, shows the reason too, an `IconButton`'s as well. A `reason` is also
+  the button's description: `aria-describedby` names a visually hidden copy of it, always in the
+  page beside the button, so a screen reader says it whether or not the tooltip is open
+  (`IconButton`'s too). The spinner is
   hidden from a screen reader, and the button says `aria-busy`. The hover expressions stay in its
   classes (`hover:bg-primary/80`); its parts test maps each paint expression to the class it
   expects.
@@ -120,4 +122,5 @@ focus, and the heights read the density's control sizes, so those are off this l
    last input kind.
 3. `sm` with an icon pads 8 where the spec says 6.
 4. Not built yet: the icon sizes and IconButton, `destructiveHover`, `opensMenu` with `open`,
-   `inGroup`, an icon at the end, `invalid`, the finger heights below 768 and the xs hit area.
+   `inGroup`, an icon at the end, `invalid`, the finger heights below 768, the xs hit area, and a
+   reason's tooltip on a tap.

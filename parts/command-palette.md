@@ -40,8 +40,8 @@ Sources: sokkel-ui `packages/core/src/components/CommandPalette.tsx` (`CommandPa
 | spinner | While a command's promise is pending: at its row's end in the keys' place, named "Running" |
 | stop waiting | Once a running command has run `busy-release`: "Stop waiting", a row at the list's top, which closes the palette and lets the command go |
 | refusal | Under the list across the box: why the last command was refused, the rejection's words or "The command did not run." |
-| empty | "No command matches.", centered |
-| results | The app's search results under the commands, by kind; Searching, a failure with Retry, and a row to see all |
+| empty | "No command matches.", centered, unless the app's search has failed or shown its wait |
+| results | The app's search results under the commands, by kind; Searching once a wait has run `wait-shown`, a failure with Retry, and a row to see all |
 | foot | Optional: the app's mark and name, the active row's verb beside Enter, "Command palette" beside the keys that open it |
 | close | On a touch screen: Close at the foot, as there is no Escape |
 
@@ -63,6 +63,15 @@ if `onSelect` throws, it stays open and says why under the rows in the critical 
 own words, else "The command did not run.". Typing, or choosing again, clears it. A command that
 settles after the palette closed or opened again is let go.
 
+## The app's search while it waits
+
+Results belong to the query they answer. While the next query waits for its answer, an earlier
+query's results stay in place but out of reach: choosing one does nothing. The wait shows only once
+it has run `wait-shown` (300 ms): then the earlier results dim and are passed over, or, with none
+listed, "Searching" stands under the commands in place of the empty line. An answer that comes
+sooner draws neither, so a search that answers at once (`debounce: 0`, which asks each change
+without a pause) never flickers between keys. A failed search says so over a Retry row instead.
+
 ## Options
 
 - `groups` (`{ title, commands, rank?, verb?, kind? }`, listed by `rank`, one group to a title) and
@@ -71,7 +80,8 @@ settles after the palette closed or opened again is let go.
 - `metaTone` and `tone`: `critical`, `warning`, `good` or `info`, a status ink for the meta, and for
   the hint or a two-line row's second line.
 - `disabled`: `true`, or why; the row at half opacity, passed over, never run.
-- `search` (the app's own: `{ search, onOpen, onSeeAll?, minQuery?, debounce?, words? }`),
+- `search` (the app's own: `{ search, onOpen, onSeeAll?, minQuery?, debounce?, words? }`; `debounce`
+  is the pause in typing before a changed query is asked, none at 0),
   `defaultQuery`, `filter` (`fuzzy` by default, `terms`, or the app's score), `foot`, `width` from
   768 (`sm` 384 by default, `md` 512, `lg` 672), `description`, `wrap`, `busyRelease` (ms a
   running command holds the palette; `busy-release`, 5000, by default).
@@ -101,6 +111,7 @@ settles after the palette closed or opened again is let go.
 | disabled | row at 0.5 |
 | busy | the spinner in `muted-foreground` (`accent-foreground` on the active row); nothing closes the palette |
 | released | after `busy-release`: the Stop waiting row at the list's top; it, Escape and the Close let the palette go |
+| searching | after `wait-shown` without the search's answer: "Searching" with a spinner in `faint` where nothing is listed, or the earlier results at 0.5 and passed over; sooner, neither |
 | refused | the refusal in `critical-ink` with a circled alert, under a `border` rule |
 | critical, warning, good, info | the meta (`metaTone`) or the hint (`tone`) in `critical-ink`, `warning-ink`, `good-ink` or `info-ink` |
 | phone | the search and rows a finger tall below 768; a meta under its label below 640 |
@@ -137,7 +148,9 @@ The app gives every group's and command's words, and a rejection's own words.
   own keys are off (`vimBindings`). The open palette binds Mod+K itself, before the shell's own,
   and closes through the hold a running command keeps. `pointer-coarse` decides the touch screen's
   Close, `max-md` the finger heights and the width, `max-sm` the meta's fold. The list fades at its
-  foot.
+  foot. `useSearch` says `slow` once a query has waited `WAIT_SHOWN` (from `wait-shown`), timed as
+  `useBusyRelease` times its wait, and `searchWait` turns it into the Searching line and the dimmed
+  results.
 - **sokkel-ui-egui:** `CommandPalette::new(id, groups, &mut query, &mut highlight).show(ctx)`
   returns `PaletteOutcome { run, close }`, and the app runs the command it names. `palette_shortcut`
   is Mod+K. Rows are the dropdown menu's `MenuItem::Action` in the palette's look.

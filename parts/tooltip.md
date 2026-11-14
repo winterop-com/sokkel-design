@@ -4,11 +4,12 @@ The library's one tooltip: a short line about a control, in a small inverted box
 arrow toward it. It shows once the pointer has rested on the control for 500 ms, or at once while
 the control has keyboard focus, and goes when both leave. It names an icon button, says why a
 control is off (a button's `reason`), names a collapsed rail's entries, and can add the key that
-does the same. The structured spec is [`tooltip.json`](tooltip.json).
+does the same. A touch screen has no hover: there a tap on a shut button shows its reason (`tap`).
+The structured spec is [`tooltip.json`](tooltip.json).
 
 Sources: sokkel-ui `packages/core/src/components/ui/tooltip.tsx` (`Tooltip`, `TooltipTrigger`,
 `TooltipContent`, `TooltipProvider`), `ui/kbd.tsx` (`Kbd`, the key cap inside the box) and
-`lib/finger.ts` (`FINGER_HIT`, `takesFinger`). sokkel-ui-egui: `crates/core/src/widgets/overlay.rs`
+`lib/finger.ts` (`FINGER_HIT`, `takesFinger`) and `lib/tap-tip.ts` (`tapTip`, what a tap does). sokkel-ui-egui: `crates/core/src/widgets/overlay.rs`
 (`tooltip`, `tooltip_shown`).
 
 ## Anatomy
@@ -25,6 +26,10 @@ Sources: sokkel-ui `packages/core/src/components/ui/tooltip.tsx` (`Tooltip`, `To
 - `side` (`top` by default, then `bottom`, `left`, `right`, `inline-start`, `inline-end`) and `align`
   (`center` by default, `start`, `end`); the box moves to the other side when there is no room.
 - `sideOffset` (4), `delay`, `open`, and keys (`Kbd`) after the words.
+- `tap`: a tap by touch or pen on the trigger shows the box too, for a trigger a tap does nothing
+  else with, such as a shut button saying why. It stays up for `tip-hold` (4000 ms), until the next
+  press anywhere, or until a tap on the trigger again. A mouse press does nothing more; hover and
+  focus show it as ever. A button with a `reason` sets it (parts/button).
 - **Delay:** a tooltip waits 500 ms under a resting pointer, the primitive's own default, so it
   holds with or without a `TooltipProvider`; a provider's tooltips share one delay group, a
   neighbor showing at once after one has shown. Keyboard focus shows it at once.
@@ -63,8 +68,13 @@ which never say anything said nowhere else.
   other side when there is no room. `TooltipTrigger` adds the finger hit area unless its `render`
   element places itself or draws its own `::after`. `TooltipTrigger` waits `TOOLTIP_DELAY` (500)
   by default, or its provider's delay. A `Button`'s reason and an `IconButton`'s name show in it,
-  a `Button`'s reason also as its description (`aria-describedby`). The rail's collapsed entries
-  and `SwitchField`'s help mark show in it too; no part draws a tooltip of its own.
+  a `Button`'s reason also as its description (`aria-describedby`). `Tooltip` holds whether it is
+  open itself, Base UI's root controlled (or as `open` says), so a tap can open it: with `tap`,
+  `TooltipTrigger` tells the tooltip of a press that ends on it (`pointerup`, which a shut Base UI
+  button still hears where it drops its own press and click), and a press by touch or pen shows
+  it; a second tap, Base UI's outside press or `TIP_HOLD` (from `tip-hold`) closes it, and while a
+  tap holds it a hover's close is refused, as a pen lifting reports one. The rail's collapsed entries and `SwitchField`'s help mark
+  show in it too; no part draws a tooltip of its own.
 - **sokkel-ui-egui:** `tooltip(response, text)` and `tooltip_shown(response, text)` on egui's
   `Popup` (`PopupKind::Tooltip`); the delay counts from the first frame the pointer is over the
   trigger.
@@ -75,5 +85,5 @@ As of 26b411f (`overlay.rs` unchanged since bee2a97), the tooltip draws the box 
 the `background` ink, `radius-md`, padded 12 by 6, `text.help`, at most 320 wide, on hover and on
 keyboard focus. The differences:
 1. **Side:** always under the trigger; the spec puts it above by default, with `side` and `align`.
-2. **Not built:** the arrow, keys, `side` and `align`, a delay group, Escape, and the finger hit
-   area below 768.
+2. **Not built:** the arrow, keys, `side` and `align`, a delay group, Escape, the finger hit area
+   below 768, and `tap`.
