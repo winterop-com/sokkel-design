@@ -63,7 +63,7 @@ crumb. The mark's tile is 28. The actions stand 6 apart.
 |---|---|
 | rest | bar: `sidebar`, rule `border-strong`. crumb: `muted-foreground`. chevrons: `faint`. palette: `field`, edge `border`, ink `muted-foreground`. keys: `muted` / `muted-foreground`. menu: `muted-foreground` |
 | hover | crumb link: `foreground`. palette: edge `border-strong`, ink `foreground`. menu: ground `hover`, ink `foreground`, as the rail's collapse control |
-| focus (keyboard) | the menu button, a crumb's link (`radius-sm`) and the palette's button: the button's own focus look, a 2px `ring` outline 2 off, as every control of the frame |
+| focus (keyboard) | the menu button, a crumb's link (`radius-sm`) and the palette's button: the button's own focus look, a 2px `ring` outline 2 off, as every control of the frame. Below 768 the menu button and the palette's button, finger squares in a bar barely taller, draw that outline its offset inside them (`inset` all), where the window's top edge cannot cut it |
 | current | the current crumb: `foreground` at 500 |
 | phone (below 768) | palette: no ground, no edge, a finger square. The crumbs before the last, the chevrons and the search field are not drawn |
 

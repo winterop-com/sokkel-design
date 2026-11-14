@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.28.1
+
+- top-bar: below 768 the menu button and the palette's button draw their focus outline its offset
+  inside the square (`phone+focus`, ring `inset` all), so the window's top edge does not cut it.
+
 ## 0.28.0
 
 The first version, carrying out the open questions the owner decided on 2026-11-14.
