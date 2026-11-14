@@ -305,7 +305,10 @@
                 "note": "Tracked -0.025em (tracking-tight)."
             }
         },
-        "home": {"rest": {"radius": "radius-md"}, "focus": {"ring": {"color": "ring", "width": "focus-ring-width", "offset": "focus-ring-offset"}}},
+        "home": {
+            "rest": {"radius": "radius-md"},
+            "focus": {"ring": {"color": "ring", "width": "focus-ring-width", "offset": "focus-ring-offset"}}
+        },
         "collapse": {
             "rest": {"ink": "muted-foreground", "radius": "radius-md"},
             "hover": {"ground": "hover", "ink": "foreground"},
