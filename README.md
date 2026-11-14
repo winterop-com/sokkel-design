@@ -94,7 +94,12 @@ schema and the check hold it:
   and egui's `color_at("primary", 0.8)` paint it.
 - `mix(secondary, foreground 5%)` is a mix in oklch, and `mix-oklab(critical 8%, card)` one in
   oklab. Such mixes live in sokkel-ui's components today, not in the tokens.
-- `none` is transparent, and `inherit` keeps the ink of what is around the part.
+- `none` is transparent. `inherit` is the ink of what the piece stands on, kept only where a part
+  follows its surroundings (an outline or ghost button, the quiet select, the status line's live
+  dot): foreground on the page, popover-foreground in a popup, sidebar-foreground on the rail, the
+  note's ink in a status line. Each such piece says so in its note. A renderer without inheritance
+  passes the surface's ink down to it. Where a part always stands on one surface, its spec names
+  that ink instead.
 - A parts token such as `page-title-ink` is a color in every theme: where a theme sets none it falls
   back to `foreground` in the tokens themselves.
 - A length is px (1rem = 16px = 1 egui point at scale 1), a length token name, or
