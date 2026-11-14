@@ -367,6 +367,158 @@
             "shows": "A run's record that failed to load: the failure headed as the page's h1, with Try again."
         },
         {
+            "id": "Primitives/Inputs/Select/Variants",
+            "part": "select",
+            "matrix": "full",
+            "canvas": [720, 200],
+            "shows": "The default and sm triggers holding failed, and one showing its placeholder, each as wide as its widest label."
+        },
+        {
+            "id": "Primitives/Inputs/Select/States",
+            "part": "select",
+            "matrix": "full",
+            "canvas": [720, 200],
+            "shows": "A disabled select, an invalid one with its placeholder, and one with no options yet."
+        },
+        {
+            "id": "Primitives/Inputs/Select/Quiet",
+            "part": "select",
+            "matrix": "full",
+            "canvas": [720, 200],
+            "shows": "The quiet trigger at default and sm, holding Newest first."
+        },
+        {
+            "id": "Primitives/Inputs/Select/Open",
+            "part": "select",
+            "matrix": "full",
+            "canvas": [480, 400],
+            "shows": "The list open over the run states, failed chosen with its check.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 768 the trigger and every row are a finger tall."
+                }
+            ]
+        },
+        {
+            "id": "Primitives/Inputs/Select field/Icons and details",
+            "part": "select",
+            "matrix": "full",
+            "canvas": [480, 240],
+            "shows": "Worker chosen with its icon before its label, and Four chosen, whose detail shows only in the list."
+        },
+        {
+            "id": "Primitives/Inputs/Select field/Two-line options",
+            "part": "select",
+            "matrix": "full",
+            "canvas": [480, 240],
+            "shows": "The chosen option's detail after its label in the trigger (chosenDetail)."
+        },
+        {
+            "id": "Themes/Theme picker/Basic",
+            "part": "select",
+            "matrix": "full",
+            "canvas": [480, 320],
+            "shows": "The theme select with the chosen theme's swatch before its name, then the scheme and the density."
+        },
+        {
+            "id": "Primitives/Inputs/Select/Variants",
+            "part": "select",
+            "matrix": "pair",
+            "canvas": [720, 200],
+            "each": ["hover", "focus"],
+            "steps": [
+                {"when": "hover", "do": "hover", "target": "the first combobox"},
+                {"when": "focus", "do": "keyFocus", "target": "the first combobox"}
+            ],
+            "shows": "The field trigger under the pointer (a look only in dark) and with keyboard focus (the ring edge and a 1px ring)."
+        },
+        {
+            "id": "Primitives/Inputs/Select/Open",
+            "part": "select",
+            "matrix": "pair",
+            "canvas": [480, 400],
+            "each": ["highlight"],
+            "steps": [{"do": "hover", "target": "option:running"}],
+            "shows": "The pointer over running: the accent wash and its ink."
+        },
+        {
+            "id": "Primitives/Overlays/Tooltip/Opened",
+            "part": "tooltip",
+            "matrix": "full",
+            "canvas": [480, 200],
+            "shows": "The box above an icon button, Run import-orders now, with its arrow."
+        },
+        {
+            "id": "Primitives/Overlays/Tooltip/With Shortcut",
+            "part": "tooltip",
+            "matrix": "full",
+            "canvas": [480, 200],
+            "shows": "A box under its button holding the key P after its words."
+        },
+        {
+            "id": "Primitives/Overlays/Tooltip/Trigger",
+            "part": "tooltip",
+            "matrix": "pair",
+            "canvas": [480, 200],
+            "each": ["hover", "focus"],
+            "steps": [
+                {"when": "hover", "do": "hover", "target": "button:Run"},
+                {"when": "focus", "do": "keyFocus", "target": "button:Run"}
+            ],
+            "shows": "The box once the pointer has rested past the delay, and at once with keyboard focus."
+        },
+        {
+            "id": "Primitives/Menus/DropdownMenu/Row Actions",
+            "part": "dropdown-menu",
+            "matrix": "full",
+            "canvas": [720, 400],
+            "shows": "A job's actions under an icon trigger, lined up at its end: icons, a shortcut, a submenu row, and a destructive Delete after a separator.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 768 every row is a finger tall."
+                }
+            ]
+        },
+        {
+            "id": "Primitives/Menus/DropdownMenu/Items",
+            "part": "dropdown-menu",
+            "matrix": "full",
+            "canvas": [480, 480],
+            "shows": "Check rows, a radio group under labels, an inset row, a disabled row with its keys and a destructive row; the plain rows stepped in past the gutter."
+        },
+        {
+            "id": "Primitives/Menus/DropdownMenu/Checks",
+            "part": "dropdown-menu",
+            "matrix": "full",
+            "canvas": [720, 400],
+            "shows": "Checks and plain rows in one menu, as wide as its longest row."
+        },
+        {
+            "id": "Primitives/Menus/DropdownMenu/Submenus",
+            "part": "dropdown-menu",
+            "matrix": "full",
+            "canvas": [720, 480],
+            "shows": "Two levels of submenus open, a radio group and checks inside them."
+        },
+        {
+            "id": "Primitives/Menus/DropdownMenu/Row Actions",
+            "part": "dropdown-menu",
+            "matrix": "pair",
+            "canvas": [720, 400],
+            "each": ["highlight", "destructive"],
+            "steps": [
+                {"when": "highlight", "do": "hover", "target": "menuitem:Edit"},
+                {"when": "destructive", "do": "hover", "target": "menuitem:Delete"}
+            ],
+            "shows": "Edit under the pointer in the accent; Delete under the pointer on its destructive wash."
+        },
+        {
             "id": "Patterns/Shell/Search field",
             "part": "shell",
             "matrix": "full",
@@ -405,5 +557,5 @@
             "shows": "The settings dialog over the page."
         }
     ],
-    "count": {"full": "35 stories x 12 appearances = 420", "pair": "32 captures x 2 appearances = 64", "perSide": 484}
+    "count": {"full": "48 stories x 12 appearances = 576", "pair": "41 captures x 2 appearances = 82", "perSide": 658}
 }

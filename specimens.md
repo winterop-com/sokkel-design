@@ -67,12 +67,26 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/States/Page state | full | loading, refused, missing, not answering, empty, an empty state with its way in |
 | Patterns/States/Secondary read | full | a side read failing in the warning tone beside the page's own content |
 | Patterns/States/Failed page | pair | the failure as the page's heading |
+| Primitives/Inputs/Select/Variants | full; pair with hover and focus | default and sm triggers and a placeholder, each as wide as its widest label; the trigger hovered (a look only in dark) and focused |
+| Primitives/Inputs/Select/States | full | disabled, invalid with its placeholder, no options yet |
+| Primitives/Inputs/Select/Quiet | full | the quiet trigger at default and sm |
+| Primitives/Inputs/Select/Open | full; pair at 390; pair with a row highlighted | the list open with the chosen row's check; at 390 finger-tall rows; a row under the pointer |
+| Primitives/Inputs/Select field/Icons and details | full | an option's icon in the trigger |
+| Primitives/Inputs/Select field/Two-line options | full | the chosen option's detail in the trigger |
+| Themes/Theme picker/Basic | full | the theme select with the chosen theme's swatch |
+| Primitives/Overlays/Tooltip/Opened | full | the box above its trigger, with its arrow |
+| Primitives/Overlays/Tooltip/With Shortcut | full | a box holding a key |
+| Primitives/Overlays/Tooltip/Trigger | pair with hover and focus | the box after the delay, and at once on keyboard focus |
+| Primitives/Menus/DropdownMenu/Row Actions | full; pair at 390; pair with highlight and destructive | icons, keys, a submenu row, a destructive row; at 390 finger-tall rows; a row and the destructive row under the pointer |
+| Primitives/Menus/DropdownMenu/Items | full | check and radio rows, the gutter, inset, disabled and destructive rows |
+| Primitives/Menus/DropdownMenu/Checks | full | checks and plain rows, as wide as the longest |
+| Primitives/Menus/DropdownMenu/Submenus | full | two levels of submenus |
 | Patterns/Shell/Search field | full; pair at 390 | the whole frame; at 390 the menu button, the last crumb, the palette icon |
 | Patterns/Shell/Drawer | pair | the drawer open at 390 |
 | Apps/Settings/Navbar | pair; pair at 390 | the settings dialog; at 390 a full-screen sheet on its list |
 
-That is 35 stories across the full matrix (420 captures) and 32 captures across the pair matrix
-(64), **484 per side**.
+That is 48 stories across the full matrix (576 captures) and 41 captures across the pair matrix
+(82), **658 per side**.
 
 ## How a state is reached
 

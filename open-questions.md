@@ -95,7 +95,8 @@ From the egui proposal's order, the minimum:
    spec's drift for what is still missing.
 4. Dialog with SettingsDialog, the CommandPalette, a DropdownMenu (the account menu), a Tooltip, and
    Select (a settings row). **Built**; settings is open state the app holds, not a route, since egui
-   has no URL.
+   has no URL. Select, DropdownMenu and Tooltip now have specs of their own (`parts/select`,
+   `parts/dropdown-menu`, `parts/tooltip`), whose drift lists what is still to build.
 5. Not visual, but part of the frame: a shortcuts registry (Mod+K, `?`, `/`), a back stack with the
    settings overlay, and the appearance kept (`Appearance` exists).
 
@@ -143,6 +144,13 @@ These were found while writing the specs. Nothing was changed.
 | sokkel-ui `PageState` | With `frame={false}` a warning keeps its `warning/8` wash (and sets an edge color with no width), though the frame's doc comment says an unframed state has no edge or ground of its own. egui draws none | Should the wash stay without the box, which sets the warning apart in a panel, or should unframed mean no ground in every tone? |
 | sokkel-ui `Section` | The boxed head's title is `text.head`, the table head's size, weight and tracking, but not its case (`table-head-transform`). In terminal, table heads are in capitals and section heads keep their case with the heads' tracking | Should the boxed head follow the table head's case too, since it is set like one? |
 | sokkel-ui `PageHeader`, `Section` | A count beside a title is drawn two ways: the page header's `count` in the body face with tabular figures, a section's `meta` in the code face | Should a count beside a title look the same in both heads? |
+| sokkel-ui `Select` | A list pads its rows only inside a `SelectGroup` (4 all round). `SelectField`'s and the theme select's lists hold no group, so their rows and the highlight's corners stand flush with the list's edge, where a menu's rows stand 4 in. egui pads 4 | Should the list pad its rows 4 as a menu does, in a group or not? |
+| sokkel-ui `Select`, `DropdownMenu` | A list's and a menu's rows are 30 tall at both densities, while the select's trigger follows `density.control`. egui derives its select rows from `density.control` (28, 24 compact) | Should the rows follow the density, one step shorter at compact? |
+| sokkel-ui `Select` | An option's icon stands 8 before its label in the list (`ItemText`'s `gap-2`) and 6 in the trigger (the value's `gap-1.5`); a theme's swatch stands 8 before it in both | One gap for the lead in both places? |
+| sokkel-ui `ThemePicker` | A theme's swatch is the theme picker's own lead (`OptionLabel`, `Swatch`), not an option of `Select` or `SelectField`. egui's `Select` takes `swatches` | Should `SelectField` take a swatch as an option's lead, so a theme select outside the picker draws it the same way? |
+| sokkel-ui tooltip | Two looks. The tooltip primitive is inverted (`foreground` ground, `background` ink, 12 by 6, an arrow); the rail's collapsed entries and `SwitchField`'s reason draw their own on `popover` with `elevation-pop` (8 by 4, no arrow) | One tooltip look for the library, and which? |
+| sokkel-ui tooltip | A tooltip waits Base UI's 600 ms unless a `TooltipProvider` holds it, which sets 0. `Shell` holds no provider, so an app's tooltips wait 600 unless the app adds one; egui waits 0.5 s | Should the library give one delay, from a provider in `Shell` or from the primitive's own default? |
+| sokkel-ui `Select`, `DropdownMenu` | The popups wear Tailwind's `shadow-md` (a submenu `shadow-lg`), black at 10 percent in both schemes, not an elevation token. `AccountMenu`'s and `NavBar`'s menus restyle the same popup with a `border-strong` edge and `elevation-pop`, as `AsyncSelect`'s list and the rail's tooltip wear `elevation-pop` | One popup look: should every popup wear an elevation token (and an edge), so a theme sets it and egui reads it as structured layers, and the account menu needs no look of its own? |
 
 ## Tokens the specs ask for
 
@@ -160,7 +168,7 @@ today:
 | Motion | Tailwind defaults: 100 ms dialogs; 200 ms the rail's collapse, the drawer and sheets, `ease-out` | `motion-fast` (100), `motion-base` (200: rail collapse, drawer), `motion-ease`, honored by "motion reduced" |
 | Z-order | `z-40` drawer, `z-50` dialogs and popovers | `layer-drawer`, `layer-dialog`, `layer-popover`, `layer-toast` |
 | Spacing steps | Tailwind's 0.25rem scale (`px-2.5`, `gap-1.5`) | A named step scale, or named part spacings (`control-pad-x`) |
-| Elevation | `elevation-*` as box-shadow strings; egui has one layer | Structured layers: `{ x, y, blur, spread, color }` each |
+| Elevation | `elevation-*` as box-shadow strings; the select's list and the menus wear Tailwind's `shadow-md` and `shadow-lg`; egui has one layer | Structured layers: `{ x, y, blur, spread, color }` each, one token per kind of surface (popover, dialog) |
 | `currentcolor` parts tokens | `page-title-ink`, `section-head-ink` have no color in some themes | A named fallback in the tokens (this draft writes `page-title-ink\|foreground` in the spec) |
 | State mixes | `mix(secondary, foreground 5%)` for a secondary hover; row tones `critical 8%`, `warning 10%` over `card` | `secondary-hover`, `row-critical`, `row-warning` |
 | Breakpoints | Tailwind's `md` and `lg`, and `MOBILE_QUERY` (767) | `breakpoint-md: 768`, `breakpoint-lg: 1024` |

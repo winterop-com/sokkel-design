@@ -10,9 +10,9 @@ It has the same shape as sokkel-api: one contract, an implementation per stack, 
 them. The contract decides and each renderer stays idiomatic. When a renderer drifts, a check fails
 in that renderer's CI before any app sees it.
 
-This is a draft for judging the format. It covers nine parts (button, text field, table, rail, top
-bar, status line, page header, section, page state) and one pattern (the shell). Nothing here is
-wired to either renderer yet.
+This is a draft for judging the format. It covers twelve parts (button, text field, table, rail, top
+bar, status line, page header, section, page state, select, dropdown menu, tooltip) and one pattern
+(the shell). Nothing here is wired to either renderer yet.
 
 ## Layers
 
@@ -36,6 +36,7 @@ sokkel-design/
     schema/paints.schema.json   the resolved paints renderers read
     parts/      button  text-field  table  rail  top-bar  status-line   (.md + .json)
                 page-header  section  page-state
+                select  dropdown-menu  tooltip
     patterns/   shell                                               (.md + .json)
     tokens/     tokens.json, tokens.resolved.json, the resolver   (once moved; not in this draft)
 ```
@@ -215,8 +216,8 @@ From the egui side (proposal, section a). Each step is a spec here first, then a
 | 1 | Shell, Rail, TopBar, StatusLine | `patterns/shell`, `parts/rail`, `parts/top-bar`, `parts/status-line` (draft) |
 | 2 | PageHeader, Section, page states | `parts/page-header`, `parts/section`, `parts/page-state` (draft) |
 | 3 | DataTable, the list variant first | `parts/table` (draft) |
-| 4 | Select, Dialog with SettingsDialog, DropdownMenu, Tooltip, CommandPalette | Settings in `patterns/shell`; the rest to come |
-| 5 | The field family: number, date and select fields | `parts/text-field` (draft) sets the frame they share |
+| 4 | Select, Dialog with SettingsDialog, DropdownMenu, Tooltip, CommandPalette | `parts/select`, `parts/dropdown-menu`, `parts/tooltip` (draft); settings in `patterns/shell`; the dialog and the palette to come |
+| 5 | The field family: number, date and select fields | `parts/text-field` (draft) sets the frame they share; `parts/select` holds the select field's control |
 | 6 | Toast, Callout, Banner | To come |
 | 7 | Add-ons (charts, maps), as the patterns ask | To come |
 
