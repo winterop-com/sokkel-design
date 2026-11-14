@@ -54,9 +54,11 @@ The full list is in the JSON. These shape the look:
 | A stacked card's edit field (`density.control`) | 32 | 28 |
 
 The table's controls are buttons and inputs at their sizes, so they follow the density's control
-heights; below 768 the `icon-xs` ones keep their size and take a finger's hit area. Fixed at both:
+heights; below 768 the `icon-xs` ones keep their size and take a finger's hit area, and a stacked
+card's edit field and its open editor stand at least a finger tall. Fixed at both:
 select column 40, sort arrow 14, a resized column at least 64, row grip 22. Cards pad 12 x and 8 y,
-with a title line 24 and lines 20 (primary 22, facts 24). A stacked line's name is at most 192. A
+with a title line 24 and lines 20 (primary 22, facts 24); a line that edits is 36, a finger and 4
+(48) below 768, and the cards are placed at the height it is drawn at. A stacked line's name is at most 192. A
 placeholder bar is 12 tall at 60 percent of its cell. Text is `text.body` in rows and `text.head` in
 the head.
 
