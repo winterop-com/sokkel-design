@@ -10,8 +10,10 @@ and how a renderer honors it.
 a literal. **Why.** A theme can then change anything, and two renderers that read the same tokens
 draw the same thing. **Renderer.** sokkel-ui uses token classes and `var()`, and `src/rules.test.ts`
 fails a hand-set size or color. sokkel-ui-egui uses `tokens(ctx)`: `color`, `color_at`, `length`,
-`density`, `radius`, `text`. Lengths that are still literals in both (paddings, gaps, a table's
-select column) are listed as missing tokens in open questions.
+`density`, `radius`, `text`. The focus ring, the invalid ring, the disabled opacity, the motion, the
+layers, the elevations, the breakpoints and the scroll bar are tokens too. Lengths that are still
+literals in both (paddings, gaps, a table's select column) wait for the named spacing scale (open
+questions, "Later").
 
 ### 2. Every corner from the radius ladder
 
@@ -156,3 +158,15 @@ Tidevann workspace: jobs nightly-export, sync-inventory, rebuild-index, send-dig
 import-orders; run states; people ada, grace, linus and margaret; projects harbor, juniper and
 larkspur; hosts on example.org. **Why.** The design system is shared and will be open. **Renderer.**
 Specimens use the fixtures in `specimens.json` only.
+
+### 20. Paints come resolved
+
+**Rule.** Every color and ring a spec paints is drawn from the resolved paints
+(`tokens.resolved.json`'s `paints`, keyed `<part>.<variant>.<state>.<piece>`), never mixed by the
+renderer: no alpha, blend or `color-mix` of its own on those paths. Sizes stay in `sizes`, resolved
+per density. A color the app supplies at run time (a project's color, a chart series, a row's fill)
+stays free. **Why.** Two renderers that mix the same expression in different spaces draw different
+colors (a gamma blend is not an oklch mix); resolving once makes them the same, and `verify-colors`
+holds the resolved paints to what Chromium draws. **Renderer.** sokkel-ui keeps its expressions in
+classes (`hover:bg-primary/80`), and its parts test checks each one is the spec's. sokkel-ui-egui
+reads `paints`, and a check fails a widget that mixes on a painted path.

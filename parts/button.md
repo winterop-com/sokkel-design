@@ -61,12 +61,12 @@ placed by its own position (`takesFinger`). Inside a group (`inGroup`), xs and s
 |---|---|---|
 | rest | | The variant's paint |
 | hover | Pointer over an enabled, idle button | The variant's hover paint |
-| focus | Keyboard (`on: keyboard`, `:focus-visible`) | A 2px `ring` outline, 2px off the box |
+| focus | Keyboard (`on: keyboard`, `:focus-visible`) | A `ring` outline `focus-ring-width` (2) wide, `focus-ring-offset` (2) off the box |
 | pressed | Pointer down | Sinks 1px (`translate-y-px`); not when it opens a menu |
 | open | Its menu is open (`aria-expanded`) | outline and ghost: `hover` ground; secondary keeps its rest |
-| disabled | `reason` or `disabled` | Opacity 0.5, no presses. With `reason` it stays in the tab order and the reason shows on hover and on focus; `disabled` alone takes it out |
+| disabled | `reason` or `disabled` | Opacity `disabled-opacity` (0.5), no presses. With `reason` it stays in the tab order and the reason shows on hover and on focus; `disabled` alone takes it out |
 | invalid | `aria-invalid` (no prop sets it) | Edge `critical/80` in both schemes, the edge alone at rest: the same issue edge every control wears |
-| invalid+focus | Keyboard focus on an invalid button | The focus outline, and a 3px `critical/20` ring (dark `critical/40`), only while it has focus |
+| invalid+focus | Keyboard focus on an invalid button | The focus outline, and the invalid ring (`invalid-ring`, `critical` at 20 percent and 40 in dark, `invalid-ring-width` 3 wide), only while it has focus |
 | busy | `busy` | The spinner shows. Presses are ignored. It keeps focus and its rest look at full opacity, with no hover (`aria-busy`, `aria-disabled`) |
 
 ## Tokens per variant
@@ -104,8 +104,7 @@ the `reason`, the `tooltip` and the `shortcut` (as `shortcutLabel` writes it).
   The hover expressions stay in its classes (`hover:bg-primary/80`); its parts test maps each paint
   expression to the class it expects.
 - **sokkel-ui-egui:** it reads `paints` (`button.<variant>.<state>.container`) and never mixes. The
-  spinner is painted, with a repaint each frame (it should stand still when motion is reduced; there
-  is no motion token yet). A busy or reasoned button keeps its focus with
+  spinner is painted, with a repaint each frame (it should stand still when motion is reduced). A busy or reasoned button keeps its focus with
   `Sense::focusable_noninteractive`. A disabled tooltip is `on_disabled_hover_text`.
 
 ## Where sokkel-ui-egui differs today
