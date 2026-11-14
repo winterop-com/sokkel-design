@@ -40,7 +40,8 @@ The first version, carrying out the open questions the owner decided on 2026-11-
 Adopted in sokkel-ui's `tokens.json`, and named by the specs where they gave the values:
 `focus-ring-width` and `focus-ring-offset` (2 and 2), `invalid-ring` (`critical` at 20 percent, 40
 in dark) and `invalid-ring-width` (3), `disabled-opacity` (0.5), `motion-fast` (100 ms),
-`motion-base` (200 ms) and `motion-ease` (ease-out), `layer-drawer`, `layer-dialog`,
+`motion-base` (200 ms) and `motion-ease` (ease-out), `busy-release` (5000 ms, how long a busy
+palette or dialog holds before it offers Stop waiting), `layer-drawer`, `layer-dialog`,
 `layer-popover` and `layer-toast` (40, 50, 60, 70), `elevation-dialog` (`elevation-pop` for now),
 `breakpoint-md` and `breakpoint-lg` (768 and 1024), and `scrollbar-width` (10). Every elevation is
 now layers of x, y, blur, spread and color. `page-title-ink` and `section-head-ink` fall back to
@@ -58,30 +59,53 @@ now layers of x, y, blur, spread and color. `page-title-ink` and `section-head-i
 ### Parts
 
 - button: focus `focus-ring-width` and `focus-ring-offset`; disabled `disabled-opacity`; the invalid
-  ring `invalid-ring` and `invalid-ring-width`; `phoneBelow` `breakpoint-md`. Stable.
-- command-palette: a disabled row at `disabled-opacity`; samples for `searchFailed` and `seeAll`.
-  Stable.
-- dialog: a shut confirm at `disabled-opacity`; it opens over `motion-fast` on `layer-dialog`.
-  Stable.
+  ring `invalid-ring` and `invalid-ring-width`; `phoneBelow` `breakpoint-md`; a `reason` is also the
+  button's description, from a visually hidden copy always in the page. Stable.
+- command-palette: a disabled row at `disabled-opacity`; samples for `searchFailed` and `seeAll`;
+  the box's `border-strong` edge on `elevation-dialog`; the active row on `accent`, its icon, hint,
+  code, meta and kind in `accent-foreground` (F20); a meta `muted-foreground` on a two-line row too,
+  a tone kept (F24, state `twoLine`); the arrows stop at the ends and Home and End reach them
+  (F21); cmdk's Ctrl keys gone and Mod+K closing the open palette, in a Shell or not (F22); a
+  running command holding it open against Escape, a press outside, its Close and Mod+K until it has
+  run `busy-release` (`layout.busyRelease`, option `busyRelease`), when a Stop waiting row
+  (`stopWaiting`, state `released`), Escape and the Close let it go and its answer goes unheard
+  (F23); its width from 768 (`widthFrom` `breakpoint-md`). Stable.
+- dialog: a shut confirm at `disabled-opacity`; it opens over `motion-fast` on `layer-dialog`; one
+  line at 768 (`phoneBelow` `breakpoint-md`): below it a sheet, with no edge or shadow, and a fit
+  dialog a box at its width (F17); no blur under the backdrop, its `rendererSpecific` entry gone
+  (F18); the box's `border-strong` edge on `elevation-dialog` (F19); a busy confirm releases the
+  dialog after `busy-release` (`layout.busyRelease`, option `busyRelease`, state `released`):
+  Escape closes and Cancel says Stop waiting (`stopWaiting`), the confirm busy until the work
+  settles (F23). Stable.
 - dropdown-menu: disabled rows at `disabled-opacity`; it opens over `motion-fast` on
-  `layer-popover`. Stable.
+  `layer-popover`; rows `density.control` tall, a finger below 768 (F11); every popup's look, a
+  `border-strong` edge on `elevation-pop`, the submenu's too (F16); the arrows stop at the ends
+  (F21). Stable.
 - page-header: the title in `page-title-ink`; the back button's focus by the focus ring tokens.
   Stable.
 - page-state: stable.
 - rail: the home, collapse and strip entries' focus by the focus ring tokens; the width eases over
-  `motion-base`. Stable.
+  `motion-base`; a collapsed entry's tooltip is the library's one, inverted, 12 by 6 (F14). Stable.
 - section: the heads in `section-head-ink`. Draft.
 - select: disabled at `disabled-opacity`; the invalid ring by its tokens; the list opens over
-  `motion-fast` on `layer-popover`. Stable.
+  `motion-fast` on `layer-popover`; the list pads every row 4, a group none of its own (F10); rows
+  `density.control` tall (F11); 8 between a lead and its label in the trigger too (F12); `swatch` a
+  general option of the field, the theme picker's part (F13); every popup's look (F16). Stable.
 - settings-dialog: an entry's focus by `focus-ring-width`; samples for `resetSection` and
-  `resetSectionDetail`. Stable.
+  `resetSectionDetail`; a sheet and a list of sections below 768 (`phoneBelow` `breakpoint-md`,
+  F17); no blur (F18); the box's `border-strong` edge on `elevation-dialog` (F19). Stable.
 - status-line: stable.
 - table: a card's keyboard focus by `focus-ring-width`; samples for its counted and interpolated
   words. Stable.
 - text-field: disabled at `disabled-opacity`; the invalid ring by its tokens; the issue mark's focus
-  by `focus-ring-width`; `phoneBelow` `breakpoint-md`; samples for `errors` and `warnings`. Draft.
-- tooltip: on `layer-popover`. Stable.
+  by `focus-ring-width`; `phoneBelow` `breakpoint-md`; samples for `errors` and `warnings`; the
+  issue popover in every popup's look, a `border-strong` edge on `elevation-pop` (F16). Draft.
+- tooltip: on `layer-popover`; the library's one tooltip, the rail's and the switch field's moved
+  to it (F14); it waits 500 ms under the pointer, the primitive's own default with or without a
+  provider, and shows at once on keyboard focus (F15). Stable.
 - top-bar: `phoneBelow` `breakpoint-md`. Stable.
 - shell: the panel toggle's focus by the focus ring tokens; the content's bar `scrollbar-width` on a
   solid track; its breakpoints by `breakpoint-md` and `breakpoint-lg`; the drawer slides over
-  `motion-base`; the gate an egui app passes before it follows the shell. Stable.
+  `motion-base`; the gate an egui app passes before it follows the shell; below 768 dialogs are
+  sheets and a ConfirmDialog a box (F17); Mod+K's second press held while a command runs (F23).
+  Stable.

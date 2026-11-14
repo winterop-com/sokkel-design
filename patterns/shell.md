@@ -54,7 +54,7 @@ groups. The same data draws the frame on every target.
 
 | Window | Form factors | The frame |
 |---|---|---|
-| below 768 (`breakpoint-md`) | foldable folded 344; phone 360, 390, 430; foldable open 690 | The rail becomes a **drawer** from the top bar's menu button (the rail's `drawer` state). It is drawn expanded with the account in it, and closed by a press outside, a link, Escape or a route change. The top bar keeps its last crumb and its palette's button is an icon (the top bar's `phone` state). The panel is a sheet, or a tab strip at the foot. Below 640 dialogs fill the screen and settings opens on its list of sections; between 640 and 768 they stay boxes (open questions). Rows and tabs are a finger tall. The frame keeps clear of the notch and home indicator |
+| below 768 (`breakpoint-md`) | foldable folded 344; phone 360, 390, 430; foldable open 690 | The rail becomes a **drawer** from the top bar's menu button (the rail's `drawer` state). It is drawn expanded with the account in it, and closed by a press outside, a link, Escape or a route change. The top bar keeps its last crumb and its palette's button is an icon (the top bar's `phone` state). The panel is a sheet, or a tab strip at the foot. Dialogs fill the screen as sheets and settings opens on its list of sections; a ConfirmDialog stays a box sized to its words. Rows and tabs are a finger tall. The frame keeps clear of the notch and home indicator |
 | 768 to 1023 | tablet 768 | The rail is in the frame, as the app holds it. The panel is a sheet from the right |
 | from 1024 (`breakpoint-lg`) | tablet 1024; desktop 1280, 1440, 1920 | The panel is the right column, level with the top bar. Desktop is the main target |
 

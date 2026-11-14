@@ -73,7 +73,7 @@ the start corners and `radius-md` at the end. A child row pads its start 38 unde
 icon, so its label stands under the parent's, and 22 in a rail of text. The chevron button is 28,
 4 from the row's end. A count over an icon is 16 tall, fully round, 11 text at 600, and 99+ above
 99. The unread dot is 8. The edge moves 16 a press. A flyout is at least 176 wide, 12 beside a
-collapsed rail (8 beside a strip). A tooltip is 8 away, padded 8 by 4, in `text.help`. The width
+collapsed rail (8 beside a strip). A tooltip is the library's one (`parts/tooltip`), 8 away. The width
 eases over `motion-base` (200 ms) as far as motion allows.
 
 ## States and tokens
@@ -117,8 +117,8 @@ every group title, label, description and keyword, and a body's title.
 ## Renderer-specific
 
 - **sokkel-ui:** entries and the home link are `Link`, drawn as the app's `LinkProvider` says, and
-  the active entry says `aria-current="page"`. Tooltips and flyouts are Base UI's, and a flyout opened
-  from the keyboard focuses its first entry. Reordering loads the drag engine only inside
+  the active entry says `aria-current="page"`. Tooltips are the library's one (`parts/tooltip`) and
+  flyouts Base UI's popover, and a flyout opened from the keyboard focuses its first entry. Reordering loads the drag engine only inside
   `RailDrops`. A body stays mounted while hidden. In a desktop window the head is a drag region.
 - **sokkel-ui-egui:** there are no URLs, so a press sets the app's active place. The rail fills the
   rect the `Shell` gives it, and a width the reader drags is app state the `Shell` is told. A
@@ -138,10 +138,8 @@ sokkel-ui within a point. The differences:
 4. **Collapsed groups:** 26 from one group's last entry to the next one's first, with the rule 20
    down. The spec keeps the title's room, 46, with the rule 26 down.
 5. **Keyboard focus:** entries paint none, where the spec draws the button's focus look.
-   An untitled group at the top has its first entry right under the head (as of d1b3b24), where
-   the spec keeps 4 above it, room for that look.
 6. **Collapsed entry tooltip:** egui's own `on_hover_text` (`frame.rs:202`), where the spec has the
-   library's token-painted tooltip, 8 away and padded 8 by 4.
+   library's one tooltip (`parts/tooltip`), 8 away.
 7. **Not built:** descriptions, the unread and color dots, entries without icons, parents, counts
    over a collapsed icon, the head's collapse control and the mark as the expand control,
    `markHref`, resizing and expanding by the edge, the strip, a body, reordering, the drawer,
