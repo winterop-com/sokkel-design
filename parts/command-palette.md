@@ -53,8 +53,12 @@ place. At first nothing closes the palette, neither Escape, a press outside, its
 and another choice is ignored. **After a wait** of `busy-release` (5000 ms; `busyRelease` sets the
 palette's own), a way out appears: a "Stop waiting" row at the list's top, and Escape and the Close
 close the palette again (a press outside and Mod+K still do nothing). Closing lets the command go:
-nothing is cancelled, it settles on its own, and a later fulfilment or refusal is not heard, so no
-refusal is said once the palette has closed. Fulfilled, the palette closes. Rejected, or
+the palette stops nothing itself, and a later fulfilment or refusal is not heard, so no refusal is
+said once the palette has closed. The command is handed a signal (`PaletteRun.signal` in
+sokkel-ui) that the palette aborts when it lets the command go before it settles, by Stop waiting,
+a released Escape or Close, or by closing or going away, and never once the command has settled: a
+command that can stop its work listens there, and the app says how the work ended elsewhere (a
+toast), since the palette has closed. Fulfilled, the palette closes. Rejected, or
 if `onSelect` throws, it stays open and says why under the rows in the critical ink: the rejection's
 own words, else "The command did not run.". Typing, or choosing again, clears it. A command that
 settles after the palette closed or opened again is let go.
