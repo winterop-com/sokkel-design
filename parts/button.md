@@ -99,10 +99,13 @@ the `reason`, the `tooltip` and the `shortcut` (as `shortcutLabel` writes it).
 
 ## Renderer-specific
 
-- **sokkel-ui:** Base UI's `Button` with `focusableWhenDisabled`. The tooltip is Base UI's, wrapped
-  around the button. The spinner is hidden from a screen reader, and the button says `aria-busy`.
-  The hover expressions stay in its classes (`hover:bg-primary/80`); its parts test maps each paint
-  expression to the class it expects.
+- **sokkel-ui:** Base UI's `Button` with `focusableWhenDisabled`. The tooltip is the library's
+  (`parts/tooltip`), wrapped around the button. A `reason` is also the button's description:
+  `aria-describedby` names a visually hidden copy of it, always in the page beside the button, so a
+  screen reader says it whether or not the tooltip is open (`IconButton`'s too). The spinner is
+  hidden from a screen reader, and the button says `aria-busy`. The hover expressions stay in its
+  classes (`hover:bg-primary/80`); its parts test maps each paint expression to the class it
+  expects.
 - **sokkel-ui-egui:** it reads `paints` (`button.<variant>.<state>.container`) and never mixes. The
   spinner is painted, with a repaint each frame (it should stand still when motion is reduced). A busy or reasoned button keeps its focus with
   `Sense::focusable_noninteractive`. A disabled tooltip is `on_disabled_hover_text`.

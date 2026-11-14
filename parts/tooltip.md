@@ -1,9 +1,10 @@
 # Tooltip
 
-A short line about a control, in a small inverted box beside it with an arrow toward it. It shows
-once the pointer rests on the control, or while the control has keyboard focus, and goes when both
-leave. It names an icon button, says why a control is off (a button's `reason`), and can add the
-key that does the same. The structured spec is [`tooltip.json`](tooltip.json).
+The library's one tooltip: a short line about a control, in a small inverted box beside it with an
+arrow toward it. It shows once the pointer has rested on the control for 500 ms, or at once while
+the control has keyboard focus, and goes when both leave. It names an icon button, says why a
+control is off (a button's `reason`), names a collapsed rail's entries, and can add the key that
+does the same. The structured spec is [`tooltip.json`](tooltip.json).
 
 Sources: sokkel-ui `packages/core/src/components/ui/tooltip.tsx` (`Tooltip`, `TooltipTrigger`,
 `TooltipContent`, `TooltipProvider`), `ui/kbd.tsx` (`Kbd`, the key cap inside the box) and
@@ -24,9 +25,9 @@ Sources: sokkel-ui `packages/core/src/components/ui/tooltip.tsx` (`Tooltip`, `To
 - `side` (`top` by default, then `bottom`, `left`, `right`, `inline-start`, `inline-end`) and `align`
   (`center` by default, `start`, `end`); the box moves to the other side when there is no room.
 - `sideOffset` (4), `delay`, `open`, and keys (`Kbd`) after the words.
-- **Delay:** a tooltip waits Base UI's 600 ms under a resting pointer. Inside sokkel-ui's
-  `TooltipProvider` it waits 0, and the provider's tooltips share one delay group. Keyboard focus
-  shows it at once.
+- **Delay:** a tooltip waits 500 ms under a resting pointer, the primitive's own default, so it
+  holds with or without a `TooltipProvider`; a provider's tooltips share one delay group, a
+  neighbor showing at once after one has shown. Keyboard focus shows it at once.
 
 ## Sizes
 
@@ -60,9 +61,10 @@ which never say anything said nowhere else.
 
 - **sokkel-ui:** Base UI's Tooltip, a portal, shown on hover and on `focus-visible`, moving to the
   other side when there is no room. `TooltipTrigger` adds the finger hit area unless its `render`
-  element places itself or draws its own `::after`. A `Button`'s reason and an `IconButton`'s name
-  show in it. The rail's collapsed entries and `SwitchField`'s reason draw a box of their own on the
-  popover ground without an arrow (`parts/rail`).
+  element places itself or draws its own `::after`. `TooltipTrigger` waits `TOOLTIP_DELAY` (500)
+  by default, or its provider's delay. A `Button`'s reason and an `IconButton`'s name show in it,
+  a `Button`'s reason also as its description (`aria-describedby`). The rail's collapsed entries
+  and `SwitchField`'s help mark show in it too; no part draws a tooltip of its own.
 - **sokkel-ui-egui:** `tooltip(response, text)` and `tooltip_shown(response, text)` on egui's
   `Popup` (`PopupKind::Tooltip`); the delay counts from the first frame the pointer is over the
   trigger.
@@ -73,6 +75,5 @@ As of 26b411f (`overlay.rs` unchanged since bee2a97), the tooltip draws the box 
 the `background` ink, `radius-md`, padded 12 by 6, `text.help`, at most 320 wide, on hover and on
 keyboard focus. The differences:
 1. **Side:** always under the trigger; the spec puts it above by default, with `side` and `align`.
-2. **Delay:** 0.5 s, where the spec has 600 ms (0 inside a provider).
-3. **Not built:** the arrow, keys, `side` and `align`, a delay group, Escape, and the finger hit
+2. **Not built:** the arrow, keys, `side` and `align`, a delay group, Escape, and the finger hit
    area below 768.

@@ -4,9 +4,10 @@ An app's preferences as one large dialog over the page it was opened from, on it
 (principle 9). A head with the title and a close; the sections in a column under their group titles,
 with a search over every setting at its top; the shown section's rows beside it, scrolling on their
 own; and a footer with Reset to defaults for the shown section, a note that changes are kept as they
-are made, and Done. Below 640 it fills the screen and the column is a list to go into. It wears the
-box and the footer of [`parts/dialog`](dialog.md), and its reset asks through a ConfirmDialog. The
-structured spec is [`settings-dialog.json`](settings-dialog.json).
+are made, and Done. Below 768 it fills the screen and the column is a list of sections to go into,
+at the dialog's own line. It wears the box and the footer of [`parts/dialog`](dialog.md), and its
+reset asks through a ConfirmDialog. The structured spec is
+[`settings-dialog.json`](settings-dialog.json).
 
 Sources: sokkel-ui `packages/core/src/components/SettingsDialog.tsx` (`SettingsDialog`,
 `SETTINGS_DIALOG_WORDS`, `phoneStart`, `resetScope`), `settings-parts.tsx` (`SettingsGroup`,
@@ -58,7 +59,7 @@ chosen one has no match.
 | head | 48, padded 16 across (8 at its start on a phone), 4 between its pieces; the title `text.detail-title`; the close `density.control-sm` square, a finger square below 768 |
 | column | 224 (the whole width on a phone), padded 12, 16 between the search and each group |
 | group title | 8 across, 4 under it, `text.badge` |
-| entry | 8 across, 6 down: 34 tall from 640; a finger tall below 768; 10 between the icon (16) and the label; `radius-md`; `text.body`; 2 apart |
+| entry | 8 across, 6 down: 34 tall from 768; a finger tall below 768, where the column is a list; 10 between the icon (16) and the label; `radius-md`; `text.body`; 2 apart |
 | pane | 32 across (16 on a phone) and 20 down; the heading `text.detail-title`, 4 under it |
 | row | 16 down; 32 between the words and a trailing control; the title `text.action`, the description `text.body` 2 under it; a control below its words 12 under them; the note 8 under, padded 10 by 6, `radius-control`, `text.help` |
 | footer | parts/dialog's: 16 all round, 8 between its pieces, 65 tall at regular; the note `text.help` |
@@ -67,15 +68,15 @@ chosen one has no match.
 
 | State | Paint |
 |---|---|
-| rest | box: parts/dialog's (`popover`, a 1px `foreground/10` ring, no shadow). head and column: `border` rules, no ground of their own. group title: `muted-foreground`, `text.badge`. entry: `muted-foreground`, `radius-md`. lead and description: `muted-foreground`. note: `muted` ground, `muted-foreground`. rows: a `border` rule between each two. footer: `muted/50` under a `border` rule. saved: `muted-foreground`, `text.help` |
+| rest | box: parts/dialog's (`popover`, a 1px `border-strong` edge, `elevation-dialog` under it; below 768 a sheet with neither). head and column: `border` rules, no ground of their own. group title: `muted-foreground`, `text.badge`. entry: `muted-foreground`, `radius-md`. lead and description: `muted-foreground`. note: `muted` ground, `muted-foreground`. rows: a `border` rule between each two. footer: `muted/50` under a `border` rule. saved: `muted-foreground`, `text.help` |
 | hover | entry: `hover` ground, `foreground` ink |
 | focus (keyboard) | entry: a 2px `ring` outline |
 | shown | entry: `secondary` ground, `foreground`, `text.action` |
 | searching | the column and the pane narrowed, as above |
 | noReset | no Reset to defaults in the footer |
 | confirming | a ConfirmDialog over it ("Reset General to its defaults?", "Every setting in General goes back to its default.", a destructive Reset and Cancel); the settings dialog under it wears the nested shade |
-| phoneList | below 640: the column fills the screen; entries a finger tall with a `faint` chevron, the box's ink, none marked; a section's reset left out |
-| phoneSection | below 640: the pane fills the screen, with Back in the head |
+| phoneList | below 768: the column fills the screen; entries a finger tall with a `faint` chevron, the box's ink, none marked; a section's reset left out |
+| phoneSection | below 768: the pane fills the screen, with Back in the head |
 
 ## Keyboard
 
@@ -101,11 +102,11 @@ and in egui, which has no URL, settings is open state the app holds with a back 
 
 ## Renderer-specific
 
-- **sokkel-ui:** the app holds `open`, `active` and `search`. From 640 the search takes focus on
+- **sokkel-ui:** the app holds `open`, `active` and `search`. From 768 the search takes focus on
   opening; on a phone the view in sight does, so no keyboard rises. The pane is keyed by the shown
   section, so a new section starts at its top. A row's `auto` layout is a container query (`@lg`,
-  32rem). On a phone the footer pads its foot by the home indicator's inset. The backdrop's blur is
-  the web's own (parts/dialog). `SettingsNavList` also draws the sections beside a settings page on
+  32rem). On a phone the footer pads its foot by the home indicator's inset. The sheet below 768 is
+  parts/dialog's (`SHEET`). `SettingsNavList` also draws the sections beside a settings page on
   the rail's ground; that page is not this part.
 - **sokkel-ui-egui:** `SettingsDialog::new(id, sections, &mut active).show(ctx, rows)` returns
   `SettingsOutcome { close, reset }`; `rows` draws a section with `setting_row` or
@@ -120,8 +121,8 @@ titles, entries 34 tall and 2 apart, the shown one on `secondary` at `text.actio
 32 by 20 with the section's title and its rows, and the footer (65, `muted/50` under a rule, Reset to
 defaults unless the section says `reset(false)`, the note, Done). The differences:
 1. **Column ground:** `muted` at 30 percent; the spec has none of its own.
-2. **Edge and shadow:** a stroke inside and a shadow (0 14, blur 44); the spec has parts/dialog's
-   ring outside and no shadow.
+2. **Edge and shadow:** a `foreground/10` stroke inside and a shadow (0 14, blur 44); the spec has
+   parts/dialog's `border-strong` edge and `elevation-dialog`.
 3. **Height:** at most the window less 96; the spec has less 64.
 4. **Search:** the column keeps every section, none marked, and the pane lists every section's
    matching rows. The spec narrows the column and shows one section.
@@ -134,6 +135,6 @@ defaults unless the section says `reset(false)`, the note, Done). The difference
 9. **Words:** `no_match` is "No setting matches"; `searchLabel`, `clear`, the reset's questions,
    `resetConfirm`, `cancel` and `back` are missing.
 10. **Story path:** `Patterns/Settings dialog`; specimens pair by sokkel-ui's `Apps/Settings`.
-11. **Not built:** the phone (the sheet below 640, the list and the section with Back,
+11. **Not built:** the phone (the sheet below 768, the list and the section with Back,
     `phoneStart`), `resetScope="all"`, the app's footer note, a section's heading, lead and foot, the
     nested shade under the reset's question, Enter and Space on an entry, and the route.

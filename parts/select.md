@@ -1,9 +1,10 @@
 # Select
 
 One value chosen from a list. The trigger shows the chosen option, or the placeholder, with a
-chevron at its end. The list it opens holds rows with an optional lead (an icon, or a theme's
-swatch), the label, a quiet detail at the row's end or under the label, and a check on the chosen
-one; groups under labels, separators between them, and arrows that scroll a long list. As a field
+chevron at its end. The list it opens holds rows padded 4 in from its edge, each a control tall
+with an optional lead (an icon, or a theme's swatch) 8 before the label, a quiet detail at the
+row's end or under the label, and a check on the chosen one; groups under labels, separators
+between them, and arrows that scroll a long list. As a field
 it wears the text field's frame (`parts/text-field`): the label, the help and the issue mark. The
 structured spec is [`select.json`](select.json).
 
@@ -11,8 +12,9 @@ Sources: sokkel-ui `packages/core/src/components/ui/select.tsx` (`Select`, `Sele
 `variant`, `size` and `widest`, `SelectValue`, `SelectContent`, `SelectItem` with `detail` and
 `detailPlacement`, `SelectGroup`, `SelectLabel`, `SelectSeparator`, the scroll arrows),
 `SelectField.tsx` (`SelectField`, `SelectFieldOption`, `OptionRow`, `chosenDetail`, `mono`),
-`ThemePicker.tsx` (the theme select: `Choice`, `OptionLabel`, `Swatch`), `lib/appearance.ts`
-(`ThemeOption.swatch`), `lib/issue-edge.ts` (`INVALID_EDGE`) and `lib/focus.ts`
+`ThemePicker.tsx` (the theme select: `Choice`, `OptionLabel`), `theme-swatch.tsx` (`ThemeSwatch`,
+the swatch both draw), `lib/appearance.ts` (`ThemeOption.swatch`), `lib/popup.ts` (`POPUP`, the look
+every popup wears), `lib/issue-edge.ts` (`INVALID_EDGE`) and `lib/focus.ts`
 (`returnFocusOnKeyboard`). sokkel-ui-egui: `crates/core/src/widgets/overlay.rs` (`Select`,
 `paint_swatch`) and `crates/core/src/tokens.rs` (`Swatch`, `swatch`).
 
@@ -23,13 +25,13 @@ Sources: sokkel-ui `packages/core/src/components/ui/select.tsx` (`Select`, `Sele
 | trigger | The control: the chosen option's lead and label (and its detail with `chosenDetail`), else the placeholder, and the chevron. As wide as what it shows, as the widest label with `widest`, or the room it is given (a field's select fills its row) |
 | value | What the trigger shows, one line, cut short |
 | chevron | A down chevron at the trigger's end, muted |
-| list | The popup on the popover ground, scrolling when taller than the room. Laid over the trigger with the chosen row level with the value (`alignItemWithTrigger`), or under it, 4 away. As wide as the trigger and at least 144 |
-| row | One option: lead, label, detail, and the check at its end on the chosen one. Washed while highlighted |
-| lead | An option's icon, muted, or a theme's swatch, before the label in the row and in the trigger |
+| list | The popup in every popup's look (`popover`, `radius-surface`, a 1px `border-strong` edge, `elevation-pop`), padded 4, scrolling when taller than the room. Laid over the trigger with the chosen row level with the value (`alignItemWithTrigger`), or under it, 4 away. As wide as the trigger and at least 144 |
+| row | One option, a control tall: lead, label, detail, and the check at its end on the chosen one. Washed while highlighted |
+| lead | An option's icon, muted, or a theme's swatch, 8 before the label in the row and in the trigger |
 | swatch | A theme's sample: 28 by 16 on that theme's background with its edge, its foreground, primary and third chart color as three 6 dots, 2 apart. An option without a theme, among options with themes, draws an empty dashed box |
 | detail | A quiet fact: at the row's end, or under the label (`detailPlacement="below"`); in the trigger with `chosenDetail` |
 | check | The chosen row's check, 16, 8 from the row's end |
-| group, group label | Rows under one label, padded 4; the label small and muted |
+| group, group label | Rows under one label, with no pad of their own (the list pads every row 4); the label small and muted |
 | separator | A rule between groups, the list's full width |
 | scroll arrow | At the list's top or foot while it can scroll that way |
 
@@ -39,33 +41,34 @@ Sources: sokkel-ui `packages/core/src/components/ui/select.tsx` (`Select`, `Sele
   value, for a value picked in a bar or beside a heading). `size`: `default` or `sm`.
 - `options` (`{ value, label, icon?, detail?, disabled? }`), `value`, `placeholder`, `widest`,
   `detailPlacement` (`end` or `below`), `chosenDetail`, `mono`, `readOnly`, `disabled`.
-- `swatch`: each option leads with its theme's swatch. In sokkel-ui this is the theme select's
-  (`ThemePicker`, `ThemeOption.swatch`), not an option of `Select` or `SelectField` themselves; see
-  the open questions.
+- `swatch`: the theme whose swatch leads the option, drawn in that theme; among options with
+  swatches, one with none leads with an empty dashed box. A general option lead of `SelectField`
+  (`SelectFieldOption.swatch`), drawn by the same part as the theme select's (`ThemeSwatch`).
 - `alignItemWithTrigger` (default true): the list laid over the trigger when a pointer opened it and
   there is room. The theme select sets false.
 
 ## Sizes
 
-The trigger follows the density; the list's rows do not.
+The trigger and the list's rows follow the density.
 
 | | Value |
 |---|---|
 | default | `density.control` (32 / 28); pads 10 at its start and 8 at its end; 6 between the value and the chevron; icons 16; `text.body`; `radius-control`; a finger tall below 768 |
+| list | padded 4 all round, so every row stands 4 in from its edge, in a group or not |
 | sm | `density.control-sm` (28 / 24); corners at most 10; otherwise as default |
 | quiet | pads 8 at its start and 6 at its end; `text.action` |
-| row | 30 tall at every density (4 over and under a 22 line), a finger tall below 768; pads 6 at its start and 32 at its end, where the check stands; `radius-md`; `text.body` |
-| lead | an icon 16, 8 before the label in the row and 6 in the trigger; a swatch 8 before the label in both |
+| row | `density.control` tall on one line (32 / 28; 2 over and under a 22 line), taller with a detail under the label, a finger tall below 768; pads 6 at its start and 32 at its end, where the check stands; `radius-md`; `text.body` |
+| lead | an icon 16 or a swatch, 8 before the label in the row and in the trigger |
 | detail | `text.help`; 8 after the label at the row's end |
-| group | 4 all round; rows outside a group stand flush with the list's edge |
+| group | no pad of its own |
 | group label | 6 across, 4 down; `text.help` |
-| separator | 1, 4 above and below, across the group's pad |
+| separator | 1, 4 above and below, across the list's pad |
 
 ## States and tokens
 
 | State | Paint |
 |---|---|
-| rest | field trigger: ground `field`, edge `input`, the ink around it. quiet: no ground or edge, `text.action`. chevron: `muted-foreground`. list: `popover`, `popover-foreground`, `radius-surface`, a 1px `foreground/10` ring as its edge, Tailwind's `shadow-md` under it |
+| rest | field trigger: ground `field`, edge `input`, the ink around it. quiet: no ground or edge, `text.action`. chevron: `muted-foreground`. list: every popup's look, `popover`, `popover-foreground`, `radius-surface`, a 1px `border-strong` edge, `elevation-pop` under it |
 | placeholder | the value in `muted-foreground` |
 | hover | field: nothing in light, `input/50` in dark. quiet: `hover` |
 | focus (keyboard) | field: edge `ring` and a 1px `ring`. quiet: no edge, the 1px ring |
@@ -100,8 +103,10 @@ option's label and detail, the groups' labels and the placeholder.
 - **sokkel-ui:** Base UI's Select; the list is a portal and opens on a mouse down, laid over the
   trigger only for a pointer and where there is room. Focus goes back to the trigger after a
   keyboard close only (`returnFocusOnKeyboard`). `widest` lays every label unseen in one grid cell.
-  A hidden input carries the value. The theme select draws each swatch in its theme, opens under the
-  trigger at most 320 tall, and is as wide as its widest row up to 384.
+  A hidden input carries the value. The list wears the look every popup shares (`lib/popup`). The
+  theme select draws each swatch in its theme, opens under the trigger at most 320 tall, and is as
+  wide as its widest row up to 384; a `SelectField` whose options name a swatch draws the same
+  `ThemeSwatch`.
 - **sokkel-ui-egui:** `Select::new(&mut chosen, options, label)` with the chosen option as an index;
   the list is egui's `Popup::menu`; swatches come from `tokens::swatch(theme, dark)`.
 
@@ -115,12 +120,12 @@ check on the chosen one. The differences:
 2. **Trigger edge:** `ring` while open or focused, with the shared 2px focus ring 2 off; the spec has
    the ring edge and a 1px ring on keyboard focus only.
 3. **Trigger hover:** `hover` in both schemes; the spec has nothing in light and `input/50` in dark.
-4. **List:** always under the trigger with no least width; 4 all round inside; a stroke inside the
-   box and one shadow (0 4, blur 12). The spec lays it over the trigger for a pointer, at least 144
-   wide, rows flush outside a group, a ring outside and `shadow-md`.
+4. **List:** always under the trigger with no least width; a `foreground/10` stroke and one shadow
+   (0 4, blur 12). The spec lays it over the trigger for a pointer, at least 144 wide, with every
+   popup's `border-strong` edge and `elevation-pop`.
 5. **Rows:** `density.control` less 4 tall, the label 8 in, the check centered 14 from the end,
-   highlighted in `hover`. The spec has 30 at every density, 6 in, the check 8 from the end, and
-   the `accent` highlight.
+   highlighted in `hover`. The spec has `density.control` (32 / 28), 6 in, the check 8 from the
+   end, and the `accent` highlight.
 6. **Swatch:** its corners half of `radius-control` rather than half of `--radius`; in a row 8 in
    rather than 6. In the trigger it matches (10 in, the label 36 in).
 7. **Not built:** `sm`, `quiet`, the placeholder, `widest`, invalid, disabled and `readOnly`, option
