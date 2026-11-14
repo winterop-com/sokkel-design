@@ -17,7 +17,7 @@ again). sokkel-ui-egui: `crates/core/src/widgets/page.rs` (`PageState`, `PageSta
 
 | Piece | What it is |
 |---|---|
-| frame | The row a state is drawn in: a box of its own on the card's ground, or unframed (`frame={false}`) the same row with a panel's padding |
+| frame | The row a state is drawn in: a box of its own on the card's ground, or unframed (`frame={false}`) the same row with no ground and no edge in any tone, and a panel's padding |
 | spinner, loading word | Loading: a turning ring and "Loading", announced politely |
 | mark | Failed: a circled alert at the row's start, level with the heading's first line; a triangle in the warning tone |
 | heading | Failed: by what the server answered (below). A plain line, or the page's `h1` or a part's `h2` (`headingLevel`). Announced as an alert, politely in the warning tone |
@@ -65,7 +65,7 @@ the warning tone, else "The server refused this read".
 | failed | frame: `card`, edge `border-strong`. mark: `destructive`. heading: the ink around it (`foreground` on a page or a card), `text.action`. diagnostic and problems: `muted-foreground`, `text.help`. code: on `muted`, `radius-sm` |
 | failed + warning | frame: `warning/8`, edge `warning/35`. mark: `warning-ink`, a triangle |
 | empty | frame: `card`, edge `border-strong`, ink `muted-foreground`, `text.body` |
-| unframed | no ground and no edge. A warning keeps its `warning/8` wash, with no edge (open questions) |
+| unframed | no ground and no edge, in every tone: a warning drops its wash with its box, and its mark and heading say it |
 
 ## Keyboard
 
@@ -96,11 +96,10 @@ As of dfb6079 (`page.rs` unchanged since b73200b), `PageState` draws loading, re
 answering, a part refused and empty, framed or not, in both tones, with the diagnostic, the
 problems, Try again, and the words as fields. Its frame, padding, gaps and paints match. The
 differences:
-1. **Unframed warning:** no ground. The spec keeps the `warning/8` wash.
-2. **Problems:** each a label of its own after a bullet, 4 apart, a wrapped line running under the
+1. **Problems:** each a label of its own after a bullet, 4 apart, a wrapped line running under the
    bullet. The spec draws a list padded 16, its lines close, a wrapped line under its own text.
-3. **Code in the diagnostic:** plain text with the backticks shown.
-4. **Try again** has no icon.
-5. **The mark** is centered in a 22 tall slot (center 11). The spec puts it 2 down (center 10).
-6. **Not built:** `headingLevel` and the announcements (polite while loading and for a warning, an
+2. **Code in the diagnostic:** plain text with the backticks shown.
+3. **Try again** has no icon.
+4. **The mark** is centered in a 22 tall slot (center 11). The spec puts it 2 down (center 10).
+5. **Not built:** `headingLevel` and the announcements (polite while loading and for a warning, an
    alert for a failure).
