@@ -519,6 +519,184 @@
             "shows": "Edit under the pointer in the accent; Delete under the pointer on its destructive wash."
         },
         {
+            "id": "Patterns/Dialogs/Confirm",
+            "part": "dialog",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "A ConfirmDialog, 384 wide: Delete import-orders?, its detail, Cancel and a destructive Delete in the footer band.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 640 a ConfirmDialog stays a box sized to its content (phone fit)."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Dialogs/Rename",
+            "part": "dialog",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "A sm dialog with one prefilled field; Rename shut at half opacity while the name is unchanged."
+        },
+        {
+            "id": "Patterns/Dialogs/Busy",
+            "part": "dialog",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "Stop 8 runs working: its spinner before Stopping 8 runs, Cancel disabled."
+        },
+        {
+            "id": "Patterns/Dialogs/Run log",
+            "part": "dialog",
+            "matrix": "full",
+            "canvas": [1280, 800],
+            "shows": "An xl dialog with nothing to confirm: the corner close, the log in the body, Copy and Download alone in the footer."
+        },
+        {
+            "id": "Patterns/Dialogs/Nested",
+            "part": "dialog",
+            "matrix": "full",
+            "canvas": [960, 640],
+            "shows": "Remove the validate step? over the editing dialog, which wears the nested shade."
+        },
+        {
+            "id": "Patterns/Dialogs/Long content",
+            "part": "dialog",
+            "matrix": "pair",
+            "canvas": [1280, 800],
+            "shows": "Release notes taller than the window: the body scrolls under a footer that stays.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 640 the dialog is a full-screen sheet with square corners, its footer at the foot."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Dialogs/Rename",
+            "part": "dialog",
+            "matrix": "pair",
+            "canvas": [960, 480],
+            "each": ["reason"],
+            "steps": [{"do": "keyFocus", "target": "button:Rename"}],
+            "shows": "The shut confirm with keyboard focus: its reason, The name is unchanged., in the library's tooltip (principle 13)."
+        },
+        {
+            "id": "Apps/Settings/Dialog",
+            "part": "settings-dialog",
+            "matrix": "full",
+            "canvas": [1280, 800],
+            "shows": "The settings dialog on General: the head, the column with its search and grouped sections, General's rows, and the footer with Reset to defaults, the note and Done.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 640 it fills the screen, in General with Back in the head."
+                }
+            ]
+        },
+        {
+            "id": "Apps/Settings/Search",
+            "part": "settings-dialog",
+            "matrix": "full",
+            "canvas": [1280, 800],
+            "shows": "run in the search: the column keeps the sections with a match, the pane General's matching rows."
+        },
+        {
+            "id": "Apps/Settings/No reset",
+            "part": "settings-dialog",
+            "matrix": "full",
+            "canvas": [1280, 800],
+            "shows": "Account, a section with reset false: the footer keeps the note and Done, with no Reset to defaults."
+        },
+        {
+            "id": "Apps/Settings/Synced",
+            "part": "settings-dialog",
+            "matrix": "full",
+            "canvas": [1280, 800],
+            "shows": "The app's own footer note, when the settings last synced, and a reset of every setting."
+        },
+        {
+            "id": "Apps/Settings/Dialog",
+            "part": "settings-dialog",
+            "matrix": "pair",
+            "canvas": [1280, 800],
+            "each": ["entry", "confirming"],
+            "steps": [
+                {"when": "entry", "do": "hover", "target": "button:Theme"},
+                {"when": "confirming", "do": "click", "target": "button:Reset to defaults"}
+            ],
+            "shows": "Theme under the pointer (the hover ground, the foreground ink); Reset to defaults pressed: the ConfirmDialog asks Reset General to its defaults? over the settings, which wear the nested shade."
+        },
+        {
+            "id": "Patterns/Command palette/Long",
+            "part": "command-palette",
+            "matrix": "full",
+            "canvas": [960, 720],
+            "shows": "Many commands in their groups with icons, hints, codes and keys; the list scrolls and fades at its foot; the first row active.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 768 the search and every row are a finger tall."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Command palette/Summaries",
+            "part": "command-palette",
+            "matrix": "full",
+            "canvas": [960, 720],
+            "shows": "A meta at each row's end in the code face; import-orders' no upload step in the critical ink (metaTone).",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 640 each meta folds under its label."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Command palette/Chooser",
+            "part": "command-palette",
+            "matrix": "full",
+            "canvas": [960, 720],
+            "shows": "Runs to compare: two-line rows with a critical second line and status dots, and a one-line row's hint in the warning ink."
+        },
+        {
+            "id": "Patterns/Command palette/Foot",
+            "part": "command-palette",
+            "matrix": "full",
+            "canvas": [960, 720],
+            "shows": "The strip at the foot: Tidevann's mark and name, Open beside Enter, Command palette beside its keys."
+        },
+        {
+            "id": "Patterns/Command palette/No match",
+            "part": "command-palette",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "invoices in the search: No command matches."
+        },
+        {
+            "id": "Patterns/Command palette/Refused",
+            "part": "command-palette",
+            "matrix": "pair",
+            "canvas": [960, 720],
+            "each": ["active", "refused"],
+            "steps": [
+                {"when": "active", "do": "hover", "target": "option:Cancel the run"},
+                {"when": "refused", "do": "click", "target": "option:Rerun nightly-export"}
+            ],
+            "shows": "A row under the pointer on the muted wash; Rerun chosen: its row busy until the promise settles (900 ms), then the palette still open with the refusal under the rows in the critical ink."
+        },
+        {
             "id": "Patterns/Shell/Search field",
             "part": "shell",
             "matrix": "full",
@@ -557,5 +735,5 @@
             "shows": "The settings dialog over the page."
         }
     ],
-    "count": {"full": "48 stories x 12 appearances = 576", "pair": "41 captures x 2 appearances = 82", "perSide": 658}
+    "count": {"full": "62 stories x 12 appearances = 744", "pair": "52 captures x 2 appearances = 104", "perSide": 848}
 }
