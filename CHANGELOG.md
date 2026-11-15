@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.28.2
 
 - Inks named where a part always stands on one surface, so a renderer without inheritance reads a
   color: select's field trigger and text-field's label `foreground`; select's rows, dropdown-menu's
