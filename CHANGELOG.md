@@ -4,6 +4,12 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- tokens: every text size is a text role in `tokens.resolved.json`, the plain sizes (`2xs` to
+  `display`, and `graph-title` and `graph-small`, the graph node's title and small lines) at weight
+  400 where the token names none; the roles that were there are unchanged.
+
 ## 0.28.2
 
 - Inks named where a part always stands on one surface, so a renderer without inheritance reads a
