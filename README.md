@@ -76,7 +76,8 @@ section c).
 **Token references** use the resolved names, as `tokens.resolved.json` names them. Each name is the
 CSS custom property without `--` (`primary`, `radius-control`, `spacing-finger`). Density lengths are
 `density.<name>` (`density.row`, which is CSS `--density-row`), and text roles are `text.<role>`
-(`text.action`, which is the CSS class `text-action`). Each key takes one kind of name, and the
+(`text.action`, which is the CSS class `text-action`); every text size is a role, the plain sizes
+(`text.sm`, `text.graph-title`) at weight 400 where the token names none. Each key takes one kind of name, and the
 schema and the check hold it:
 
 | Keys | Take |

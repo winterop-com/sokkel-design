@@ -473,12 +473,12 @@ function settle(vars: Vars, keys: [name: string, variable: string][], roles: str
     }
     for (const role of roles) {
         const size = px(evaluator.variable(`text-${role}`))
-        const weight = evaluator.variable(`text-${role}--font-weight`)
+        const weight = vars[`text-${role}--font-weight`] === undefined ? null : evaluator.variable(`text-${role}--font-weight`)
         const tracking = vars[`text-${role}--letter-spacing`] === undefined ? null : evaluator.variable(`text-${role}--letter-spacing`)
         out.text[role] = {
             size: round(size),
             lineHeight: round(px(evaluator.variable(`text-${role}--line-height`))),
-            weight: weight.kind === 'number' ? weight.n : 400,
+            weight: weight?.kind === 'number' ? weight.n : 400,
             tracking: tracking === null ? 0 : tracking.kind === 'em' ? round(tracking.em) : round(px(tracking) / size),
         }
     }
@@ -519,8 +519,8 @@ export function resolveTokens(tokens: TokenSource, sokkelUi: { repo: string; com
     const densityDefault = tokens.density.default
     const levels = Object.keys(tokens.density).filter((key) => key !== 'default' && !key.startsWith('$'))
     const roles = Object.keys(tokens.theme)
-        .filter((key) => key.startsWith('text-') && key.endsWith('--font-weight'))
-        .map((key) => key.slice('text-'.length, -'--font-weight'.length))
+        .filter((key) => key.startsWith('text-') && key.endsWith('--line-height'))
+        .map((key) => key.slice('text-'.length, -'--line-height'.length))
     // Every token by its own name, then what the utility classes name besides: the corners and
     // spacings, and the colors a class paints that no theme sets by that name (`text-good-ink`).
     const keys: [string, string][] = [
