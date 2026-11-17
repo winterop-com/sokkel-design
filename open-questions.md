@@ -1,7 +1,8 @@
 # Open questions
 
 These are the decisions the owner needs to make, each with options and a recommendation. Then
-findings that need a call, the tokens the specs ask for, and what does not fit egui's immediate mode.
+findings that need a call, the questions sokkel-tui's proposal leaves open, the tokens the specs ask
+for, and what does not fit egui's immediate mode.
 
 ## Decisions
 
@@ -98,6 +99,79 @@ These were found while writing the specs. Nothing was changed.
 | sokkel-ui `CommandPalette` | While a command's promise was pending, Escape and a press outside closed the palette and its settling was let go | **Decided**, as the owner refined it: a palette whose command is running holds open (Escape, a press outside, its Close and Mod+K included); after `busy-release` (5000 ms, a token, and `busyRelease` on the part) a Stop waiting row appears and Escape closes again, letting the command go unheard, nothing cancelled. A busy dialog confirm releases the same way: Escape and Cancel, saying Stop waiting, come back, the confirm busy until the work settles. Done in sokkel-ui (`parts/command-palette`, `parts/dialog`) |
 | sokkel-ui `CommandPalette` | A one-line row's `meta` was `muted-foreground`, a two-line row's `faint` | **Decided:** a meta is `muted-foreground` on one line or two, `accent-foreground` on the active row; a status tone stays. Done in sokkel-ui (`parts/command-palette`) |
 
+## Open for the terminal
+
+From sokkel-tui's proposal (`sokkel-tui/docs/proposals/sokkel-design-tui.md`, section c). What the
+contract could hold without a new decision is in it now: each part's `renderers`, `standsOn` with the
+paints' `flat` and `faded` forms, `cells` in `index.json` and in the first parts, `colorDepth` with
+the `ansi-*` tokens and the 256-color rule, `glyphs.json`, and principles 17, 21, 22 and 23. These
+need the owner's call; each has a recommendation, and nothing is written into the contract for them
+yet.
+
+### T1. The sixteen-color paints
+
+The `ansi-*` tokens say what each of the sixteen indices looks like in a sokkel terminal. They do not
+say which index a part's paint takes when a renderer has only sixteen colors: the terminal's own
+theme decides what the indices look like there, so the nearest by color is meaningless.
+
+- **a.** A role map: grounds and inks take the terminal's defaults; `critical` and `destructive` red,
+  `warning` yellow, `good` and succeeded green, `primary`, `ring` and the accent blue,
+  `muted-foreground` and `faint` bright black; hover, selection and the active row reverse video.
+- **b.** The nearest of the sixteen `ansi-*` colors of the current theme, by OKLab, for each paint.
+- **c.** No sixteen-color mode: below 256 colors, draw as with no color.
+
+**Recommendation: a**, written as a `colorDepth.ansi16.paints` map from token to index, so a part's
+meaning survives any terminal theme and matches what principle 22 asks without color. b looks right
+only in a terminal whose palette is sokkel's.
+
+### T2. The scrim in cells
+
+What is under a dialog, a drawer or the palette, in cells. The scrim (`scrim`, `shade/10` under a
+dialog) covers cells of any color, which may be the app's own run-time colors, so it cannot be
+resolved ahead of time.
+
+- **a.** Each cell's colors flattened under the scrim at run time, sRGB source-over as a browser
+  composites: the one blend a renderer is allowed, an exception written into principle 20.
+- **b.** The faint attribute on every cell under the layer.
+- **c.** Every cell under the layer drawn in two resolved colors, the scrim flattened over
+  `background` and `faint` over that, keeping the glyphs.
+
+**Recommendation: a** in truecolor and 256 colors, since the blend is a single known operation the
+resolver already performs (the paints' `flat`) and the web draws exactly that; **c** in sixteen
+colors and with no color, where there is nothing to blend. b is ruled out: faint varies by terminal,
+the reason disabled inks became `faded`.
+
+### T3. An edge on a one-row control
+
+A button or a field's control is one row in cells (principle 21), which leaves no room for an edge
+above and below. An outline button then reads as a ghost one, and a field is set apart only by its
+ground.
+
+- **a.** Brackets in the edge's flat color at the ends, `[` and `]`, inside the padding.
+- **b.** One-eighth blocks (`▕`, `▏`) at the ends in the edge color, brackets in ASCII.
+- **c.** No edge in cells; the ground alone.
+
+**Recommendation: b**, as it keeps the ground's width and reads as an edge; brackets in ASCII, which
+are typed characters and not a part's key (principle 17).
+
+### T4. Keyboard focus in cells
+
+There is no room outside a cell for the focus outline. The spike marks a focused row with a lead bar.
+
+- **a.** The `focus-mark` glyph in `ring` at the piece's start column, the piece's paints unchanged;
+  reverse video where a piece has no start column of its own (a button in a row).
+- **b.** Reverse video always.
+
+**Recommendation: a**: it keeps a selected row and a focused row apart, as the web does.
+
+### T5. One name for the egui renderer
+
+`renderers` names it `sokkel-egui`, its repository's name; `sources`, `rendererSpecific` and `drift`
+still say `sokkel-ui-egui`, and `index.json` notes the second name.
+
+**Recommendation:** rename those keys to `sokkel-egui` in one change that sokkel-egui takes with its
+next contract pin, if it reads them.
+
 ## Tokens the specs ask for
 
 **Landed in sokkel-ui 0.25.0:** the control heights per size, `density.control-xs`,
@@ -118,6 +192,10 @@ smaller at compact. Every control reads them, and they resolve in `tokens.resolv
 | Inks | `page-title-ink` and `section-head-ink` fall back to `foreground`, so the `a\|b` fallback is gone from the grammar |
 | Breakpoints | `breakpoint-md` 768 and `breakpoint-lg` 1024, the values Tailwind's `md` and `lg` use |
 | Scroll bar | `scrollbar-width` 10, on a solid track whose room is kept |
+
+**Asked by sokkel-tui, landed in sokkel-ui #659:** `ansi-black` to `ansi-bright-white`, the sixteen
+ANSI colors `TerminalView` gives xterm, defined in `tokens.json` and read by the terminal add-on in
+place of its own map (`colorDepth.ansi16`).
 
 **Later:** a named spacing scale (the specs keep exact part spacings meanwhile), and the state
 mixes (`secondary-hover`, `row-critical`, `row-warning`), resolved as paints until a theme needs

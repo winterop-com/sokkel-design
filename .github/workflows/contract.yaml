@@ -41,5 +41,5 @@ jobs:
             - uses: astral-sh/setup-uv@v6
             - run: bun scripts/resolve.ts --check --from build/sokkel-ui
             - run: uv run --with jsonschema python scripts/check.py
-            - run: python3 scripts/fmt.py index.json specimens.json schema/*.json parts/*.json patterns/*.json && git diff --exit-code
+            - run: python3 scripts/fmt.py index.json glyphs.json specimens.json schema/*.json parts/*.json patterns/*.json && git diff --exit-code
             - run: bun scripts/verify-colors.ts --from build/sokkel-ui

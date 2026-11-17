@@ -1,6 +1,7 @@
 # Principles
 
-These are the rules every renderer keeps, whatever its toolkit. They are lifted from sokkel-ui's
+These are the rules every renderer keeps, whatever its toolkit: sokkel-ui (React), sokkel-egui
+(egui) and sokkel-tui (ratatui, in a terminal). They are lifted from sokkel-ui's
 `AGENTS.md` and `docs/plan.md` and rewritten for any renderer. Each one gives the rule, why it holds,
 and how a renderer honors it.
 
@@ -142,7 +143,10 @@ defaults, and the check compares them.
 Norwegian keyboard as on an American one. `Mod` is Cmd on a Mac and Ctrl elsewhere. Keys are quiet
 while typing in a field and under an overlay, unless a binding asks. **Why.** A layout that needs
 Alt for `[` or `/` must not lose the app's keys. **Renderer.** Match the typed character, not the
-physical key code.
+physical key code. In a terminal (sokkel-tui), Cmd almost never reaches the program, so `Mod` is Ctrl
+there on every system; no binding is an Alt chord, since a terminal's Option or Alt is often Meta or
+types a character; and no part takes `[` or `]` as its primary key, since with Option as Meta a
+Norwegian keyboard cannot type them. A part that offers one keeps a second key for it.
 
 ### 18. Fix the part, never the example
 
@@ -170,3 +174,37 @@ colors (a gamma blend is not an oklch mix); resolving once makes them the same, 
 holds the resolved paints to what Chromium draws. **Renderer.** sokkel-ui keeps its expressions in
 classes (`hover:bg-primary/80`), and its parts test checks each one is the spec's. sokkel-ui-egui
 reads `paints`, and a check fails a widget that mixes on a painted path.
+
+### 21. In cells, a row is a line
+
+**Rule.** A renderer with a cell grid (a terminal) lays parts out in rows and columns, never px. A
+control, a row, a bar and a head is one row whatever its px height. A horizontal length is
+`round(px / 8.4)` columns, at least 1 where it is not 0. Room between stacked pieces is whole blank
+rows, and density changes blank rows and side padding, never a row's height. The breakpoints are 90
+and 120 columns, and specimens are drawn at 60x20, 80x24, 120x40 and 200x50. Text keeps of its role
+what the cell table gives it: bold or not, italic or not, the piece's ink. Corners are rounded where
+the corner role is above 0, square at 0. **Why.** A terminal has one type size and whole cells; a
+part divided by px would land on half rows. **Renderer.** Read `index.json`'s `cells` and each part's
+`cells`; draw glyphs from `glyphs.json` in the form the terminal can show.
+
+### 22. Color at the terminal's depth, meaning without it
+
+**Rule.** A renderer that cannot blend draws each paint's opaque form: `flat`, each field laid over
+the surface the piece stands on (its spec's `standsOn`), and `faded`, the paint drawn at a fading
+state's opacity, never the terminal's faint attribute. In 256 colors each opaque color is the nearest
+of xterm's fixed indices 16 to 255 in OKLab, never 0 to 15, which the terminal's own theme sets. The
+sixteen ANSI colors stand for the `ansi-*` tokens, the colors a sokkel `TerminalView` shows for them.
+With no color (`NO_COLOR`), every state is carried by its words and its glyphs, and only bold,
+reverse and underline remain. **Why.** Principle 20 holds in a terminal too: the blend is the
+resolver's, checked against the browser. A state said only by color is lost on a terminal without
+it, as principle 11 says of states in general. **Renderer.** Read `paints[...].flat[field]`, else the
+field; the depth from the environment (`NO_COLOR`, `COLORTERM`), never assumed.
+
+### 23. A tip a renderer cannot float is said in the status line
+
+**Rule.** A renderer without floating boxes (a terminal, where a pointer may not exist) says a
+tooltip's words, and a disabled control's reason (principle 13), in the status line's note while the
+control has keyboard focus, and its keys after them. A field's issues are said there the same way
+while its control has focus. **Why.** A tip under a pointer that never moves is never seen, and a
+reason no one can read is a dead end. **Renderer.** The status line takes the focused control's tip
+in its note's place and gives the note back when focus moves on.

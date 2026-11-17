@@ -360,6 +360,20 @@ main {
     background: color-mix(in oklab, var(--warning) 16%, transparent);
 }
 
+.badge.partial {
+    color: var(--warning-ink);
+    background: color-mix(in oklab, var(--warning) 16%, transparent);
+}
+
+.badge.missing {
+    color: var(--muted-foreground);
+    border-color: var(--border);
+}
+
+a.badge {
+    text-decoration: none;
+}
+
 /* Home */
 
 .hero {
@@ -549,7 +563,7 @@ table.keys td:first-child {
     white-space: nowrap;
 }
 
-table.index td:nth-child(3) {
+table.index td:last-child {
     min-width: 260px;
 }
 

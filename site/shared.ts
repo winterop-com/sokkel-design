@@ -120,5 +120,6 @@ export function lookup(data: PageData, theme: string, scheme: string, path: stri
     const map = shared ? data.schemes?.[scheme] : (data.themes[theme] ?? data.themes[Object.keys(data.themes)[0]])?.[scheme]
     const found = map?.[key]
     if (field === undefined) return found
-    return found && typeof found === 'object' ? (found as Record<string, unknown>)[field] : undefined
+    // A field may reach into the value: `flat.ground`, `faded.disabled.ink`.
+    return field.split('.').reduce<unknown>((at, step) => (at && typeof at === 'object' ? (at as Record<string, unknown>)[step] : undefined), found)
 }
