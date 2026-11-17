@@ -146,7 +146,9 @@
                 "ring": {"color": "foreground/15", "width": 1, "inset": "all"},
                 "note": "In the band's color token, which the app gives (tokenVar)."
             },
-            "noData": {"ground": "muted", "note": "Hatched at 135 degrees, 2 of muted and 2 clear."}
+            "noData": {
+                "note": "Hatched at 135 degrees, 2 of muted and 2 clear (a repeating gradient of --muted), so no ground of its own."
+            }
         }
     },
     "keyboard": [

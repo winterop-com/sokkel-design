@@ -193,7 +193,13 @@
     },
     "pieces": {
         "control": {
-            "rest": {"ground": "field", "edge": "input", "ink": "foreground", "radius": "radius-control"},
+            "rest": {
+                "ground": "field",
+                "edge": "input",
+                "ink": "inherit",
+                "radius": "radius-control",
+                "note": "The page's ink: neither the frame nor its bare input sets one."
+            },
             "focus": {"edge": "ring"},
             "disabled": {"ground": "input/50", "opacity": "disabled-opacity"},
             "invalid": {"edge": "critical/80"},

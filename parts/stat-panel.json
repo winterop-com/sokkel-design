@@ -113,7 +113,7 @@
         "value": {"gap": 4, "padX": 10, "text": "text.statistic", "note": "28 under the value's room."},
         "unit": {"note": "text.sm at weight 500, as its paint says."},
         "note": {"text": "text.xs"},
-        "meter": {"width": 192, "gap": 4, "note": "At most 192 wide."},
+        "meter": {"gap": 4, "note": "At most layout.meterMaxWidth wide."},
         "track": {"height": 6, "radius": "radius-mini"},
         "tick": {"width": 2, "radius": "radius-mini", "note": "4 above and below the track."},
         "targetLabel": {"gap": 4, "text": "text.xs"},
@@ -124,7 +124,8 @@
         "meterTop": {"value": 8, "note": "Between the value and the meter."},
         "meterFoot": {"value": 12, "note": "Under the meter."},
         "tickOverhang": {"value": 4, "note": "The tick reaches this far above and below the track."},
-        "sparkHeight": {"value": 0.45, "note": "The trend's share of the tile's height; a quarter with a target meter."}
+        "sparkHeight": {"value": 0.45, "note": "The trend's share of the tile's height; a quarter with a target meter."},
+        "meterMaxWidth": {"value": 192, "note": "The target meter is at most this wide (max-w-48)."}
     },
     "states": {
         "rest": {"means": "The title, the value with its unit, in card-foreground on card."},
