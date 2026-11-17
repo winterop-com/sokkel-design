@@ -25,7 +25,8 @@ Sources: sokkel-ui `packages/core/src/components/board/BoardItemPanel.tsx` (`Boa
 | state chip | A secondary badge: 20 tall, 6 across, the icon 12 and 4 before the label, `radius-chip`, `text.badge` |
 | section | Description, Fields, Checklist, Activity: parts/detail-pane's section |
 | description | `text.sm` on lines 24 tall |
-| progress | A track 4 tall in `muted`, fully round, filled `primary`, named `words.checklist.progress` |
+| progress | A track 4 tall in `muted`, fully round, named `words.checklist.progress` |
+| fill | The track's fill in `primary`, as far as the steps done |
 | step | A checkbox field: 8 across, 6 down and up, 10 between box and words, `radius-control`, `text.sm`; the steps reach 4 into the padding |
 | box | 16 square, `radius-sm`, an `input` edge; checked, `primary` with a 14 check in `primary-foreground` |
 

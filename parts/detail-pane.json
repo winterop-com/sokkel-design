@@ -46,20 +46,20 @@
     },
     "sizes": {
         "section": {"padX": 16, "padY": 12, "gap": 8},
-        "heading": {"text": "text.xs", "note": "At weight 500, uppercase, tracked wide."},
+        "heading": {"note": "text.xs at weight 500, as its paint says; uppercase, tracked wide."},
         "headingRow": {"height": 28, "gap": 8, "note": "At least this tall, only with the section's actions."},
         "sectionActions": {"gap": 4},
         "summary": {"text": "text.sm"},
         "facts": {
             "gap": 12,
-            "padY": 8,
             "text": "text.sm",
-            "note": "gap: between a term and its value; padY: between the pairs. Lines 20 tall."
+            "note": "gap: between a term and its value; the pairs stand layout.factsRowGap apart. Lines 20 tall."
         },
         "term": {"text": "text.xs"},
         "actions": {"padX": 16, "padY": 12, "gap": 8}
     },
     "layout": {
+        "factsRowGap": {"value": 8, "note": "Between one fact's line and the next (DescriptionList's row gap)."},
         "termMax": {
             "value": 0.4,
             "note": "With termWidth auto, the term column is as wide as the longest term, at most this share of the section."
