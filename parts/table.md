@@ -66,14 +66,14 @@ card's edit field and its open editor stand at least a finger tall. Fixed at bot
 select column 40, sort arrow 14, a resized column at least 64, row grip 22. Cards pad 12 x and 8 y,
 with a title line 24 and lines 20 (primary 22, facts 24); a line that edits is 36, a finger and 4
 (48) below 768, and the cards are placed at the height it is drawn at. A stacked line's name is at most 192. A
-placeholder bar is 12 tall at 60 percent of its cell. Text is `text.body` in rows and `text.head` in
-the head.
+placeholder bar is 12 tall at 60 percent of its cell. Text is `text.body` in rows and
+`text.column-head` in the head, one text step above the cells (16 / 24 at 500 over 15 / 22).
 
 ## States and tokens
 
 | State | Piece: paint |
 |---|---|
-| rest | frame: ground `card`, edge `border-strong`, `radius-surface`. head: ground `table-head-ground`, rule `table-head-line`, ink `table-head-ink`, `text.head` (size `table-head-size`, weight `table-head-weight`, tracking `table-head-tracking`, case `table-head-transform`). row: ground `card`, every other line `table-zebra`, rule `border` |
+| rest | frame: ground `card`, edge `border-strong`, `radius-surface`. head: ground `table-head-ground`, rule `table-head-line`, ink `table-head-ink` (`foreground` unless a theme sets one), `text.column-head` (size `table-head-size`, one step above the cells' `text.body`, weight `table-head-weight`, tracking `table-head-tracking`, case `table-head-transform`). row: ground `card`, every other line `table-zebra`, rule `border` |
 | hover | row ground `hover`; a sortable head's ink `foreground`; a card's ground `hover` |
 | sorted | the head's ink `foreground`, an arrow up or down (14) after its name |
 | selected | row ground `secondary`, kept under the pointer; card ring 2 `primary`; the bar says `{count} selected` |
@@ -149,7 +149,8 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
 
 ## Group heads
 
-A group's head row is set as the column heads are, `text.head` in `table-head-ink`, in the group's
-own case (a group is named by its value): a head is never louder than the rows it heads
-(`GROUP_HEAD_TEXT` in `lib/table.ts`). A stacked card's labels keep to the same rule: `text.xs` in
-`muted-foreground`, the size of the values beside them.
+A group's head row is set as the column heads are, `text.column-head` in `table-head-ink`, in the
+group's own case (a group is named by its value): one text step above the rows it heads, never
+weaker than them (`GROUP_HEAD_TEXT` in `lib/table.ts`), principle 3. A stacked card's labels are not
+column heads: each labels one value beside it, so they stay `text.xs` in `muted-foreground`, the
+size of that value.
