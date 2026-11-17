@@ -4,8 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.29.0
 
+- tokens: the switch's sizes (`spacing-switch-width`, `-height` and their `-sm` pair) are tokens; eight
+  colors no part used are gone (`brand-foreground`, `critical-wash`, `panel-line`, `binding-ink` and
+  the four `terminal-node` and `terminal-graph` inks). No spec named them.
 - tokens: every text size is a text role in `tokens.resolved.json`, the plain sizes (`2xs` to
   `display`, and `graph-title` and `graph-small`, the graph node's title and small lines) at weight
   400 where the token names none; the roles that were there are unchanged.
