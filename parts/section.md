@@ -58,8 +58,8 @@ drops under it. The graph's dots are 1 in radius, one every 18 both ways, center
 | toneGraph | body: `canvas` with a dot of `panel-dot` every 18; rounded `radius-surface` under a flat head |
 | fill | the box takes the height given and its body scrolls |
 
-`text.head` carries the table head's size, weight and tracking, never its case: the title keeps its
-own, so a boxed head can hold a name such as a job's. A count beside the title looks the same as a
+`text.head` is the compact head, 13 / 20 at 600, with the table head's tracking and never its case
+(a table's column heads are `text.column-head`, a step larger): the title keeps its own, so a boxed head can hold a name such as a job's. A count beside the title looks the same as a
 page header's (`parts/page-header`): `text.help` in the body face, tabular figures,
 `muted-foreground`, 8 after the title. The code face is for codes.
 

@@ -30,9 +30,11 @@ percent rounder than Chromium at 2x (10 px against 7, measured), where 4 reads 8
 
 **Rule.** Text is set by role (page title, section title, head, body, action, label, help, badge,
 ...), each a size, line height, weight and tracking. A part never sets a size and a weight of its
-own, and a head is never louder than what it heads: a table's column and group heads, a card's
-labels and a section's heading are at most the size of the content under them, in a quieter ink.
-**Why.** Type stays one system across parts and themes, and the reader's eye lands on the content. **Renderer.** sokkel-ui uses the
+own. A column head stands one text step above the cell text it heads, at medium weight in the
+foreground or the head ink a theme names, never weaker than its rows: body cells take
+`text.column-head`, one step up, and a table's group heads take the same step. A label over a single
+value (a stacked card's) labels it rather than heads a column, and may stay small and quiet.
+**Why.** Type stays one system across parts and themes, and a heading reads as one over what it heads. **Renderer.** sokkel-ui uses the
 `text-<role>` classes. sokkel-egui uses `TextRole::rich`, the weight on the variable face's
 `wght` axis. Mono is sized by x-height (`mono-x-height`) in both.
 

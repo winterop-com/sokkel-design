@@ -4,6 +4,19 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- principle 3: corrected. A column head stands one text step above the cell text it heads, at
+  medium weight in the foreground or the head ink a theme names, never weaker than its rows; 0.30.0
+  had it backwards ("never louder than what it heads").
+- table: the head and the group heads are `text.column-head` (16 / 24 at 500, one step above the
+  rows' `text.body`) in `table-head-ink`, which is `foreground` in the base theme; the group heads'
+  quieter `text.head` from 0.30.0 is reverted. A stacked card's labels stay `text.xs` in
+  `muted-foreground`: they label one value, they are not column heads.
+- tokens: the text role `column-head`; `table-head-size` is `text-base` and `table-head-weight` 500;
+  `text.head` keeps 13 / 20 at 600 on its own (section's boxed head unchanged); cells lists
+  `column-head`.
+
 ## 0.30.0
 
 - themes: `phosphor` (green CRT text on near-black, and a derived light), `phosphor-bright` (high-contrast green on black, and a derived light) and `tray` (a grey tray with white cards and green accents; its dark keeps a deep blue strip), resolved from sokkel-ui 1a34d88.
