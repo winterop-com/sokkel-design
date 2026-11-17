@@ -149,3 +149,10 @@ CodeMirror's own words (the find bar, the fold marks) are passed through `phrase
 ## Where sokkel-egui differs today
 
 As of b7e1763 there is no code editor.
+
+## Folding's keys
+
+Mod+. folds the block at the caret and Mod+Shift+. unfolds it; Mod+Alt+. folds every block and
+Mod+Alt+Shift+. unfolds them (`FOLD_KEYS` in `CodeEditor.tsx`). CodeMirror's bracket keys,
+Ctrl+Shift+[ and ] and Ctrl+Alt+[ and ], stay as the second keys, as principle 17 asks of a part that
+offers a bracket.

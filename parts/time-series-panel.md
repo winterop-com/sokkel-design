@@ -53,3 +53,10 @@ private `WORDS`.
   stacking, steps, dashed references, the legend and its table, `ThresholdLegend` and the frame are
   not built.
 - **sokkel-tui:** missing as of 933b2da.
+
+## Marks
+
+`marks` draws lines across at values, such as a target or a limit, beside the thresholds: each
+dashed, 1 wide, in its color token (`muted-foreground` by default), its label and value written
+short at its end above it; the value axis reaches each where the figures do not (`ChartSpec`
+`targets`, `ChartTarget`, in `kinds/axes.ts`). sokkel-egui's mark (b7e1763) draws the same.
