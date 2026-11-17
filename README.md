@@ -10,9 +10,10 @@ It has the same shape as sokkel-api: one contract, an implementation per stack, 
 them. The contract decides and each renderer stays idiomatic. When a renderer drifts, a check fails
 in that renderer's CI before any app sees it.
 
-It covers fifteen parts (button, text field, table, rail, top bar, status line, page header,
-section, page state, select, dropdown menu, tooltip, dialog, settings dialog, command palette) and
-one pattern (the shell), at contract version 0.28.0, which moves in lockstep with sokkel-ui
+It covers nineteen parts (button, text field, table, rail, top bar, status line, page header,
+section, page state, select, dropdown menu, tooltip, dialog, settings dialog, command palette, run
+timeline, clip timeline, emoji picker, reaction bar) and one pattern (the shell), at contract
+version 0.29.2, which moves in lockstep with sokkel-ui
 (`CHANGELOG.md`). sokkel-ui checks its components against a pinned copy of the specs
 (`src/parts.test.ts`); sokkel-ui-egui builds its widgets from them and takes its resolved tokens and
 paints from `tokens/tokens.resolved.json`.
@@ -42,6 +43,7 @@ sokkel-design/
                 page-header  section  page-state
                 select  dropdown-menu  tooltip
                 dialog  settings-dialog  command-palette
+                run-timeline  clip-timeline  emoji-picker  reaction-bar
     patterns/   shell                                               (.md + .json)
     tokens/     tokens.resolved.json: the tokens and the paints, for renderers that read no CSS
     scripts/    the resolver, verify-colors, check.py, fmt.py (scripts/README.md)
@@ -197,7 +199,7 @@ and its parts test checks that each paint expression has the class it expects. s
 | Side | Check | Fails when |
 |---|---|---|
 | sokkel-design | `check.py` (schema, references, words, samples, statuses) | A part file breaks the schema, names a token the pinned sokkel-ui lacks, paints a state the part does not list, or leaves a counted or templated word without samples; the resolved file was made from another commit than the pin |
-| sokkel-design | `resolve --check`, `verify-colors` (CI, `.github/workflows/contract.yaml`) | The resolved file (tokens and paints) is not what the pinned `tokens.json` and the specs make; a resolved token color, paint color or elevation is off from Chromium's by more than 2/255 (18044 today: 13 themes, both schemes) |
+| sokkel-design | `resolve --check`, `verify-colors` (CI, `.github/workflows/contract.yaml`) | The resolved file (tokens and paints) is not what the pinned `tokens.json` and the specs make; a resolved token color, paint color or elevation is off from Chromium's by more than 2/255 (22698 today: 13 themes, both schemes) |
 | sokkel-ui | `bun run tokens --check` | The CSS is not what `tokens.json` makes |
 | sokkel-ui | `parts.test.ts` | A component's word default or sample, paint class, size or key binding is not the spec's |
 | sokkel-ui-egui | `make tokens-check` (exists) | The embedded resolved file is not the contract's |
@@ -246,7 +248,7 @@ colors. The only token lookups left are those outside a spec's paints (`tokens.c
 ## Versions and status
 
 **One contract version, in lockstep with sokkel-ui** (D3, D4). `index.json`'s `version` is the
-sokkel-ui release the contract ships in: 0.28.0 now. Before 1.0 a breaking change moves the minor,
+sokkel-ui release the contract ships in: 0.29.2 now. Before 1.0 a breaking change moves the minor,
 as sokkel-ui's does. sokkel-ui-egui states the sokkel-ui version whose contract it meets. Parts have
 no version of their own; `CHANGELOG.md` says what each version changed, part by part.
 
@@ -256,8 +258,12 @@ no version of their own; `CHANGELOG.md` says what each version changed, part by 
   findings decided. A change to it is a changelog line, and the renderers follow.
 - `draft`: a renderer has not built it from its spec yet. It may still change shape.
 
-Today `section` and `text-field` are drafts (egui has not built Section, nor the field's issue mark
-and frame); every other part and the shell are stable.
+What lands in sokkel-ui is the new normal: a part added or changed there is specified here in the
+same round, as it landed (its words, options, sizes, paints and keys), and is `stable` from the
+start, never a draft. Where egui has not built it yet, its spec says so in a `drift` entry for
+sokkel-ui-egui, and egui builds it from the spec. Today `section` and `text-field` are drafts from
+before that rule (egui has not built Section, nor the field's issue mark and frame); every other
+part and the shell are stable.
 
 ## Plans
 

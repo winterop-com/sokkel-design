@@ -100,9 +100,28 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Shell/Search field | full; pair at 390 | the whole frame; at 390 the menu button, the last crumb, the palette icon |
 | Patterns/Shell/Drawer | pair | the drawer open at 390 |
 | Apps/Settings/Navbar | pair; pair at 390 | the settings dialog; at 390 a full-screen sheet on its list |
+| Patterns/Run timeline/Month | full; pair at 390 | thirty days: the legend, day ticks, marks in each state's color, hollow upcoming runs, the Now line; at 390 the narrow names' column |
+| Patterns/Run timeline/Day | full | one day: runs as bars as long as they took, hours along the ruler |
+| Patterns/Run timeline/Shift | pair with a name hovered and the handle focused | a lane chosen with its handle and the hint; another name under the pointer; the handle with keyboard focus |
+| Apps/Workspace/Schedules | pair | the timeline in a schedules page |
+| Patterns/Clip timeline/Two tracks | full | a video and an audio track, read-only: the corner, the ruler, a waveform, the playhead |
+| Patterns/Clip timeline/Editor | full; pair at 390 | four tracks with toggles, every kind's color, a dashed title, chosen clips; at 390 the narrow headers and sideways scroll |
+| Patterns/Clip timeline/Locked tracks | full | a locked lane's shade, hidden and muted tracks' faint clips |
+| Patterns/Clip timeline/Close zoom | full | frame ticks with minor ticks between |
+| Patterns/Clip timeline/Short room | pair | the ruler, headers and corner pinned in a short room |
+| Patterns/Emoji picker/Inline | full; pair with a cell hovered | Recent and the groups, the tone button, the current tab |
+| Patterns/Emoji picker/Search | full | Search results for heart |
+| Patterns/Emoji picker/No match | full | No emoji found |
+| Patterns/Emoji picker/Skin tone | full | the medium tone chosen |
+| Patterns/Emoji picker/Popover | pair | the picker in a popover over its trigger |
+| Patterns/Reaction bar/Quick | full; pair with hover and focus | the quick reactions and the more button, framed |
+| Patterns/Reaction bar/Selected | full | two given, pressed |
+| Patterns/Reaction bar/Toolbar | full | sm, unframed |
+| Patterns/Reaction bar/More | pair | the full picker open over the bar |
+| Patterns/Reaction bar/Reaction counts | full | chips with counts, yours marked, the add button |
 
-That is 62 stories across the full matrix (744 captures) and 52 captures across the pair matrix
-(104), **848 per side**.
+That is 76 stories across the full matrix (912 captures) and 64 captures across the pair matrix
+(128), **1040 per side**.
 
 ## How a state is reached
 

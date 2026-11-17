@@ -4,6 +4,21 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- run-timeline, clip-timeline, emoji-picker, reaction-bar: four new parts, specified as they landed
+  in sokkel-ui (`RunTimeline`; `ClipTimeline` with its drop target, its readable fit in a narrow
+  room and its pinned ruler, headers and corner; `EmojiPicker` and `EmojiPickerPopover`;
+  `ReactionBar`, `ReactionPopover` and `ReactionChips`): words with samples, options, sizes, paints,
+  keys, and how they drag, snap, scroll and load. Stable from the start, egui's not-built drift on
+  each; nineteen specimens for their stories.
+- The pin moves to sokkel-ui 93fd42f (tokens unchanged); the resolved paints add the new parts'.
+- schema: a text role may hold digits (`text.2xs`), as the plain sizes became roles in 0.29.0.
+- README: a part that lands in sokkel-ui is specified in the same round and is stable from the start.
+- verify-colors: a partly transparent paint's channels are compared within what a canvas reads back
+  through premultiplied bytes (255 / alpha), so `kind-green/25` and `kind-teal/25` in dark no longer
+  fail on the readback's rounding.
+
 ## 0.29.2
 
 - tokens: `typeface-emoji`, the color emoji faces in order, and `text-emoji`, the size an emoji is drawn

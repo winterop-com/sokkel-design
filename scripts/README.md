@@ -16,8 +16,9 @@ pins (open questions, D1). The TypeScript scripts run with bun and need no insta
   It fails on a token it cannot settle that `index.json`'s `tokens.cssOnly` does not list.
 - `verify-colors.ts --from <sokkel-ui>`: draws the checkout's generated CSS (`bun run tokens` there)
   in Chromium and compares every color token, every elevation and every paint's colors in the
-  resolved file, each theme in both schemes, within 2/255. Playwright and its Chromium come from the
-  checkout's own install.
+  resolved file, each theme in both schemes, within 2/255 (a partly transparent color's channels
+  within what a canvas reads back through premultiplied bytes, 255 / alpha). Playwright and its
+  Chromium come from the checkout's own install.
 - `check.py [<sokkel-design>] [<tokens.resolved.json>]`: validates every part and pattern against
   `schema/part.schema.json`, each key's kind of token name against the resolved file (so a spec that
   names a token the pinned sokkel-ui lacks fails), painted states, word samples (a word that
