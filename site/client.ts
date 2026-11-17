@@ -81,3 +81,12 @@ document.addEventListener('click', (e) => {
 })
 dark.addEventListener('change', draw)
 draw()
+
+// The bar stays at the top as the page scrolls; a jump to a heading stops below it, however tall
+// the bar wraps.
+const top = document.querySelector<HTMLElement>('.top')
+if (top !== null) {
+    const measure = () => document.documentElement.style.setProperty('--top-height', `${String(top.offsetHeight + 8)}px`)
+    measure()
+    new ResizeObserver(measure).observe(top)
+}

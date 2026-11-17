@@ -119,9 +119,16 @@ h4 {
     outline-offset: 2px;
 }
 
-/* The bar */
+/* The bar, which stays at the top while the page scrolls; a jump to a heading stops below it. */
+
+html {
+    scroll-padding-top: var(--top-height, 6rem);
+}
 
 .top {
+    position: sticky;
+    top: 0;
+    z-index: 10;
     background: var(--sidebar);
     color: var(--sidebar-foreground);
     border-bottom: 1px solid var(--sidebar-border, var(--border));
