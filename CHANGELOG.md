@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.29.2
+
+- tokens: `typeface-emoji`, the color emoji faces in order, and `text-emoji`, the size an emoji is drawn
+  at in a picker or a reaction (1.5rem on a line as tall), a text role in `tokens.resolved.json`.
+
 ## 0.29.0
 
 - tokens: the switch's sizes (`spacing-switch-width`, `-height` and their `-sm` pair) are tokens; eight
