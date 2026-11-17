@@ -10,6 +10,11 @@ on:
         branches: [main]
     pull_request:
 
+# Read only: the job runs code from the pinned sokkel-ui checkout (its install and its scripts), so
+# it holds no write token and keeps no cache that a later run on main could restore.
+permissions:
+    contents: read
+
 concurrency:
     group: contract-${{ github.head_ref || github.run_id }}
     cancel-in-progress: true
@@ -17,28 +22,36 @@ concurrency:
 jobs:
     check:
         runs-on: ubuntu-latest
+        permissions:
+            contents: read
         steps:
-            - uses: actions/checkout@v7
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+              with:
+                  persist-credentials: false
             - id: pin
               run: |
                   echo "repo=$(jq -r '.repo | sub("^https://github.com/"; "")' sokkel-ui.json)" >> "$GITHUB_OUTPUT"
                   echo "commit=$(jq -r .commit sokkel-ui.json)" >> "$GITHUB_OUTPUT"
             # sokkel-ui is public: its pinned commit, its CSS generated from its tokens.json, and its
             # install, which verify-colors takes Playwright and Chromium from.
-            - uses: actions/checkout@v7
+            - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
               with:
                   repository: ${{ steps.pin.outputs.repo }}
                   ref: ${{ steps.pin.outputs.commit }}
                   path: build/sokkel-ui
                   persist-credentials: false
-            - run: npm install -g bun
+            - uses: oven-sh/setup-bun@0c5077e51419868618aeaa5fe8019c62421857d6 # v2.2.0
+              with:
+                  bun-version-file: build/sokkel-ui/.bun-version
             - run: bun install --frozen-lockfile
               working-directory: build/sokkel-ui
             - run: bun run tokens
               working-directory: build/sokkel-ui
             - run: bunx playwright install --with-deps chromium
               working-directory: build/sokkel-ui
-            - uses: astral-sh/setup-uv@v7
+            - uses: astral-sh/setup-uv@37802adc94f370d6bfd71619e3f0bf239e1f3b78 # v7.6.0
+              with:
+                  enable-cache: false
             - run: bun scripts/resolve.ts --check --from build/sokkel-ui
             - run: uv run --with jsonschema python scripts/check.py
             - run: python3 scripts/fmt.py index.json glyphs.json specimens.json schema/*.json parts/*.json patterns/*.json && git diff --exit-code
