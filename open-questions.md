@@ -104,6 +104,11 @@ These were found while writing the specs. Nothing was changed.
 | sokkel-ui `CheckboxField` | A disabled checkbox's row fades to a literal 60 percent (`has-disabled:opacity-60`), its box to `disabled-opacity` (0.5) | **Decided:** the row fades once at `disabled-opacity`, its box with it. Done in sokkel-ui (`parts/board-item-panel`, `readOnly`) |
 | sokkel-ui `DescriptionList` | A fact with no value is drawn as a hyphen, `-`, where principle 10 and `glyphs.json` name the dash, `—` | **Decided:** the dash, `—`. Done in sokkel-ui, in `DescriptionList` and the charts that drew a hyphen (a data table's cell, the gauge, `BarGauge`, the dual and parallel tooltips, `ChartLegend`) (`parts/detail-pane`) |
 | sokkel-ui `Letter`, `BoardItemPanel`, `BoardChecklist` | Their words objects were module-private, where every other part exports its `*_WORDS` | **Done** in this round, as every other part does: exported as `LETTER_WORDS`, `BOARD_ITEM_PANEL_WORDS` and `BOARD_CHECKLIST_WORDS`, so sokkel-ui's parts test reads them as it reads the others |
+| sokkel-ui `CodeEditor` | Folding's keys are CodeMirror's: Ctrl+Shift+[ and ] fold and unfold, Ctrl+Alt+[ and ] all; principle 17 keeps `[` and `]` off a part's primary keys, and the fold gutter is the only other way | Give folding a second key with no bracket (as the principle asks), or leave folding to the gutter? Stated as it is (`parts/code-editor`) |
+| sokkel-ui `TimeSeriesPanel` | It takes no `marks`: a target line is a threshold step drawn as a line; category marks exist only on a chart's own spec. egui's TimeSeriesPanel draws a mark | Should `TimeSeriesPanel` take `marks` (a value and a label, a dashed line), or is egui's mark the threshold line the spec names? (`parts/time-series-panel`) |
+| sokkel-ui chart legend | A hidden series' entry fades to a literal 60 percent (`opacity-60`), where a faded control uses `disabled-opacity` | `disabled-opacity` for it too, as `CheckboxField` now does? Stated as it is (`parts/chart`) |
+| sokkel-ui `DashboardPanel`, `StatPanel` | The panel's tools keep their focus outline `focus-ring-offset` off, the stat tile's tools none; the panel's edge is `border-strong`, the tile's `border` | One focus look and one edge for the panels of a grid? Stated as each is (`parts/dashboard-panel`, `parts/stat-panel`) |
+| sokkel-ui `StatPanel` | The target meter's track and fill are `bg-current` (the reading's run-time tone) at 15 percent and in full, with no token | Keep them a run-time color (rendererSpecific today), or give the track a token? |
 
 ## Open for the terminal
 
@@ -115,9 +120,7 @@ section c2 asked for more, now in the contract too: paints' opaque forms over ea
 part names (`alsoStandsOn`, `flatOn`, `fadedOn`; the button first), every combination a spec paints
 resolved (`page-state`'s warning frame among them), glyphs for a critical section's heavy rule and
 the graph tone's dot grid, and, from c3, cells notes for the dialog, the menus, the select, the
-palette and the settings dialog. T1 and T2 need the owner's call, each with a recommendation, and
-nothing is written into the contract for them yet (the overlays' cells wait on T2 for what lies
-under them); T3, T4 and T5 are decided and written in.
+palette and the settings dialog. T1 to T5 are decided and written in.
 
 ### T1. The sixteen-color paints
 
@@ -135,6 +138,13 @@ theme decides what the indices look like there, so the nearest by color is meani
 meaning survives any terminal theme and matches what principle 22 asks without color. b looks right
 only in a terminal whose palette is sokkel's.
 
+**Decided a** by the owner (2026-11-17): `index.json`'s `colorDepth.ansi16.paints` maps each color
+token a paint names to `default` (the terminal's own), `reverse` (hover, the accent, a selection,
+the active row) or an `ansi-*` index (critical and destructive red, warning yellow, good green,
+info, primary and the ring blue, the quiet inks and edges bright black, the kind colors by hue);
+a token it leaves out takes `default`. Written into principle 22; `check.py` holds the map to
+colors and indices. Done.
+
 ### T2. The scrim in cells
 
 What is under a dialog, a drawer or the palette, in cells. The scrim (`scrim`, `shade/10` under a
@@ -151,6 +161,13 @@ resolved ahead of time.
 resolver already performs (the paints' `flat`) and the web draws exactly that; **c** in sixteen
 colors and with no color, where there is nothing to blend. b is ruled out: faint varies by terminal,
 the reason disabled inks became `faded`.
+
+**Decided** by the owner (2026-11-17), as recommended: in truecolor and 256 colors each cell under
+the layer is flattened under the scrim at run time, sRGB source-over, the one blend principle 20
+allows; in sixteen colors and with no color every cell under it is drawn in two fixed colors
+(`ansi-bright-black` ink on the default ground, plain without color). Written into principles 20
+and 22 and `index.json`'s `colorDepth.underLayer`; the overlays' cells notes no longer wait on it.
+Done.
 
 ### T3. An edge on a one-row control
 
@@ -201,10 +218,27 @@ contract.
 |---|---|---|
 | `CountryLayer` (maps): countries filled by a value per ISO 3166-1 alpha-3 code; `MapView`'s `export` control, `fallbackBasemap` and `handle`; `Basemap`'s `geometry` | No map part is specified; the README's order puts add-ons (charts, maps) at step 7, "to come" | Should the maps add-on enter the contract (a `map-view` part with its controls, words and basemap fallback first, the layers after), and when? |
 | `NetworkGraph`'s `layout="force"`, `GraphCanvas`'s `onNodeDrag` | No graph part is specified | Same question for the graph add-on |
-| A chart spec's `statuses` | No chart part is specified | Same question for the charts add-on; the status colors would come from the run states the table and the timelines already paint |
+| A chart spec's `statuses` | **Decided:** charts enter the contract (owner, 2026-11-17). `parts/chart` covers `statuses` | Done; the rest of the family is staged below |
 | `CheckboxField`'s `dot` and `quiet` | No checkbox or field-family part beyond `text-field` | Should `text-field`'s frame grow a checkbox and switch field (their label, help, `dot` and `quiet`), or should they be a part of their own? `board-item-panel` names `quiet` through its checklist meanwhile |
-| `TimeRangePicker`'s `times` and `clock` | No date or range part (README step 5: the field family) | Specify it with the date field when step 5 comes? |
-| `CodeEditor`'s `onFollowLink`, `activeLine: 'always'` and required-key snippets; `Tree`'s `openOnChoose`; `Markdown`'s `live` and `highlight`; `TrackList`'s `href` and windowing | None of these is specified | Leave them out until an egui or terminal app needs one? |
+| `TimeRangePicker`'s `times` and `clock` | No range part yet; `parts/date-field` (stable) now holds the date field it opens | Specify the range picker with the dashboard's time range (charts, stage 3 below)? |
+| `CodeEditor`'s `onFollowLink`, `activeLine: 'always'` and required-key snippets | `parts/code-editor` (stable) | Done |
+| `Tree`'s `openOnChoose`; `Markdown`'s `live` and `highlight`; `TrackList`'s `href` and windowing | None of these is specified | Leave them out until an egui or terminal app needs one? |
+
+### The chart family, staged
+
+The owner decided on 2026-11-17 that charts enter the contract, specified as they are in sokkel-ui
+(`packages/charts`, `docs/charts.md`). The first stage is in: what egui builds first and what every
+later stage stands on.
+
+| Stage | Parts | State |
+|---|---|---|
+| 1 | `chart` (the look every kind shares: axes, grid, the series palette and `statuses`, the tooltip, the legend, the missing dash), `dashboard-panel` (the frame: head, tools and menu, states), `stat-panel` (with thresholds and the target meter), `time-series-panel` (series, fills, threshold lines and `ThresholdLegend`) | Specified, stable |
+| 2 | The kinds egui needs next, one spec each where a kind adds pieces of its own: bar, line, area, gauge (`GaugePanel`, `BarGauge`), heatmap (`HeatmapPanel`) | To come |
+| 3 | The dashboard around the panels: `DashboardGrid`, `DashboardRow`, arranging and editing, `VariablesBar`, the time range (`TimeRange`, `TimeRangePicker`), refreshing | To come |
+| 4 | The other kinds and panels: donut, pie, scatter, histogram, boxplot, waterfall, funnel, bullet, radar (`RadarPanel`), rose, rings, dual (`ComboPanel`), treemap, sunburst, sankey, calendar, parallel, stream, step, range, fan, linked; `ChartPanel`'s data view and export, `ChartGrid`, `ScoreTable`, `BarPanel` | To come |
+
+Each stage is specified as sokkel-ui draws it, with its stories as specimens, and egui and the
+terminal record their states as they build.
 
 ## Tokens the specs ask for
 

@@ -1174,11 +1174,251 @@
             "matrix": "full",
             "canvas": [960, 720],
             "shows": "HRB-142 in full: code over title, In progress chip and two labels, description, fields, checklist and activity."
+        },
+        {
+            "id": "Primitives/Inputs/Date field/Plain",
+            "part": "date-field",
+            "matrix": "full",
+            "canvas": [480, 400],
+            "shows": "A date with a value, an empty optional one with its format as the placeholder, a required one and one read only.",
+            "also": [
+                {
+                    "each": "focus",
+                    "steps": [{"do": "keyFocus", "target": "textbox:First run"}],
+                    "matrix": "pair",
+                    "why": "The ring edge and ring with focus in the frame."
+                }
+            ]
+        },
+        {
+            "id": "Primitives/Inputs/Date field/Formats",
+            "part": "date-field",
+            "matrix": "full",
+            "canvas": [480, 320],
+            "shows": "The same day as YYYY-MM-DD, DD.MM.YYYY and MM/DD/YYYY."
+        },
+        {
+            "id": "Primitives/Inputs/Date field/Bounds",
+            "part": "date-field",
+            "matrix": "full",
+            "canvas": [480, 320],
+            "shows": "A date before min, said at once by the critical edge and the issue mark; one within the bounds."
+        },
+        {
+            "id": "Primitives/Inputs/Date field/Open",
+            "part": "date-field",
+            "matrix": "pair",
+            "canvas": [480, 480],
+            "shows": "The calendar open on the chosen day: the day filled, today marked, the days outside the bounds shut."
+        },
+        {
+            "id": "Patterns/Dashboard panels/Stat tiles",
+            "part": "stat-panel",
+            "matrix": "full",
+            "canvas": [1280, 400],
+            "shows": "Values inked by thresholds, tiles filled by them, a trend behind the value, a change with what it is against, one with no data; a title cut short.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Tiles two to a row."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Dashboard panels/Panel menus",
+            "part": "dashboard-panel",
+            "matrix": "pair",
+            "canvas": [1280, 560],
+            "shows": "A panel's and a tile's menu buttons in their heads; one menu open at the button's end."
+        },
+        {
+            "id": "Patterns/Dashboard panels/Panel states",
+            "part": "dashboard-panel",
+            "matrix": "full",
+            "canvas": [1280, 480],
+            "shows": "No data, a failed query with Retry and the raw message folded away, and figures kept but stale, on a stat tile, a panel and a chart panel."
+        },
+        {
+            "id": "Patterns/Dashboard panels/Chart panels",
+            "part": "dashboard-panel",
+            "matrix": "full",
+            "canvas": [1280, 720],
+            "shows": "Chart panels in the frame: heads with titles and subtitles, the tools, padded content."
+        },
+        {
+            "id": "Patterns/Dashboard panels/Figure hierarchy",
+            "part": "stat-panel",
+            "matrix": "pair",
+            "canvas": [1280, 640],
+            "shows": "The three hierarchy options side by side: inked values, a fill only past a threshold, a quiet strip over plain tiles."
+        },
+        {
+            "id": "Patterns/Editor/Code editor",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 640],
+            "shows": "Editors in fields: YAML with a line that fails the check, a read-only JSON record, plain text without line numbers.",
+            "also": [
+                {
+                    "each": "focus",
+                    "steps": [{"do": "keyFocus", "target": "textbox:Definition"}],
+                    "matrix": "pair",
+                    "why": "The ring/80 edge and the caret's line shaded."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Editor/One line",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [720, 160],
+            "shows": "A query on one line at a control's height.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "A finger tall below md."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Editor/Folding",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "A JSON record with the fold gutter and search."
+        },
+        {
+            "id": "Patterns/Editor/Search",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "A read-only run log at sm, the find bar open with matches washed, the current one stronger."
+        },
+        {
+            "id": "Patterns/Editor/Marks at paths",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "Findings underlined on their values in the tones, dots in the lint gutter."
+        },
+        {
+            "id": "Patterns/Editor/jq",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 400],
+            "shows": "A jq filter: keywords, strings, fields and variables colored, a ranged error underlined."
+        },
+        {
+            "id": "Patterns/Editor/Languages",
+            "part": "code-editor",
+            "matrix": "pair",
+            "canvas": [960, 640],
+            "shows": "SQL, shell and Jinja, each loaded on first use."
+        },
+        {
+            "id": "Patterns/Editor/Schema",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 560],
+            "shows": "YAML checked against a schema: issues underlined with messages."
+        },
+        {
+            "id": "Patterns/Editor/Markdown",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 560],
+            "shows": "A note at lg, wrapped: headings, emphasis, code, lists, quotes, links, [[links]] and #tags colored."
+        },
+        {
+            "id": "Patterns/Editor/Caret line",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 400],
+            "shows": "activeLine always beside the default: the caret's line shaded without focus."
+        },
+        {
+            "id": "Foundations/Code colors/Languages",
+            "part": "code-editor",
+            "matrix": "full",
+            "canvas": [960, 720],
+            "shows": "Every code-* color across the sample languages."
+        },
+        {
+            "id": "Patterns/Dashboard panels/Targets",
+            "part": "stat-panel",
+            "new": true,
+            "matrix": "full",
+            "canvas": [1280, 320],
+            "shows": "Readings toward a target: the meter under each value, the reading filled in, a tick at the target and its value written out; one over its target, one with its own range, one with no data and no meter."
+        },
+        {
+            "id": "Charts/Chart/Stacked",
+            "part": "chart",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "Runs per job stacked by state in each run state's status color (statuses)."
+        },
+        {
+            "id": "Charts/Chart/Palette",
+            "part": "chart",
+            "matrix": "pair",
+            "canvas": [960, 480],
+            "shows": "Series and slices in an app's palette in place of the theme's order."
+        },
+        {
+            "id": "Charts/Line/Two series",
+            "part": "chart",
+            "matrix": "full",
+            "canvas": [960, 400],
+            "shows": "Two lines over the day, the axes, grid and the legend under the chart.",
+            "also": [
+                {
+                    "each": ["hover", "focus"],
+                    "steps": [
+                        {"when": "hover", "do": "hover", "target": "button:Runs"},
+                        {"when": "focus", "do": "keyFocus", "target": "button:Runs"}
+                    ],
+                    "matrix": "pair",
+                    "why": "A legend entry on the hover wash, its series emphasized; one with keyboard focus."
+                }
+            ]
+        },
+        {
+            "id": "Charts/Frame/Legend list",
+            "part": "chart",
+            "matrix": "full",
+            "canvas": [720, 360],
+            "shows": "The legend as a wrapped row, one series switched off: hollow swatch, struck label, 60 percent."
+        },
+        {
+            "id": "Charts/Frame/Legend table",
+            "part": "chart",
+            "matrix": "full",
+            "canvas": [720, 400],
+            "shows": "The legend as a table of each series' min, max, avg and current."
+        },
+        {
+            "id": "Patterns/Dashboard panels/Time series",
+            "part": "time-series-panel",
+            "matrix": "full",
+            "canvas": [1280, 720],
+            "shows": "Lines over fading areas, percentiles with a dashed threshold line in critical and a legend table, stacked areas, and steps."
+        },
+        {
+            "id": "Charts/Scorecard/Solid",
+            "part": "time-series-panel",
+            "matrix": "pair",
+            "canvas": [960, 480],
+            "shows": "ThresholdLegend as one strip (bar layout) under a scorecard."
         }
     ],
     "count": {
-        "full": "95 stories x 12 appearances = 1140",
-        "pair": "84 captures x 2 appearances = 168",
-        "perSide": 1308
+        "full": "117 stories x 12 appearances = 1404",
+        "pair": "96 captures x 2 appearances = 192",
+        "perSide": 1596
     }
 }

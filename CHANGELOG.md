@@ -6,6 +6,32 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- code-editor, date-field: two new parts, specified as they are in sokkel-ui 8567f05 (`CodeEditor`:
+  its variants and sizes, languages and their `code-*` token colors, marks and problems, completions
+  with schema snippets, folding, search, the caret line and `[[link]]` following, the schema's words
+  with samples; `DateField`: the typed date in three formats, bounds, the calendar it opens and its
+  keys). Specimens for their stories.
+- The chart family begins (owner's decision): `chart` (the look every kind shares: axes, grid, the
+  series palette and `statuses`, the tooltip, the legend, the missing dash), `dashboard-panel` (the
+  frame every panel stands in: head, tools and menu, loading, empty, failed and stale),
+  `stat-panel` (thresholds, the change, the target meter) and `time-series-panel` (fills,
+  threshold lines, the threshold legend); the rest of the family staged in open-questions.md.
+  Specimens for their stories, one for a new Targets story.
+- T1 decided: sixteen colors by role, `colorDepth.ansi16.paints` (red, yellow, green and blue by
+  tone, bright black for the quiet inks, the terminal's defaults for grounds and inks, reverse
+  video for hover, the accent and a selection); `check.py` holds the map.
+- T2 decided: under a layer with a scrim, truecolor and 256 colors flatten each cell at run time,
+  the one blend principle 20 allows; sixteen colors and no color draw it in two fixed colors
+  (`colorDepth.underLayer`). The overlays' cells say so.
+- Renderers: sokkel-egui as of b7e1763 on the new parts (date-field and stat-panel and
+  time-series-panel partial: the date-only form, the target meter and the mark built) and on
+  text-field (a text input 33 tall at regular since egui 0.37, drift); sokkel-tui as of 933b2da,
+  missing on the new parts.
+- The pin moves to sokkel-ui 8567f05 (tokens unchanged).
+- open-questions: findings from the new parts (folding's bracket keys, the time series' marks, a
+  hidden legend entry's opacity, the panels' two focus looks and edges, the target meter's
+  run-time track).
+
 - Three renderers: sokkel-ui, sokkel-egui and sokkel-tui (ratatui, in a terminal), listed in
   `index.json`'s `renderers`. Every part and pattern carries `renderers`, each renderer's state
   (`missing`, `partial` or `built`) as of a commit of its own repository: sokkel-ui built (partial on

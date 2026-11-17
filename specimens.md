@@ -146,9 +146,37 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Detail pane/Summary | pair | a sentence over its facts, and a diff |
 | Patterns/Board item panel/Checklist | full; pair with hover and focus | 2/4 done, the bar half full, done steps quiet and struck through |
 | Patterns/Board item panel/Item | full | a work item in full |
+| Primitives/Inputs/Date field/Plain | full; pair with focus | a date with a value, an empty optional one with its format as the placeholder, a required one and one read only |
+| Primitives/Inputs/Date field/Formats | full | the same day as YYYY-MM-DD, DD.MM.YYYY and MM/DD/YYYY |
+| Primitives/Inputs/Date field/Bounds | full | a date before min, said at once by the critical edge and the issue mark; one within the bounds |
+| Primitives/Inputs/Date field/Open | pair | the calendar open on the chosen day: the day filled, today marked, the days outside the bounds shut |
+| Patterns/Dashboard panels/Stat tiles | full; pair with phone | values inked by thresholds, tiles filled by them, a trend behind the value, a change with what it is against, one with no data; a title cut short |
+| Patterns/Dashboard panels/Panel menus | pair | a panel's and a tile's menu buttons in their heads; one menu open at the button's end |
+| Patterns/Dashboard panels/Panel states | full | no data, a failed query with Retry and the raw message folded away, and figures kept but stale, on a stat tile, a panel and a chart panel |
+| Patterns/Dashboard panels/Chart panels | full | chart panels in the frame: heads with titles and subtitles, the tools, padded content |
+| Patterns/Dashboard panels/Figure hierarchy | pair | the three hierarchy options side by side: inked values, a fill only past a threshold, a quiet strip over plain tiles |
+| Patterns/Editor/Code editor | full; pair with focus | editors in fields: YAML with a line that fails the check, a read-only JSON record, plain text without line numbers |
+| Patterns/Editor/One line | full; pair with phone | a query on one line at a control's height |
+| Patterns/Editor/Folding | full | a JSON record with the fold gutter and search |
+| Patterns/Editor/Search | full | a read-only run log at sm, the find bar open with matches washed, the current one stronger |
+| Patterns/Editor/Marks at paths | full | findings underlined on their values in the tones, dots in the lint gutter |
+| Patterns/Editor/jq | full | a jq filter: keywords, strings, fields and variables colored, a ranged error underlined |
+| Patterns/Editor/Languages | pair | sQL, shell and Jinja, each loaded on first use |
+| Patterns/Editor/Schema | full | yAML checked against a schema: issues underlined with messages |
+| Patterns/Editor/Markdown | full | a note at lg, wrapped: headings, emphasis, code, lists, quotes, links, [[links]] and #tags colored |
+| Patterns/Editor/Caret line | full | activeLine always beside the default: the caret's line shaded without focus |
+| Foundations/Code colors/Languages | full | every code-* color across the sample languages |
+| Patterns/Dashboard panels/Targets | full | readings toward a target: the meter under each value, the reading filled in, a tick at the target and its value written out; one over its target, one with its own range, one with no data and no meter |
+| Charts/Chart/Stacked | full | runs per job stacked by state in each run state's status color (statuses) |
+| Charts/Chart/Palette | pair | series and slices in an app's palette in place of the theme's order |
+| Charts/Line/Two series | full; pair with hover and focus | two lines over the day, the axes, grid and the legend under the chart |
+| Charts/Frame/Legend list | full | the legend as a wrapped row, one series switched off: hollow swatch, struck label, 60 percent |
+| Charts/Frame/Legend table | full | the legend as a table of each series' min, max, avg and current |
+| Patterns/Dashboard panels/Time series | full | lines over fading areas, percentiles with a dashed threshold line in critical and a legend table, stacked areas, and steps |
+| Charts/Scorecard/Solid | pair | thresholdLegend as one strip (bar layout) under a scorecard |
 
-That is 95 stories across the full matrix (1140 captures) and 84 captures across the pair matrix
-(168), **1308 per side**.
+That is 117 stories across the full matrix (1404 captures) and 96 captures across the pair matrix
+(192), **1596 per side**.
 
 ## How a state is reached
 
