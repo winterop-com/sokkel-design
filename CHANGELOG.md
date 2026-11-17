@@ -4,8 +4,9 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.29.4
 
+- themes: `phosphor` (green CRT text on near-black, and a derived light), `phosphor-bright` (high-contrast green on black, and a derived light) and `tray` (a grey tray with white cards and green accents; its dark keeps a deep blue strip), resolved from sokkel-ui 1a34d88.
 - code-editor: folding's keys need no bracket: Mod+. and Mod+Shift+. for the block, Mod+Alt+. and
   Mod+Alt+Shift+. for every block; CodeMirror's bracket keys stay second (principle 17).
 - time-series-panel: `marks`, lines across at values (a target, a limit), dashed with the label
