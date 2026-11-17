@@ -18,6 +18,18 @@ of their own (D4); a change to a part is a line here under its name.
 - verify-colors: a partly transparent paint's channels are compared within what a canvas reads back
   through premultiplied bytes (255 / alpha), so `kind-green/25` and `kind-teal/25` in dark no longer
   fail on the readback's rounding.
+- composer, message-composer: two new parts, specified as they landed in sokkel-ui: both boxes
+  round by the new `radius-composer` token (twice the control radius) and their send, attach and
+  add buttons are round; `Composer` takes `layout` (`stacked`, or `inline`: a
+  pill that opens into the box once the text needs a line of its own or files, dictation or a
+  failure show, its corners easing over `motion-base`). Words, options, sizes, paints, keys (Enter
+  sends, Shift+Enter breaks the line, and on a touch screen Enter breaks the line and only Send
+  sends; the suggestions' keys) and the inline switch. Nine specimens.
+- emoji-picker: the group tabs stop at the first and the last under the arrow keys.
+- reaction-bar: the arrow keys stop at the bar's first and last button; a reaction and the more
+  button with keyboard focus wear the focus outline in `ring`, drawn inside the circle, so a given
+  reaction shows it beside its pressed ring.
+- The pin moves to sokkel-ui 6220600, with `radius-composer`.
 
 ## 0.29.2
 

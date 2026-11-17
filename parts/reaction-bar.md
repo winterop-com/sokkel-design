@@ -37,7 +37,7 @@ the bar) or `onAddReaction` (the app's own), `bar`.
 | State | Paint |
 |---|---|
 | hover | a reaction or the more button on `hover`, the more icon `foreground`; a chip or the add button edged `border-strong`, the add icon `foreground` |
-| focus (keyboard) | a `focus-ring-width` ring in `ring/50`, no offset |
+| focus (keyboard) | a reaction or the more button: the focus outline in `ring`, `focus-ring-width`, drawn `focus-ring-offset` inside the circle, beside a given reaction's pressed ring; a chip or the add button: a `focus-ring-width` ring in `ring/50`, no offset |
 | pressed | a given quick reaction on `primary/12` with a 1 wide `primary/60` ring |
 | open | the more button on `hover`, the add button edged `border-strong` |
 | chip rest | `muted` ground, no edge, `muted-foreground` ink |
@@ -45,7 +45,8 @@ the bar) or `onAddReaction` (the app's own), `bar`.
 
 ## Keyboard
 
-- Left and Right move between the bar's buttons, the more button included, wrapping.
+- Left and Right move between the bar's buttons, the more button included, stopping at the first
+  and the last.
 - Enter or Space gives a reaction, opens the full list, toggles a chip or opens the bar.
 - Escape closes an open popover, focus back on its button.
 

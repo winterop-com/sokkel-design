@@ -906,7 +906,105 @@
             "matrix": "full",
             "canvas": [720, 200],
             "shows": "Chips under a message: thumbs up 3, yours (primary), party popper 1, and the add button."
+        },
+        {
+            "id": "Patterns/Composer/States",
+            "part": "composer",
+            "matrix": "full",
+            "canvas": [960, 720],
+            "shows": "Stacked: empty with Send shut, holding text with files and a picture, busy with Stop, and disabled.",
+            "also": [
+                {
+                    "each": "within",
+                    "steps": [{"do": "click", "target": "textbox:Ask anything"}],
+                    "matrix": "pair",
+                    "why": "Focus in the text: the edge and the 1 wide ring in ring."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Composer/Inline",
+            "part": "composer",
+            "matrix": "full",
+            "canvas": [960, 720],
+            "shows": "Inline: the empty pill, a short question still a pill, a question that wraps and one with a file, both opened into the box.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 768 the pill is a finger tall and its buttons finger squares; the wrapping question opens sooner."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Composer/Uploads",
+            "part": "composer",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "Files on their way up: a ring at 40 percent, a spinner, a picture at half strength; a recording and a video ready; Send waiting."
+        },
+        {
+            "id": "Patterns/Composer/Mentions",
+            "part": "composer",
+            "matrix": "pair",
+            "canvas": [960, 560],
+            "shows": "The people suggested at the caret after an @."
+        },
+        {
+            "id": "Patterns/Message composer/Empty",
+            "part": "message-composer",
+            "matrix": "full",
+            "canvas": [960, 240],
+            "shows": "The toolbar hidden: add, the text style toggle, emoji and mention, Send faint and shut.",
+            "also": [
+                {
+                    "each": ["hover", "focus"],
+                    "steps": [
+                        {"when": "hover", "do": "hover", "target": "button:Emoji"},
+                        {"when": "focus", "do": "keyFocus", "target": "button:Attach"}
+                    ],
+                    "matrix": "pair",
+                    "why": "An action under the pointer; add with keyboard focus."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Message composer/Formatting",
+            "part": "message-composer",
+            "matrix": "full",
+            "canvas": [960, 320],
+            "shows": "The toolbar's groups and rules over a draft, Write and Preview at its end, the text style toggle pressed, Send on primary.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Narrower than 448 the groups that do not fit go behind More, and Write and Preview become one Preview action."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Message composer/Code languages",
+            "part": "message-composer",
+            "matrix": "pair",
+            "canvas": [960, 640],
+            "shows": "The code block's menu open over the button."
+        },
+        {
+            "id": "Patterns/Message composer/JSON preview",
+            "part": "message-composer",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "Preview: a json fence drawn as a sent message draws it."
+        },
+        {
+            "id": "Patterns/Message composer/Thread reply",
+            "part": "message-composer",
+            "matrix": "full",
+            "canvas": [960, 320],
+            "shows": "Also send to with the channel, and the schedule chevron beside Send."
         }
     ],
-    "count": {"full": "76 stories x 12 appearances = 912", "pair": "64 captures x 2 appearances = 128", "perSide": 1040}
+    "count": {"full": "83 stories x 12 appearances = 996", "pair": "71 captures x 2 appearances = 142", "perSide": 1138}
 }

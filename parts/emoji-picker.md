@@ -59,7 +59,8 @@ then those whose name starts with it, then shorter names.
 - In the grid, Left and Right move across cells and sections, Up and Down by rows in the same column
   (Up from the first row back to the search), Home and End to the ends; it stops at the ends.
   Enter or Space picks.
-- Along the tabs, Left and Right move between them, wrapping; Enter or Space shows the group.
+- Along the tabs, Left and Right move between them, stopping at the first and the last; Enter or
+  Space shows the group.
 - Escape clears a query first (a popover stays open), then calls `onClose` or closes the popover,
   focus back on its trigger. In the tone choice, Escape closes it, focus back on the tone button.
 
