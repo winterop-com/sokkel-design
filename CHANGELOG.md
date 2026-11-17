@@ -6,6 +6,18 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- code-editor: folding's keys need no bracket: Mod+. and Mod+Shift+. for the block, Mod+Alt+. and
+  Mod+Alt+Shift+. for every block; CodeMirror's bracket keys stay second (principle 17).
+- time-series-panel: `marks`, lines across at values (a target, a limit), dashed with the label
+  and value at the end, the axis reaching each, as sokkel-egui's mark draws them; chart: `targets`.
+- chart: a hidden legend entry at `disabled-opacity`.
+- stat-panel: the dashboard panel's `border-strong` edge and its tools' focus outline; the meter's
+  `track`, `muted` (`on-fill/25` filled); no value foot under a target meter.
+- table: a group's head is `text.head` in `table-head-ink`, never louder than its rows; principle 3
+  says a head is never louder than what it heads.
+- rail: the widths are sokkel-ui's `RAIL_SIZE`.
+- open-questions: the five findings of the chart round decided and done.
+- The pin moves to sokkel-ui 25edcde (tokens unchanged).
 - code-editor, date-field: two new parts, specified as they are in sokkel-ui 8567f05 (`CodeEditor`:
   its variants and sizes, languages and their `code-*` token colors, marks and problems, completions
   with schema snippets, folding, search, the caret line and `[[link]]` following, the schema's words

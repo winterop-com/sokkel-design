@@ -15,7 +15,7 @@ Sources: sokkel-ui `packages/core/src/components/dashboard/StatPanel.tsx` (`Stat
 
 | Piece | What it is |
 |---|---|
-| tile | At least 112 tall (144 with a target), `radius-surface`, a `border` edge on `card`; filled, the tone as a gradient in `on-fill` |
+| tile | At least 112 tall (144 with a target), `radius-surface`, a `border-strong` edge on `card` (the dashboard panel's); filled, the tone as a gradient in `on-fill` |
 | spark | The trend as a faint area across the foot, 45 percent of the height (a quarter with a target) |
 | head | At least 28 tall, 10 across, 4 over, 4 between: title, change, info, menu, grid tools |
 | title | `text.xs` at 500, `muted-foreground`, two lines at most |
@@ -45,9 +45,9 @@ and the target between `targetRange`, or between 0 and the larger of the two.
 
 | State | Paint |
 |---|---|
-| rest | `card`, `border`, `card-foreground` |
+| rest | `card`, `border-strong`, `card-foreground`; the meter's track `muted` (`on-fill` at 25 percent when filled) |
 | hover | a tile that is a link: `hover` and a `foreground/25` edge; a tool's icon `foreground` |
-| focus (keyboard) | the cover: the focus outline in `ring`, inside the edge; a tool: the outline in `ring` |
+| focus (keyboard) | the cover: the focus outline in `ring`, inside the edge; a tool: the outline in `ring`, `focus-ring-offset` off, as the dashboard panel's tools |
 | inked | the value, its unit and trend in the reading's color (run time) |
 | filled | the tile in the reading's color, no edge, inks `on-fill` (90, 85 or 80 percent for the quieter ones) |
 | good / bad | the change in `good` / `critical` |

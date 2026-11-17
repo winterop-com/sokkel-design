@@ -146,3 +146,10 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
 - **sokkel-tui:** as of 7bf2ece the table variant only: no bar, list variant, groups, trees,
   details, row actions, paging, editing, resize, reorder or grid.
 - **sokkel-ui, counts:** formatted with `en-US` in `WORDS`.
+
+## Group heads
+
+A group's head row is set as the column heads are, `text.head` in `table-head-ink`, in the group's
+own case (a group is named by its value): a head is never louder than the rows it heads
+(`GROUP_HEAD_TEXT` in `lib/table.ts`). A stacked card's labels keep to the same rule: `text.xs` in
+`muted-foreground`, the size of the values beside them.

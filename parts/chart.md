@@ -52,7 +52,7 @@ ECharts takes no classes, so a renderer and a test read the chart's look where s
 
 `kind` (the 27 kinds `KINDS` holds), `label`, `rows` and the fields a kind reads with `fieldNames`,
 `palette` (the theme's order by default), `colors` (a token per name, `name/45` with an alpha),
-`statuses` (`true`: each run state in `status-<state>`; or an app's `StatusMap`), `steps`, `marks`,
+`statuses` (`true`: each run state in `status-<state>`; or an app's `StatusMap`), `steps`, `marks`, `targets` (lines across at values, dashed, their label and value at the end, the value axis reaching each),
 `format` with `unit`, `hidden` and `hovered`, `words`.
 
 ## States and tokens
@@ -62,7 +62,7 @@ ECharts takes no classes, so a renderer and a test read the chart's look where s
 | hover | the axis pointer and the tooltip; a series emphasized, its points shown; a legend entry on `hover` in `foreground` |
 | blurred | the other series: a line at 20 percent, an area at 4, a bar or point at 25 |
 | focus (keyboard) | a legend entry: the focus outline in `ring`, drawn inside it |
-| hidden | the series not drawn; its entry at 60 percent, label struck through, swatch hollow; ECharts' own legend in `faint` |
+| hidden | the series not drawn; its entry at `disabled-opacity`, label struck through, swatch hollow; ECharts' own legend in `faint` |
 
 ## Keyboard
 
