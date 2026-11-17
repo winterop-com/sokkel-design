@@ -4,6 +4,10 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- themes: terminal, phosphor and phosphor-bright set their capital table heads at `text-sm`, the cells' size; capitals with tracking already stand a step above the rows.
+
 ## 0.30.1
 
 - principle 3: corrected. A column head stands one text step above the cell text it heads, at
