@@ -27,10 +27,12 @@
         "chips": "With state or labels: the column's chip, then the labels, in a row that wraps, 6 apart.",
         "stateChip": "The column the item stands in: a chip (parts of Badge, secondary) with the column's icon before its label.",
         "section": "Each of description, fields, checklist and activity: a section as parts/detail-pane draws one (padded 16 by 12, its small heading, a rule under it, none under the last), drawn only when given and not empty.",
+        "heading": "A section's heading: parts/detail-pane's, the checklist's with its steps done of the steps in all after the title.",
         "description": "The Description section's prose, wrapping evenly, on lines 24 tall.",
         "fields": "The Fields section's terms beside their values, the term column as wide as the longest term (parts/detail-pane's facts).",
         "checklist": "BoardChecklist: a section headed words.checklist.title, a space, then the steps done, a slash and the steps in all (Checklist 2/4); the bar, then the steps.",
         "progress": "The bar, named words.checklist.progress: a track 4 tall in muted, fully round, filled in primary as far as the share of steps done; its value said as a percent.",
+        "fill": "The progress bar's fill, as far along as the steps done of the steps in all.",
         "steps": "The steps in a list, reaching 4 into the section's padding on each side so the boxes line up with the heading.",
         "step": "One step: a checkbox field, the whole row its label, so a press anywhere on it ticks the box.",
         "box": "The step's checkbox: 16 square, 2 under the row's top, its check 14 in it.",
@@ -69,7 +71,9 @@
         "chips": {"gap": 6},
         "stateChip": {"height": 20, "padX": 6, "gap": 4, "icon": 12, "radius": "radius-chip", "text": "text.badge"},
         "section": {"padX": 16, "padY": 12, "gap": 8},
-        "heading": {"text": "text.xs", "note": "parts/detail-pane's heading: weight 500, uppercase, tracked wide."},
+        "heading": {
+            "note": "parts/detail-pane's heading: text.xs at weight 500, as its paint says; uppercase, tracked wide."
+        },
         "description": {"text": "text.sm", "note": "On lines 24 tall."},
         "progress": {"height": 4},
         "step": {
@@ -118,8 +122,10 @@
             }
         },
         "section": {"rest": {"rule": "border", "note": "1 wide under each section but the last."}},
+        "heading": {"rest": {"ink": "faint", "text": "text.xs", "weight": 500, "note": "Uppercase, tracked wide."}},
         "description": {"rest": {"text": "text.sm"}},
-        "progress": {"rest": {"ground": "muted", "mark": "primary", "note": "mark is the fill."}},
+        "progress": {"rest": {"ground": "muted", "note": "The track, fully round."}},
+        "fill": {"rest": {"ground": "primary"}},
         "step": {"rest": {"radius": "radius-control", "text": "text.sm"}, "hover": {"ground": "hover"}},
         "box": {
             "rest": {"ground": "none", "edge": "input", "radius": "radius-sm", "dark": {"ground": "input/30"}},
