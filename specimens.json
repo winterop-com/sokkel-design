@@ -733,7 +733,180 @@
                 }
             ],
             "shows": "The settings dialog over the page."
+        },
+        {
+            "id": "Patterns/Run timeline/Month",
+            "part": "run-timeline",
+            "matrix": "full",
+            "canvas": [1280, 480],
+            "shows": "Thirty days of jobs: the legend, day ticks, each run a mark in its state's color, runs after now hollow, the Now line and its tab.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 640 the names' column is 112 and the ticks thin out to fit."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Run timeline/Day",
+            "part": "run-timeline",
+            "matrix": "full",
+            "canvas": [1280, 480],
+            "shows": "One day: each run a bar as long as it took, the hours along the ruler."
+        },
+        {
+            "id": "Patterns/Run timeline/Shift",
+            "part": "run-timeline",
+            "matrix": "pair",
+            "canvas": [1280, 560],
+            "each": ["rest", "hover", "focus"],
+            "steps": [
+                {"when": "hover", "do": "hover", "target": "button:nightly-export"},
+                {"when": "focus", "do": "keyFocus", "target": "button:Upcoming runs of sync-inventory"}
+            ],
+            "shows": "sync-inventory chosen: its lane on accent, its name's primary edge, the dashed handle over its upcoming runs and the hint in the legend; another lane's name under the pointer; the handle with keyboard focus."
+        },
+        {
+            "id": "Apps/Workspace/Schedules",
+            "part": "run-timeline",
+            "matrix": "pair",
+            "canvas": [1280, 800],
+            "shows": "The timeline in an app's schedules page, a lane chosen and its runs ready to shift."
+        },
+        {
+            "id": "Patterns/Clip timeline/Two tracks",
+            "part": "clip-timeline",
+            "matrix": "full",
+            "canvas": [1280, 240],
+            "shows": "A video track and its sound, read-only: the corner's timecode, the ruler's ticks, a video clip and an audio clip with its waveform, the playhead."
+        },
+        {
+            "id": "Patterns/Clip timeline/Editor",
+            "part": "clip-timeline",
+            "matrix": "full",
+            "canvas": [1280, 480],
+            "shows": "Four tracks with their toggles, clips in each kind's color, a title dashed, chosen clips outlined.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 640 the headers' column is 112 and the lanes scroll sideways inside the box."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Clip timeline/Locked tracks",
+            "part": "clip-timeline",
+            "matrix": "full",
+            "canvas": [1280, 400],
+            "shows": "A locked track's shaded lane; a hidden and a muted track's clips at half strength."
+        },
+        {
+            "id": "Patterns/Clip timeline/Close zoom",
+            "part": "clip-timeline",
+            "matrix": "full",
+            "canvas": [1280, 240],
+            "shows": "Close in: ticks a few frames apart with minor ticks between, the lanes scrolled to the playhead."
+        },
+        {
+            "id": "Patterns/Clip timeline/Short room",
+            "part": "clip-timeline",
+            "matrix": "pair",
+            "canvas": [1280, 640],
+            "shows": "Less height than the tracks need: the ruler pinned at the top, the headers at the start and the corner over both."
+        },
+        {
+            "id": "Patterns/Emoji picker/Inline",
+            "part": "emoji-picker",
+            "matrix": "full",
+            "canvas": [480, 520],
+            "shows": "Recent first, then the groups under their headings, the tone button, the first tab current.",
+            "also": [
+                {
+                    "each": "cell",
+                    "steps": [{"do": "hover", "target": "button:thumbs up"}],
+                    "matrix": "pair",
+                    "why": "A cell under the pointer on the hover wash."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Emoji picker/Search",
+            "part": "emoji-picker",
+            "matrix": "full",
+            "canvas": [480, 520],
+            "shows": "heart in the search: Search results, those named for it first, no tab current."
+        },
+        {
+            "id": "Patterns/Emoji picker/No match",
+            "part": "emoji-picker",
+            "matrix": "full",
+            "canvas": [480, 520],
+            "shows": "No emoji found."
+        },
+        {
+            "id": "Patterns/Emoji picker/Skin tone",
+            "part": "emoji-picker",
+            "matrix": "full",
+            "canvas": [480, 520],
+            "shows": "The medium tone chosen: the tone button's hand and the people and hands in it; no Recent."
+        },
+        {
+            "id": "Patterns/Emoji picker/Popover",
+            "part": "emoji-picker",
+            "matrix": "pair",
+            "canvas": [720, 560],
+            "shows": "The picker in a popover over its trigger, on the popup's look."
+        },
+        {
+            "id": "Patterns/Reaction bar/Quick",
+            "part": "reaction-bar",
+            "matrix": "full",
+            "canvas": [720, 160],
+            "shows": "The default quick reactions and the more button on the popup's look.",
+            "also": [
+                {
+                    "each": ["hover", "focus"],
+                    "steps": [
+                        {"when": "hover", "do": "hover", "target": "button:thumbs up"},
+                        {"when": "focus", "do": "keyFocus", "target": "button:red heart"}
+                    ],
+                    "matrix": "pair",
+                    "why": "A reaction on the hover wash; one with keyboard focus."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Reaction bar/Selected",
+            "part": "reaction-bar",
+            "matrix": "full",
+            "canvas": [720, 160],
+            "shows": "Two reactions given, pressed: the primary wash and ring."
+        },
+        {
+            "id": "Patterns/Reaction bar/Toolbar",
+            "part": "reaction-bar",
+            "matrix": "full",
+            "canvas": [720, 120],
+            "shows": "An app's short list at sm, unframed."
+        },
+        {
+            "id": "Patterns/Reaction bar/More",
+            "part": "reaction-bar",
+            "matrix": "pair",
+            "canvas": [720, 560],
+            "shows": "The more button open: the full picker over the bar, Recent first."
+        },
+        {
+            "id": "Patterns/Reaction bar/Reaction counts",
+            "part": "reaction-bar",
+            "matrix": "full",
+            "canvas": [720, 200],
+            "shows": "Chips under a message: thumbs up 3, yours (primary), party popper 1, and the add button."
         }
     ],
-    "count": {"full": "62 stories x 12 appearances = 744", "pair": "52 captures x 2 appearances = 104", "perSide": 848}
+    "count": {"full": "76 stories x 12 appearances = 912", "pair": "64 captures x 2 appearances = 128", "perSide": 1040}
 }

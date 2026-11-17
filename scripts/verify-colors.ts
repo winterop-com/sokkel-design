@@ -46,10 +46,16 @@ const named = (token: string): string => {
 }
 
 const bytes = (hex: string) => [1, 3, 5, 7].map((i) => (i < hex.length ? parseInt(hex.slice(i, i + 2), 16) : 255))
-/** How far apart two colors are, out of 255; a nearly transparent color's channels mean little, so only its alpha counts. */
+/**
+ * How far apart two colors are, out of 255; a nearly transparent color's channels mean little, so
+ * only its alpha counts. A partly transparent color's channels come back from the canvas through
+ * premultiplied bytes, good only to 255 / alpha, so that much less a step is taken off them.
+ */
 const apart = (ours: number[], theirs: number[]) => {
-    const channels = ours[3] < 40 ? [3] : [0, 1, 2, 3]
-    return Math.max(...channels.map((i) => Math.abs(ours[i] - theirs[i])))
+    if (ours[3] < 40) return Math.abs(ours[3] - theirs[3])
+    const slack = ours[3] < 255 ? Math.ceil(255 / ours[3]) - 1 : 0
+    const channels = [0, 1, 2].map((i) => Math.max(Math.abs(ours[i] - theirs[i]) - slack, 0))
+    return Math.max(Math.abs(ours[3] - theirs[3]), ...channels)
 }
 
 interface Drawn {
