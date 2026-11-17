@@ -119,9 +119,18 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Reaction bar/Toolbar | full | sm, unframed |
 | Patterns/Reaction bar/More | pair | the full picker open over the bar |
 | Patterns/Reaction bar/Reaction counts | full | chips with counts, yours marked, the add button |
+| Patterns/Composer/States | full; pair with focus in the text | stacked: empty, with files and a picture, busy, disabled; the edge and ring in `ring` with focus |
+| Patterns/Composer/Inline | full; pair at 390 | the pill empty and with a short question; a wrapping question and a file open into the box; at 390 finger heights |
+| Patterns/Composer/Uploads | full | upload rings and spinners, a recording and a video, Send waiting |
+| Patterns/Composer/Mentions | pair | the suggestions at the caret |
+| Patterns/Message composer/Empty | full; pair with hover and focus | the row with the toolbar hidden, Send faint; an action hovered, add focused |
+| Patterns/Message composer/Formatting | full; pair at 390 | the toolbar, Write and Preview; at 390 More and one Preview action |
+| Patterns/Message composer/Code languages | pair | the code block's menu open |
+| Patterns/Message composer/JSON preview | full | a json fence in Preview |
+| Patterns/Message composer/Thread reply | full | Also send to and the schedule chevron |
 
-That is 76 stories across the full matrix (912 captures) and 64 captures across the pair matrix
-(128), **1040 per side**.
+That is 83 stories across the full matrix (996 captures) and 71 captures across the pair matrix
+(142), **1138 per side**.
 
 ## How a state is reached
 

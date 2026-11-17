@@ -10,9 +10,9 @@ It has the same shape as sokkel-api: one contract, an implementation per stack, 
 them. The contract decides and each renderer stays idiomatic. When a renderer drifts, a check fails
 in that renderer's CI before any app sees it.
 
-It covers nineteen parts (button, text field, table, rail, top bar, status line, page header,
+It covers twenty-one parts (button, text field, table, rail, top bar, status line, page header,
 section, page state, select, dropdown menu, tooltip, dialog, settings dialog, command palette, run
-timeline, clip timeline, emoji picker, reaction bar) and one pattern (the shell), at contract
+timeline, clip timeline, emoji picker, reaction bar, composer, message composer) and one pattern (the shell), at contract
 version 0.29.2, which moves in lockstep with sokkel-ui
 (`CHANGELOG.md`). sokkel-ui checks its components against a pinned copy of the specs
 (`src/parts.test.ts`); sokkel-ui-egui builds its widgets from them and takes its resolved tokens and
@@ -44,6 +44,7 @@ sokkel-design/
                 select  dropdown-menu  tooltip
                 dialog  settings-dialog  command-palette
                 run-timeline  clip-timeline  emoji-picker  reaction-bar
+                composer  message-composer
     patterns/   shell                                               (.md + .json)
     tokens/     tokens.resolved.json: the tokens and the paints, for renderers that read no CSS
     scripts/    the resolver, verify-colors, check.py, fmt.py (scripts/README.md)
