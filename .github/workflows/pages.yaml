@@ -1,0 +1,41 @@
+name: pages
+
+# The documentation site: scripts/site.ts builds _site/ from the contract's files, and GitHub Pages
+# serves it at https://winterop-com.github.io/sokkel-design/.
+# A pull request builds the site, so a spec the generator cannot read fails there; only main deploys.
+on:
+    workflow_dispatch:
+    push:
+        branches: [main]
+    pull_request:
+
+permissions:
+    contents: read
+    pages: write
+    id-token: write
+
+concurrency:
+    group: pages-${{ github.ref }}
+    cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - uses: actions/checkout@v5
+            - run: npm install -g bun@1.4.4
+            - run: bun scripts/site.ts
+            - if: github.event_name != 'pull_request'
+              uses: actions/upload-pages-artifact@v4
+              with:
+                  path: _site
+    deploy:
+        if: github.event_name != 'pull_request'
+        needs: build
+        runs-on: ubuntu-latest
+        environment:
+            name: github-pages
+            url: ${{ steps.deployment.outputs.page_url }}
+        steps:
+            - id: deployment
+              uses: actions/deploy-pages@v4
