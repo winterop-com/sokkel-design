@@ -6,7 +6,7 @@ is a Storybook story path**: title and story name, exactly as sokkel-ui's sideba
 captures pair by name with no mapping file. Both capture the story's canvas only, never the
 storybook's chrome. Motion is stopped, the scale is 2, and the file is
 `{slug}--{theme}-{scheme}-{density}.png`. The slug is the id in lower case with `/` and spaces turned
-into `_`, as sokkel-ui-egui's snapshot test already names its files. The list is
+into `_`, as sokkel-egui's snapshot test already names its files. The list is
 [`specimens.json`](specimens.json).
 
 Specimens fail nothing. They are what a person looks at when a check passes but something still
@@ -49,12 +49,15 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Data table/Stack width | full | a list as cards below its own stack width |
 | Patterns/Data table/Empty | full | the heads and the words |
 | Patterns/Data table/Loading | full | placeholder rows |
+| Patterns/Data table/Stacked cards | full | cards at every width, a lead that opens the row, cards as tall as their notes |
+| Patterns/Data table/Bands | pair | columns in bands, and the list's own search in its bar |
 | Patterns/States/In a table | full | a refused read in a table's place, with Try again |
 | Patterns/Rail/Expanded | full; pair with hover and edge focus | titled groups, the active bar, counts and a dot, the account; an entry under the pointer; the edge's line on keyboard focus |
 | Patterns/Rail/Collapsed | full | icons alone, counts over them, rules for the group titles |
 | Patterns/Rail/Described | full | a second line under each label |
 | Patterns/Rail/Nested | full | a parent unfolded over the active entry, another folded beside its chevron |
 | Patterns/Rail/Counts | full | the strip: icons over labels, counts at their corners, a dot |
+| Patterns/Rail/Places above | full | a body's tree under the places, no row back |
 | Patterns/Top bar/Current | full; pair at 390; pair with hover and focus | the trail to the current screen and the palette's button; at 390 the last crumb and the icon; the button hovered and focused |
 | Patterns/Top bar/Ancestors | full; pair at 390 | the trail ending at the screen above; at 390 the way back |
 | Patterns/Status line/Tones | full | each tone, the live dot, code and plain facts |
@@ -128,9 +131,24 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Message composer/Code languages | pair | the code block's menu open |
 | Patterns/Message composer/JSON preview | full | a json fence in Preview |
 | Patterns/Message composer/Thread reply | full | Also send to and the schedule chevron |
+| Patterns/Call bar/Plain | full; pair with hover and focus; pair at 390 | every control on the floating bar, Leave as a pill; a control hovered, Mute focused; at 390 share and the hand in more |
+| Patterns/Call bar/Muted and off | full | the microphone and the camera in the critical tone, share and the hand pressed |
+| Patterns/Call bar/Device menu | pair | the microphone's devices, the ones in use checked |
+| Patterns/Call bar/Reactions | pair | the reaction bar over the call bar |
+| Patterns/Call bar/More menu | pair | the app's rows, captions checked |
+| Patterns/Call bar/Docked | full | the strip on the background, a rule on top |
+| Patterns/Call bar/Over a call | pair | the bar over a call's tiles |
+| Patterns/Letter/Folded | full; pair with focus | a folded letter's head on one line; its focus ring |
+| Patterns/Letter/Open | full; pair at 390 | an open letter, its recipients, the paperclip; at 390 no address, no indent |
+| Patterns/Letter/Thread | full | folded, open, and the latest with a head that is no button |
+| Patterns/Detail pane/Facts | full | a run's facts |
+| Patterns/Detail pane/Sections | full | facts, steps, then the verbs |
+| Patterns/Detail pane/Summary | pair | a sentence over its facts, and a diff |
+| Patterns/Board item panel/Checklist | full; pair with hover and focus | 2/4 done, the bar half full, done steps quiet and struck through |
+| Patterns/Board item panel/Item | full | a work item in full |
 
-That is 83 stories across the full matrix (996 captures) and 71 captures across the pair matrix
-(142), **1138 per side**.
+That is 95 stories across the full matrix (1140 captures) and 84 captures across the pair matrix
+(168), **1308 per side**.
 
 ## How a state is reached
 
@@ -160,7 +178,7 @@ iframe with the globals `look:<theme>;theme:<scheme>;density:<density>;motion:re
 size and `deviceScaleFactor: 2`, does the steps, and saves the canvas with `animations: 'disabled'`
 to `specimens/web/`. It runs in CI on request, never locally, as sokkel-ui's browser suites do.
 
-**sokkel-ui-egui.** One story per path in `examples/storybook`, drawing what the sokkel-ui story
+**sokkel-egui.** One story per path in `examples/storybook`, drawing what the sokkel-ui story
 draws. The snapshot test already renders one PNG per story path, so `tests/specimens.rs` only adds
 the matrix and the steps: `Harness::builder().with_size(canvas).with_pixels_per_point(2.0)`, then
 the appearance, the steps, `run_steps`, and the canvas into `specimens/egui/` (egui proposal,

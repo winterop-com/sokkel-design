@@ -9,7 +9,7 @@ Sources: sokkel-ui `packages/core/src/components/StatusLine.tsx` (`StatusLine`, 
 `StatusTone`, `StatusItem`), which draws the strip. `Shell.tsx` gives it its room (its `footer`, and
 an empty `StatusLine` beside the rail's foot cell when there is no foot), and `Rail.tsx` the foot
 cell beside it.
-sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (`StatusLine`, `StatusTone`).
+sokkel-egui: `crates/core/src/widgets/frame.rs` (`StatusLine`, `StatusTone`).
 
 ## Anatomy
 
@@ -58,17 +58,17 @@ puts there is a button, which wears the frame's one focus look (`patterns/shell`
   facts in it, so a story or an app draws one part; the shell's `footer` only gives it its room. A
   shell with a bottom strip and a rail foot but no `foot` draws an empty `StatusLine`. The pulse is `animate-ping`, which `motion.css` stills when motion
   is reduced.
-- **sokkel-ui-egui:** `StatusLine` draws the strip and its contents in the rect the `Shell` gives
+- **sokkel-egui:** `StatusLine` draws the strip and its contents in the rect the `Shell` gives
   its foot, laying out galleys cut short with an ellipsis.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 267236c, `StatusLine` draws the strip at `spacing-shell-foot` with its ground, rule and
-tones. The differences:
+As of 9038006, `StatusLine` draws the strip at `spacing-shell-foot` with its ground, rule and
+tones, and the live dot. The differences:
 1. **Padding and gaps:** 16 at each end and 16 between facts. The spec says 12.
-2. **The dot:** a still dot before the note in every tone but quiet, with no `live` option. The spec
-   draws a dot only with `live`, pulsing.
-3. **Item values** are in `foreground` in the body face. The spec keeps a plain value in the foot's
+2. **Item values** are in `foreground` in the body face. The spec keeps a plain value in the foot's
    ink and draws only a `code` value in `foreground`, in the code face.
-4. **Room:** the note takes up to half the row. The spec keeps up to 70 percent for the facts and
+3. **Room:** the note takes up to half the row. The spec keeps up to 70 percent for the facts and
    cuts the note first.
+
+sokkel-tui draws it from the spec in cells, as of 7bf2ece.

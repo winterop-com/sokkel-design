@@ -23,7 +23,10 @@
  * and a ring or outline drawn outside the box over the surface. `inherit` is the surface's own ink.
  * `faded` holds, for each state whose effect fades the piece (`disabled` at `disabled-opacity`),
  * every color field of the paint drawn at that opacity over the surface, as CSS draws a part at
- * opacity: on the state's own key where the spec paints it, else on rest.
+ * opacity: on the state's own key where the spec paints it, else on rest. A part that also stands on
+ * other surfaces (a ghost button in a section's head, an outline one in a popover) names them in
+ * `alsoStandsOn`, and each paint carries the same two forms over each of them, in `flatOn` and
+ * `fadedOn` by surface.
  */
 import { Evaluator, hex, px, type Color, type Vars } from './resolve-tokens.ts'
 
@@ -59,6 +62,8 @@ export interface Spec {
     pieces?: Record<string, PaintMap>
     /** The surface each piece stands on, by piece (or variant), with a `default`. */
     standsOn?: Record<string, string>
+    /** The other surfaces a piece (or variant) may stand on, by piece, with a `default`. */
+    alsoStandsOn?: Record<string, string[]>
 }
 
 export interface ResolvedRing {
@@ -83,6 +88,10 @@ export interface ResolvedPaint {
     flat?: FlatPaint
     /** By state: every color field of the paint drawn at the state's opacity over the surface. */
     faded?: Record<string, FlatPaint>
+    /** By another surface the piece may stand on (`alsoStandsOn`): `flat` laid over it. */
+    flatOn?: Record<string, FlatPaint>
+    /** By another surface, then by state: `faded` drawn over it. */
+    fadedOn?: Record<string, Record<string, FlatPaint>>
     source: Record<string, string>
 }
 
@@ -147,7 +156,11 @@ function compose(spec: Spec, maps: PaintMap[], state: string, piece: string, dar
 /** The keys a spec paints and the maps each is laid from, in the spec's order of states. */
 export function paintKeys(spec: Spec): { key: string; maps: PaintMap[]; state: string; piece: string; overlay: boolean }[] {
     const order = Object.keys(spec.states)
-    const byOrder = (states: Set<string>) => ['rest', ...order.filter((s) => s !== 'rest')].filter((s) => states.has(s))
+    // The states in the spec's order, then each combination a map paints that the states do not list (failed+warning).
+    const byOrder = (states: Set<string>) => {
+        const listed = ['rest', ...order.filter((s) => s !== 'rest')].filter((s) => states.has(s))
+        return [...listed, ...[...states].filter((s) => !listed.includes(s))]
+    }
     const ringed = (piece: string) =>
         Object.entries(spec.states)
             .filter(([, entry]) => entry.effect?.ring !== undefined && (entry.effect.piece ?? 'container') === piece)
@@ -208,6 +221,12 @@ const named = (vars: Vars) => (token: string) => {
 export function surfaceOf(spec: Spec, variant: string, piece: string): string {
     const on = spec.standsOn ?? {}
     return on[piece === 'container' ? variant : piece] ?? on[piece] ?? on.default ?? 'background'
+}
+
+/** The other surfaces a piece may stand on: its own entry in `alsoStandsOn`, the variant's, the part's default, else none. */
+export function surfacesOf(spec: Spec, variant: string, piece: string): string[] {
+    const on = spec.alsoStandsOn ?? {}
+    return on[piece === 'container' ? variant : piece] ?? on[piece] ?? on.default ?? []
 }
 
 /** The ink of what stands on a surface, which `inherit` takes there. */
@@ -339,20 +358,31 @@ export function paintsOf(specs: Spec[], vars: Vars, dark: boolean): Record<strin
     const has = (token: string) => token in vars || `color-${token}` in vars
     const out: Record<string, ResolvedPaint> = {}
     for (const spec of specs) {
-        const flats: Record<string, { all: FlatPaint; surface: string }> = {}
+        // Each paint's opaque form over each surface it may stand on, by key and then by surface ('' for standsOn).
+        const flats: Record<string, Record<string, { all: FlatPaint; surface: string }>> = {}
         for (const { key, maps, state, piece, overlay } of paintKeys(spec)) {
             try {
                 const paint = paintOf(compose(spec, maps, state, piece, dark), overlay)
-                const standsOn = surfaceOf(spec, key.split('.')[1], piece)
-                const surface = color(standsOn)
-                if (!opaque(surface)) throw new Error(`standsOn ${standsOn} is not opaque (${surface})`)
-                const ink = inkOf(standsOn, has)
-                const raw: Partial<Record<keyof FlatPaint, Raw>> = {}
-                for (const [field, ref] of Object.entries(paint.source)) raw[field as keyof FlatPaint] = rawOf(colorOf(ref === 'inherit' ? ink : ref))
-                const { all, changed } = flatten(paint, raw, surface)
+                const variant = key.split('.')[1]
+                const standsOn = surfaceOf(spec, variant, piece)
+                const laidOver = (on: string) => {
+                    const surface = color(on)
+                    if (!opaque(surface)) throw new Error(`${on}, a surface it stands on, is not opaque (${surface})`)
+                    const ink = inkOf(on, has)
+                    const raw: Partial<Record<keyof FlatPaint, Raw>> = {}
+                    for (const [field, ref] of Object.entries(paint.source)) raw[field as keyof FlatPaint] = rawOf(colorOf(ref === 'inherit' ? ink : ref))
+                    return { ...flatten(paint, raw, surface), surface }
+                }
+                const { all, changed, surface } = laidOver(standsOn)
                 if (Object.keys(changed).length > 0) paint.flat = changed
+                flats[key] = { '': { all, surface } }
+                for (const other of surfacesOf(spec, variant, piece)) {
+                    if (other === standsOn) continue
+                    const elsewhere = laidOver(other)
+                    if (Object.keys(elsewhere.changed).length > 0) paint.flatOn = { ...paint.flatOn, [other]: elsewhere.changed }
+                    flats[key][other] = { all: elsewhere.all, surface: elsewhere.surface }
+                }
                 paint.source.standsOn = standsOn
-                flats[key] = { all, surface }
                 out[key] = paint
             } catch (error) {
                 // A token the spec names that these tokens lack: the pin is behind the spec, or the spec is wrong.
@@ -368,8 +398,11 @@ export function paintsOf(specs: Spec[], vars: Vars, dark: boolean): Record<strin
                 if (entry.effect?.piece !== undefined && entry.effect.piece !== piece) continue
                 const own = key.replace('.rest.', `.${state}.`)
                 const target = own in out ? own : key
-                const { all, surface } = flats[target]
-                out[target].faded = { ...out[target].faded, [state]: fade(all, surface, number(opacity)) }
+                for (const [on, { all, surface }] of Object.entries(flats[target])) {
+                    const faded = fade(all, surface, number(opacity))
+                    if (on === '') out[target].faded = { ...out[target].faded, [state]: faded }
+                    else out[target].fadedOn = { ...out[target].fadedOn, [on]: { ...out[target].fadedOn?.[on], [state]: faded } }
+                }
             }
         }
     }

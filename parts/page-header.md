@@ -11,7 +11,7 @@ spec is [`page-header.json`](page-header.json).
 Sources: sokkel-ui `packages/core/src/components/PageHeader.tsx` (`PageHeader`, `PageHeaderProps`,
 `PageHeaderWords`/`PAGE_HEADER_WORDS`), `Toolbar.tsx` (the items, More and the primary),
 `IconButton.tsx` (the back button), `ItemHeading.tsx` (`identityOf`: the name, else the code),
-`Link.tsx` (the crumbs) and `shell-context.ts` (`useShellTrail`, `ShellTrailAsk`). sokkel-ui-egui:
+`Link.tsx` (the crumbs) and `shell-context.ts` (`useShellTrail`, `ShellTrailAsk`). sokkel-egui:
 `crates/core/src/widgets/page.rs` (`PageHeader`).
 
 ## Anatomy
@@ -105,19 +105,23 @@ the button is "New", not "New job"; an item's face may be shorter than the label
   page's `h1`, so `Shell`'s `routeKey` moves focus to it. Crumbs are `Link`. Inside a `Shell`,
   unless `trailInTop` is false, it calls `useShellTrail(trail, { ends: 'ancestor' })`. A cut-short title or code says the whole of it in
   its `title` attribute.
-- **sokkel-ui-egui:** `PageHeader::show(ui, actions)` lays the actions out right to left from the
+- **sokkel-egui:** `PageHeader::show(ui, actions)` lays the actions out right to left from the
   row's end, so the app adds the primary first. The header lays out by the available rect.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of dfb6079 (`page.rs` unchanged since b73200b), `PageHeader` draws the title in
-`text.page-title` and `page-title-ink` (else `foreground`), a count in `text.help`, the code in the
-code face, a description in `text.body`, and actions from the row's end. The differences:
+As of 9038006, `PageHeader` draws the title in `text.page-title` and `page-title-ink` (else
+`foreground`), a count in `text.help`, chips as its meta, the code under the title in the code
+face, a description in `text.body`, the back button, the title edited in place, and actions from the
+row's end. The differences:
 1. **Lines:** every line 4 apart. The spec has the code right under the title, the description 4
    down and the meta 6 down.
 2. **Count:** centered on the title's line, where the spec sets it on the baseline.
 3. **Description:** at most 640 wide, where the spec says a reading measure (65ch).
 4. **Actions** never wrap under the title.
-5. **Not built:** the back button, the trail, the aside, the meta, the lead, items folding into
-   More with the primary and `wordsOnly`, `actionsFill`, the code standing as the title, `singleLine`,
-   and the words.
+5. **Not built:** the trail, the aside, the lead, items folding into More with the primary and
+   `wordsOnly`, `actionsFill`, `singleLine`, and the words trail, more and moreWays.
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no lead, aside, `wordsOnly` or `singleLine`.

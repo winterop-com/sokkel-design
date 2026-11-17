@@ -15,7 +15,7 @@ Sources: sokkel-ui `packages/core/src/components/ui/select.tsx` (`Select`, `Sele
 `ThemePicker.tsx` (the theme select: `Choice`, `OptionLabel`), `theme-swatch.tsx` (`ThemeSwatch`,
 the swatch both draw), `lib/appearance.ts` (`ThemeOption.swatch`), `lib/popup.ts` (`POPUP`, the look
 every popup wears), `lib/issue-edge.ts` (`INVALID_EDGE`) and `lib/focus.ts`
-(`returnFocusOnKeyboard`). sokkel-ui-egui: `crates/core/src/widgets/overlay.rs` (`Select`,
+(`returnFocusOnKeyboard`). sokkel-egui: `crates/core/src/widgets/overlay.rs` (`Select`,
 `paint_swatch`) and `crates/core/src/tokens.rs` (`Swatch`, `swatch`).
 
 ## Anatomy
@@ -107,10 +107,10 @@ option's label and detail, the groups' labels and the placeholder.
   theme select draws each swatch in its theme, opens under the trigger at most 320 tall, and is as
   wide as its widest row up to 384; a `SelectField` whose options name a swatch draws the same
   `ThemeSwatch`.
-- **sokkel-ui-egui:** `Select::new(&mut chosen, options, label)` with the chosen option as an index;
+- **sokkel-egui:** `Select::new(&mut chosen, options, label)` with the chosen option as an index;
   the list is egui's `Popup::menu`; swatches come from `tokens::swatch(theme, dark)`.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
 As of 26b411f (`overlay.rs` unchanged since bee2a97), `Select` draws the field trigger at
 `density.control` with the value, the chevron and an optional swatch, and a list of rows with a
@@ -131,3 +131,7 @@ check on the chosen one. The differences:
 7. **Not built:** `sm`, `quiet`, the placeholder, `widest`, invalid, disabled and `readOnly`, option
    icons and details, disabled options, groups, labels and separators, scroll arrows, `mono`, finger
    rows below 768, and the keys.
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no swatches, detail under the label or alignItemWithTrigger.

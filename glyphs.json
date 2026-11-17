@@ -47,9 +47,35 @@
         "focus-mark": {
             "unicode": "▌",
             "ascii": ">",
-            "means": "The active entry's bar (rail), and where a renderer marks keyboard focus at a row's start."
+            "means": "The active entry's bar (rail), and keyboard focus on a row of a table or a list: in ring at the row's start (open questions, T4)."
         },
         "rule": {"unicode": "─", "ascii": "-", "means": "A rule across: under a head, over the foot, between groups."},
+        "rule-heavy": {
+            "unicode": "━",
+            "ascii": "=",
+            "means": "A heavy rule across: a critical section's top line, which the web draws as a 2px critical rule over the box."
+        },
+        "grid-dot": {
+            "unicode": "·",
+            "ascii": ".",
+            "means": "A dot of the graph tone's dot grid (a section's ground in the graph tone), in the grid's ink, one every few cells."
+        },
+        "edge-start": {
+            "unicode": "▏",
+            "ascii": "[",
+            "means": "A one-row control's edge at its start (a button, a field's control, a select's trigger): in the edge's flat color, inside the padding, the ground keeping its width (open questions, T3)."
+        },
+        "edge-end": {"unicode": "▕", "ascii": "]", "means": "A one-row control's edge at its end, as edge-start."},
+        "focus-ring-start": {
+            "unicode": "┃",
+            "ascii": ">",
+            "means": "Keyboard focus on a one-row control: in ring, in the cell before its start, outside its width, in the gap its cells keep between controls (open questions, T4)."
+        },
+        "focus-ring-end": {
+            "unicode": "┃",
+            "ascii": "<",
+            "means": "Keyboard focus on a one-row control: in ring, in the cell after its end, as focus-ring-start."
+        },
         "scroll-thumb": {
             "unicode": "┃",
             "ascii": "#",

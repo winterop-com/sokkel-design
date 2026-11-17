@@ -15,7 +15,7 @@ Sources: sokkel-ui `packages/core/src/components/DialogShell.tsx` (`DialogShell`
 `DialogConfirm`, `DialogShellWords`/`DIALOG_SHELL_WORDS`, `shellParts`, `NESTED`, `WIDTHS`),
 `ui/dialog.tsx` (`Dialog`, `DialogContent` with `showCloseButton` and `closeLabel`, `DialogOverlay`,
 `DialogHeader`, `DialogFooter`, `DialogTitle`, `DialogDescription`), `ui/button.tsx` (the verbs, a
-confirm's `reason` and `busy`). sokkel-ui-egui: `crates/core/src/widgets/overlay.rs` (`Dialog`,
+confirm's `reason` and `busy`). sokkel-egui: `crates/core/src/widgets/overlay.rs` (`Dialog`,
 `ConfirmDialog`, `ConfirmAnswer`).
 
 ## Anatomy
@@ -98,12 +98,12 @@ reason, and the body.
   (`SHEET`) and a fit dialog keeps its width (`FIT_WIDTHS`); from it the width holds. Opening
   focuses the first field in the body, once the body is drawn. The box fades and zooms in from 95 percent over `motion-fast` (100 ms), as far as
   motion allows. The verbs wrap in reverse, each growing, so the confirm stands on top.
-- **sokkel-ui-egui:** `Dialog::new(id, title).description(..).width(..).show(ctx, body, footer)`
+- **sokkel-egui:** `Dialog::new(id, title).description(..).width(..).show(ctx, body, footer)`
   returns true when it asks to close; the footer is laid out from the end, so the app adds the confirm
   first. `ConfirmDialog::new(id, question, confirm)` with `detail`, `destructive`, `busy` and `cancel`
   answers `Confirm` or `Cancel`. egui's `Modal` blocks the page; its backdrop is the dim alone.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
 As of 26b411f (`overlay.rs` unchanged since bee2a97), `Dialog` draws the box padded 16, the title
 and description 8 apart, the body 16 under them and the footer band on `muted/50` under a rule, over
@@ -122,3 +122,7 @@ destructive answer, busy. The differences:
 6. **Not built:** the corner close, the header bar, status, the footer's note and count, a shut
    confirm with its reason, back, actions, the nested shade, the phone sheet and `fit`, initial and
    final focus, a body that scrolls inside the window, `dismissible` and `closeOnOutsidePress`.
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no header bar, status slot or nested shade.

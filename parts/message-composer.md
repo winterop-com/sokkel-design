@@ -47,6 +47,6 @@ Sources: sokkel-ui `packages/core/src/components/MessageComposer.tsx` (`MessageC
 `write` Write, `preview` Preview, `nothingToPreview` Nothing to preview, `codeLanguage` Language,
 `plainText` Plain text, `format.*` the formats' names, `mentions.*` the suggestions' words.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 48f51ce there is no message composer.
+As of 9038006 there is no message composer.

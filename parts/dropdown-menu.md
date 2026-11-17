@@ -12,7 +12,7 @@ Sources: sokkel-ui `packages/core/src/components/ui/dropdown-menu.tsx` (`Dropdow
 `DropdownMenuSeparator`, `DropdownMenuShortcut`, `DropdownMenuSub`, `DropdownMenuSubTrigger`,
 `DropdownMenuSubContent`, `GUTTER`, `ROW_HEIGHT`), `ui/deferred-menu.tsx` and `ui/menu-engine.ts`
 (Base UI's menu, fetched after the page is drawn, and the trigger's stand-in until then),
-`lib/popup.ts` (`POPUP`, the look every popup wears), `lib/finger.ts` and `lib/focus.ts`. sokkel-ui-egui: `crates/core/src/widgets/menu.rs`
+`lib/popup.ts` (`POPUP`, the look every popup wears), `lib/finger.ts` and `lib/focus.ts`. sokkel-egui: `crates/core/src/widgets/menu.rs`
 (`DropdownMenu`, `MenuItem`, `action_row`).
 
 ## Anatomy
@@ -91,11 +91,11 @@ the trigger's name.
   keyboard close only. The trigger takes the finger hit area unless its `render` element places
   itself. `AccountMenu` and `NavBar` draw their menus with Base UI's menu at once, in the same popup
   look (`lib/popup`), rows and highlight.
-- **sokkel-ui-egui:** `DropdownMenu::new(&items).show(&trigger)` returns the index pressed;
+- **sokkel-egui:** `DropdownMenu::new(&items).show(&trigger)` returns the index pressed;
   `MenuItem` is an action, a label or a separator; `end()` lines the menu's end up with the trigger's.
   `tint`, `hint`, `id` and `keywords` serve the palette and the board.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
 As of 26b411f (`menu.rs` unchanged since 5dd7c34), `DropdownMenu` draws actions 30 tall, 6 in, a 16
 icon and 22 to the label, keys or a hint at the end, labels, separators, destructive and disabled
@@ -114,3 +114,7 @@ rows, the `accent` highlight under the pointer, and start or end alignment. The 
    sokkel-ui's `Primitives/Menus/DropdownMenu`.
 8. **Not built:** check and radio rows, the gutter, `inset`, submenus, `side`, finger rows and the
    trigger's hit area below 768, and the keys (the arrows stopping at the ends among them).
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no radio groups; one submenu level.

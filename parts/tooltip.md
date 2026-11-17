@@ -9,7 +9,7 @@ The structured spec is [`tooltip.json`](tooltip.json).
 
 Sources: sokkel-ui `packages/core/src/components/ui/tooltip.tsx` (`Tooltip`, `TooltipTrigger`,
 `TooltipContent`, `TooltipProvider`), `ui/kbd.tsx` (`Kbd`, the key cap inside the box) and
-`lib/finger.ts` (`FINGER_HIT`, `takesFinger`) and `lib/tap-tip.ts` (`tapTip`, what a tap does). sokkel-ui-egui: `crates/core/src/widgets/overlay.rs`
+`lib/finger.ts` (`FINGER_HIT`, `takesFinger`) and `lib/tap-tip.ts` (`tapTip`, what a tap does). sokkel-egui: `crates/core/src/widgets/overlay.rs`
 (`tooltip`, `tooltip_shown`).
 
 ## Anatomy
@@ -75,11 +75,11 @@ which never say anything said nowhere else.
   it; a second tap, Base UI's outside press or `TIP_HOLD` (from `tip-hold`) closes it, and while a
   tap holds it a hover's close is refused, as a pen lifting reports one. The rail's collapsed entries and `SwitchField`'s help mark
   show in it too; no part draws a tooltip of its own.
-- **sokkel-ui-egui:** `tooltip(response, text)` and `tooltip_shown(response, text)` on egui's
+- **sokkel-egui:** `tooltip(response, text)` and `tooltip_shown(response, text)` on egui's
   `Popup` (`PopupKind::Tooltip`); the delay counts from the first frame the pointer is over the
   trigger.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
 As of 26b411f (`overlay.rs` unchanged since bee2a97), the tooltip draws the box on `foreground` in
 the `background` ink, `radius-md`, padded 12 by 6, `text.help`, at most 320 wide, on hover and on

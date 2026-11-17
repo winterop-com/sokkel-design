@@ -140,6 +140,13 @@ for f in sorted(list((ROOT / 'parts').glob('*.json')) + list((ROOT / 'patterns')
             value = rs['colors'].get(surface)
             if value is None: problems.append(f'{name}: standsOn.{piece} {surface} is not a color in {th} {sc}'); break
             if len(value) != 7: problems.append(f'{name}: standsOn.{piece} {surface} is not opaque in {th} {sc} ({value})'); break
+    for piece, surfaces in d.get('alsoStandsOn', {}).items():
+        if piece not in named: problems.append(f'{name}: alsoStandsOn.{piece} is not a piece, a variant or default')
+        for surface in surfaces:
+            for th, sc, rs in every_set:
+                value = rs['colors'].get(surface)
+                if value is None: problems.append(f'{name}: alsoStandsOn.{piece} {surface} is not a color in {th} {sc}'); break
+                if len(value) != 7: problems.append(f'{name}: alsoStandsOn.{piece} {surface} is not opaque in {th} {sc} ({value})'); break
     c = d.get('cells', {})
     for piece in c.get('pieces', {}):
         if piece not in d['anatomy']: problems.append(f'{name}: cells.pieces.{piece} is not in anatomy')

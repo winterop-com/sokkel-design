@@ -14,11 +14,12 @@ why under the rows, so a choice the app refuses is said where it was made. Once 
 Sources: sokkel-ui `packages/core/src/components/CommandPalette.tsx` (`CommandPalette`,
 `PaletteCommand` with `meta`, `metaTone`, `tone`, `disabled`, `onSelect`, `PaletteGroup`,
 `PaletteSearch`, `PaletteFoot`, `PaletteWidth`, `PaletteFilter`, `COMMAND_PALETTE_WORDS`,
-`PALETTE_SEARCH_WORDS`), `ui/command.tsx` (cmdk's `Command`, `CommandDialog`, `CommandInput`,
+`PALETTE_SEARCH_WORDS`), `ui/command.tsx` (the list's `Command`, `CommandDialog`, `CommandInput`,
 `CommandList`, `CommandGroup`, `CommandItem`, `CommandShortcut`, `CommandSeparator`), `ui/dialog.tsx`,
+`ui/cmdk.tsx` (the library's own list, taken from cmdk 1.1.1),
 `ui/input-group.tsx`, `Search.tsx` (`SearchResultBody`, a two-line row), `ProseText.tsx`
 (`ProblemLine`, the refusal), `ui/kbd.tsx`, `ui/spinner.tsx`, `lib/commands.ts` (`runCommand`,
-`filterCommands`, `termScore`) and `hooks/use-palette-shortcut.ts`. sokkel-ui-egui:
+`filterCommands`, `termScore`) and `hooks/use-palette-shortcut.ts`. sokkel-egui:
 `crates/core/src/widgets/menu.rs` (`CommandPalette`, `CommandGroup`, `PaletteOutcome`,
 `PaletteWords`, `palette_shortcut`) and `commands.rs` (`place_commands`, `appearance_commands`).
 
@@ -122,7 +123,7 @@ without a pause) never flickers between keys. A failed search says so over a Ret
 - Mod+K opens the palette, from a field too (Ctrl+K as well on a Mac), and a second press closes it,
   in a `Shell` or not, `usePaletteShortcut` included; not while a command runs.
 - Typing narrows the commands. ArrowDown and ArrowUp move the active row past disabled rows and stop
-  at the first and the last, as every list of choices does; Home and End go to them. cmdk's own
+  at the first and the last, as every list of choices does; Home and End go to them. The list's own
   Ctrl+N, Ctrl+J, Ctrl+P and Ctrl+K are off, so Ctrl+K means one thing.
 - Enter runs the active command (on Stop waiting, closes the palette and lets the command go).
   Escape closes the palette, focus back where it was, unless a command is running and has not yet
@@ -141,22 +142,25 @@ The app gives every group's and command's words, and a rejection's own words.
 
 ## Renderer-specific
 
-- **sokkel-ui:** cmdk's `Command` inside the library's dialog; the dialog's title and description
-  are read to a screen reader only. `fuzzy` is cmdk's own matching; `terms` and an app's function
+- **sokkel-ui:** the library's own list (`ui/cmdk`, taken from cmdk 1.1.1 without its dialog and
+  Radix helpers, with the same keys, filtering, `cmdk-*` attributes and props) inside the library's
+  dialog; the palette no longer depends on cmdk, and what this spec says of it holds as before. The
+  dialog's title and description are read to a screen reader only. `fuzzy` is the list's own
+  matching (cmdk's `commandScore`); `terms` and an app's function
   score the commands themselves. In a `Shell` the palette takes the app's groups and each screen's
-  (`useCommands`), ranked. The active row is cmdk's value, so the foot can say its verb. cmdk's
-  own keys are off (`vimBindings`). The open palette binds Mod+K itself, before the shell's own,
+  (`useCommands`), ranked. The active row is the list's value, so the foot can say its verb. The
+  list's own vim keys are off (`vimBindings`). The open palette binds Mod+K itself, before the shell's own,
   and closes through the hold a running command keeps. `pointer-coarse` decides the touch screen's
   Close, `max-md` the finger heights and the width, `max-sm` the meta's fold. The list fades at its
   foot. `useSearch` says `slow` once a query has waited `WAIT_SHOWN` (from `wait-shown`), timed as
   `useBusyRelease` times its wait, and `searchWait` turns it into the Searching line and the dimmed
   results.
-- **sokkel-ui-egui:** `CommandPalette::new(id, groups, &mut query, &mut highlight).show(ctx)`
+- **sokkel-egui:** `CommandPalette::new(id, groups, &mut query, &mut highlight).show(ctx)`
   returns `PaletteOutcome { run, close }`, and the app runs the command it names. `palette_shortcut`
   is Mod+K. Rows are the dropdown menu's `MenuItem::Action` in the palette's look.
   `place_commands` and `appearance_commands` build groups from the rail and the look.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
 As of 26b411f (`menu.rs` unchanged since 5dd7c34), `CommandPalette` draws the box 384 wide a third
 of the way down over a `shade/10` backdrop, padded by `palette-inset`, the search a control tall on
@@ -179,3 +183,7 @@ ArrowUp, Enter and Escape. Its 384 and 34 match sokkel-ui's. The differences:
    foot, two-line rows, disabled commands, the app's search, `width`, `description`, `wrap`, ranks,
    the touch screen's Close, finger rows below 768, Home, End, Mod+K closing the open palette, and
    the words `title` and `close`.
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no app search or results, two-line rows or foot.

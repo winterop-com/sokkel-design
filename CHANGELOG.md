@@ -39,6 +39,50 @@ of their own (D4); a change to a part is a line here under its name.
   cells and the paints' opaque forms; a Cells page shows the grid, color depths, text roles and
   glyphs.
 - The pin moves to sokkel-ui with the `ansi-*` tokens.
+- call-bar, letter, detail-pane, board-item-panel: four new parts, specified as they landed in
+  sokkel-ui 97f92d8 (`CallBar`, floating or docked, its device lists, reactions, more, Leave, the
+  room it measures and Mod+D and Mod+E; `Letter`, a letter in a thread folding over its body;
+  `DetailPane`, one thing's sections, facts and verbs in a side panel; `BoardItemPanel` with
+  `BoardChecklist`, a work item and its checklist, `CheckboxField`'s `quiet` drawing its done
+  steps): words with samples, options, sizes, paints and keys. Stable from the start, sokkel-egui
+  and sokkel-tui missing; fifteen specimens for their stories.
+- table: `searchBy` and `searchField`, a search of the table's own; a press on a stacked card's lead
+  opens the row unless it lands on a control; a card whose primary value may take more lines is as
+  tall as its values; stacked cards drawn only in view; the pager's select, the row menus and the
+  own search load on first use (sokkel-ui). Specimens for Stacked cards and Bands.
+- rail: a body's `places`, `behind` (the default) or `above`, the places over the body with no row
+  back. A specimen for Places above.
+- command-palette: sokkel-ui draws its own list (`ui/cmdk`, taken from cmdk 1.1.1 without its
+  dialog); the keys, matching and rows the spec states hold unchanged.
+- T3 and T4, decided by the owner: a one-row control's edge is `edge-start` and `edge-end` (`▏`
+  and `▕`, `[` and `]` in ASCII) at its ends in the edge's flat color, inside its padding; keyboard
+  focus on one is `focus-ring-start` and `focus-ring-end` (`┃`, `>` and `<` in ASCII) in `ring`
+  beside each end, in the gap between controls, reverse video without color, and on a table's or a
+  list's row `focus-mark` in `ring` at its start. In principle 21, `index.json`'s cell rules,
+  `glyphs.json` and the cells of button, text-field, select and table.
+- T5: the egui renderer is `sokkel-egui` everywhere: `sources`, `rendererSpecific` and `drift` and
+  the schema take the name `renderers` has, and `index.json` notes no second name.
+- Opaque paints over other surfaces: a part names the surfaces it may also stand on
+  (`alsoStandsOn`), and each paint carries `flatOn` and `fadedOn` for each of them; `check.py`
+  holds them opaque and verify-colors draws them. The button names card, popover,
+  section-head-ground and sidebar; the call bar's controls the background they stand on docked.
+- The resolver writes every combination a spec paints, listed in `states` or not: the page state's
+  warning frame and mark (`failed+warning`), and eight more in the dropdown menu, rail, run timeline
+  and table.
+- `glyphs.json`: `rule-heavy` (`━`, `=`), a critical section's top line; `grid-dot` (`·`, `.`), the
+  graph tone's dot grid; and the edge and focus glyphs above.
+- cells for dialog, dropdown-menu, select, command-palette and settings-dialog, from sokkel-tui's
+  proposal (c3); what lies under an overlay waits on T2.
+- Renderers: sokkel-tui as of 7bf2ece (page-state, top-bar, status-line, settings-dialog and
+  tooltip built; button, text-field, page-header, section, table, rail, dialog, dropdown-menu,
+  select, command-palette and the shell partial, each saying what is left; the rest missing);
+  sokkel-egui as of 9038006, its drift for table, section, page-header, rail, top-bar,
+  status-line and the shell brought up to what it has built; sokkel-ui as of 97f92d8.
+- open-questions: a scope section for what sokkel-ui changed today that no part covers (maps,
+  graphs, charts, the checkbox field, the time range picker, the code editor, the tree, markdown,
+  the track list), and findings from the new parts (the call bar's off ink under the pointer, the
+  checklist's count, a disabled checkbox row's opacity, a missing fact's hyphen).
+- The pin moves to sokkel-ui 97f92d8 (tokens unchanged).
 
 ## 0.29.3
 

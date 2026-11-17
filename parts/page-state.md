@@ -10,7 +10,7 @@ is [`page-state.json`](page-state.json).
 Sources: sokkel-ui `packages/core/src/components/PageState.tsx` (`PageState`, `PageStateProps`,
 `PageStateWords`/`PAGE_STATE_WORDS`, `pageStateHeading`, `PageStateTone`, `PageStateHeadingLevel`,
 `ReadOutcome`, `Frame`), `ProseText.tsx` (a written diagnostic's code) and `ui/button.tsx` (Try
-again). sokkel-ui-egui: `crates/core/src/widgets/page.rs` (`PageState`, `PageStateTone`,
+again). sokkel-egui: `crates/core/src/widgets/page.rs` (`PageState`, `PageStateTone`,
 `PageStateWords`).
 
 ## Anatomy
@@ -85,12 +85,12 @@ line or its own empty state.
   unframed `PageState` under its heads (`parts/table`). A string diagnostic or problem is drawn by
   `ProseText`. The spinner keeps turning when motion is reduced (`motion.css` leaves
   `animate-spin`). `emptyRender` and `children` are drawn as given.
-- **sokkel-ui-egui:** the app picks the state by its constructor (`loading`, `refused`, `missing`,
+- **sokkel-egui:** the app picks the state by its constructor (`loading`, `refused`, `missing`,
   `unreachable`, `empty`) rather than an HTTP status; the headings are the same. `show` returns true
   when Try again was pressed (`retry(true)`). A richer empty state, and the content, are the app's
   own drawing in the state's place (such as `Empty`).
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
 As of dfb6079 (`page.rs` unchanged since b73200b), `PageState` draws loading, refused, missing, not
 answering, a part refused and empty, framed or not, in both tones, with the diagnostic, the

@@ -5,7 +5,7 @@ now says why. A busy button keeps its place, its look and its focus. The structu
 [`button.json`](button.json).
 
 Sources: sokkel-ui `packages/core/src/components/ui/button.tsx` (`Button`, `buttonVariants`) and
-`IconButton.tsx`; sokkel-ui-egui `crates/core/src/widgets/button.rs`.
+`IconButton.tsx`; sokkel-egui `crates/core/src/widgets/button.rs`.
 
 ## Anatomy
 
@@ -108,11 +108,11 @@ the `reason`, the `tooltip` and the `shortcut` (as `shortcutLabel` writes it).
   hidden from a screen reader, and the button says `aria-busy`. The hover expressions stay in its
   classes (`hover:bg-primary/80`); its parts test maps each paint expression to the class it
   expects.
-- **sokkel-ui-egui:** it reads `paints` (`button.<variant>.<state>.container`) and never mixes. The
+- **sokkel-egui:** it reads `paints` (`button.<variant>.<state>.container`) and never mixes. The
   spinner is painted, with a repaint each frame (it should stand still when motion is reduced). A busy or reasoned button keeps its focus with
   `Sense::focusable_noninteractive`. A disabled tooltip is `on_disabled_hover_text`.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
 As read on 2026-11-13. The hover now replaces the ground, busy and reasoned buttons keep their
 focus, and the heights read the density's control sizes, so those are off this list.
@@ -124,3 +124,7 @@ focus, and the heights read the density's control sizes, so those are off this l
 4. Not built yet: the icon sizes and IconButton, `destructiveHover`, `opensMenu` with `open`,
    `inGroup`, an icon at the end, `invalid`, the finger heights below 768, the xs hit area, and a
    reason's tooltip on a tap.
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no inGroup.

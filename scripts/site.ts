@@ -22,7 +22,7 @@ const EXAMPLES = 'https://winterop-com.github.io/sokkel-ui/examples/'
 
 type Json = Record<string, unknown>
 type Entry = { id: string; file: string; status: string }
-type Renderer = { id: string; repo: string; toolkit: string; reads: string; alsoNamed?: string }
+type Renderer = { id: string; repo: string; toolkit: string; reads: string }
 type RendererState = { state: 'missing' | 'partial' | 'built'; as_of: string; note?: string }
 type Glyph = { unicode: string | string[]; ascii: string | string[]; means?: string; frame?: string }
 type Icon = { nerdFont: string; nerdFontName: string; unicode: string; ascii: string; note?: string }
@@ -723,7 +723,7 @@ function darkText(o: Json): string {
 }
 
 const KNOWN_KEYS = new Set([
-    '$schema', 'id', 'kind', 'status', 'renderers', 'summary', 'sources', 'anatomy', 'standsOn', 'options', 'sizes', 'layout', 'cells',
+    '$schema', 'id', 'kind', 'status', 'renderers', 'summary', 'sources', 'anatomy', 'standsOn', 'alsoStandsOn', 'options', 'sizes', 'layout', 'cells',
     'states', 'variants', 'pieces', 'breakpoints', 'routes', 'keyboard', 'words', 'samples', 'appText', 'rendererSpecific', 'drift',
 ])
 
@@ -793,7 +793,10 @@ function partPage(entry: (typeof entries)[number]) {
             'Stands on',
             `<p class="lede small">The surface each piece stands on, which its paints are laid over where a renderer cannot blend.</p>${table(
                 ['Piece', 'Surface'],
-                Object.entries(standsOn).map(([k, v]) => [`<code>${esc(k)}</code>`, `<code>${esc(v)}</code>`]),
+                Object.entries(standsOn).map(([k, v]) => [
+                    `<code>${esc(k)}</code>`,
+                    `<code>${esc(v)}</code>${(spec.alsoStandsOn as Record<string, string[]> | undefined)?.[k]?.length ? `, and ${(spec.alsoStandsOn as Record<string, string[]>)[k].map((one) => `<code>${esc(one)}</code>`).join(', ')}` : ''}`,
+                ]),
                 'stack',
             )}`,
         )

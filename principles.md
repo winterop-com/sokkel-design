@@ -10,7 +10,7 @@ and how a renderer honors it.
 **Rule.** Every color, typeface, text size, length and corner a part draws comes from a token, never
 a literal. **Why.** A theme can then change anything, and two renderers that read the same tokens
 draw the same thing. **Renderer.** sokkel-ui uses token classes and `var()`, and `src/rules.test.ts`
-fails a hand-set size or color. sokkel-ui-egui uses `tokens(ctx)`: `color`, `color_at`, `length`,
+fails a hand-set size or color. sokkel-egui uses `tokens(ctx)`: `color`, `color_at`, `length`,
 `density`, `radius`, `text`. The focus ring, the invalid ring, the disabled opacity, the motion, the
 layers, the elevations, the breakpoints and the scroll bar are tokens too. Lengths that are still
 literals in both (paddings, gaps, a table's select column) wait for the named spacing scale (open
@@ -31,7 +31,7 @@ percent rounder than Chromium at 2x (10 px against 7, measured), where 4 reads 8
 **Rule.** Text is set by role (page title, section title, head, body, action, label, help, badge,
 ...), each a size, line height, weight and tracking. A part never sets a size and a weight of its
 own. **Why.** Type stays one system across parts and themes. **Renderer.** sokkel-ui uses the
-`text-<role>` classes. sokkel-ui-egui uses `TextRole::rich`, the weight on the variable face's
+`text-<role>` classes. sokkel-egui uses `TextRole::rich`, the weight on the variable face's
 `wght` axis. Mono is sized by x-height (`mono-x-height`) in both.
 
 ### 4. Density is a setting, two levels
@@ -124,7 +124,7 @@ reaches every listing, and every listing sorts, selects and moves by the keyboar
 one for interactive graphs, one for terminals, one for live video, one for diagrams written as text,
 one for formulas, one for dragging. Sparklines are plain drawing. **Why.** Two engines for one job
 means two looks, two sets of bugs and twice the size. **Renderer.** sokkel-ui names its engines in
-its plan. sokkel-ui-egui picks its own one per job (the painter for charts, one map crate) and keeps
+its plan. sokkel-egui picks its own one per job (the painter for charts, one map crate) and keeps
 to it.
 
 ### 16. Words are the app's to translate, and follow their context
@@ -172,7 +172,7 @@ per density. A color the app supplies at run time (a project's color, a chart se
 stays free. **Why.** Two renderers that mix the same expression in different spaces draw different
 colors (a gamma blend is not an oklch mix); resolving once makes them the same, and `verify-colors`
 holds the resolved paints to what Chromium draws. **Renderer.** sokkel-ui keeps its expressions in
-classes (`hover:bg-primary/80`), and its parts test checks each one is the spec's. sokkel-ui-egui
+classes (`hover:bg-primary/80`), and its parts test checks each one is the spec's. sokkel-egui
 reads `paints`, and a check fails a widget that mixes on a painted path.
 
 ### 21. In cells, a row is a line
@@ -183,9 +183,18 @@ control, a row, a bar and a head is one row whatever its px height. A horizontal
 rows, and density changes blank rows and side padding, never a row's height. The breakpoints are 90
 and 120 columns, and specimens are drawn at 60x20, 80x24, 120x40 and 200x50. Text keeps of its role
 what the cell table gives it: bold or not, italic or not, the piece's ink. Corners are rounded where
-the corner role is above 0, square at 0. **Why.** A terminal has one type size and whole cells; a
-part divided by px would land on half rows. **Renderer.** Read `index.json`'s `cells` and each part's
-`cells`; draw glyphs from `glyphs.json` in the form the terminal can show.
+the corner role is above 0, square at 0. A one-row control has no room for an edge above and below
+it: it draws its edge as one-eighth blocks at its ends (`edge-start` and `edge-end`, `▏` and `▕`),
+inside its padding in the edge's flat color, and brackets in ASCII. There is no room outside a cell
+for the focus outline either: keyboard focus on a one-row control is a bar (`focus-ring-start` and
+`focus-ring-end`, `┃`; `>` and `<` in ASCII) in `ring` in the cell beside each end, outside its width,
+in the one-column gap kept between controls, as `focus-ring-offset` keeps the outline off the box;
+without color, the control in reverse video. A row of a table or a list takes `focus-mark` in `ring`
+at its start, so a focused row and a selected one stay apart, as they do on the web. **Why.** A
+terminal has one type size and whole cells; a part divided by px would land on half rows. Without
+its edge an outline button reads as a ghost one, and a ring drawn in the control's own cells would
+hide it where the ring and the ground are one color. **Renderer.** Read `index.json`'s `cells` and
+each part's `cells`; draw glyphs from `glyphs.json` in the form the terminal can show.
 
 ### 22. Color at the terminal's depth, meaning without it
 
@@ -195,10 +204,12 @@ state's opacity, never the terminal's faint attribute. In 256 colors each opaque
 of xterm's fixed indices 16 to 255 in OKLab, never 0 to 15, which the terminal's own theme sets. The
 sixteen ANSI colors stand for the `ansi-*` tokens, the colors a sokkel `TerminalView` shows for them.
 With no color (`NO_COLOR`), every state is carried by its words and its glyphs, and only bold,
-reverse and underline remain. **Why.** Principle 20 holds in a terminal too: the blend is the
+reverse and underline remain. A part drawn on a surface other than the one it stands on takes its
+paints' opaque forms for that surface (`flatOn`, `fadedOn`), where its spec names the surface in
+`alsoStandsOn`. **Why.** Principle 20 holds in a terminal too: the blend is the
 resolver's, checked against the browser. A state said only by color is lost on a terminal without
-it, as principle 11 says of states in general. **Renderer.** Read `paints[...].flat[field]`, else the
-field; the depth from the environment (`NO_COLOR`, `COLORTERM`), never assumed.
+it, as principle 11 says of states in general. **Renderer.** Read `paints[...].flat[field]` (over
+another surface the spec names, `flatOn[surface][field]`), else the field; the depth from the environment (`NO_COLOR`, `COLORTERM`), never assumed.
 
 ### 23. A tip a renderer cannot float is said in the status line
 
