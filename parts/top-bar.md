@@ -9,7 +9,7 @@ Sources: sokkel-ui `packages/core/src/components/TopBar.tsx` (`TopBar`, `TopBarP
 `TrailEnd`, `TopBarWords`/`TOP_BAR_WORDS`). `Shell.tsx` draws the bar around it (its `header`, the
 menu button, the panel toggle's room) and `AppBar.tsx` draws it for a screen without the shell.
 Also `shell-context.ts` (`ShellTrail`, `ShellPalette`, `useShellTrail`), `SearchField.tsx` (`/`),
-`ui/kbd.tsx`, and `lib/keys.ts` (`shortcutLabel`). sokkel-ui-egui:
+`ui/kbd.tsx`, and `lib/keys.ts` (`shortcutLabel`). sokkel-egui:
 `crates/core/src/widgets/frame.rs` (`TopBar`, `search_button`).
 
 ## Anatomy
@@ -87,20 +87,22 @@ follow their context: on Runs the button is "New", not "New run".
   screen draws its own with `ShellTop` or states its trail with `useShellTrail`. Crumbs are `Link`.
   The phone layout is media queries (`max-md`, `md:hidden`). In a desktop window the bar drags the
   window.
-- **sokkel-ui-egui:** a crumb's `href` is a route the app goes to on a press. The trail is laid
+- **sokkel-egui:** a crumb's `href` is a route the app goes to on a press. The trail is laid
   out from the start and the end's controls from the end, so a long trail is cut short before
   them. The phone layout is chosen by the available width.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 267236c, `TopBar` draws the bar, a trail of plain words (the last in the action weight), the
-palette's button with its word and a key cap, and the actions. The bar and the button match
-sokkel-ui within a point. The differences:
+As of 9038006, `TopBar` draws the bar, a trail of plain words (the last in the action weight), the
+mark, the search field with its keys (Mod drawn as the command glyph), the palette's button with its
+word and a key cap, the actions, and room for the window's buttons on desktop. The bar and the
+button match sokkel-ui within a point. The differences:
 1. **Order at the end:** the actions, then the palette's button last, 6 apart. The spec puts the
    palette's button first and the actions last, 12 apart.
 2. **Chevrons** 12, where the spec says 14. **Crumbs** 6 apart, where the spec says 4.
 3. **The palette's focus** is the shared 2 wide ring, 2 off, on any focus. The spec draws it on
    keyboard focus only.
-4. **Not built:** crumbs as links, code crumbs, `trailEnds: ancestor`, the mark, the search field and
-   `/`, the button beside a field, keys only when bound, the menu button, the phone layout, and the
-   room for a panel toggle and for the window's buttons.
+4. **Not built:** crumbs as links, code crumbs, `trailEnds: ancestor` and the back chevron, and the
+   phone layout.
+
+sokkel-tui draws it from the spec in cells, as of 7bf2ece.

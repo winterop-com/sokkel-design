@@ -7,7 +7,7 @@ The structured spec is [`text-field.json`](text-field.json).
 
 Sources: sokkel-ui `TextField.tsx`, `Field.tsx` (the frame, `FieldWords`, `describedBy`),
 `IssueMark.tsx` (`Issue`, `IssueMark`, `IssueWords`, `ISSUE_EDGE`, `IssueCount`), `ui/input.tsx`,
-`ui/textarea.tsx`, `ui/label.tsx`; sokkel-ui-egui `crates/core/src/widgets/text_field.rs`
+`ui/textarea.tsx`, `ui/label.tsx`; sokkel-egui `crates/core/src/widgets/text_field.rs`
 (`TextField`, `Input`).
 
 ## Anatomy
@@ -96,13 +96,13 @@ hint, description, help, fallback, placeholder and every issue's text.
 - **sokkel-ui:** the popover is Base UI's. The mark's accessible name is all issues said as one
   sentence. `describedBy()` points the control at its description, help and fallback. A row of
   fields lines up through CSS subgrid.
-- **sokkel-ui-egui:** the widget draws the frame and centers `TextEdit` in the control height. The
+- **sokkel-egui:** the widget draws the frame and centers `TextEdit` in the control height. The
   16px phone text is a browser zoom guard that a native renderer may skip. Lining fields up in a row
   needs every field's label and description measured first.
 
 ## Where the renderers differ from the spec today
 
-sokkel-ui-egui:
+sokkel-egui:
 1. **The error is a line under the field** (in `critical-ink`, replacing the help), so the form
    changes height. The spec puts it behind a mark at the control's end.
 2. Width 280 unless set; the spec fills the room given.
@@ -117,3 +117,7 @@ rest and the 3px ring only on focus (`src/rules.test.ts` fails a ring drawn at r
 prefixes are words. Every invalid control, `Field`'s and a bare primitive alike, takes its tints
 from one place (`lib/issue-edge.ts`): the edge `critical/80` at rest and `critical` on focus, the
 invalid ring (`invalid-ring`, `invalid-ring-width`) on focus only, in both schemes. No difference is left.
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no multiline, inRow or busy.

@@ -10,7 +10,7 @@ critical. The structured spec is [`section.json`](section.json).
 
 Sources: sokkel-ui `packages/core/src/components/Section.tsx` (`Section`, `SectionProps`,
 `SectionTone`, `GRAPH`) and `PaneHeader.tsx`, which draws the head (`variant="panel"` in the box,
-`plain` with `inset={false}` over a flat section). sokkel-ui-egui has no Section yet:
+`plain` with `inset={false}` over a flat section). sokkel-egui has no Section yet:
 `crates/core/src/widgets/display.rs` (`Card` with `bar(true)`) draws the boxed head.
 
 ## Anatomy
@@ -74,16 +74,17 @@ actions, which follow their context.
   its content (`overflow-hidden`). The head's pieces wrap by flex basis. `className` and
   `bodyClassName` lay it out in its container. `Surface`, beside it in the module, is the bordered
   surface with no heading, for content that is a surface under a flat heading.
-- **sokkel-ui-egui:** no Section yet; `Card` with `bar(true)` is the nearest.
+- **sokkel-egui:** no Section yet; `Card` with `bar(true)` is the nearest.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of dfb6079 (`display.rs` unchanged since b73200b) there is no Section. `Card` with `bar(true)`
-draws the boxed head: `density.panel-head` tall, `section-head-ground` over a `section-head-line`
-rule, the title in `text.head` and `section-head-ink` (else `card-foreground`, the same color as
-`foreground` in every theme). The differences:
-1. **Insets:** 16 across the head and round the body at both densities. The spec says
-   `density.panel-pad` (12 / 8).
-2. **Description:** in the body in `text.body`. The spec puts it in the head in `text.help`.
-3. **Not built:** the flat variant, the meta, the actions, the tones, `flush`, `fill`, and the head
-   growing for a description.
+As of 9038006, `Section` is built (`crates/core/src/widgets/section.rs`), with the meta, the
+actions, a description the head grows to hold, and `flush`. The differences:
+1. **Insets:** 16 across the head and round the body at both densities, as `Card` padded them. The
+   spec says `density.panel-pad` (12 / 8).
+2. **Not built:** the flat variant, the tones critical and graph, and `fill`.
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no `fill`. A critical section's top line is the
+heavy rule (`rule-heavy`), and the graph tone's dot grid `grid-dot` (`glyphs.json`).

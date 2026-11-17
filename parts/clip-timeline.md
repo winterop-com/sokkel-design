@@ -94,6 +94,6 @@ its own so a renderer with templates needs no condition.
   clips is drawn; each clip and grip is a drag item and each track a drop target; a mouse or pen
   drags after 4 px, a touch after a 300 ms hold; each change is said to a screen reader.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 48f51ce there is no clip timeline.
+As of 9038006 there is no clip timeline.

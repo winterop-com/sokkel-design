@@ -17,7 +17,7 @@ out and what it holds besides them.
 
 Sources: sokkel-ui `Shell.tsx` (`Shell`, `Page`, `ShellTop`, `ShellHead`, `ShellWords`); the
 settings route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context is
-`docs/plan.md`'s Themes section. sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (`Shell`, story
+`docs/plan.md`'s Themes section. sokkel-egui: `crates/core/src/widgets/frame.rs` (`Shell`, story
 `Patterns/Shell`), with working apps on it, `examples/runs` and `examples/tasks`.
 
 ## Anatomy
@@ -80,7 +80,7 @@ table stacks by its own box.
 ## Before an egui app follows the shell
 
 Decided (open questions, D7): this list is the gate. An egui app follows the shell only once
-sokkel-ui-egui has every item, its behavior and its accessibility included, not only its look:
+sokkel-egui has every item, its behavior and its accessibility included, not only its look:
 
 1. The rail's resize: its edge pulled, Enter, Space and the arrows, the width kept.
 2. The top bar's search field at its start, with `/` to focus it.
@@ -131,18 +131,21 @@ sections. Actions follow their context: on Runs the button is "New", not "New ru
   through `LinkProvider`. `useOverlayRoute` for the settings route. `useOverlay` makes the page inert
   under an overlay. `useScrollMemory`. The safe-area insets. In Electron and Tauri the top strip is
   the title bar.
-- **sokkel-ui-egui:** the available rect for the window's width, and the content rect for the inset
+- **sokkel-egui:** the available rect for the window's width, and the content rect for the inset
   (wide or narrow end only). A route is app state with a back stack. `Modal` serves dialogs and the
   drawer, and `Popup` serves menus. The page must refuse input under them. A hidden title bar drags
   with `ViewportCommand::StartDrag`.
 
 ## Where the renderers differ from the spec today
 
-- **sokkel-ui-egui:** as of 267236c, `Shell` lays out the `Rail`, the `TopBar` and the `StatusLine`
+- **sokkel-egui:** as of 9038006, `Shell` lays out the `Rail`, the `TopBar` and the `StatusLine`
   (each with its own spec and drift) with the rail's foot cell level with the status line, and it
-  has `PageHeader` and `PageState` (each with its own spec and drift), `SettingsDialog` with the
-  appearance settings and setting rows, `Dialog`, `Select` and the tooltip, `DropdownMenu`, and
-  `CommandPalette` on Mod+K. `examples/runs` and `examples/tasks` are working apps on it, with
-  settings over the page on Mod+comma and from the rail. Still to build: the drawer below 768, the
-  panel and its toggle, the banner, and Section (`parts/section`). Settings is not a route: egui has no URL, so the dialog is open state the app holds.
+  has `PageHeader`, `PageState` and `Section` (each with its own spec and drift), `SettingsDialog`
+  with the appearance settings and setting rows, `Dialog`, `Select` and the tooltip,
+  `DropdownMenu`, `CommandPalette` on Mod+K, and the drawer on a phone; since egui 0.37 (24af75f)
+  every widget names itself to a screen reader. `examples/runs` and `examples/tasks` are working
+  apps on it, with settings over the page on Mod+comma and from the rail. Still to build: the panel
+  and its toggle, and the banner. Settings is not a route: egui has no URL, so the dialog is open
+  state the app holds.
   The page's scroll gutter is 11, where the spec says `scrollbar-width` (10).
+- **sokkel-tui:** as of 7bf2ece, the frame drawn from the spec in cells, with no panel.

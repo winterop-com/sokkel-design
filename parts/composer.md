@@ -61,6 +61,6 @@ to upload, `close` Close; `dictation.*`: Dictate, Finish dictating, Cancel dicta
 Transcribing, Voice level, and the three failures; `mentions.*`: People to mention, No one by that
 name, Searching. The players' words are the media players'.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 48f51ce there is no composer.
+As of 9038006 there is no composer.

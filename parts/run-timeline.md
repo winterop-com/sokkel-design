@@ -90,6 +90,6 @@ app's `StatusProvider` may change at run time; it is not a spec paint (principle
   drawn; a mouse or pen drags after 4 px, a touch after a 300 ms hold; the shift is said to a screen
   reader.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 48f51ce there is no run timeline.
+As of 9038006 there is no run timeline.

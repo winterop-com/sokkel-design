@@ -55,6 +55,6 @@ the bar) or `onAddReaction` (the app's own), `bar`.
 `label` Reactions, `more` More reactions, `react` Add a reaction, `count` {label}, {count} (the
 count not grouped: `thumbs up, 1200`). The full list's words are parts/emoji-picker's.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 48f51ce there is no reaction bar or reaction chips.
+As of 9038006 there is no reaction bar or reaction chips.

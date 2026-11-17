@@ -10,7 +10,8 @@ pins (open questions, D1). The TypeScript scripts run with bun and need no insta
   words and text roles, every density level, and the `paints` with their `paintSources`: each
   paint's `flat` form (each field that is not opaque laid over the surface its piece stands on, the
   spec's `standsOn`) and `faded` form (drawn at a fading state's opacity), for a renderer that cannot
-  blend.
+  blend, and the same over each other surface a spec names in `alsoStandsOn` (`flatOn`, `fadedOn`).
+  Every combination a spec paints is resolved, whether or not its `states` lists it.
   - `bun scripts/resolve.ts`: from the pinned commit, fetched over git into `.sokkel-ui/` (ignored).
   - `bun scripts/resolve.ts --ref main`: moves the pin to a branch, tag or commit, then resolves.
   - `bun scripts/resolve.ts --from ../sokkel-ui`: from a sokkel-ui checkout as it stands, its
@@ -21,14 +22,14 @@ pins (open questions, D1). The TypeScript scripts run with bun and need no insta
   in Chromium and compares every color token, every elevation and every paint's colors in the
   resolved file, each theme in both schemes, within 2/255 (a partly transparent color's channels
   within what a canvas reads back through premultiplied bytes, 255 / alpha), and each paint's flat
-  and faded forms, laid on a canvas over the surface as the browser composites. Playwright and its
+  and faded forms (over each surface it names), laid on a canvas over the surface as the browser composites. Playwright and its
   Chromium come from the checkout's own install.
 - `check.py [<sokkel-design>] [<tokens.resolved.json>]`: validates every part and pattern against
   `schema/part.schema.json`, each key's kind of token name against the resolved file (so a spec that
   names a token the pinned sokkel-ui lacks fails), painted states, word samples (a word that
   interpolates or counts must have them), each status against `index.json`, the index's version,
   the resolved paints against `schema/paints.schema.json`, each part's `renderers` (a stable part
-  sokkel-ui has built), its `standsOn` (opaque surfaces in every theme), its `cells` and the glyphs
+  sokkel-ui has built), its `standsOn` and `alsoStandsOn` (opaque surfaces in every theme), its `cells` and the glyphs
   they name, `index.json`'s `renderers`, `cells` and `colorDepth`, and `glyphs.json`'s forms, and
   that the resolved file was made from
   the pinned commit. Run it as `uv run --with jsonschema python scripts/check.py`.

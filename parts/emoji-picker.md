@@ -74,6 +74,6 @@ drink, `groups.activities` Activities, `groups.travel` Travel and places, `group
 tone, `tones.default` to `tones.dark` Default, Light, Medium-light, Medium, Medium-dark, Dark, `tabs`
 Emoji groups, `label` Emoji. The emoji's names come from the data set.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 48f51ce there is no emoji picker.
+As of 9038006 there is no emoji picker.

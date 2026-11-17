@@ -5,7 +5,8 @@
  * the expression `paintSources` keeps (`primary/80` as `color-mix(in oklab, var(--primary) 80%,
  * transparent)`, as Tailwind's `bg-primary/80` draws it). Each paint's `flat` and `faded` forms are
  * drawn too: the surface it stands on filled on a canvas, its ground and then the field laid over it,
- * and for `faded` that whole stack laid over the surface again at the state's opacity.
+ * and for `faded` that whole stack laid over the surface again at the state's opacity; the same
+ * over each other surface a spec names in `alsoStandsOn` (`flatOn`, `fadedOn`).
  *
  *   bun scripts/verify-colors.ts --from ../sokkel-ui
  *
@@ -83,21 +84,27 @@ interface Stack {
 /** What a paint's flat and faded fields are drawn from: the surface, the ground, then the field. */
 function stacks(key: string, paint: Record<string, unknown>, source: Record<string, string>, numbers: Record<string, number>): Record<string, Stack> {
     const out: Record<string, Stack> = {}
-    const surface = source.standsOn
-    const expr = (ref: string) => css(ref === 'inherit' ? inkOf(surface, hasToken) : ref, named)
-    const under = (field: string, ring?: { inset?: string }) => {
-        const base = [expr(surface)]
-        if (field === 'ground' || field === 'outline' || (field === 'ring' && ring?.inset === undefined)) return base
-        return source.ground === undefined ? base : [...base, expr(source.ground)]
-    }
-    const stackOf = (field: string) => [...under(field, paint[field] as { inset?: string } | undefined), expr(source[field])]
-    for (const field of Object.keys((paint.flat ?? {}) as object)) out[`flat ${key}.${field}`] = { layers: stackOf(field) }
     const spec = specs.get(key.split('.')[0])
-    for (const [state, fields] of Object.entries((paint.faded ?? {}) as Record<string, object>)) {
-        const given = spec?.states[state]?.effect?.opacity
-        const opacity = typeof given === 'number' ? given : numbers[String(given)]
-        for (const field of Object.keys(fields)) out[`faded ${key}.${state}.${field}`] = { layers: stackOf(field), opacity }
+    // Over standsOn the kinds are `flat` and `faded`; over another surface S, `flat@S` and `faded@S`.
+    const over = (surface: string, flat: object | undefined, faded: Record<string, object> | undefined, at: string) => {
+        const expr = (ref: string) => css(ref === 'inherit' ? inkOf(surface, hasToken) : ref, named)
+        const under = (field: string, ring?: { inset?: string }) => {
+            const base = [expr(surface)]
+            if (field === 'ground' || field === 'outline' || (field === 'ring' && ring?.inset === undefined)) return base
+            return source.ground === undefined ? base : [...base, expr(source.ground)]
+        }
+        const stackOf = (field: string) => [...under(field, paint[field] as { inset?: string } | undefined), expr(source[field])]
+        for (const field of Object.keys(flat ?? {})) out[`flat${at} ${key}.${field}`] = { layers: stackOf(field) }
+        for (const [state, fields] of Object.entries(faded ?? {})) {
+            const given = spec?.states[state]?.effect?.opacity
+            const opacity = typeof given === 'number' ? given : numbers[String(given)]
+            for (const field of Object.keys(fields)) out[`faded${at} ${key}.${state}.${field}`] = { layers: stackOf(field), opacity }
+        }
     }
+    over(source.standsOn, paint.flat as object | undefined, paint.faded as Record<string, object> | undefined, '')
+    const flatOn = (paint.flatOn ?? {}) as Record<string, object>
+    const fadedOn = (paint.fadedOn ?? {}) as Record<string, Record<string, object>>
+    for (const surface of new Set([...Object.keys(flatOn), ...Object.keys(fadedOn)])) over(surface, flatOn[surface], fadedOn[surface], `@${surface}`)
     return out
 }
 
@@ -220,18 +227,27 @@ for (const [name, theme] of Object.entries(resolved.themes)) {
             else if (apart(bytes(hex), theirs) > TOLERANCE) wrong.push(`${name} ${scheme} ${key}: resolved ${hex}, browser rgba(${theirs.join(', ')})`)
         }
         for (const key of Object.keys(stacked)) {
-            const [kind, path] = key.split(' ')
+            const [kinded, path] = key.split(' ')
+            const [kind, surface] = kinded.split('@')
             const at = path.lastIndexOf('.')
             const field = path.slice(at + 1)
+            type Opaque = {
+                flat?: Record<string, string>
+                faded?: Record<string, Record<string, string>>
+                flatOn?: Record<string, Record<string, string>>
+                fadedOn?: Record<string, Record<string, Record<string, string>>>
+            }
             const value =
                 kind === 'flat'
-                    ? (paints[path.slice(0, at)] as { flat?: Record<string, string> } | undefined)?.flat?.[field]
+                    ? (() => {
+                          const paint = paints[path.slice(0, at)] as Opaque | undefined
+                          return (surface === undefined ? paint?.flat : paint?.flatOn?.[surface])?.[field]
+                      })()
                     : (() => {
                           const rest = path.slice(0, at)
                           const cut = rest.lastIndexOf('.')
-                          return (paints[rest.slice(0, cut)] as { faded?: Record<string, Record<string, string>> } | undefined)?.faded?.[
-                              rest.slice(cut + 1)
-                          ]?.[field]
+                          const paint = paints[rest.slice(0, cut)] as Opaque | undefined
+                          return (surface === undefined ? paint?.faded : paint?.fadedOn?.[surface])?.[rest.slice(cut + 1)]?.[field]
                       })()
             const theirs = drawn.stacked[key]
             compared++

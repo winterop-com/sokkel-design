@@ -14,7 +14,7 @@ Sources: sokkel-ui `packages/core/src/components/SettingsDialog.tsx` (`SettingsD
 `SettingsSection` with `reset`, `Setting`, `SETTINGS_WORDS`, `filterSettings`, `shownSettings`,
 `SettingsNavList`, `SettingRows`, `SettingsReset`), `SettingRow.tsx` (`SettingRow`,
 `SettingRowLayout`), `SearchField.tsx`, `DialogShell.tsx` (`NESTED`, `ConfirmDialog`),
-`ui/dialog.tsx`, and the route, `hooks/use-overlay-route.ts`. sokkel-ui-egui:
+`ui/dialog.tsx`, and the route, `hooks/use-overlay-route.ts`. sokkel-egui:
 `crates/core/src/widgets/settings.rs` (`SettingsDialog`, `SettingsSection`, `SettingsWords`,
 `SettingsOutcome`, `setting_row`, `setting_row_found_by`).
 
@@ -108,12 +108,12 @@ and in egui, which has no URL, settings is open state the app holds with a back 
   32rem). On a phone the footer pads its foot by the home indicator's inset. The sheet below 768 is
   parts/dialog's (`SHEET`). `SettingsNavList` also draws the sections beside a settings page on
   the rail's ground; that page is not this part.
-- **sokkel-ui-egui:** `SettingsDialog::new(id, sections, &mut active).show(ctx, rows)` returns
+- **sokkel-egui:** `SettingsDialog::new(id, sections, &mut active).show(ctx, rows)` returns
   `SettingsOutcome { close, reset }`; `rows` draws a section with `setting_row` or
   `setting_row_found_by`. The dialog holds its search and clears it on closing. `theme_settings`
   draws the appearance rows every app shares.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
 As of 26b411f (`settings.rs` unchanged since bee2a97), `SettingsDialog` draws the box at 896 by 704,
 the head (48, the title, a 28 close 16 from the end), the column (224, padded 12, the search, group

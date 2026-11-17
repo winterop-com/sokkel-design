@@ -7,7 +7,7 @@ resize. Rows select with a bar, or one row is picked for a detail beside the lis
 
 Sources: sokkel-ui `packages/core/src/components/DataTable.tsx` (`DataTableProps`, `DataColumn`,
 `DataTableWords`/`WORDS`, `onKeyDown`, `stacksAt`), `lib/table.ts` (`TABLE_HEAD_ROW`,
-`TABLE_HEAD_TEXT`), `PageState.tsx` (drawn unframed for a failed read). sokkel-ui-egui:
+`TABLE_HEAD_TEXT`), `PageState.tsx` (drawn unframed for a failed read). sokkel-egui:
 `crates/core/src/widgets/table.rs`, the table and list variants, built in step 3 of the order.
 
 ## Anatomy
@@ -29,6 +29,13 @@ The full list is in the JSON. These shape the look:
   (the row leads to its own page).
 - `sort`, `groupBy`, `childRows` (a tree), `detail`, `rowActions` with `actionButton`, `rowTone`.
 - `search`, `toolbar`, `paging`, `loading`, `loadMore`, `card` (the grid view).
+- `searchBy`: a search of the table's own, its field first in the bar (`searchField` sets its
+  placeholder, Search by default, its label, words and `/` key), the rows cut to those whose text
+  holds every word typed; an app that keeps the query itself passes `search` instead.
+- A stacked card opens its row from a press anywhere on it, its leads (`stack: 'lead'`) included,
+  unless the press lands on a control in them; a card whose primary value may take more than one
+  line is as tall as its values take, and stacked cards are drawn only in view and a half view
+  either side, placed by their measured heights.
 - A failed read: `error` (the server's words), `status` (what it answered, which picks the
   heading), `problems` (each failure it named) and `onRetry` (Try again).
 - `stackBelow` (576 px **of its own box**, never the window), `minWidth` (768 for a table, `auto`
@@ -119,7 +126,7 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
   is on the chosen head's sort button (tabindex -1, no tab stop), so its own focus look marks it.
   Content columns are measured in the DOM, and again once fonts load. The checkbox and menus load
   after first paint. Counts are formatted for `en-US` until the locale lands.
-- **sokkel-ui-egui:** colors from `paints` (`table.base.<state>.<piece>`), the row tones among them,
+- **sokkel-egui:** colors from `paints` (`table.base.<state>.<piece>`), the row tones among them,
   so the widget mixes nothing. `ScrollArea::show_rows` at `density.row`. Content columns are measured from
   laid-out galleys. The table's box is the width egui gives it, which is exactly what `stackBelow`
   asks for, so no container query is needed. One focus stop, with the active row kept in the
@@ -127,11 +134,15 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
 
 ## Where the renderers differ from the spec today
 
-- **sokkel-ui-egui:** as of 38693ff it has rows at `density.row`, drawing only those in view; heads in
+- **sokkel-egui:** as of 9038006 it has rows at `density.row`, drawing only those in view; heads in
   `table-head-*` that sort (ascending, descending, as given) and resize by their edge with a 64
   minimum; selection with a head checkbox and a "{count} selected" bar with Clear; an opened row on
   `secondary`; zebra from `table-zebra`; the Table and List variants (the list head at
-  `density.panel-head`); words as fields. Not yet: grouping, trees, detail rows, the stacked cards
-  below 576, row actions and menus, paging, cell editing, row reorder, its own loading and failed
-  states (it is wrapped in `PageState`), keyboard row navigation, and the head row by keys.
+  `density.panel-head`); stacked cards below its width (compact and labeled); row actions as a
+  menu; paging with a page size; cell editing (text, date, select); row reorder by its grip;
+  keyboard row navigation and the head row by keys; the toolbar line and the foot; words as fields.
+  Not yet: grouping, trees, detail rows, and its own loading and failed states (it is wrapped in
+  `PageState`).
+- **sokkel-tui:** as of 7bf2ece the table variant only: no bar, list variant, groups, trees,
+  details, row actions, paging, editing, resize, reorder or grid.
 - **sokkel-ui, counts:** formatted with `en-US` in `WORDS`.

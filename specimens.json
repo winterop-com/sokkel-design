@@ -1,7 +1,7 @@
 {
     "$description": "The fixed list both renderers draw, to compare by eye. A specimen's id is a Storybook story path (title/story name, as sokkel-ui's sidebar shows it); the egui storybook has a story at the same path, so the two pair by name with no mapping. Both capture the story's canvas only, never the storybook's chrome.",
     "scale": 2,
-    "slug": "The id in lower case with every / and space turned into _, as sokkel-ui-egui's snapshot test names its files today.",
+    "slug": "The id in lower case with every / and space turned into _, as sokkel-egui's snapshot test names its files today.",
     "file": "{slug}--{theme}-{scheme}-{density}.png",
     "eachFile": "{slug}--{each}--{theme}-{scheme}-{density}.png",
     "matrices": {
@@ -171,6 +171,20 @@
             "shows": "Placeholder rows, the pulse stopped."
         },
         {
+            "id": "Patterns/Data table/Stacked cards",
+            "part": "table",
+            "matrix": "full",
+            "canvas": [720, 640],
+            "shows": "Runs as stacked cards: a state dot leads each title and opens the run as the card does; a note on one line leaves its card that much shorter."
+        },
+        {
+            "id": "Patterns/Data table/Bands",
+            "part": "table",
+            "matrix": "pair",
+            "canvas": [1280, 480],
+            "shows": "Columns in bands, a rule where each band starts and ends, and the list's own search field in its bar (searchBy)."
+        },
+        {
             "id": "Patterns/States/In a table",
             "part": "table",
             "matrix": "full",
@@ -225,6 +239,13 @@
             "matrix": "full",
             "canvas": [320, 720],
             "shows": "The strip variant: each place an icon over its label, counts at the icons' corners from 3 to 99+, a dot on Files."
+        },
+        {
+            "id": "Patterns/Rail/Places above",
+            "part": "rail",
+            "matrix": "full",
+            "canvas": [320, 720],
+            "shows": "A body's tree under the places, both shown at once, with no row back to the places."
         },
         {
             "id": "Patterns/Rail/Expanded",
@@ -1004,7 +1025,160 @@
             "matrix": "full",
             "canvas": [960, 320],
             "shows": "Also send to with the channel, and the schedule chevron beside Send."
+        },
+        {
+            "id": "Patterns/Call bar/Plain",
+            "part": "call-bar",
+            "matrix": "full",
+            "canvas": [720, 160],
+            "shows": "Every control at rest on the floating bar: microphone and camera with their chevrons, share, reactions, raise hand, more and Leave as a pill.",
+            "also": [
+                {
+                    "each": ["hover", "focus"],
+                    "steps": [
+                        {"when": "hover", "do": "hover", "target": "button:Share screen"},
+                        {"when": "focus", "do": "keyFocus", "target": "button:Mute"}
+                    ],
+                    "matrix": "pair",
+                    "why": "A control on the hover wash; one with keyboard focus."
+                },
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 576 of room: share and raise hand in more, Leave round."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Call bar/Muted and off",
+            "part": "call-bar",
+            "matrix": "full",
+            "canvas": [720, 160],
+            "shows": "The microphone muted and the camera off in the critical tone, their chevrons too; share and raise hand pressed."
+        },
+        {
+            "id": "Patterns/Call bar/Device menu",
+            "part": "call-bar",
+            "matrix": "pair",
+            "canvas": [720, 440],
+            "shows": "The microphone's chevron open: microphones and speakers under their headings, the ones in use checked."
+        },
+        {
+            "id": "Patterns/Call bar/Reactions",
+            "part": "call-bar",
+            "matrix": "pair",
+            "canvas": [720, 260],
+            "shows": "The reactions toggle pressed, the reaction bar standing over the call bar."
+        },
+        {
+            "id": "Patterns/Call bar/More menu",
+            "part": "call-bar",
+            "matrix": "pair",
+            "canvas": [720, 480],
+            "shows": "More open: the app's rows, captions checked."
+        },
+        {
+            "id": "Patterns/Call bar/Docked",
+            "part": "call-bar",
+            "matrix": "full",
+            "canvas": [720, 160],
+            "shows": "Docked: a strip on the background with a rule on top, no popup look."
+        },
+        {
+            "id": "Patterns/Call bar/Over a call",
+            "part": "call-bar",
+            "matrix": "pair",
+            "canvas": [960, 600],
+            "shows": "The bar floating over a call's tiles, with shortcuts bound."
+        },
+        {
+            "id": "Patterns/Letter/Folded",
+            "part": "letter",
+            "matrix": "full",
+            "canvas": [720, 160],
+            "shows": "A folded letter from linus: picture, name, time and its first words on one line.",
+            "also": [
+                {
+                    "each": "focus",
+                    "steps": [{"do": "keyFocus", "target": "button:linus"}],
+                    "matrix": "pair",
+                    "why": "The head's keyboard focus ring."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Letter/Open",
+            "part": "letter",
+            "matrix": "full",
+            "canvas": [720, 480],
+            "shows": "grace's letter open: the address beside the name, to me, linus, margaret, the paperclip before the time, the plan and two files.",
+            "also": [
+                {
+                    "each": "phone",
+                    "steps": [{"do": "resize", "width": 390}],
+                    "matrix": "pair",
+                    "why": "Below 640 the address goes and the body is not indented."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Letter/Thread",
+            "part": "letter",
+            "matrix": "full",
+            "canvas": [720, 640],
+            "shows": "Three letters: the first folded, the second open, the latest open with a head that is no button."
+        },
+        {
+            "id": "Patterns/Detail pane/Facts",
+            "part": "detail-pane",
+            "matrix": "full",
+            "canvas": [960, 480],
+            "shows": "A run's facts in the side panel: Job, State (failed), Started by, Started, Duration."
+        },
+        {
+            "id": "Patterns/Detail pane/Sections",
+            "part": "detail-pane",
+            "matrix": "full",
+            "canvas": [960, 600],
+            "shows": "The run's facts, its steps as a timeline, then Run again and Edit the job."
+        },
+        {
+            "id": "Patterns/Detail pane/Summary",
+            "part": "detail-pane",
+            "matrix": "pair",
+            "canvas": [960, 600],
+            "shows": "An audit event: a sentence over its facts, and the schedule change as a diff."
+        },
+        {
+            "id": "Patterns/Board item panel/Checklist",
+            "part": "board-item-panel",
+            "matrix": "full",
+            "canvas": [960, 360],
+            "shows": "Checklist 2/4: the bar half full, two steps done (struck through, quiet), two to do.",
+            "also": [
+                {
+                    "each": ["hover", "focus"],
+                    "steps": [
+                        {"when": "hover", "do": "hover", "target": "checkbox:Add a validate rule for zero rows"},
+                        {"when": "focus", "do": "keyFocus", "target": "checkbox:Reproduce with the 1 November feed"}
+                    ],
+                    "matrix": "pair",
+                    "why": "A step's row on the hover wash; a box with keyboard focus."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Board item panel/Item",
+            "part": "board-item-panel",
+            "matrix": "full",
+            "canvas": [960, 720],
+            "shows": "HRB-142 in full: code over title, In progress chip and two labels, description, fields, checklist and activity."
         }
     ],
-    "count": {"full": "83 stories x 12 appearances = 996", "pair": "71 captures x 2 appearances = 142", "perSide": 1138}
+    "count": {
+        "full": "95 stories x 12 appearances = 1140",
+        "pair": "84 captures x 2 appearances = 168",
+        "perSide": 1308
+    }
 }

@@ -1,12 +1,13 @@
 # Open questions
 
 These are the decisions the owner needs to make, each with options and a recommendation. Then
-findings that need a call, the questions sokkel-tui's proposal leaves open, the tokens the specs ask
-for, and what does not fit egui's immediate mode.
+findings that need a call, the questions sokkel-tui's proposal leaves open, what sokkel-ui has that
+the contract does not cover yet, the tokens the specs ask for, and what does not fit egui's
+immediate mode.
 
 ## Decisions
 
-Decided by the owner on 2026-11-14 (`sokkel-ui-egui/docs/proposals/open-questions-decided.md`, D1 to
+Decided by the owner on 2026-11-14 (`sokkel-egui/docs/proposals/open-questions-decided.md`, D1 to
 D10). Each says what was decided and where it stands.
 
 ### 1. Where `tokens.json` lives: specs now, tokens at 1.0
@@ -20,7 +21,7 @@ resolved file made from another commit. Done.
 Decided **a**, the TypeScript kept. `scripts/resolve.ts` (with `resolve-tokens.ts` and `paints.ts`)
 writes `tokens/tokens.resolved.json`, the tokens and the paints, here. `verify-colors` runs in this
 repository's CI (`.github/workflows/contract.yaml`) against the pinned sokkel-ui's generated CSS,
-the paints and elevations included. Done; sokkel-ui-egui takes the resolved file from here next.
+the paints and elevations included. Done; sokkel-egui takes the resolved file from here next.
 
 ### 3. Versioning: in lockstep with sokkel-ui
 
@@ -98,15 +99,25 @@ These were found while writing the specs. Nothing was changed.
 | sokkel-ui `CommandPalette` | cmdk's Ctrl+N, Ctrl+J, Ctrl+P and Ctrl+K moved the active row, Ctrl+K being the palette's key too | **Decided:** cmdk's vim keys are off; Mod+K toggles the palette, in a `Shell` or not, `usePaletteShortcut` included. Done in sokkel-ui (`parts/command-palette`) |
 | sokkel-ui `CommandPalette` | While a command's promise was pending, Escape and a press outside closed the palette and its settling was let go | **Decided**, as the owner refined it: a palette whose command is running holds open (Escape, a press outside, its Close and Mod+K included); after `busy-release` (5000 ms, a token, and `busyRelease` on the part) a Stop waiting row appears and Escape closes again, letting the command go unheard, nothing cancelled. A busy dialog confirm releases the same way: Escape and Cancel, saying Stop waiting, come back, the confirm busy until the work settles. Done in sokkel-ui (`parts/command-palette`, `parts/dialog`) |
 | sokkel-ui `CommandPalette` | A one-line row's `meta` was `muted-foreground`, a two-line row's `faint` | **Decided:** a meta is `muted-foreground` on one line or two, `accent-foreground` on the active row; a status tone stays. Done in sokkel-ui (`parts/command-palette`) |
+| sokkel-ui `CallBar` | Under the pointer a muted microphone or a camera turned off keeps its `critical/25` wash but its icon turns `foreground`: the ghost button's hover ink stands over the off ink, which has no hover form | Keep the critical ink under the pointer (`not-aria-disabled:hover:text-critical-ink` in the off look)? The spec states it as it landed (`parts/call-bar`, `off+hover`) |
+| sokkel-ui `BoardChecklist` | The checklist's heading is built as its title, a space and done/total (`Checklist 2/4`), not as a word of its own, so an app cannot translate or reorder the count | Make it a word said as a function (`progress(done, total)`), sampled? The spec records it under `rendererSpecific` (`parts/board-item-panel`) |
+| sokkel-ui `CheckboxField` | A disabled checkbox's row fades to a literal 60 percent (`has-disabled:opacity-60`), its box to `disabled-opacity` (0.5) | One opacity, `disabled-opacity`, for the row too? Stated as it landed (`parts/board-item-panel`, `readOnly`) |
+| sokkel-ui `DescriptionList` | A fact with no value is drawn as a hyphen, `-`, where principle 10 and `glyphs.json` name the dash, `—` | Draw the dash (`missing`)? Stated as it landed (`parts/detail-pane`) |
+| sokkel-ui `Letter`, `BoardItemPanel`, `BoardChecklist` | Their words objects were module-private, where every other part exports its `*_WORDS` | **Done** in this round, as every other part does: exported as `LETTER_WORDS`, `BOARD_ITEM_PANEL_WORDS` and `BOARD_CHECKLIST_WORDS`, so sokkel-ui's parts test reads them as it reads the others |
 
 ## Open for the terminal
 
 From sokkel-tui's proposal (`sokkel-tui/docs/proposals/sokkel-design-tui.md`, section c). What the
 contract could hold without a new decision is in it now: each part's `renderers`, `standsOn` with the
 paints' `flat` and `faded` forms, `cells` in `index.json` and in the first parts, `colorDepth` with
-the `ansi-*` tokens and the 256-color rule, `glyphs.json`, and principles 17, 21, 22 and 23. These
-need the owner's call; each has a recommendation, and nothing is written into the contract for them
-yet.
+the `ansi-*` tokens and the 256-color rule, `glyphs.json`, and principles 17, 21, 22 and 23. Its
+section c2 asked for more, now in the contract too: paints' opaque forms over each other surface a
+part names (`alsoStandsOn`, `flatOn`, `fadedOn`; the button first), every combination a spec paints
+resolved (`page-state`'s warning frame among them), glyphs for a critical section's heavy rule and
+the graph tone's dot grid, and, from c3, cells notes for the dialog, the menus, the select, the
+palette and the settings dialog. T1 and T2 need the owner's call, each with a recommendation, and
+nothing is written into the contract for them yet (the overlays' cells wait on T2 for what lies
+under them); T3, T4 and T5 are decided and written in.
 
 ### T1. The sixteen-color paints
 
@@ -148,11 +159,13 @@ above and below. An outline button then reads as a ghost one, and a field is set
 ground.
 
 - **a.** Brackets in the edge's flat color at the ends, `[` and `]`, inside the padding.
-- **b.** One-eighth blocks (`▕`, `▏`) at the ends in the edge color, brackets in ASCII.
+- **b.** One-eighth blocks (`▏`, `▕`) at the ends in the edge color, brackets in ASCII.
 - **c.** No edge in cells; the ground alone.
 
-**Recommendation: b**, as it keeps the ground's width and reads as an edge; brackets in ASCII, which
-are typed characters and not a part's key (principle 17).
+**Decided b** by the owner (2026-11-17): the one-eighth blocks at the ends in the edge's flat color,
+inside the padding, the ground keeping its width; `[` and `]` in ASCII. Written into principle 21,
+`index.json`'s cell rules, and `glyphs.json` as `edge-start` and `edge-end`; the one-row parts'
+cells name them. Done.
 
 ### T4. Keyboard focus in cells
 
@@ -162,15 +175,36 @@ There is no room outside a cell for the focus outline. The spike marks a focused
   reverse video where a piece has no start column of its own (a button in a row).
 - **b.** Reverse video always.
 
-**Recommendation: a**: it keeps a selected row and a focused row apart, as the web does.
+**Decided** by the owner (2026-11-17), refining a: a focused one-row control (a button, a field's
+control, a select's trigger) draws a bar (`┃`; `>` and `<` in ASCII) in `ring` in the cell beside
+each end, outside its width, in the one-column gap the parts' cells keep between controls, as
+`focus-ring-offset` keeps the outline off the box; it stays visible where the ring and the ground are
+one color (tidevann dark's default button). Without color, the control in reverse video. A row of a
+table or a list takes `focus-mark` in `ring` at its start, so a focused row and a selected one stay
+apart. Written into principle 21, `index.json`'s cell rules, and `glyphs.json` as `focus-ring-start`
+and `focus-ring-end`. Done.
 
 ### T5. One name for the egui renderer
 
-`renderers` names it `sokkel-egui`, its repository's name; `sources`, `rendererSpecific` and `drift`
-still say `sokkel-ui-egui`, and `index.json` notes the second name.
+**Done** (owner, 2026-11-17): the egui renderer is `sokkel-egui` everywhere, its repository
+`github.com/winterop-com/sokkel-egui`. `sources`, `rendererSpecific` and `drift` take `sokkel-egui`
+as `renderers` does, the schema with them, and `index.json` no longer notes a second name. A
+renderer that reads those keys takes the new name with its next contract pin.
 
-**Recommendation:** rename those keys to `sokkel-egui` in one change that sokkel-egui takes with its
-next contract pin, if it reads them.
+## Scope: what the contract does not cover yet
+
+sokkel-ui changed or added these on 2026-11-17, and none of them is a part the contract specifies.
+Each is noted here rather than specified in passing; the owner decides when each family enters the
+contract.
+
+| What landed | Where it would go | Question |
+|---|---|---|
+| `CountryLayer` (maps): countries filled by a value per ISO 3166-1 alpha-3 code; `MapView`'s `export` control, `fallbackBasemap` and `handle`; `Basemap`'s `geometry` | No map part is specified; the README's order puts add-ons (charts, maps) at step 7, "to come" | Should the maps add-on enter the contract (a `map-view` part with its controls, words and basemap fallback first, the layers after), and when? |
+| `NetworkGraph`'s `layout="force"`, `GraphCanvas`'s `onNodeDrag` | No graph part is specified | Same question for the graph add-on |
+| A chart spec's `statuses` | No chart part is specified | Same question for the charts add-on; the status colors would come from the run states the table and the timelines already paint |
+| `CheckboxField`'s `dot` and `quiet` | No checkbox or field-family part beyond `text-field` | Should `text-field`'s frame grow a checkbox and switch field (their label, help, `dot` and `quiet`), or should they be a part of their own? `board-item-panel` names `quiet` through its checklist meanwhile |
+| `TimeRangePicker`'s `times` and `clock` | No date or range part (README step 5: the field family) | Specify it with the date field when step 5 comes? |
+| `CodeEditor`'s `onFollowLink`, `activeLine: 'always'` and required-key snippets; `Tree`'s `openOnChoose`; `Markdown`'s `live` and `highlight`; `TrackList`'s `href` and windowing | None of these is specified | Leave them out until an egui or terminal app needs one? |
 
 ## Tokens the specs ask for
 
@@ -211,7 +245,7 @@ the content's width) and `scrollbar` (the colors of the browser's own scroll bar
 | Styling from context (`:has()`, `in-data-[slot=...]`, `aria-expanded`) | Every one must be passed | Rule 2: explicit options (`iconPlace`, `inGroup`, `opensMenu`, `inRow`, `inSection`) |
 | A part sized by its content in a wrapping row | Wraps only before a child of known size | Rule 3: fixed heights and width rules |
 | `:focus-visible` | Focus is focus. Keyboard-only focus requires the renderer to track the last input kind, a key or a pointer, and draw the ring only after a key | Rule 4: `on: keyboard` or `any` per focus state; specimens reach focus by Tab |
-| A disabled button that is still focusable, its reason on focus | Disabled widgets are not focusable, and tooltips show on hover | `Sense::focusable_noninteractive` (sokkel-ui-egui does this now), and the tooltip shown on focus |
+| A disabled button that is still focusable, its reason on focus | Disabled widgets are not focusable, and tooltips show on hover | `Sense::focusable_noninteractive` (sokkel-egui does this now), and the tooltip shown on focus |
 | A scroller whose bar keeps its room | Bars float over the content unless the scroll style is solid | The shell gives the content's bar `scrollbar-width` (10) and a solid track |
 | How long a new page's heading is waited for before focus moves (3 s) | Its own frame timing | Renderer-specific (`Shell`'s `routeKey`); not in the contract |
 | Transitions, `animate-pulse`, spinners | Explicit animation, and a repaint each frame | Durations are `motion-fast` and `motion-base` on `motion-ease`; specimens run with motion stopped |

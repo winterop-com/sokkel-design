@@ -11,7 +11,7 @@ Sources: sokkel-ui `packages/core/src/components/Rail.tsx` (`Rail`, `RailProps`,
 `ResizeHandle.tsx` (the edge), `GroupLabel.tsx` (the group title), `Count.tsx` (a count over an
 icon), `RailDrops.tsx` (reordering), `shell-context.ts` (`ShellDrawer`, `ShellRailMode`,
 `ShellFootCell`, `ShellDesktop`), `Shell.tsx` (the drawer and the foot row),
-`hooks/use-panel-size.ts`. sokkel-ui-egui: `crates/core/src/widgets/frame.rs` (`Rail`, `RailGroup`,
+`hooks/use-panel-size.ts`. sokkel-egui: `crates/core/src/widgets/frame.rs` (`Rail`, `RailGroup`,
 `RailEntry`).
 
 ## Anatomy
@@ -26,7 +26,7 @@ icon), `RailDrops.tsx` (reordering), `shell-context.ts` (`ShellDrawer`, `ShellRa
 | icon entry | Collapsed: a tile 36 wide and `density.row` tall, its icon alone, a count or dot at its corner, named in a tooltip beside it |
 | edge | `ResizeHandle` along the end edge: an 8 wide hit area, a 2 wide `primary` line while hovered, focused or dragged |
 | foot cell | The account control's cell, `spacing-shell-foot` tall, level with the status line. In a shell with a foot it is drawn in the shell's foot row on the foot's ground (`ShellFootCell`) |
-| body | With `body`, app content in place of the groups (a tree with its search), under a row back to the places ("All places") |
+| body | With `body`, app content in place of the groups (a tree with its search), under a row back to the places ("All places"); with `places: 'above'`, under the places, both shown at once and no row back |
 | strip | `variant="strip"`: 72 wide, the workspace's tile at the top, each entry a 36 tile over its 11px label, the foot's items stacked at the bottom. It neither collapses nor resizes |
 
 The places are data (`RailGroup`: `{ id, title?, entries, onReorder? }`; `RailEntry`: `{ id,
@@ -120,15 +120,15 @@ every group title, label, description and keyword, and a body's title.
   the active entry says `aria-current="page"`. Tooltips are the library's one (`parts/tooltip`) and
   flyouts Base UI's popover, and a flyout opened from the keyboard focuses its first entry. Reordering loads the drag engine only inside
   `RailDrops`. A body stays mounted while hidden. In a desktop window the head is a drag region.
-- **sokkel-ui-egui:** there are no URLs, so a press sets the app's active place. The rail fills the
+- **sokkel-egui:** there are no URLs, so a press sets the app's active place. The rail fills the
   rect the `Shell` gives it, and a width the reader drags is app state the `Shell` is told. A
   collapsed entry's name shows in the library's tooltip.
 
-## Where sokkel-ui-egui differs today
+## Where sokkel-egui differs today
 
-As of 267236c, `Rail` has titled groups, entries with an icon and a count, the active bar and wash,
-the hover wash, and collapse at 240 / 57 with hover names. Its head, entry rows and group titles match
-sokkel-ui within a point. The differences:
+As of 9038006, `Rail` has titled groups, entries with an icon, a description and a count, the active
+bar and wash, the hover wash, collapse at 240 / 57 with hover names, the mark, and the drawer on a
+phone. Its head, entry rows and group titles match sokkel-ui within a point. The differences:
 1. **Entry inset:** the icon at 10 and the label at 38, where the spec's 2 wide bar inside a 12 pad
    puts them at 12 and 40.
 2. **Corners:** the active row's start corners are 2, and the hover wash is `radius-md` all round.
@@ -140,7 +140,10 @@ sokkel-ui within a point. The differences:
 5. **Keyboard focus:** entries paint none, where the spec draws the button's focus look.
 6. **Collapsed entry tooltip:** egui's own `on_hover_text` (`frame.rs:202`), where the spec has the
    library's one tooltip (`parts/tooltip`), 8 away.
-7. **Not built:** descriptions, the unread and color dots, entries without icons, parents, counts
-   over a collapsed icon, the head's collapse control and the mark as the expand control,
-   `markHref`, resizing and expanding by the edge, the strip, a body, reordering, the drawer,
-   finger-tall rows below 768, and room for the window's buttons.
+7. **Not built:** parents (fold, chevron, flyout), the unread and color dots, resizing and expanding
+   by the edge, the strip, a body, reordering, and finger-tall rows below 768.
+
+## Where sokkel-tui differs today
+
+As of 7bf2ece, drawn from the spec in cells, with no parents or flyouts, descriptions, strip, body,
+resize or reorder.
