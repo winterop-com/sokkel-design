@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.30.1
 
 - principle 3: corrected. A column head stands one text step above the cell text it heads, at
   medium weight in the foreground or the head ink a theme names, never weaker than its rows; 0.30.0
