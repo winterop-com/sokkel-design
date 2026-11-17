@@ -24,6 +24,11 @@ pins (open questions, D1). The TypeScript scripts run with bun and need no insta
   interpolates or counts must have them), each status against `index.json`, the index's version,
   the resolved paints against `schema/paints.schema.json`, and that the resolved file was made from
   the pinned commit. Run it as `uv run --with jsonschema python scripts/check.py`.
+- `site.ts`: builds the documentation site into `_site/` (ignored) from the files here: the home
+  page, principles, specimens, open questions and changelog from their Markdown (bun's own renderer),
+  every theme's tokens, and a page per part and pattern `index.json` lists, with its resolved paints.
+  Its stylesheet and page script are in `site/`. `bun scripts/site.ts`; `.github/workflows/pages.yaml`
+  runs it on main and publishes `_site/` to GitHub Pages.
 - `fmt.py <files>`: formats JSON with 4-space indents, keeping an object or array on one line when it
   fits in 120 columns.
 
