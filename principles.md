@@ -171,7 +171,11 @@ renderer: no alpha, blend or `color-mix` of its own on those paths. Sizes stay i
 per density. A color the app supplies at run time (a project's color, a chart series, a row's fill)
 stays free. **Why.** Two renderers that mix the same expression in different spaces draw different
 colors (a gamma blend is not an oklch mix); resolving once makes them the same, and `verify-colors`
-holds the resolved paints to what Chromium draws. **Renderer.** sokkel-ui keeps its expressions in
+holds the resolved paints to what Chromium draws. One exception, for a renderer that cannot blend
+(a terminal): the cells under a layer with a scrim (a dialog, a drawer, the palette) are flattened
+under the scrim's resolved color at run time, since what lies there may be the app's own run-time
+colors; it is the one blend such a renderer does, sRGB source-over as the browser composites
+(`index.json`, `colorDepth.underLayer`). **Renderer.** sokkel-ui keeps its expressions in
 classes (`hover:bg-primary/80`), and its parts test checks each one is the spec's. sokkel-egui
 reads `paints`, and a check fails a widget that mixes on a painted path.
 
@@ -203,6 +207,12 @@ the surface the piece stands on (its spec's `standsOn`), and `faded`, the paint 
 state's opacity, never the terminal's faint attribute. In 256 colors each opaque color is the nearest
 of xterm's fixed indices 16 to 255 in OKLab, never 0 to 15, which the terminal's own theme sets. The
 sixteen ANSI colors stand for the `ansi-*` tokens, the colors a sokkel `TerminalView` shows for them.
+In sixteen colors a paint takes its index by role, never by nearness (`colorDepth.ansi16.paints`):
+the critical tones red, warning yellow, good green, info, primary and the ring blue, the quiet inks
+bright black, grounds and inks the terminal's own defaults, and hover, the accent and a selection
+reverse video, so a part means the same whatever the terminal's theme. Under a layer with a scrim,
+truecolor and 256 colors flatten each cell at run time (principle 20's one exception), and sixteen
+colors and no color draw it in two fixed colors (`colorDepth.underLayer`).
 With no color (`NO_COLOR`), every state is carried by its words and its glyphs, and only bold,
 reverse and underline remain. A part drawn on a surface other than the one it stands on takes its
 paints' opaque forms for that surface (`flatOn`, `fadedOn`), where its spec names the surface in

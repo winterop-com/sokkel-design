@@ -109,7 +109,10 @@ sokkel-egui:
 3. Not built: hint, description, fallback, required marks, the warning tone, issue actions,
    multiline, mono, numeric, read only, the phone sizes.
 
-Its height already reads `density.control`, and its invalid focus ring (3px, `critical` at 20 / 40
+4. **Height:** since egui 0.37 (b7e1763) a text input is 33 tall at regular, where the spec says
+   `density.control` (32).
+
+Its invalid focus ring (3px, `critical` at 20 / 40
 percent, on focus only) is the spec's.
 
 sokkel-ui itself: its height reads `density.control`, an invalid control draws its edge alone at

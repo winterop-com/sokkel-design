@@ -1,4 +1,4 @@
-"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth, glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
+"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth (the sixteen-color role map and what lies under a layer included), glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
 import json, re, sys
 from pathlib import Path
 import jsonschema
@@ -58,6 +58,12 @@ for th, sc, d in every_set:
     for name in ansi:
         if name not in d['colors']: problems.append(f'index.json: colorDepth.ansi16 {name} is not a color in {th} {sc}')
         elif len(d['colors'][name]) != 7: problems.append(f'index.json: colorDepth.ansi16 {name} is not opaque in {th} {sc}')
+for token, index16 in index.get('colorDepth', {}).get('ansi16', {}).get('paints', {}).items():
+    if token.startswith('$'): continue
+    if token not in colors: problems.append(f'index.json: colorDepth.ansi16.paints {token} is not a color in every resolved theme and scheme')
+    if index16 not in ('default', 'reverse') and index16 not in ansi: problems.append(f'index.json: colorDepth.ansi16.paints.{token} {index16} is neither default, reverse nor an ansi-* token')
+if set(index.get('colorDepth', {}).get('underLayer', {})) - {'$description'} != {'truecolor', 'ansi256', 'ansi16', 'none'}:
+    problems.append('index.json: colorDepth.underLayer does not say each depth')
 
 def ascii_ok(v): return all(isinstance(x, str) and x and all(32 <= ord(c) < 127 for c in x) for x in (v if isinstance(v, list) else [v]))
 for name, glyph in glyphs['glyphs'].items():

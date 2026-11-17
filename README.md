@@ -11,10 +11,11 @@ It has the same shape as sokkel-api: one contract, an implementation per stack, 
 them. The contract decides and each renderer stays idiomatic. When a renderer drifts, a check fails
 in that renderer's CI before any app sees it.
 
-It covers twenty-five parts (button, text field, table, rail, top bar, status line, page header,
+It covers thirty-one parts (button, text field, table, rail, top bar, status line, page header,
 section, page state, select, dropdown menu, tooltip, dialog, settings dialog, command palette, run
 timeline, clip timeline, emoji picker, reaction bar, composer, message composer, call bar, letter,
-detail pane, board item panel) and one pattern (the shell), at contract
+detail pane, board item panel, code editor, date field, and the chart family's first: chart,
+dashboard panel, stat panel, time series panel) and one pattern (the shell), at contract
 version 0.29.3, which moves in lockstep with sokkel-ui
 (`CHANGELOG.md`). sokkel-ui checks its components against a pinned copy of the specs
 (`src/parts.test.ts`); sokkel-egui builds its widgets from them and takes its resolved tokens and
@@ -51,6 +52,8 @@ sokkel-design/
                 run-timeline  clip-timeline  emoji-picker  reaction-bar
                 composer  message-composer
                 call-bar  letter  detail-pane  board-item-panel
+                code-editor  date-field
+                chart  dashboard-panel  stat-panel  time-series-panel   (the chart family)
     patterns/   shell                                               (.md + .json)
     tokens/     tokens.resolved.json: the tokens and the paints, for renderers that read no CSS
     scripts/    the resolver, verify-colors, check.py, fmt.py (scripts/README.md)
@@ -324,9 +327,10 @@ From the egui side (proposal, section a). Each step is a spec here first, then a
 | 2 | PageHeader, Section, page states | `parts/page-header`, `parts/page-state` (stable), `parts/section` (draft) |
 | 3 | DataTable, the list variant first | `parts/table` (stable) |
 | 4 | Select, Dialog with SettingsDialog, DropdownMenu, Tooltip, CommandPalette | `parts/select`, `parts/dropdown-menu`, `parts/tooltip`, `parts/dialog` (with ConfirmDialog), `parts/settings-dialog`, `parts/command-palette` (stable); the settings route in `patterns/shell` |
-| 5 | The field family: number, date and select fields | `parts/text-field` (draft) sets the frame they share; `parts/select` holds the select field's control |
+| 5 | The field family: number, date and select fields | `parts/text-field` (draft) sets the frame they share; `parts/select` holds the select field's control; `parts/date-field` (stable) |
 | 6 | Toast, Callout, Banner | To come |
-| 7 | Add-ons (charts, maps), as the patterns ask | To come |
+| 7 | Add-ons (charts, maps), as the patterns ask | Charts begun: `parts/chart`, `parts/dashboard-panel`, `parts/stat-panel`, `parts/time-series-panel` (stable); the rest of the family is staged in `open-questions.md`. Maps to come |
+| - | The code editor | `parts/code-editor` (stable) |
 
 Button is drafted first because every step uses it. Text field sets the frame the whole field family
 shares.
