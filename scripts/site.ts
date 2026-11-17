@@ -137,18 +137,26 @@ function shown(data: PageData, path: string, as: string, opts: { tag?: string; c
     return `<${tag} class="${cls}" data-v="${esc(path)}" data-as="${as}"><i class="mark"${styleAttr(v.style)}>${mark}</i><span class="val">${esc(v.text)}</span></${tag}>`
 }
 
+/** Plain text from a fragment of markup: tags removed until none is left, then any stray angle bracket. */
+function textOf(html: string): string {
+    let text = html
+    for (let was = ''; was !== text; ) {
+        was = text
+        text = text.replace(/<[^<>]*>/g, '')
+    }
+    return text.replace(/[<>]/g, '')
+}
+
 function table(head: string[], rows: string[][], cls = '') {
     if (!rows.length) return ''
     const th = head.map((h) => `<th>${h}</th>`).join('')
-    const labels = head.map((h) => esc(h.replace(/<[^>]+>/g, '')))
+    const labels = head.map((h) => esc(textOf(h)))
     const body = rows.map((r) => `<tr>${r.map((c, i) => `<td data-label="${labels[i] ?? ''}">${c}</td>`).join('')}</tr>`).join('\n')
     return `<div class="tw"><table class="${cls}"><thead><tr>${th}</tr></thead><tbody>${body}</tbody></table></div>`
 }
 
 const slug = (s: string) =>
-    s
-        .toLowerCase()
-        .replace(/<[^>]+>/g, '')
+    textOf(s.toLowerCase())
         .replace(/&[a-z]+;/g, '')
         .replace(/[^a-z0-9]+/g, '-')
         .replace(/^-+|-+$/g, '')

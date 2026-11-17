@@ -52,7 +52,7 @@ chords).
 | focus (keyboard) | the button's focus outline: `ring`, `focus-ring-width`, `focus-ring-offset` outside |
 | pressed | `primary/12` ground, `primary-ink`, a 1 wide `primary/60` ring |
 | open | a chevron or more on `hover` in `foreground` |
-| off | the toggle and its chevron on `critical/15` in `critical-ink`; under the pointer `critical/25`, the ink `foreground` (the ghost button's hover ink stands over it) |
+| off | the toggle and its chevron on `critical/15` in `critical-ink`; under the pointer `critical/25`, still in `critical-ink` |
 
 The docked strip's controls stand on `background`, the floating bar's on `popover`; the spec's
 `standsOn` names the floating one.

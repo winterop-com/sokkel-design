@@ -83,6 +83,14 @@ of their own (D4); a change to a part is a line here under its name.
   the track list), and findings from the new parts (the call bar's off ink under the pointer, the
   checklist's count, a disabled checkbox row's opacity, a missing fact's hyphen).
 - The pin moves to sokkel-ui 97f92d8 (tokens unchanged).
+- call-bar: a control that is off keeps `critical-ink` under the pointer (`off+hover`).
+- board-item-panel: the checklist's heading is the word `checklist.title`, `Checklist {done}/{total}`,
+  sampled; a read-only step fades once at `disabled-opacity`, its box with it.
+- detail-pane: a missing fact is the dash, `—`, as principle 10 says.
+- CI: every workflow reads only at the top and writes only in the job that deploys; actions are
+  pinned by commit; the contract job, which runs the pinned sokkel-ui's install and scripts, holds a
+  read-only token, keeps no credentials and restores no cache.
+- site: tags are stripped from a table's labels and a heading's anchor until none is left.
 
 ## 0.29.3
 

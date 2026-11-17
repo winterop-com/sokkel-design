@@ -43,7 +43,7 @@ Sources: sokkel-ui `packages/core/src/components/board/BoardItemPanel.tsx` (`Boa
 | hover | A step's row on `hover` |
 | focus (keyboard) | A step's box: the focus outline in `ring`, `focus-ring-width`, `focus-ring-offset` off |
 | checked | The box `primary` with its check in `primary-foreground`; the words `muted-foreground`, struck through |
-| read only | No `onChecklistChange`: the row at 60 percent, the box at `disabled-opacity`, cursor not-allowed |
+| read only | No `onChecklistChange`: the row at `disabled-opacity`, its box with it, cursor not-allowed |
 
 In dark the empty box is washed `input/30`.
 
@@ -53,8 +53,8 @@ In dark the empty box is washed `input/30`.
 
 ## Words
 
-`description` Description, `fields` Fields, `activity` Activity, `checklist.title` Checklist (the
-heading then adds the steps done, a slash and the steps in all: `Checklist 2/4`),
+`description` Description, `fields` Fields, `activity` Activity, `checklist.title` Checklist {done}/{total} (`Checklist 2/4`, said as a function of the steps done
+and in all),
 `checklist.progress` Checklist done.
 
 ## Where sokkel-egui differs today
