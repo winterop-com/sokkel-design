@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.29.3
 
 - run-timeline, clip-timeline, emoji-picker, reaction-bar: four new parts, specified as they landed
   in sokkel-ui (`RunTimeline`; `ClipTimeline` with its drop target, its readable fit in a narrow
