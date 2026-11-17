@@ -4,8 +4,9 @@
 > adhering to similar designs."
 
 Web, Tauri and Electron apps already share one renderer: sokkel-ui, where every example is one web
-app in `web/`, `electron/` and `tauri/` shells. egui is the native one, sokkel-ui-egui. sokkel-design
-is the contract both renderers implement: the tokens, the rules and the parts' specs, written once.
+app in `web/`, `electron/` and `tauri/` shells. egui is the native one, sokkel-egui, and ratatui the
+terminal one, sokkel-tui. sokkel-design is the contract the three renderers implement: the tokens,
+the rules and the parts' specs, written once.
 It has the same shape as sokkel-api: one contract, an implementation per stack, and a check between
 them. The contract decides and each renderer stays idiomatic. When a renderer drifts, a check fails
 in that renderer's CI before any app sees it.
@@ -13,20 +14,22 @@ in that renderer's CI before any app sees it.
 It covers twenty-one parts (button, text field, table, rail, top bar, status line, page header,
 section, page state, select, dropdown menu, tooltip, dialog, settings dialog, command palette, run
 timeline, clip timeline, emoji picker, reaction bar, composer, message composer) and one pattern (the shell), at contract
-version 0.29.2, which moves in lockstep with sokkel-ui
+version 0.29.3, which moves in lockstep with sokkel-ui
 (`CHANGELOG.md`). sokkel-ui checks its components against a pinned copy of the specs
-(`src/parts.test.ts`); sokkel-ui-egui builds its widgets from them and takes its resolved tokens and
-paints from `tokens/tokens.resolved.json`.
+(`src/parts.test.ts`); sokkel-egui builds its widgets from them and takes its resolved tokens and
+paints from `tokens/tokens.resolved.json`; sokkel-tui does the same in a terminal, reading the paints'
+opaque forms, each part's cells and `glyphs.json`. Each part says how far each renderer has built
+it (`renderers`).
 
 ## Layers
 
 | Layer | What it holds | Here |
 |---|---|---|
-| Foundations | Tokens: themes in light and dark, the derived surfaces, density levels, the parts tokens, text roles, the radius ladder, the focus and invalid rings, motion, layers, elevations, breakpoints and form-factor widths | sokkel-ui's `tokens.json` at the commit `sokkel-ui.json` pins, resolved into `tokens/tokens.resolved.json`; `index.json` |
+| Foundations | Tokens: themes in light and dark, the derived surfaces, density levels, the parts tokens, text roles, the radius ladder, the focus and invalid rings, motion, layers, elevations, breakpoints and form-factor widths, the sixteen ANSI colors. For cells: the grid in columns, the check sizes, text roles in cells, color depths and glyphs | sokkel-ui's `tokens.json` at the commit `sokkel-ui.json` pins, resolved into `tokens/tokens.resolved.json`; `index.json` (`renderers`, `cells`, `colorDepth`); `glyphs.json` |
 | Principles | Rules every renderer keeps, whatever its toolkit | `principles.md` |
 | Parts | One spec per part: anatomy, options, sizes per density, states, tokens per state, keyboard, words | `parts/<id>.md` + `parts/<id>.json` |
 | Patterns | Parts arranged into a whole: the app frame first | `patterns/<id>.md` + `patterns/<id>.json` |
-| Specimens | The fixed list of Storybook story paths both renderers draw, compared by eye | `specimens.md` + `specimens.json` |
+| Specimens | The fixed list of Storybook story paths every renderer draws, compared by eye | `specimens.md` + `specimens.json` |
 
 The `.md` file is for people: it explains the part and cites where sokkel-ui does each thing. The
 `.json` file is what a renderer tests against. When the two disagree, the JSON wins and the `.md` is
@@ -35,7 +38,8 @@ fixed.
 ```
 sokkel-design/
     README.md  principles.md  specimens.md  specimens.json  open-questions.md  CHANGELOG.md
-    index.json                  contract version, breakpoints, widths, every part and pattern with its status
+    index.json                  contract version, renderers, breakpoints, widths, cells, color depth, every part and pattern with its status
+    glyphs.json                 each glyph a part draws in cells, Unicode and ASCII, and icons with their Nerd Font form
     sokkel-ui.json              the sokkel-ui commit whose tokens.json the contract reads
     schema/part.schema.json     JSON Schema 2020-12 for parts/*.json and patterns/*.json
     schema/paints.schema.json   the resolved paints renderers read
@@ -62,15 +66,18 @@ section c).
 | Key | Holds |
 |---|---|
 | `id`, `kind`, `status` | `button`; `part` or `pattern`; `draft` or `stable` (see "Versions and status") |
+| `renderers` | For `sokkel-ui`, `sokkel-egui` and `sokkel-tui`: `{ state, as_of, note }`, state `missing`, `partial` or `built`, as of a commit of that renderer's repository. `built` means drawn from the spec with nothing left in `drift` |
 | `sources` | The files each renderer draws it from today, by repo |
 | `anatomy` | Each named piece and what it is; paint and sizes refer to these names |
+| `standsOn` | The surface each piece (or variant) stands on, `default` for the rest: an opaque color token, which the resolver lays the paints over for a renderer that cannot blend |
 | `options` | What an app sets (variant, size, busy, ...), with values and default. CSS context styling becomes an explicit option here (see the rules below) |
 | `sizes` | Per size: `height`, `padX`, `gap`, `icon`, `text`, `radius`, `phoneMinHeight`, `phoneHitArea` (a finger's hit area without growing), ... |
 | `layout` | Lengths that are not per size: insets, gaps, widths, breakpoints the part reads |
+| `cells` | Optional: the part in a cell grid. `rows`, `padX`, `padY`, `gap` in rows and columns (or `{ regular, compact }`), how its `width` is found, what `density` changes, the same by `sizes` and `pieces`, and the `glyphs` it draws (names in `glyphs.json`) |
 | `states` | Every state: what it means, how it is reached, and its part-wide effect (opacity, ring, offset, focusable) |
 | `variants` / `pieces` | A paint map per variant (button) or per anatomy piece (text field, table): `state -> { ground, edge, ink, ring, ... }`. A state left out paints as `rest` |
 | `keyboard` | A list of `{ keys, does, when }` |
-| `words` | `key -> English default`, the same keys in both renderers; a count takes `{ "one": ..., "other": ... }` |
+| `words` | `key -> English default`, the same keys in every renderer; a count takes `{ "one": ..., "other": ... }` |
 | `samples` | For each word that interpolates or counts: `[{ "with": { "count": 0 }, "says": "0 rows" }, ...]`, what it says at zero, one and many and with each value it interpolates |
 | `appText` | Text the app gives (a label, a reason), never defaulted |
 | `rendererSpecific` | What only one renderer does, by repo. A look only one renderer can draw (the web's blur under a dialog's backdrop) is said here and kept out of every paint, so no renderer is held to it |
@@ -183,37 +190,51 @@ A mix such as `mix(secondary, foreground 5%)` resolves to one opaque color the s
   transparent)` for `primary/80`) for each theme and scheme from sokkel-ui's own CSS at the pinned
   commit, and fails a paint off by more than 2/255, as it does every color token and elevation.
 
+- **Opaque forms:** a renderer that cannot blend (a terminal) reads `flat[field]`, else the field.
+  `flat` holds each field that is not opaque, or is `inherit`, laid over the surface the piece stands
+  on (the spec's `standsOn`, kept in `paintSources` as `standsOn`) in sRGB, as a browser composites:
+  the ground over the surface; the edge, ink, rule, mark, placeholder and an inset ring over that
+  flat ground; a ring or outline outside the box over the surface. `inherit` is the surface's own
+  ink. `faded` holds, by state, every color field drawn at the opacity a state's effect sets
+  (`disabled` at `disabled-opacity`), on that state's key where the spec paints it, else on rest.
+  `button.default.hover.container` in tidevann light: `"flat": {"ground": "#3287b2", "edge":
+  "#3287b2"}`. verify-colors draws both in Chromium, the surface filled on a canvas and the layers
+  over it.
+
 sokkel-ui keeps drawing with CSS, where its classes say the same expressions (`hover:bg-primary/80`),
-and its parts test checks that each paint expression has the class it expects. sokkel-ui-egui reads
-`paints` and drops its own `color_at` and gamma blends for anything a spec paints.
+and its parts test checks that each paint expression has the class it expects. sokkel-egui reads
+`paints` and drops its own `color_at` and gamma blends for anything a spec paints; sokkel-tui reads
+their opaque forms.
 
 ## How each renderer consumes it
 
-| | sokkel-ui (React, CSS) | sokkel-ui-egui (Rust, egui) |
-|---|---|---|
-| Tokens | `scripts/build-tokens.ts` writes `tokens.css`, `themes/*.css` and `theme-list.ts` from `tokens.json`; the browser settles `var()`, `color-mix()` and `calc()` | sokkel-design's resolver settles every value to plain sRGB hex, px, numbers, ms, easing curves, elevation layers and text roles in `tokens/tokens.resolved.json`, which `tokens.rs` embeds |
-| Parts | Components keep their idiom (Tailwind classes, Base UI). A test reads `parts/*.json` and checks what can be read from code: words equal the component's defaults, each paint expression's class, the sizes in its class strings, the keys it binds | Widgets read sizes and words from the spec and colors from `paints`, so most drift cannot be written; kittest checks state paint and keys |
-| Specimens | The story at each specimen's path, captured by Playwright | The egui story at the same path, captured by egui_kittest |
+| | sokkel-ui (React, CSS) | sokkel-egui (Rust, egui) | sokkel-tui (Rust, ratatui) |
+|---|---|---|---|
+| Tokens | `scripts/build-tokens.ts` writes `tokens.css`, `themes/*.css` and `theme-list.ts` from `tokens.json`; the browser settles `var()`, `color-mix()` and `calc()` | sokkel-design's resolver settles every value to plain sRGB hex, px, numbers, ms, easing curves, elevation layers and text roles in `tokens/tokens.resolved.json`, which `tokens.rs` embeds | The same resolved file, at a pinned sokkel-design commit; colors from the paints' `flat` and `faded` forms, at the terminal's depth (`colorDepth`) |
+| Parts | Components keep their idiom (Tailwind classes, Base UI). A test reads `parts/*.json` and checks what can be read from code: words equal the component's defaults, each paint expression's class, the sizes in its class strings, the keys it binds | Widgets read sizes and words from the spec and colors from `paints`, so most drift cannot be written; kittest checks state paint and keys | Widgets read words and keys from the spec, rows and columns from `cells`, glyphs from `glyphs.json`; tests draw into a buffer |
+| Specimens | The story at each specimen's path, captured by Playwright | The egui story at the same path, captured by egui_kittest | The same path drawn into a buffer at the check sizes, as text and SVG |
 
 **Drift checks.**
 
 | Side | Check | Fails when |
 |---|---|---|
-| sokkel-design | `check.py` (schema, references, words, samples, statuses) | A part file breaks the schema, names a token the pinned sokkel-ui lacks, paints a state the part does not list, or leaves a counted or templated word without samples; the resolved file was made from another commit than the pin |
-| sokkel-design | `resolve --check`, `verify-colors` (CI, `.github/workflows/contract.yaml`) | The resolved file (tokens and paints) is not what the pinned `tokens.json` and the specs make; a resolved token color, paint color or elevation is off from Chromium's by more than 2/255 (22698 today: 13 themes, both schemes) |
+| sokkel-design | `check.py` (schema, references, words, samples, statuses, renderers, surfaces, cells, glyphs) | A part file breaks the schema, names a token the pinned sokkel-ui lacks, paints a state the part does not list, or leaves a counted or templated word without samples; a stable part sokkel-ui has not built; a piece stands on a surface that is not opaque in every theme; a part names a glyph `glyphs.json` lacks; the index's cells or color depth are incomplete; the resolved file was made from another commit than the pin |
+| sokkel-design | `resolve --check`, `verify-colors` (CI, `.github/workflows/contract.yaml`) | The resolved file (tokens and paints) is not what the pinned `tokens.json` and the specs make; a resolved token color, paint color (its flat and faded forms included) or elevation is off from Chromium's by more than 2/255 (32253 today: 13 themes, both schemes) |
 | sokkel-ui | `bun run tokens --check` | The CSS is not what `tokens.json` makes |
 | sokkel-ui | `parts.test.ts` | A component's word default or sample, paint class, size or key binding is not the spec's |
-| sokkel-ui-egui | `make tokens-check` (exists) | The embedded resolved file is not the contract's |
-| sokkel-ui-egui | `tests/parts.rs` (new) | A widget's measured size, state paint or key handling is not the spec's |
-| Both | Specimens | Nothing fails automatically. The side-by-side page shows each pair for the eye |
+| sokkel-egui | `make tokens-check` (exists) | The embedded resolved file is not the contract's |
+| sokkel-egui | `tests/parts.rs` (new) | A widget's measured size, state paint or key handling is not the spec's |
+| sokkel-tui | `make tokens-check` (exists) | The embedded resolved file is not the contract's at the pinned commit |
+| Every renderer | Specimens | Nothing fails automatically. The side-by-side page shows each pair for the eye |
 
 **How a change flows.** A token changes in sokkel-ui's `tokens.json` (until 1.0, see D1), and a
 part spec or a principle changes here, in a PR with a changelog line under the version it ships in.
 The pin moves to that sokkel-ui commit (`bun scripts/resolve.ts --ref <ref>`), which writes the
 resolved file again. Each renderer then takes the new version: sokkel-ui moves its `design/` pin,
-sokkel-ui-egui takes the resolved file, and both run their checks. A widget or component that no longer
+sokkel-egui and sokkel-tui take the resolved file, and each runs its checks. A widget or component that no longer
 matches fails its own check in its own repo. The renderer is then fixed, or the spec is questioned
-here. Both renderers regenerate their specimens, and the side-by-side shows what changed.
+here. The renderers regenerate their specimens, and the side-by-side shows what changed. A renderer
+that builds or finishes a part moves that part's `renderers` entry here, to its own commit.
 
 ## From Rust
 
@@ -249,20 +270,23 @@ colors. The only token lookups left are those outside a spec's paints (`tokens.c
 ## Versions and status
 
 **One contract version, in lockstep with sokkel-ui** (D3, D4). `index.json`'s `version` is the
-sokkel-ui release the contract ships in: 0.29.2 now. Before 1.0 a breaking change moves the minor,
-as sokkel-ui's does. sokkel-ui-egui states the sokkel-ui version whose contract it meets. Parts have
+sokkel-ui release the contract ships in: 0.29.3 now. Before 1.0 a breaking change moves the minor,
+as sokkel-ui's does. sokkel-egui and sokkel-tui state the sokkel-ui version whose contract it meets. Parts have
 no version of their own; `CHANGELOG.md` says what each version changed, part by part.
 
 **Status.** Each part and pattern says `draft` or `stable`, in its file and in `index.json`, and
 `check.py` holds the two the same:
-- `stable`: both renderers draw it from its spec and it has been compared side by side, its open
-  findings decided. A change to it is a changelog line, and the renderers follow.
-- `draft`: a renderer has not built it from its spec yet. It may still change shape.
+- `stable`: its shape is settled: as it landed in sokkel-ui, or drawn from its spec and compared side
+  by side, its open findings decided. A change to it is a changelog line, and the renderers follow.
+- `draft`: it may still change shape.
+
+Status is the contract's; how far each renderer has built a part is that part's `renderers`, so a
+third renderer neither blocks a stable part nor is left out of it.
 
 What lands in sokkel-ui is the new normal: a part added or changed there is specified here in the
 same round, as it landed (its words, options, sizes, paints and keys), and is `stable` from the
 start, never a draft. Where egui has not built it yet, its spec says so in a `drift` entry for
-sokkel-ui-egui, and egui builds it from the spec. Today `section` and `text-field` are drafts from
+sokkel-ui-egui and in `renderers`, and egui builds it from the spec. Today `section` and `text-field` are drafts from
 before that rule (egui has not built Section, nor the field's issue mark and frame); every other
 part and the shell are stable.
 

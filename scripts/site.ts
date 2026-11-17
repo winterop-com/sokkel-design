@@ -1,7 +1,8 @@
 /**
  * Build the contract's documentation site into _site/: the home page, the principles, specimens,
- * open questions and changelog from their Markdown, every token of every theme, and a page per part
- * and pattern that index.json lists, drawn from its spec and its resolved paints.
+ * open questions and changelog from their Markdown, every token of every theme, the cell grid with
+ * its color depths, text roles and glyphs, and a page per part and pattern that index.json lists,
+ * drawn from its spec and its resolved paints, with each renderer's state.
  *
  *   bun scripts/site.ts            write _site/
  *
@@ -21,8 +22,23 @@ const EXAMPLES = 'https://winterop-com.github.io/sokkel-ui/examples/'
 
 type Json = Record<string, unknown>
 type Entry = { id: string; file: string; status: string }
+type Renderer = { id: string; repo: string; toolkit: string; reads: string; alsoNamed?: string }
+type RendererState = { state: 'missing' | 'partial' | 'built'; as_of: string; note?: string }
+type Glyph = { unicode: string | string[]; ascii: string | string[]; means?: string; frame?: string }
+type Icon = { nerdFont: string; nerdFontName: string; unicode: string; ascii: string; note?: string }
+type Glyphs = { $description: string; rules: string[]; glyphs: Record<string, Glyph>; box: Record<string, Record<string, string> | string>; icons: Record<string, Icon | string> }
 type Index = {
     version: string
+    renderers: Renderer[]
+    cells: Json & {
+        $description: string
+        pxPerColumn: number
+        breakpoints: Record<string, { token: string; columns: number; means: string }>
+        checkSizes: { columns: number; rows: number; means: string }[]
+        rules: string[]
+        textRoles: Record<string, { bold: boolean; italic: boolean; ink: string } | string>
+    }
+    colorDepth: Record<string, unknown>
     themes: { base: string }
     densities: string[]
     parts: Entry[]
@@ -64,6 +80,7 @@ const index = readJson<Index>('index.json')
 const resolved = readJson<Resolved>('tokens/tokens.resolved.json')
 const specimens = existsSync(join(ROOT, 'specimens.json')) ? readJson<{ specimens: Specimen[] }>('specimens.json').specimens : []
 const pin = readJson<{ repo: string; commit: string }>('sokkel-ui.json')
+const glyphs = readJson<Glyphs>('glyphs.json')
 const BASE = index.themes.base in resolved.themes ? index.themes.base : Object.keys(resolved.themes)[0]
 const THEMES = [BASE, ...Object.keys(resolved.themes).filter((t) => t !== BASE)]
 const SCHEMES = ['light', 'dark'] as const
@@ -232,6 +249,7 @@ const NAV: [string, string][] = [
     ['principles.html', 'Principles'],
     ['tokens.html', 'Tokens'],
     ['parts/index.html', 'Parts'],
+    ['cells.html', 'Cells'],
     ['specimens.html', 'Specimens'],
     ['open-questions.html', 'Open questions'],
     ['changelog.html', 'Changelog'],
@@ -325,7 +343,8 @@ function home() {
     const cards: [string, string, string][] = [
         ['principles.html', 'Principles', 'The rules every renderer keeps, whatever its toolkit.'],
         ['tokens.html', 'Tokens', 'Every theme in light and dark: colors, type, spacing, corners, elevations, motion.'],
-        ['parts/index.html', 'Parts and patterns', 'One spec per part: anatomy, options, sizes, states, paints, keys and words.'],
+        ['parts/index.html', 'Parts and patterns', 'One spec per part: anatomy, options, sizes, states, paints, keys and words, and how far each renderer has built it.'],
+        ['cells.html', 'Cells', 'For a renderer in a terminal: the grid in columns, color depths, text roles and glyphs.'],
         ['specimens.html', 'Specimens', 'The story paths both renderers draw, compared by eye.'],
         ['open-questions.html', 'Open questions', 'The decisions taken and the findings that still need a call.'],
         ['changelog.html', 'Changelog', 'What each contract version changed, part by part.'],
@@ -503,27 +522,87 @@ function statusBadge(status: string) {
     return `<span class="badge ${esc(status)}">${esc(status)}</span>`
 }
 
+/** A renderer's state for a part, as a badge that links to the commit it was read at. */
+function rendererBadge(renderer: Renderer, state: RendererState | undefined): string {
+    if (state === undefined) return '<span class="quiet">-</span>'
+    const cls = state.state === 'built' ? 'stable' : state.state === 'partial' ? 'partial' : 'missing'
+    const title = `${renderer.id}: ${state.state} as of ${state.as_of}${state.note ? `. ${state.note}` : ''}`
+    return `<a class="badge ${cls}" href="https://github.com/${esc(renderer.repo)}/commit/${esc(state.as_of)}" title="${esc(title)}">${esc(state.state)}</a>`
+}
+
 function partsIndex() {
     const rows = (list: typeof entries) =>
         list.map((e) => {
             const spec = readJson<Json>(e.file)
+            const states = (spec.renderers ?? {}) as Record<string, RendererState>
             return [
                 `<a href="../${e.kind}s/${e.id}.html"><strong>${esc(title(e.id))}</strong></a>`,
                 statusBadge(e.status),
+                ...index.renderers.map((r) => rendererBadge(r, states[r.id])),
                 prose(firstSentence(String(spec.summary ?? ''))),
             ]
         })
     const parts = entries.filter((e) => e.kind === 'part')
     const patterns = entries.filter((e) => e.kind === 'pattern')
+    const head = (what: string) => [what, 'Status', ...index.renderers.map((r) => esc(r.id)), 'What it is']
     const body = `
 <header class="page-head">
 <p class="eyebrow">Specs</p>
 <h1>Parts and patterns</h1>
-<p class="lede">Each part has one spec: its anatomy, options, sizes per density, states, paints per state, keys and words. <strong>Stable</strong>: both renderers draw it from its spec and it has been compared side by side. <strong>Draft</strong>: a renderer has not built it from its spec yet.</p>
+<p class="lede">Each part has one spec: its anatomy, options, sizes per density, states, paints per state, keys and words. <strong>Stable</strong>: as it landed in sokkel-ui, or drawn from its spec and compared side by side. <strong>Draft</strong>: it may still change shape. Each renderer says how far it has built the part (<strong>built</strong>, <strong>partial</strong> or <strong>missing</strong>), as of a commit of its own repository.</p>
 </header>
-<section class="block"><h2>Parts</h2>${table(['Part', 'Status', 'What it is'], rows(parts), 'index stack')}</section>
-${patterns.length ? `<section class="block"><h2>Patterns</h2>${table(['Pattern', 'Status', 'What it is'], rows(patterns), 'index stack')}</section>` : ''}`
+<section class="block"><h2>Parts</h2>${table(head('Part'), rows(parts), 'index stack')}</section>
+${patterns.length ? `<section class="block"><h2>Patterns</h2>${table(head('Pattern'), rows(patterns), 'index stack')}</section>` : ''}`
     write('parts/index.html', page({ path: 'parts/index.html', title: 'Parts and patterns', body, wide: true }))
+}
+
+// ---------------------------------------------------------------------------------------------------
+// Cells
+
+const form = (v: string | string[]) => (Array.isArray(v) ? v.map((x) => `<code>${esc(x)}</code>`).join(' ') : `<code>${esc(v)}</code>`)
+
+function cellsPage() {
+    const cells = index.cells
+    const roles = Object.entries(cells.textRoles).filter(([k]) => !k.startsWith('$')) as [string, { bold: boolean; italic: boolean; ink: string }][]
+    const depth = index.colorDepth as Record<string, unknown>
+    const ansi = (depth.ansi16 ?? {}) as { means?: string; tokens?: string[] }
+    const data: PageData = { themes: {} }
+    for (const t of THEMES) {
+        data.themes[t] = {}
+        for (const s of SCHEMES) data.themes[t][s] = Object.fromEntries((ansi.tokens ?? []).map((n) => [`colors.${n}`, resolved.themes[t][s].colors[n]]))
+    }
+    const box = Object.entries(glyphs.box).filter(([k]) => !k.startsWith('$')) as [string, Record<string, string>][]
+    const icons = Object.entries(glyphs.icons).filter(([k]) => !k.startsWith('$')) as [string, Icon][]
+    const body = `
+<header class="page-head">
+<p class="eyebrow">Foundations</p>
+<h1>Cells</h1>
+<p class="lede">${prose(cells.$description)}</p>
+</header>
+<section class="block" id="grid"><h2>The grid</h2>
+<p>A column stands for <strong>${esc(cells.pxPerColumn)}</strong> px.</p>
+${table(['Breakpoint', 'Token', 'Columns', 'Means'], Object.entries(cells.breakpoints).map(([k, b]) => [`<code>${esc(k)}</code>`, `<code>${esc(b.token)}</code>`, String(b.columns), prose(b.means)]), 'stack')}
+<h3>Check sizes</h3>
+${table(['Columns by rows', 'Means'], cells.checkSizes.map((c) => [`<code>${c.columns}x${c.rows}</code>`, prose(c.means)]), 'stack')}
+<h3>Rules</h3><ul>${cells.rules.map((r) => `<li>${prose(r)}</li>`).join('')}</ul>
+</section>
+<section class="block" id="color-depth"><h2>Color depth</h2>
+<dl class="defs">${['truecolor', 'ansi256', 'none'].filter((k) => typeof depth[k] === 'string').map((k) => `<div><dt><code>${k}</code></dt><dd>${prose(depth[k])}</dd></div>`).join('')}</dl>
+<h3>Sixteen colors</h3><p>${prose(ansi.means ?? '')}</p>
+${table(['Index', 'Token', 'Color'], (ansi.tokens ?? []).map((n, i) => [String(i), `<code>${esc(n)}</code>`, shown(data, `colors.${n}`, 'swatch', { cls: 'sw' })]), 'stack')}
+</section>
+<section class="block" id="text-roles"><h2>Text roles</h2><p>${prose(String(cells.textRoles.$description ?? ''))}</p>
+${table(['Role', 'Bold', 'Italic', 'Ink'], roles.map(([k, r]) => [`<code>text.${esc(k)}</code>`, r.bold ? 'bold' : '<span class="quiet">no</span>', r.italic ? 'italic' : '<span class="quiet">no</span>', r.ink === 'piece' ? '<span class="quiet">the piece&#39;s</span>' : `<code>${esc(r.ink)}</code>`]), 'stack')}
+</section>
+<section class="block" id="glyphs"><h2>Glyphs</h2><p>${prose(glyphs.$description)}</p>
+<ul>${glyphs.rules.map((r) => `<li>${prose(r)}</li>`).join('')}</ul>
+${table(['Glyph', 'Unicode', 'ASCII', 'Means'], Object.entries(glyphs.glyphs).map(([k, g]) => [`<code>${esc(k)}</code>`, form(g.unicode), form(g.ascii), `${prose(g.means ?? '')}${g.frame ? `<div class="note">a frame each <code>${esc(g.frame)}</code></div>` : ''}`]), 'stack')}
+<h3>Box</h3><p>${prose(String(glyphs.box.$description ?? ''))}</p>
+${table(['Form', ...Object.keys(box[0]?.[1] ?? {}).map(esc)], box.map(([k, b]) => [`<code>${esc(k)}</code>`, ...Object.values(b).map((x) => `<code>${esc(x)}</code>`)]), 'stack')}
+<h3>Icons</h3><p>${prose(String(glyphs.icons.$description ?? ''))}</p>
+${table(['Icon', 'Nerd Font', 'Unicode', 'ASCII'], icons.map(([k, i]) => [`<code>${esc(k)}</code>`, `<code>${esc(i.nerdFont)}</code> <span class="quiet">${esc(i.nerdFontName)}</span>`, form(i.unicode), `${form(i.ascii)}${i.note ? `<div class="note">${prose(i.note)}</div>` : ''}`]), 'stack')}
+</section>`
+    write('cells.html', page({ path: 'cells.html', title: 'Cells', body, data, wide: true }))
 }
 
 /** A value from a spec, with what it resolves to beside it where a token names it. */
@@ -595,7 +674,12 @@ function paintsSection(spec: Json, data: PageData): string {
         const used = PAINT_FIELDS.filter((f) =>
             THEMES.some((t) => SCHEMES.some((s) => list.some((k) => resolved.paints[t]?.[s]?.[k]?.[f as keyof Paint] !== undefined))),
         )
-        const head = ['State', 'Look', ...used.map((f) => esc(f)), 'Spec says']
+        const every = (pick: (p: Paint & { flat?: Json; faded?: Record<string, Json> }) => Json | undefined) =>
+            [...new Set(THEMES.flatMap((t) => SCHEMES.flatMap((s) => list.flatMap((k) => Object.keys(pick(resolved.paints[t]?.[s]?.[k] ?? {}) ?? {})))))]
+        const flatUsed = every((p) => p.flat)
+        const fadedUsed = every((p) => p.faded)
+        const opaque = flatUsed.length > 0 || fadedUsed.length > 0
+        const head = ['State', 'Look', ...used.map((f) => esc(f)), ...(opaque ? ['Opaque'] : []), 'Spec says']
         const rows = list.map((k) => {
             const state = stateOf(k)
             const cells = used.map((f) => {
@@ -603,6 +687,17 @@ function paintsSection(spec: Json, data: PageData): string {
                 const src = f === 'opacity' ? '' : shown(data, `s:${k}|${f}`, 'src', { cls: 'src' })
                 return `${shown(data, `${k}|${f}`, as, { cls: as === 'opacity' ? 'plain' : 'sw' })}${src}`
             })
+            if (opaque) {
+                const flatOf = [...new Set(THEMES.flatMap((t) => SCHEMES.flatMap((sc) => Object.keys((resolved.paints[t]?.[sc]?.[k] as { flat?: Json } | undefined)?.flat ?? {}))))]
+                const fields = (prefix: string, names: string[]) => names.map((f) => `<div><span class="quiet">${esc(f)}</span> ${shown(data, `${k}|${prefix}${f}`, 'swatch', { cls: 'sw' })}</div>`).join('')
+                const fadedOf = (st: string) => Object.keys((resolved.paints[BASE]?.light?.[k] as { faded?: Record<string, Json> } | undefined)?.faded?.[st] ?? {})
+                cells.push(
+                    `${flatOf.length ? `<div class="quiet">flat over ${shown(data, `s:${k}|standsOn`, 'src', { cls: 'src' })}</div>${fields('flat.', flatUsed.filter((f) => flatOf.includes(f)))}` : ''}${fadedUsed
+                        .filter((st) => fadedOf(st).length)
+                        .map((st) => `<div class="quiet">faded, ${esc(st)}</div>${fields(`faded.${st}.`, fadedOf(st))}`)
+                        .join('')}`,
+                )
+            }
             const spec = authored(variant, piece, state)
             const notes = spec
                 ? Object.entries(spec)
@@ -628,8 +723,8 @@ function darkText(o: Json): string {
 }
 
 const KNOWN_KEYS = new Set([
-    '$schema', 'id', 'kind', 'status', 'summary', 'sources', 'anatomy', 'options', 'sizes', 'layout', 'states', 'variants',
-    'pieces', 'breakpoints', 'routes', 'keyboard', 'words', 'samples', 'appText', 'rendererSpecific', 'drift',
+    '$schema', 'id', 'kind', 'status', 'renderers', 'summary', 'sources', 'anatomy', 'standsOn', 'options', 'sizes', 'layout', 'cells',
+    'states', 'variants', 'pieces', 'breakpoints', 'routes', 'keyboard', 'words', 'samples', 'appText', 'rendererSpecific', 'drift',
 ])
 
 function sourceLink(repo: string, path: string): string {
@@ -663,6 +758,21 @@ function partPage(entry: (typeof entries)[number]) {
     const sections: [string, string, string][] = []
     const add = (key: string, h: string, html: string) => html && sections.push([key, h, html])
 
+    const states_ = (spec.renderers ?? {}) as Record<string, RendererState>
+    add(
+        'renderers',
+        'Renderers',
+        table(
+            ['Renderer', 'State', 'As of', 'Note'],
+            index.renderers.map((r) => [
+                `<a href="https://github.com/${esc(r.repo)}">${esc(r.id)}</a> <span class="quiet">${esc(r.toolkit)}</span>`,
+                rendererBadge(r, states_[r.id]),
+                states_[r.id] ? `<a href="https://github.com/${esc(r.repo)}/commit/${esc(states_[r.id].as_of)}"><code>${esc(states_[r.id].as_of)}</code></a>` : '',
+                states_[r.id]?.note ? prose(states_[r.id].note) : '',
+            ]),
+            'stack',
+        ),
+    )
     const stories = [...new Map(specimens.filter((s) => s.part === id).map((s) => [s.id, s])).values()]
     if (stories.length) {
         add(
@@ -675,6 +785,19 @@ function partPage(entry: (typeof entries)[number]) {
     }
     const anatomy = spec.anatomy as Record<string, string> | undefined
     if (anatomy) add('anatomy', 'Anatomy', `<dl class="defs">${Object.entries(anatomy).map(([k, v]) => `<div><dt><code>${esc(k)}</code></dt><dd>${prose(v)}</dd></div>`).join('')}</dl>`)
+
+    const standsOn = spec.standsOn as Record<string, string> | undefined
+    if (standsOn) {
+        add(
+            'stands-on',
+            'Stands on',
+            `<p class="lede small">The surface each piece stands on, which its paints are laid over where a renderer cannot blend.</p>${table(
+                ['Piece', 'Surface'],
+                Object.entries(standsOn).map(([k, v]) => [`<code>${esc(k)}</code>`, `<code>${esc(v)}</code>`]),
+                'stack',
+            )}`,
+        )
+    }
 
     const options = spec.options as Record<string, Json> | undefined
     if (options) {
@@ -716,6 +839,26 @@ function partPage(entry: (typeof entries)[number]) {
     const layout = spec.layout as Json | undefined
     if (layout) add('layout', 'Layout', table(['Length', 'Value'], Object.entries(layout).map(([k, v]) => [`<code>${esc(k)}</code>`, ref(v, data)]), 'stack'))
 
+    const cellSpec = spec.cells as Json | undefined
+    if (cellSpec) {
+        const boxRows = (o: Record<string, Json>) =>
+            Object.entries(o).map(([k, b]) => [`<code>${esc(k)}</code>`, ...['rows', 'padX', 'padY', 'gap'].map((c) => (b[c] === undefined ? '' : ref(b[c], data))), `${b.width ? prose(b.width) : ''}${b.note ? `<div class="note">${prose(b.note)}</div>` : ''}`])
+        const top = ['rows', 'padX', 'padY', 'gap'].filter((c) => cellSpec[c] !== undefined)
+        const named = (cellSpec.glyphs as string[] | undefined) ?? []
+        const glyphRow = (n: string): string[] => {
+            const g = glyphs.glyphs[n]
+            if (g) return [`<code>${esc(n)}</code>`, form(g.unicode), form(g.ascii), '']
+            const i = glyphs.icons[n] as Icon | undefined
+            if (i && typeof i === 'object') return [`<code>${esc(n)}</code>`, form(i.unicode), form(i.ascii), `<code>${esc(i.nerdFont)}</code>`]
+            return [`<code>${esc(n)}</code>`, '<span class="quiet">the box glyphs</span>', '', '']
+        }
+        add(
+            'cells',
+            'Cells',
+            `<p class="lede small">In a cell grid (a terminal), in rows and columns (<a href="../cells.html">Cells</a>).</p><dl class="defs">${top.map((c) => `<div><dt>${esc(c)}</dt><dd>${ref(cellSpec[c], data)}</dd></div>`).join('')}${['width', 'density', 'note'].filter((c) => cellSpec[c]).map((c) => `<div><dt>${esc(c)}</dt><dd>${prose(cellSpec[c])}</dd></div>`).join('')}</dl>${cellSpec.sizes ? `<h3>By size</h3>${table(['Size', 'rows', 'padX', 'padY', 'gap', 'Width and note'], boxRows(cellSpec.sizes as Record<string, Json>), 'stack')}` : ''}${cellSpec.pieces ? `<h3>By piece</h3>${table(['Piece', 'rows', 'padX', 'padY', 'gap', 'Width and note'], boxRows(cellSpec.pieces as Record<string, Json>), 'stack')}` : ''}${named.length ? `<h3>Glyphs</h3>${table(['Glyph', 'Unicode', 'ASCII', 'Nerd Font'], named.map(glyphRow), 'stack')}` : ''}`,
+        )
+    }
+
     const states = spec.states as Record<string, Json> | undefined
     if (states) {
         add(
@@ -740,7 +883,7 @@ function partPage(entry: (typeof entries)[number]) {
         (() => {
             const p = paintsSection(spec, data)
             return p
-                ? `<p class="lede small">Each state's resolved paint for ${shown(data, 'meta.label', 'word', { tag: 'strong' })} picked in the bar, in <strong data-shows-scheme>light</strong>: the look, each color as a swatch with its hex and the expression the spec writes, and what else the spec says of it. A state left out paints as <code>rest</code>.</p>${p}`
+                ? `<p class="lede small">Each state's resolved paint for ${shown(data, 'meta.label', 'word', { tag: 'strong' })} picked in the bar, in <strong data-shows-scheme>light</strong>: the look, each color as a swatch with its hex and the expression the spec writes, and what else the spec says of it. A state left out paints as <code>rest</code>. <strong>Opaque</strong> is what a renderer that cannot blend draws: each field that is not opaque laid over the surface the piece stands on (<code>flat</code>), and the paint drawn at a fading state's opacity (<code>faded</code>).</p>${p}`
                 : ''
         })(),
     )
@@ -800,7 +943,7 @@ function partPage(entry: (typeof entries)[number]) {
     const specific = spec.rendererSpecific as Record<string, string[]> | undefined
     if (specific) {
         add(
-            'renderers',
+            'per-renderer',
             'Per renderer',
             Object.entries(specific)
                 .map(([r, list]) => `<h3>${esc(r)}</h3><ul>${list.map((x) => `<li>${prose(x)}</li>`).join('')}</ul>`)
@@ -874,6 +1017,7 @@ markdownPage('specimens.md', 'specimens.html', 'Specimens')
 markdownPage('open-questions.md', 'open-questions.html', 'Open questions')
 markdownPage('CHANGELOG.md', 'changelog.html', 'Changelog')
 tokensPage()
+cellsPage()
 partsIndex()
 for (const e of entries) partPage(e)
 console.log(`_site: ${entries.length} parts and patterns, ${THEMES.length} themes, contract ${index.version}`)

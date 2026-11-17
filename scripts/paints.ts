@@ -13,9 +13,19 @@
  * option's overlay (destructive-hover): its paints hold only its own fields and say `overlay`.
  *
  * Only rest and the states a spec paints (or rings) are present; a renderer asked for another state
- * takes rest. `source` keeps each field's expression, which verify-colors draws in Chromium.
+ * takes rest. `source` keeps each field's expression, which verify-colors draws in Chromium, and the
+ * surface the piece stands on (`standsOn`).
+ *
+ * Opaque forms, for a renderer that cannot blend (a terminal): `flat` holds each field that is not
+ * opaque, or is `inherit`, laid over what it stands on in sRGB (source-over, as a browser
+ * composites): the ground over the piece's surface (the spec's `standsOn`), the edge, ink, rule,
+ * mark, placeholder and an inset ring over that flat ground (the surface where there is no ground),
+ * and a ring or outline drawn outside the box over the surface. `inherit` is the surface's own ink.
+ * `faded` holds, for each state whose effect fades the piece (`disabled` at `disabled-opacity`),
+ * every color field of the paint drawn at that opacity over the surface, as CSS draws a part at
+ * opacity: on the state's own key where the spec paints it, else on rest.
  */
-import { Evaluator, hex, px, type Vars } from './resolve-tokens.ts'
+import { Evaluator, hex, px, type Color, type Vars } from './resolve-tokens.ts'
 
 type Length = number | string
 
@@ -44,9 +54,11 @@ type PaintMap = Record<string, Paint>
 
 export interface Spec {
     id: string
-    states: Record<string, { effect?: { piece?: string; ring?: Ring } }>
+    states: Record<string, { effect?: { piece?: string; ring?: Ring; opacity?: Length } }>
     variants?: Record<string, PaintMap>
     pieces?: Record<string, PaintMap>
+    /** The surface each piece stands on, by piece (or variant), with a `default`. */
+    standsOn?: Record<string, string>
 }
 
 export interface ResolvedRing {
@@ -67,7 +79,22 @@ export interface ResolvedPaint {
     outline?: ResolvedRing
     opacity?: number
     overlay?: true
+    /** Each field that is not opaque, laid over what it stands on: every field opaque. */
+    flat?: FlatPaint
+    /** By state: every color field of the paint drawn at the state's opacity over the surface. */
+    faded?: Record<string, FlatPaint>
     source: Record<string, string>
+}
+
+export interface FlatPaint {
+    ground?: string
+    edge?: string
+    ink?: string
+    rule?: string
+    mark?: string
+    placeholder?: string
+    ring?: string
+    outline?: string
 }
 
 const COLORS = ['ground', 'edge', 'ink', 'rule', 'mark', 'placeholder'] as const
@@ -177,17 +204,105 @@ const named = (vars: Vars) => (token: string) => {
     throw new Error(`${token} is not a token`)
 }
 
+/** The surface a piece stands on: its own entry in `standsOn`, the variant's, the part's default, else the page. */
+export function surfaceOf(spec: Spec, variant: string, piece: string): string {
+    const on = spec.standsOn ?? {}
+    return on[piece === 'container' ? variant : piece] ?? on[piece] ?? on.default ?? 'background'
+}
+
+/** The ink of what stands on a surface, which `inherit` takes there. */
+export function inkOf(surface: string, has: (token: string) => boolean): string {
+    const named: Record<string, string> = {
+        background: 'foreground',
+        field: 'foreground',
+        'page-foot-ground': 'page-foot-ink',
+        'section-head-ground': 'section-head-ink',
+        'table-head-ground': 'table-head-ink',
+    }
+    if (named[surface] !== undefined) return named[surface]
+    return has(`${surface}-foreground`) ? `${surface}-foreground` : 'foreground'
+}
+
+/**
+ * A color's sRGB channels and its alpha as Chromium lays them over another: a channel past 1 is kept
+ * until the result is clipped, one below 0 is taken as 0 (measured; verify-colors holds it).
+ */
+type Raw = [number, number, number, number]
+
+function rawOf(color: Color): Raw {
+    const l = (color.l + 0.3963377774 * color.a + 0.2158037573 * color.b) ** 3
+    const m = (color.l - 0.1055613458 * color.a - 0.0638541728 * color.b) ** 3
+    const s = (color.l - 0.0894841775 * color.a - 1.291485548 * color.b) ** 3
+    const gamma = (c: number) => (c <= 0.0031308 ? 12.92 * c : 1.055 * c ** (1 / 2.4) - 0.055)
+    const channel = (c: number) => Math.max(0, gamma(c))
+    return [
+        channel(4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s),
+        channel(-1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s),
+        channel(-0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s),
+        color.alpha,
+    ]
+}
+
+const bytesOf = (hex: string): number[] => [1, 3, 5, 7].map((i) => (i < hex.length ? parseInt(hex.slice(i, i + 2), 16) : 255))
+
+/** `color` laid over the opaque `under` (a hex) in sRGB, as a browser composites, then clipped: an opaque hex. */
+export function over(color: Raw, under: string, opacity = 1): string {
+    const u = bytesOf(under)
+    const t = color[3] * opacity
+    const byte = (c: number, i: number) => Math.min(255, Math.max(0, Math.round(c * 255 * t + u[i] * (1 - t))))
+    return `#${color
+        .slice(0, 3)
+        .map((c, i) => byte(c, i).toString(16).padStart(2, '0'))
+        .join('')}`
+}
+
+/** An opaque hex as a Raw. */
+const rawHex = (hex: string): Raw => [...bytesOf(hex).slice(0, 3).map((b) => b / 255), 1] as Raw
+
+const opaque = (hex: string) => hex.length === 7 || hex.endsWith('ff')
+const OVER_GROUND = ['edge', 'ink', 'rule', 'mark', 'placeholder'] as const
+
+/** The opaque form of a paint over `surface` (an opaque hex), each field laid from its unclipped color (`raw`, `inherit` as the surface's ink); every field, and the ones that changed. */
+function flatten(paint: ResolvedPaint, raw: Partial<Record<keyof FlatPaint, Raw>>, surface: string): { all: FlatPaint; changed: FlatPaint } {
+    const all: FlatPaint = {}
+    const changed: FlatPaint = {}
+    const set = (field: keyof FlatPaint, value: string, was: string) => {
+        all[field] = value
+        if (value !== was) changed[field] = value
+    }
+    const ground = paint.ground === undefined || raw.ground === undefined ? surface : over(raw.ground, surface)
+    if (paint.ground !== undefined) set('ground', ground, paint.ground)
+    for (const field of OVER_GROUND) {
+        const value = paint[field]
+        const color = raw[field]
+        if (value === undefined || color === undefined) continue
+        set(field, over(color, ground), value)
+    }
+    if (paint.ring !== undefined && raw.ring !== undefined) set('ring', over(raw.ring, paint.ring.inset === undefined ? surface : ground), paint.ring.color)
+    if (paint.outline !== undefined && raw.outline !== undefined) set('outline', over(raw.outline, surface), paint.outline.color)
+    return { all, changed }
+}
+
+/** Every color field of an opaque paint drawn at `opacity` over `surface`. */
+function fade(all: FlatPaint, surface: string, opacity: number): FlatPaint {
+    const out: FlatPaint = {}
+    for (const field of ['ground', ...OVER_GROUND] as const) {
+        const value = all[field]
+        if (value !== undefined) out[field] = over(rawHex(value), surface, opacity)
+    }
+    return out
+}
+
 /** Every paint of the specs in one theme and scheme. */
 export function paintsOf(specs: Spec[], vars: Vars, dark: boolean): Record<string, ResolvedPaint> {
     const evaluator = new Evaluator(vars)
     const name = named(vars)
-    const color = (ref: string): string => {
-        const expr = css(ref, name)
-        if (expr === 'inherit') return 'inherit'
-        const value = evaluator.value(expr)
+    const colorOf = (ref: string): Color => {
+        const value = evaluator.value(css(ref, name))
         if (value.kind !== 'color') throw new Error(`${ref} is not a color`)
-        return hex(value.color)
+        return value.color
     }
+    const color = (ref: string): string => (ref === 'inherit' ? 'inherit' : hex(colorOf(ref)))
     const length = (value: Length): number => (typeof value === 'number' ? value : px(evaluator.variable(value)))
     const number = (value: Length): number => {
         if (typeof value === 'number') return value
@@ -221,14 +336,40 @@ export function paintsOf(specs: Spec[], vars: Vars, dark: boolean): Record<strin
         if (overlay) paint.overlay = true
         return paint
     }
+    const has = (token: string) => token in vars || `color-${token}` in vars
     const out: Record<string, ResolvedPaint> = {}
     for (const spec of specs) {
+        const flats: Record<string, { all: FlatPaint; surface: string }> = {}
         for (const { key, maps, state, piece, overlay } of paintKeys(spec)) {
             try {
-                out[key] = paintOf(compose(spec, maps, state, piece, dark), overlay)
+                const paint = paintOf(compose(spec, maps, state, piece, dark), overlay)
+                const standsOn = surfaceOf(spec, key.split('.')[1], piece)
+                const surface = color(standsOn)
+                if (!opaque(surface)) throw new Error(`standsOn ${standsOn} is not opaque (${surface})`)
+                const ink = inkOf(standsOn, has)
+                const raw: Partial<Record<keyof FlatPaint, Raw>> = {}
+                for (const [field, ref] of Object.entries(paint.source)) raw[field as keyof FlatPaint] = rawOf(colorOf(ref === 'inherit' ? ink : ref))
+                const { all, changed } = flatten(paint, raw, surface)
+                if (Object.keys(changed).length > 0) paint.flat = changed
+                paint.source.standsOn = standsOn
+                flats[key] = { all, surface }
+                out[key] = paint
             } catch (error) {
                 // A token the spec names that these tokens lack: the pin is behind the spec, or the spec is wrong.
                 throw new Error(`${key}: ${error instanceof Error ? error.message : String(error)} does not resolve in these tokens`)
+            }
+        }
+        // A state that fades its piece: the paint a renderer takes in it (the state's own key, else rest), drawn at that opacity.
+        for (const [state, entry] of Object.entries(spec.states)) {
+            const opacity = entry.effect?.opacity
+            if (opacity === undefined || number(opacity) >= 1) continue
+            for (const { key, state: at, piece, overlay } of paintKeys(spec)) {
+                if (at !== 'rest' || overlay) continue
+                if (entry.effect?.piece !== undefined && entry.effect.piece !== piece) continue
+                const own = key.replace('.rest.', `.${state}.`)
+                const target = own in out ? own : key
+                const { all, surface } = flats[target]
+                out[target].faded = { ...out[target].faded, [state]: fade(all, surface, number(opacity)) }
             }
         }
     }

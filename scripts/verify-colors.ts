@@ -3,7 +3,9 @@
  * theme file) in Chromium, and compare with tokens/tokens.resolved.json, every theme in light and
  * dark: each color token a theme sets, each elevation's layers, and each paint's colors, drawn from
  * the expression `paintSources` keeps (`primary/80` as `color-mix(in oklab, var(--primary) 80%,
- * transparent)`, as Tailwind's `bg-primary/80` draws it).
+ * transparent)`, as Tailwind's `bg-primary/80` draws it). Each paint's `flat` and `faded` forms are
+ * drawn too: the surface it stands on filled on a canvas, its ground and then the field laid over it,
+ * and for `faded` that whole stack laid over the surface again at the state's opacity.
  *
  *   bun scripts/verify-colors.ts --from ../sokkel-ui
  *
@@ -16,7 +18,7 @@ import { readFileSync } from 'node:fs'
 import { createRequire } from 'node:module'
 import { join } from 'node:path'
 
-import { css } from './paints.ts'
+import { css, inkOf, type Spec } from './paints.ts'
 import type { ResolvedLayer, ResolvedTokens, TokenSource } from './resolve-tokens.ts'
 import { ROOT, sokkelUi } from './sokkel-ui.ts'
 
@@ -63,6 +65,42 @@ interface Drawn {
     shadows: Record<string, { color: number[]; lengths: number[] }[]>
 }
 
+const index = JSON.parse(readFileSync(join(ROOT, 'index.json'), 'utf8')) as { parts: { file: string }[]; patterns: { file: string }[] }
+const specs = new Map(
+    [...index.parts, ...index.patterns].map((entry) => {
+        const spec = JSON.parse(readFileSync(join(ROOT, entry.file), 'utf8')) as Spec
+        return [spec.id, spec]
+    }),
+)
+const hasToken = (token: string) => onPage.has(token) || typeof tokens.theme[`color-${token}`] === 'string'
+
+/** A stack of colors laid on a canvas in order, the first opaque; with `opacity`, the stack laid at it over its first color. */
+interface Stack {
+    layers: string[]
+    opacity?: number
+}
+
+/** What a paint's flat and faded fields are drawn from: the surface, the ground, then the field. */
+function stacks(key: string, paint: Record<string, unknown>, source: Record<string, string>, numbers: Record<string, number>): Record<string, Stack> {
+    const out: Record<string, Stack> = {}
+    const surface = source.standsOn
+    const expr = (ref: string) => css(ref === 'inherit' ? inkOf(surface, hasToken) : ref, named)
+    const under = (field: string, ring?: { inset?: string }) => {
+        const base = [expr(surface)]
+        if (field === 'ground' || field === 'outline' || (field === 'ring' && ring?.inset === undefined)) return base
+        return source.ground === undefined ? base : [...base, expr(source.ground)]
+    }
+    const stackOf = (field: string) => [...under(field, paint[field] as { inset?: string } | undefined), expr(source[field])]
+    for (const field of Object.keys((paint.flat ?? {}) as object)) out[`flat ${key}.${field}`] = { layers: stackOf(field) }
+    const spec = specs.get(key.split('.')[0])
+    for (const [state, fields] of Object.entries((paint.faded ?? {}) as Record<string, object>)) {
+        const given = spec?.states[state]?.effect?.opacity
+        const opacity = typeof given === 'number' ? given : numbers[String(given)]
+        for (const field of Object.keys(fields)) out[`faded ${key}.${state}.${field}`] = { layers: stackOf(field), opacity }
+    }
+    return out
+}
+
 const browser = await chromium.launch()
 const page = await browser.newPage()
 await page.setContent(`<style>${sheet}</style><div id="probe"></div><canvas id="canvas" width="1" height="1"></canvas>`)
@@ -78,13 +116,18 @@ for (const [name, theme] of Object.entries(resolved.themes)) {
         const sources = resolved.paintSources?.[scheme] ?? {}
         for (const [key, fields] of Object.entries(sources)) {
             for (const [field, expr] of Object.entries(fields)) {
-                if (expr === 'inherit') continue
+                if (expr === 'inherit' || field === 'standsOn') continue
                 draw[`paint ${key}.${field}`] = css(expr, named)
             }
         }
+        const stacked: Record<string, Stack> = {}
+        for (const [key, paint] of Object.entries(paints)) {
+            const source = sources[key]
+            if (source !== undefined) Object.assign(stacked, stacks(key, paint as Record<string, unknown>, source, set.numbers))
+        }
         const elevations = Object.keys(set.elevations ?? {})
-        const drawn: Drawn = await page.evaluate(
-            ({ name, scheme, draw, elevations }) => {
+        const drawn: Drawn & { stacked: Record<string, number[]> } = await page.evaluate(
+            ({ name, scheme, draw, elevations, stacked }) => {
                 const html = document.documentElement
                 html.classList.toggle('dark', scheme === 'dark')
                 if (name === 'tidevann') html.removeAttribute('data-theme')
@@ -129,9 +172,34 @@ for (const [name, theme] of Object.entries(resolved.themes)) {
                         return { color: paint(color), lengths }
                     })
                 }
-                return { colors, shadows }
+                // A stack laid on the canvas as a browser composites it; with an opacity, laid at it over its surface.
+                const layer = document.createElement('canvas')
+                layer.width = 1
+                layer.height = 1
+                const under = layer.getContext('2d', { willReadFrequently: true }) as CanvasRenderingContext2D
+                const resolvedColor = (value: string) => {
+                    probe.style.backgroundColor = ''
+                    probe.style.backgroundColor = value
+                    return getComputedStyle(probe).backgroundColor
+                }
+                const result: Record<string, number[]> = {}
+                for (const [key, { layers, opacity }] of Object.entries(stacked)) {
+                    under.clearRect(0, 0, 1, 1)
+                    for (const one of layers) {
+                        under.fillStyle = resolvedColor(one)
+                        under.fillRect(0, 0, 1, 1)
+                    }
+                    context.clearRect(0, 0, 1, 1)
+                    context.fillStyle = resolvedColor(layers[0])
+                    context.fillRect(0, 0, 1, 1)
+                    context.globalAlpha = opacity ?? 1
+                    context.drawImage(layer, 0, 0)
+                    context.globalAlpha = 1
+                    result[key] = [...context.getImageData(0, 0, 1, 1).data]
+                }
+                return { colors, shadows, stacked: result }
             },
-            { name, scheme, draw, elevations },
+            { name, scheme, draw, elevations, stacked },
         )
         for (const key of Object.keys(draw)) {
             const [kind, path] = key.split(' ')
@@ -150,6 +218,25 @@ for (const [name, theme] of Object.entries(resolved.themes)) {
             if (hex === undefined) wrong.push(`${name} ${scheme} ${key}: not in the resolved file`)
             else if (theirs[0] < 0) wrong.push(`${name} ${scheme} ${key}: the browser cannot draw ${draw[key]}`)
             else if (apart(bytes(hex), theirs) > TOLERANCE) wrong.push(`${name} ${scheme} ${key}: resolved ${hex}, browser rgba(${theirs.join(', ')})`)
+        }
+        for (const key of Object.keys(stacked)) {
+            const [kind, path] = key.split(' ')
+            const at = path.lastIndexOf('.')
+            const field = path.slice(at + 1)
+            const value =
+                kind === 'flat'
+                    ? (paints[path.slice(0, at)] as { flat?: Record<string, string> } | undefined)?.flat?.[field]
+                    : (() => {
+                          const rest = path.slice(0, at)
+                          const cut = rest.lastIndexOf('.')
+                          return (paints[rest.slice(0, cut)] as { faded?: Record<string, Record<string, string>> } | undefined)?.faded?.[
+                              rest.slice(cut + 1)
+                          ]?.[field]
+                      })()
+            const theirs = drawn.stacked[key]
+            compared++
+            if (value === undefined) wrong.push(`${name} ${scheme} ${key}: not in the resolved file`)
+            else if (apart(bytes(value), theirs) > TOLERANCE) wrong.push(`${name} ${scheme} ${key}: resolved ${value}, browser rgba(${theirs.join(', ')})`)
         }
         for (const key of elevations) {
             const ours: ResolvedLayer[] = set.elevations[key]
@@ -173,4 +260,4 @@ if (wrong.length > 0) {
     console.error(`${String(wrong.length)} of ${String(compared)} colors and elevations differ from the browser:\n${wrong.join('\n')}`)
     process.exit(1)
 }
-console.log(`all ${String(compared)} token colors, paint colors and elevations match the browser within ${String(TOLERANCE)}/255`)
+console.log(`all ${String(compared)} token colors, paint colors (flat and faded forms included) and elevations match the browser within ${String(TOLERANCE)}/255`)

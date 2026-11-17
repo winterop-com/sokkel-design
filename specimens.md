@@ -1,6 +1,6 @@
 # Specimens
 
-Specimens are a fixed list of stories that both renderers draw, compared by eye. **A specimen's id
+Specimens are a fixed list of stories that every renderer draws, compared by eye. **A specimen's id
 is a Storybook story path**: title and story name, exactly as sokkel-ui's sidebar shows them
 (`Primitives/Actions/Button/Variants`). The egui storybook has a story at the same path, so the two
 captures pair by name with no mapping file. Both capture the story's canvas only, never the

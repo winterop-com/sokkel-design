@@ -1,0 +1,134 @@
+{
+    "$description": "The glyphs a part draws where a renderer has cells rather than pixels (a terminal), each with a Unicode form and an ASCII form, and the icons, each with a Nerd Font form (typeface-terminal names a Nerd Font face) and the same two fallbacks. A part lists what it draws in its `cells.glyphs`. Every Unicode form here is one cell wide where a terminal draws East Asian ambiguous characters narrow, as terminals do by default; a renderer measures widths and never counts characters, and takes the ASCII forms in a terminal that cannot show the Unicode ones.",
+    "rules": [
+        "Unicode by default; ASCII where the terminal's character set or the reader asks for it; an icon's Nerd Font form only where the reader says the face is there, since a terminal cannot choose its font.",
+        "An icon beside its own word (Try again, a menu item's label) may be left out in ASCII; an icon alone (an icon button, a mark) takes its ASCII form, and its name is said in the status line on focus.",
+        "Without color, a state is carried by its glyph and its words (index.json, colorDepth.none): the sort arrows, the check, the status dot beside a state's word, the issue mark.",
+        "No glyph here is one an emoji font may draw two cells wide."
+    ],
+    "glyphs": {
+        "sort-ascending": {"unicode": "↑", "ascii": "^", "means": "A column sorted ascending (table head)."},
+        "sort-descending": {"unicode": "↓", "ascii": "v", "means": "A column sorted descending (table head)."},
+        "sortable": {
+            "unicode": "↕",
+            "ascii": "~",
+            "means": "A sortable column that is not sorted, where a part shows it (table head, on focus)."
+        },
+        "chevron-right": {
+            "unicode": "›",
+            "ascii": ">",
+            "means": "Between crumbs of a trail, a submenu, a row that opens."
+        },
+        "chevron-left": {
+            "unicode": "‹",
+            "ascii": "<",
+            "means": "Back (the top bar's last crumb below md, the page header's back)."
+        },
+        "chevron-down": {"unicode": "▾", "ascii": "v", "means": "A select's trigger; an open group."},
+        "chevron-up": {"unicode": "▴", "ascii": "^", "means": "A list's scroll arrow up."},
+        "spinner": {
+            "unicode": ["⠋", "⠙", "⠹", "⠸", "⠼", "⠴", "⠦", "⠧", "⠇", "⠏"],
+            "ascii": ["|", "/", "-", "\\"],
+            "frame": "motion-fast",
+            "means": "Busy or loading, in an icon's place: one frame each motion-fast; the first frame alone where motion is stilled."
+        },
+        "status-dot": {
+            "unicode": "●",
+            "ascii": "*",
+            "means": "A state's dot before its word, the status line's live dot, an unread dot."
+        },
+        "bullet": {"unicode": "•", "ascii": "-", "means": "Before each item of a list of problems."},
+        "missing": {"unicode": "—", "ascii": "-", "means": "A value that is not there, in a quiet ink (principle 10)."},
+        "ellipsis": {"unicode": "…", "ascii": "...", "means": "Text cut short at its end."},
+        "check": {"unicode": "✓", "ascii": "*", "means": "The chosen row of a select, a checked menu item."},
+        "checkbox-off": {"unicode": "▢", "ascii": "[ ]", "means": "A row not selected (table's select column)."},
+        "checkbox-on": {"unicode": "▣", "ascii": "[x]", "means": "A row selected."},
+        "checkbox-mixed": {"unicode": "⊟", "ascii": "[-]", "means": "Some rows selected (the head's box)."},
+        "focus-mark": {
+            "unicode": "▌",
+            "ascii": ">",
+            "means": "The active entry's bar (rail), and where a renderer marks keyboard focus at a row's start."
+        },
+        "rule": {"unicode": "─", "ascii": "-", "means": "A rule across: under a head, over the foot, between groups."},
+        "scroll-thumb": {
+            "unicode": "┃",
+            "ascii": "#",
+            "means": "A scroller's thumb, in its own column (scrollbar-width keeps the room)."
+        },
+        "scroll-track": {"unicode": "│", "ascii": "|", "means": "A scroller's track."}
+    },
+    "box": {
+        "$description": "Box corners and sides. The radius ladder is one bit in cells: a corner role above 0 draws rounded, 0 square.",
+        "rounded": {
+            "topStart": "╭",
+            "topEnd": "╮",
+            "bottomStart": "╰",
+            "bottomEnd": "╯",
+            "across": "─",
+            "down": "│",
+            "teeStart": "├",
+            "teeEnd": "┤"
+        },
+        "square": {
+            "topStart": "┌",
+            "topEnd": "┐",
+            "bottomStart": "└",
+            "bottomEnd": "┘",
+            "across": "─",
+            "down": "│",
+            "teeStart": "├",
+            "teeEnd": "┤"
+        },
+        "ascii": {
+            "topStart": "+",
+            "topEnd": "+",
+            "bottomStart": "+",
+            "bottomEnd": "+",
+            "across": "-",
+            "down": "|",
+            "teeStart": "+",
+            "teeEnd": "+"
+        }
+    },
+    "icons": {
+        "$description": "By the Lucide name sokkel-ui draws, kebab-cased. `nerdFont` is the codicon's codepoint in Nerd Fonts (its name in `nerdFontName`).",
+        "search": {"nerdFont": "U+EA6D", "nerdFontName": "nf-cod-search", "unicode": "⌕", "ascii": "/"},
+        "x": {"nerdFont": "U+EA76", "nerdFontName": "nf-cod-close", "unicode": "×", "ascii": "x"},
+        "check": {"nerdFont": "U+EAB2", "nerdFontName": "nf-cod-check", "unicode": "✓", "ascii": "*"},
+        "chevron-right": {"nerdFont": "U+EAB6", "nerdFontName": "nf-cod-chevron_right", "unicode": "›", "ascii": ">"},
+        "chevron-left": {"nerdFont": "U+EAB5", "nerdFontName": "nf-cod-chevron_left", "unicode": "‹", "ascii": "<"},
+        "chevron-down": {"nerdFont": "U+EAB4", "nerdFontName": "nf-cod-chevron_down", "unicode": "▾", "ascii": "v"},
+        "chevron-up": {"nerdFont": "U+EAB7", "nerdFontName": "nf-cod-chevron_up", "unicode": "▴", "ascii": "^"},
+        "arrow-up": {"nerdFont": "U+EAA1", "nerdFontName": "nf-cod-arrow_up", "unicode": "↑", "ascii": "^"},
+        "arrow-down": {"nerdFont": "U+EA9A", "nerdFontName": "nf-cod-arrow_down", "unicode": "↓", "ascii": "v"},
+        "arrow-up-down": {"nerdFont": "U+EAF5", "nerdFontName": "nf-cod-fold", "unicode": "↕", "ascii": "~"},
+        "ellipsis": {"nerdFont": "U+EA7C", "nerdFontName": "nf-cod-ellipsis", "unicode": "…", "ascii": "..."},
+        "grip-vertical": {"nerdFont": "U+EB04", "nerdFontName": "nf-cod-gripper", "unicode": "⋮", "ascii": ":"},
+        "rotate-cw": {"nerdFont": "U+EB37", "nerdFontName": "nf-cod-refresh", "unicode": "↻", "ascii": "@"},
+        "circle-alert": {"nerdFont": "U+EA87", "nerdFontName": "nf-cod-error", "unicode": "!", "ascii": "!"},
+        "triangle-alert": {"nerdFont": "U+EA6C", "nerdFontName": "nf-cod-warning", "unicode": "▲", "ascii": "!"},
+        "info": {"nerdFont": "U+EA74", "nerdFontName": "nf-cod-info", "unicode": "i", "ascii": "i"},
+        "plus": {"nerdFont": "U+EA60", "nerdFontName": "nf-cod-add", "unicode": "+", "ascii": "+"},
+        "menu": {"nerdFont": "U+EB94", "nerdFontName": "nf-cod-menu", "unicode": "≡", "ascii": "="},
+        "panel-left-close": {
+            "nerdFont": "U+EBF3",
+            "nerdFontName": "nf-cod-layout_sidebar_left",
+            "unicode": "«",
+            "ascii": "<"
+        },
+        "panel-left-open": {
+            "nerdFont": "U+EC02",
+            "nerdFontName": "nf-cod-layout_sidebar_left_off",
+            "unicode": "»",
+            "ascii": ">"
+        },
+        "settings": {"nerdFont": "U+EB51", "nerdFontName": "nf-cod-settings_gear", "unicode": "✱", "ascii": "*"},
+        "loader": {
+            "nerdFont": "U+EB19",
+            "nerdFontName": "nf-cod-loading",
+            "unicode": "⠋",
+            "ascii": "|",
+            "note": "Drawn as the spinner glyph's frames wherever it turns; this form is its still frame."
+        }
+    }
+}

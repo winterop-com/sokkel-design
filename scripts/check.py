@@ -1,4 +1,4 @@
-"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
+"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth, glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
 import json, re, sys
 from pathlib import Path
 import jsonschema
@@ -18,6 +18,10 @@ numbers = set.intersection(*[set(d['numbers']) for d in sets])
 durations = set.intersection(*[set(d.get('durations', {})) for d in sets])
 texts = set.intersection(*[set(d['text']) for d in sets])
 density = set.intersection(*[set(v) for v in RESOLVED['density'].values()])
+every_set = [(th, sc, RESOLVED['themes'][th][sc]) for th in RESOLVED['themes'] for sc in ('light', 'dark')]
+glyphs = json.load(open(ROOT / index.get('glyphs', 'glyphs.json')))
+glyph_names = {k for k in glyphs['glyphs']} | {k for k in glyphs['icons'] if not k.startswith('$')} | {'box'}
+renderer_ids = [r['id'] for r in index.get('renderers', [])]
 
 problems = []
 made = RESOLVED.get('sokkelUi', {})
@@ -27,6 +31,50 @@ if not re.match(r'^\d+\.\d+\.\d+$', str(index.get('version', ''))):
     problems.append(f"index.json: version {index.get('version')!r} is not a version (it moves in lockstep with sokkel-ui)")
 for e in jsonschema.Draft202012Validator(paints_schema).iter_errors(RESOLVED.get('paints', {})):
     problems.append(f'tokens.resolved.json paints: {"/".join(map(str, e.path))}: {e.message[:160]}')
+
+if renderer_ids != ['sokkel-ui', 'sokkel-egui', 'sokkel-tui']:
+    problems.append(f'index.json: renderers {renderer_ids} are not sokkel-ui, sokkel-egui and sokkel-tui, the keys every part\'s renderers holds')
+cells = index.get('cells', {})
+cb = cells.get('breakpoints', {})
+for name, at in cb.items():
+    if at.get('token') not in lengths: problems.append(f"index.json: cells.breakpoints.{name}.token {at.get('token')} is not a length token")
+    if not isinstance(at.get('columns'), int) or at['columns'] <= 0: problems.append(f'index.json: cells.breakpoints.{name}.columns is not a count of columns')
+if set(cb) != set(index['breakpoints']): problems.append('index.json: cells.breakpoints does not hold every breakpoint')
+elif not cb['md']['columns'] < cb['lg']['columns']: problems.append('index.json: cells.breakpoints: md is not below lg')
+for i, size in enumerate(cells.get('checkSizes', [])):
+    if not (isinstance(size.get('columns'), int) and isinstance(size.get('rows'), int)): problems.append(f'index.json: cells.checkSizes[{i}] is not columns by rows')
+role_names = set.intersection(*[set(d['text']) for _, _, d in every_set])
+listed_roles = {k for k in cells.get('textRoles', {}) if not k.startswith('$')}
+if listed_roles != role_names:
+    problems.append(f'index.json: cells.textRoles lacks {sorted(role_names - listed_roles)} and has {sorted(listed_roles - role_names)} beyond the resolved text roles')
+for role, look in cells.get('textRoles', {}).items():
+    if role.startswith('$'): continue
+    if set(look) != {'bold', 'italic', 'ink'} or not isinstance(look['bold'], bool) or not isinstance(look['italic'], bool):
+        problems.append(f'index.json: cells.textRoles.{role} is not bold, italic and ink')
+    elif look['ink'] != 'piece' and look['ink'] not in colors: problems.append(f"index.json: cells.textRoles.{role}.ink {look['ink']} is neither piece nor a color")
+ansi = index.get('colorDepth', {}).get('ansi16', {}).get('tokens', [])
+if len(ansi) != 16: problems.append(f'index.json: colorDepth.ansi16.tokens names {len(ansi)} colors, not 16')
+for th, sc, d in every_set:
+    for name in ansi:
+        if name not in d['colors']: problems.append(f'index.json: colorDepth.ansi16 {name} is not a color in {th} {sc}')
+        elif len(d['colors'][name]) != 7: problems.append(f'index.json: colorDepth.ansi16 {name} is not opaque in {th} {sc}')
+
+def ascii_ok(v): return all(isinstance(x, str) and x and all(32 <= ord(c) < 127 for c in x) for x in (v if isinstance(v, list) else [v]))
+for name, glyph in glyphs['glyphs'].items():
+    if 'unicode' not in glyph or 'ascii' not in glyph: problems.append(f'glyphs.json: glyphs.{name} needs a unicode and an ascii form'); continue
+    if isinstance(glyph['unicode'], list) != isinstance(glyph['ascii'], list): problems.append(f'glyphs.json: glyphs.{name}: one form is frames and the other not')
+    if not ascii_ok(glyph['ascii']): problems.append(f'glyphs.json: glyphs.{name}.ascii is not printable ASCII')
+    if 'frame' in glyph and glyph['frame'] not in durations: problems.append(f"glyphs.json: glyphs.{name}.frame {glyph['frame']} is not a duration token")
+for form, box in ((k, v) for k, v in glyphs['box'].items() if not k.startswith('$')):
+    if set(box) != set(glyphs['box']['rounded']): problems.append(f'glyphs.json: box.{form} does not have the pieces rounded has')
+    if form == 'ascii' and not ascii_ok(list(box.values())): problems.append('glyphs.json: box.ascii is not printable ASCII')
+for name, icon in glyphs['icons'].items():
+    if name.startswith('$'): continue
+    m = re.match(r'^U\+([0-9A-F]{4,5})$', icon.get('nerdFont', ''))
+    if not m or not (0xE000 <= int(m.group(1), 16) <= 0xF8FF or int(m.group(1), 16) >= 0xF0000): problems.append(f'glyphs.json: icons.{name}.nerdFont is not a private-use codepoint')
+    if not icon.get('unicode') or not ascii_ok(icon.get('ascii', '')): problems.append(f'glyphs.json: icons.{name} needs a unicode form and a printable ASCII one')
+missing_sources = [k for sc in ('light', 'dark') for k, v in RESOLVED.get('paintSources', {}).get(sc, {}).items() if 'standsOn' not in v]
+if missing_sources: problems.append(f'tokens.resolved.json: {len(missing_sources)} paint sources say no standsOn: run bun scripts/resolve.ts')
 
 def color_ok(v, where):
     if v in ('none', 'inherit'): return
@@ -82,6 +130,23 @@ for f in sorted(list((ROOT / 'parts').glob('*.json')) + list((ROOT / 'patterns')
     entry = listed.get(d['id'])
     if entry is None: problems.append(f'{name}: not listed in index.json')
     elif entry.get('status') != d['status']: problems.append(f"{name}: status {d['status']}, index.json says {entry.get('status')}")
+    ren = d.get('renderers', {})
+    if d['status'] == 'stable' and ren.get('sokkel-ui', {}).get('state') == 'missing':
+        problems.append(f'{name}: stable, and sokkel-ui has not built it (renderers)')
+    named = set(d['anatomy']) | set(d.get('variants', {})) | set(d.get('pieces', {})) | {'default'}
+    for piece, surface in d.get('standsOn', {}).items():
+        if piece not in named: problems.append(f'{name}: standsOn.{piece} is not a piece, a variant or default')
+        for th, sc, rs in every_set:
+            value = rs['colors'].get(surface)
+            if value is None: problems.append(f'{name}: standsOn.{piece} {surface} is not a color in {th} {sc}'); break
+            if len(value) != 7: problems.append(f'{name}: standsOn.{piece} {surface} is not opaque in {th} {sc} ({value})'); break
+    c = d.get('cells', {})
+    for piece in c.get('pieces', {}):
+        if piece not in d['anatomy']: problems.append(f'{name}: cells.pieces.{piece} is not in anatomy')
+    for size in c.get('sizes', {}):
+        if size not in d.get('sizes', {}): problems.append(f'{name}: cells.sizes.{size} is not a size')
+    for glyph in c.get('glyphs', []):
+        if glyph not in glyph_names: problems.append(f'{name}: cells.glyphs {glyph} is not in glyphs.json')
     single = {k for k in d['states'] if '+' not in k}
     for k, v in d['states'].items():
         for s in k.split('+'):
@@ -121,7 +186,7 @@ for f in sorted(list((ROOT / 'parts').glob('*.json')) + list((ROOT / 'patterns')
             missing = wanted - set(sample['with'])
             if missing: problems.append(f'{name}: samples.{k}[{i}] leaves out {", ".join(sorted(missing))}')
     paints = [key for key in RESOLVED.get('paints', {}).get('tidevann', {}).get('light', {}) if key.startswith(d['id'] + '.')]
-    summary[str(name)] = {'status': d['status'], 'states': len(d['states']), 'paints': len(paints), 'keys': len(d['keyboard']), 'words': len(d['words']), 'samples': sum(len(v) for v in samples.values())}
+    summary[str(name)] = {'status': d['status'], 'renderers': '/'.join(ren.get(r, {}).get('state', '?')[0] for r in renderer_ids), 'cells': 'cells' in d, 'states': len(d['states']), 'paints': len(paints), 'keys': len(d['keyboard']), 'words': len(d['words']), 'samples': sum(len(v) for v in samples.values())}
 
 for entry in listed.values():
     if not (ROOT / entry['file']).exists(): problems.append(f"index.json: {entry['file']} does not exist")

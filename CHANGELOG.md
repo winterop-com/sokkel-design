@@ -4,6 +4,42 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Three renderers: sokkel-ui, sokkel-egui and sokkel-tui (ratatui, in a terminal), listed in
+  `index.json`'s `renderers`. Every part and pattern carries `renderers`, each renderer's state
+  (`missing`, `partial` or `built`) as of a commit of its own repository: sokkel-ui built (partial on
+  table and text-field, by their drift), sokkel-egui partial on fifteen and missing on the six newest,
+  sokkel-tui missing on all, its spike drawing the frame and a table by hand. Status is the
+  contract's; the schema requires `renderers` and `check.py` fails a stable part sokkel-ui has not
+  built. `sources`, `rendererSpecific` and `drift` take `sokkel-tui`.
+- Opaque paints: every part says what its pieces stand on (`standsOn`, an opaque surface in every
+  theme, which `check.py` holds), and the resolved paints carry `flat`, each field that is not opaque
+  (or is `inherit`) laid over that surface in sRGB as a browser composites, and `faded`, the paint
+  drawn at a fading state's opacity (`disabled` at `disabled-opacity`); `paintSources` names each
+  paint's `standsOn`. verify-colors draws both in Chromium: 32253 comparisons, all within 2/255.
+- Cells: `index.json`'s `cells` holds the grid (8.4 px a column; md 90 and lg 120 columns; check
+  sizes 60x20, 80x24, 120x40, 200x50; the rules for rows, blank rows, density, corners and shadows)
+  and text roles in cells (bold from weight 500, no italics, the piece's ink). A part's optional
+  `cells` gives its rows, padding, gaps, width and glyphs: written for button, text-field,
+  page-state, page-header, section, table, rail, top-bar, status-line, tooltip and the shell.
+- Color depth: `index.json`'s `colorDepth`: truecolor from the paints' opaque forms; 256 colors as
+  the nearest of xterm's indices 16 to 255 in OKLab; sixteen as the new `ansi-*` tokens, which
+  sokkel-ui's `TerminalView` now reads too; no color carried by words and glyphs.
+- `glyphs.json`: each glyph a part draws in cells (sort arrows, chevrons, the spinner's frames, the
+  status dot, the missing dash, check boxes, box corners and sides) with Unicode and ASCII forms, and
+  the icons with their Nerd Font codepoints.
+- Principles: 17 says what Mod is in a terminal, no Alt chords and no `[` or `]` as a part's primary
+  key; new 21 (in cells, a row is a line), 22 (color at the terminal's depth, meaning without it)
+  and 23 (a tip a renderer cannot float is said in the status line).
+- open-questions: five calls for the terminal, each with a recommendation (T1 the sixteen-color
+  paints, T2 the scrim in cells, T3 an edge on a one-row control, T4 keyboard focus in cells, T5 one
+  name for the egui renderer).
+- Site: the parts index shows each renderer's state; a part's page shows its renderers, surfaces,
+  cells and the paints' opaque forms; a Cells page shows the grid, color depths, text roles and
+  glyphs.
+- The pin moves to sokkel-ui with the `ansi-*` tokens.
+
 ## 0.29.3
 
 - run-timeline, clip-timeline, emoji-picker, reaction-bar: four new parts, specified as they landed
