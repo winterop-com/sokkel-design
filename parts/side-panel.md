@@ -54,7 +54,7 @@ move to the strip at the screen's foot (`PanelTabStrip`) and the sheet rises fro
 
 | State | Paint |
 |---|---|
-| rest | Panel on `sidebar`, edge and head rule `border-strong`; title in the shell's `foreground` (the panel sets no ink) |
+| rest | Panel on `sidebar`, edge and head rule `border-strong`; title and its content in `sidebar-foreground`, the ink of the ground it stands on |
 | hover | A tab that is not shown: `hover` ground, `foreground` ink. The edge: its line |
 | focus (keyboard) | A tab: the button's focus look, a `focus-ring-width` outline in `ring`, `focus-ring-offset` off. The edge: its line |
 | selected | The shown tab: `secondary` ground, `foreground`, weight 500 |

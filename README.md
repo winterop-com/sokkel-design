@@ -77,7 +77,7 @@ section c).
 
 | Key | Holds |
 |---|---|
-| `id`, `kind`, `status` | `button`; `part` or `pattern`; `draft` or `stable` (see "Versions and status") |
+| `id`, `kind`, `status` | `button`; `part` or `pattern`; `stable`, the only status (see "Versions and status") |
 | `renderers` | For `sokkel-ui`, `sokkel-egui` and `sokkel-tui`: `{ state, as_of, note }`, state `missing`, `partial` or `built`, as of a commit of that renderer's repository. `built` means drawn from the spec with nothing left in `drift` |
 | `sources` | The files each renderer draws it from today, by repo |
 | `anatomy` | Each named piece and what it is; paint and sizes refer to these names |
@@ -255,7 +255,7 @@ their opaque forms.
 | Side | Check | Fails when |
 |---|---|---|
 | sokkel-design | `check.py` (schema, references, words, message ids, samples, statuses, renderers, surfaces, cells, glyphs) | A part file breaks the schema, names a token the pinned sokkel-ui lacks, paints a state the part does not list, or leaves a counted or templated word without samples; a word has no message id, or one the pinned catalogs lack, or English that is not the catalog's; a stable part sokkel-ui has not built; a piece stands on a surface that is not opaque in every theme; a part names a glyph `glyphs.json` lacks; the index's cells or color depth are incomplete; the resolved file was made from another commit than the pin |
-| sokkel-design | `resolve --check`, `verify-colors` (CI, `.github/workflows/contract.yaml`) | The resolved file (tokens and paints) is not what the pinned `tokens.json` and the specs make, or `messages/en.json` is not the pinned catalogs; a resolved token color, paint color (its flat and faded forms included) or elevation is off from Chromium's by more than 2/255 (80768 today: 16 themes, both schemes) |
+| sokkel-design | `resolve --check`, `verify-colors` (CI, `.github/workflows/contract.yaml`) | The resolved file (tokens and paints) is not what the pinned `tokens.json` and the specs make, or `messages/en.json` is not the pinned catalogs; a resolved token color, paint color (its flat and faded forms included) or elevation is off from Chromium's by more than 2/255 (81216 today: 16 themes, both schemes) |
 | sokkel-ui | `bun run tokens --check` | The CSS is not what `tokens.json` makes |
 | sokkel-ui | `parts.test.ts` | A component's word default or sample, a word's message id or its English in the catalog, paint class, size or key binding is not the spec's |
 | sokkel-egui | `make tokens-check` (exists) | The embedded resolved file is not the contract's |
@@ -310,11 +310,11 @@ sokkel-ui release the contract ships in. Before 1.0 a breaking change moves the 
 as sokkel-ui's does. sokkel-egui and sokkel-tui state the sokkel-ui version whose contract it meets. Parts have
 no version of their own; `CHANGELOG.md` says what each version changed, part by part.
 
-**Status.** Each part and pattern says `draft` or `stable`, in its file and in `index.json`, and
-`check.py` holds the two the same:
-- `stable`: its shape is settled: as it landed in sokkel-ui, or drawn from its spec and compared side
-  by side, its open findings decided. A change to it is a changelog line, and the renderers follow.
-- `draft`: it may still change shape.
+**Status.** Nothing in the contract is a draft (owner's rule): every part and pattern is `stable`,
+in its file and in `index.json`, and `check.py` fails one that is not. `stable` means the contract
+holds it as sokkel-ui draws it; a change to it is a changelog line, and the renderers follow. Whether a
+renderer has built it and compared it side by side is not its status: that is the part's
+`renderers` and `drift`, which say what is built and what is not compared yet.
 
 Status is the contract's; how far each renderer has built a part is that part's `renderers`, so a
 third renderer neither blocks a stable part nor is left out of it.
@@ -322,9 +322,8 @@ third renderer neither blocks a stable part nor is left out of it.
 What lands in sokkel-ui is the new normal: a part added or changed there is specified here in the
 same round, as it landed (its words, options, sizes, paints and keys), and is `stable` from the
 start, never a draft. Where egui has not built it yet, its spec says so in a `drift` entry for
-sokkel-egui and in `renderers`, and egui builds it from the spec. Today `section` and `text-field` are drafts from
-before that rule; egui has since built Section and the field's frame with its issue mark, and each
-becomes stable once compared side by side. Every other part and the shell are stable.
+sokkel-egui and in `renderers`, and egui builds it from the spec. `section` and `text-field`, drafts from before that rule, are
+stable too; their `drift` says what each renderer has not compared yet.
 
 ## Plans
 
@@ -347,10 +346,10 @@ From the egui side (proposal, section a). Each step is a spec here first, then a
 | Step | Parts | Spec here |
 |---|---|---|
 | 1 | Shell, Rail, TopBar, StatusLine | `patterns/shell`, `parts/rail`, `parts/top-bar`, `parts/status-line` (stable) |
-| 2 | PageHeader, Section, page states | `parts/page-header`, `parts/page-state` (stable), `parts/section` (draft) |
+| 2 | PageHeader, Section, page states | `parts/page-header`, `parts/page-state`, `parts/section` (stable) |
 | 3 | DataTable, the list variant first | `parts/table` (stable) |
 | 4 | Select, Dialog with SettingsDialog, DropdownMenu, Tooltip, CommandPalette | `parts/select`, `parts/dropdown-menu`, `parts/tooltip`, `parts/dialog` (with ConfirmDialog), `parts/settings-dialog`, `parts/command-palette` (stable); the settings route in `patterns/shell` |
-| 5 | The field family: number, date and select fields | `parts/text-field` (draft) sets the frame they share; `parts/select` holds the select field's control; `parts/date-field` (stable) |
+| 5 | The field family: number, date and select fields | `parts/text-field` (stable) sets the frame they share; `parts/select` holds the select field's control; `parts/date-field` (stable) |
 | 6 | Toast, Callout, Banner | `parts/banner` (stable); toast and callout to come |
 | 7 | Add-ons (charts, maps), as the patterns ask | Charts begun: `parts/chart`, `parts/dashboard-panel`, `parts/stat-panel`, `parts/time-series-panel` (stable); the rest of the family is staged in `open-questions.md`. Maps to come |
 | - | The code editor | `parts/code-editor` (stable) |

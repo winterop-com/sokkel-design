@@ -18,7 +18,7 @@ not this part.
 |---|---|
 | box | A column padded 12 across and 10 down, 6 between its lines, `text.body`; a 2px rule in the tone at its start, the end corners rounded by `radius-control`. `role=alert` for an error, `role=status` for a warning |
 | head | The mark, then the title, 8 apart, set at the top |
-| mark | 16 square, 2 down: `CircleAlert` in `critical`, or `TriangleAlert` in `warning` |
+| mark | 16 square, 2 down: `CircleAlert` in `critical-ink`, or `TriangleAlert` in `warning-ink` |
 | title | `title`, `text.action`, in the ink of what it stands on |
 | detail | `detail`, 24 in (under the title), `text.body` in `muted-foreground`; a string's backticked parts as code |
 | code | A backticked part: the code face on `muted`, `radius-sm`, padded 4 across |
