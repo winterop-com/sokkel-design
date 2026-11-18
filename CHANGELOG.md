@@ -6,6 +6,7 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- prompt: sokkel-tui draws it (11f3f43), partial: no reveal on a secret yet, and a sheet below md.
 - New parts, specified as they are in sokkel-ui 11f3a2b, where sokkel-egui built them before a spec: `group-label`, `unfoldable` (with `forced`), `choice-list`, `badge` (its variants and `kind`), `stat` (`plain` and `tile`, size `lg`), `description-list` (`side`, `stacked` and `row`, `columns`, size `sm`), `api-link`, `issue-count`, `server-menu`, `item-card` and `sortable-grid`; open-questions' staged list is done.
 - table: the options `editing` and `cellFocus`; an entry grid is this table grouped, banded and editable, not a part of its own.
 - detail-pane: its facts are `description-list` in the side layout.
