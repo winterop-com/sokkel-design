@@ -47,13 +47,19 @@ ECharts takes no classes, so a renderer and a test read the chart's look where s
 | legend | A wrapping row of entries 4 apart, or a list table of min, max, avg and current |
 | legend entry | A button 24 tall (a finger below md), 6 across, `radius-md`, `text.xs` in `muted-foreground`; a 10 swatch rounded `radius-mini` |
 | missing | Left out of a tooltip; written `—` where a figure is written |
+| candleRise, candleFall | The candlestick's mark: a body from open to close, 60 percent of the band and at most 14 wide, edged 1 wide, and a wick 1 wide from low to high; a rise (closing at or above its open) in `good`, a fall in `critical` |
+| ohlcBar | `ohlc.style` `bars`: a line 1.5 wide from low to high, a tick left at the open and right at the close, each 30 percent of the band and at most 7 long |
+| volumeRise, volumeFall | `ohlc.volume`: a bar per category in a panel under the candles, a quarter of the height, in its candle's color 45 percent into `card` (oklab) |
+| average | A moving average of the closes, a line 1.25 wide with no points, in its series color |
 
 ## Options
 
-`kind` (the 27 kinds `KINDS` holds), `label`, `rows` and the fields a kind reads with `fieldNames`,
+`kind` (the 28 kinds `KINDS` holds), `label`, `rows` and the fields a kind reads with `fieldNames`,
 `palette` (the theme's order by default), `colors` (a token per name, `name/45` with an alpha),
 `statuses` (`true`: each run state in `status-<state>`; or an app's `StatusMap`), `steps`, `marks`, `targets` (lines across at values, dashed, their label and value at the end, the value axis reaching each),
-`format` with `unit`, `hidden` and `hovered`, `words`.
+`format` with `unit`, `hidden` and `hovered`, `words`. The candlestick reads `ohlc` (`{ open, high, low,
+close, volume?, style? }`, `style` `candles` or `bars`) and `averages` (spans, `[5, 20]`), and with
+the linked kind `zoom` (`[from, to]` in percent or the first and last category in view).
 
 ## States and tokens
 
@@ -74,15 +80,30 @@ ECharts takes no classes, so a renderer and a test read the chart's look where s
 The chart's (`ChartWords`, private in `kinds/spec.ts`): `count` Count, `total` Total, `rise` Rise,
 `fall` Fall, `change` Change, `low` Low, `lower` Lower quartile, `median` Median, `upper` Upper
 quartile, `high` High, `outlier` Outlier, `ofFirst` of first, `target` Target, `observed` Observed,
-`all` All, `to` to. The legend's (`LegendWords`, private in `ChartLegend.tsx`): `series` Series,
+`all` All, `to` to, `open` Open, `close` Close, `average` Average (a moving average's name before its span,
+`Average 5`). The legend's (`LegendWords`, private in `ChartLegend.tsx`): `series` Series,
 `min` Min, `max` Max, `avg` Avg, `current` Current.
 
 ## Kinds
 
 bar, line, area, donut, pie, heatmap, scatter, histogram, boxplot, waterfall, funnel, bullet, radar,
 rose, gauge, rings, dual, treemap, sunburst, sankey, calendar, parallel, stream, step, range, fan,
-linked. Each reads the look above; what each draws of its own is for later rounds
-(open-questions.md).
+linked, candlestick. Each reads the look above; what each draws of its own is for later rounds
+(open-questions.md), save the candlestick's, below.
+
+### Candlestick
+
+Prices or readings over time as open, high, low and close (`kinds/candlestick.ts`,
+`kinds/legend-candles.ts`). A candle per category of `x`; several rows of one category make one
+candle (the first open, the last close, the highest high, the lowest low, the summed volume). A
+rise closes at or above its open and takes `good`, a fall `critical`, as a waterfall's rises and
+falls; `colors` names others for the words Rise and Fall. The value axis fits the figures in view.
+`ohlc.volume` adds a panel under the candles, a quarter of the height, on the same category axis,
+named over its axis, its bars in their candle's color 45 percent into `card`. `averages` draws a
+line per span, named `Average 5`, in the palette's order. `zoom` adds the linked kind's zoom: a
+slider under the last panel, a drag or a pinch, moving both panels. The legend lists Rise, Fall and
+each average, each hiding its series. The tooltip writes Open, High, Low and Close by `format` and
+the first `unit`, each average, and the volume with the second `unit`.
 
 ## Where the renderers differ from the spec today
 
