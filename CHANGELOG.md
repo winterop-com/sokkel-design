@@ -4,6 +4,10 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- table: a sortable content column keeps room for its sort arrow (18) while unsorted, so sorting it never wraps its head and grows the head row.
+
 ## 0.32.0
 
 - shell: sokkel-ui's appearance rows are `useThemeSettings`, a hook (was `themeSettings`).
