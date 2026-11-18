@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.32.0
 
 - shell: sokkel-ui's appearance rows are `useThemeSettings`, a hook (was `themeSettings`).
 - table: a head wider than its column wraps between its words onto a second line, the head row
