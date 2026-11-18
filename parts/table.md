@@ -76,7 +76,8 @@ hold it: one line fills the row height, padded by half of what the row leaves ov
 head row whose names all fit stays at 40 (36 for a list). Only past two lines is a name cut, with an
 ellipsis, its whole name on hover; a name never breaks inside a word, and a word wider than its
 column is cut with an ellipsis. The head is never made smaller to fit. A `content` column is never
-narrower than its head's longest word.
+narrower than its head's longest word, and a sortable one keeps room for its sort arrow (18) while
+unsorted, so sorting it never wraps its head.
 
 ## States and tokens
 
