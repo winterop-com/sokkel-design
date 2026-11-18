@@ -40,12 +40,12 @@ Sources: sokkel-ui `packages/core/src/components/Unfoldable.tsx`.
 
 - rest: Shut: the chevron points at the heading, the summary under it.
 - hover: The pointer is over a row that unfolds.
-- focus: Keyboard focus on the row: the focus ring inside it.
+- focus: Keyboard focus on the row: the focus ring inside its edge.
 - open: Open: the chevron turned down, the content under the heading, no summary.
 - forced: Held open: the row is static, its chevron turned down in faint.
 - row at rest: radius `radius-md`, text `text.sm`, weight `500`.
 - row at hover: ground `hover`.
-- row at focus: ring `{"color": "ring", "width": "focus-ring-width"}`.
+- row at focus: ring `{"color": "ring", "width": "focus-ring-width", "inset": "all"}`: drawn inside the row's edge, flush with it (`ring-focus ring-inset`, a box-shadow); `focus-ring-offset` is not used.
 - chevron at rest: ink `muted-foreground`.
 - chevron at forced: ink `faint`.
 - aside at rest: ink `muted-foreground`, text `text.xs`.
@@ -62,5 +62,5 @@ None: every word is the app's.
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, Unfoldable was built before this spec (with forced) and has not been compared with it.
+- sokkel-egui: As of fc9d27e: Its heading starts at 26 and its content at 22 (the row does not reach 4 past the column); no summary or wrapSummary, controlled open, static row or phoneMinHeight; the ink is foreground, not what it stands on. Forced, the chevron, hover and the 30 height match.
 - sokkel-tui: As of b99664f its reports name no such part.

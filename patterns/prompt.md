@@ -62,5 +62,5 @@ the status slot is one row over the footer while a failure is said.
 
 ## Where sokkel-egui and sokkel-tui differ today
 
-- sokkel-egui, as of 1a87987: no prompt; an app draws a `Dialog` with a field in its body.
+- sokkel-egui, as of fc9d27e: no prompt. `DialogShell` with `why`, `ConfirmDialog`'s busy and `TextField` exist; no `SecretField`, no status slot, no busy and failed flow.
 - sokkel-tui, as of 64f4b19: no prompt.

@@ -60,5 +60,5 @@ Sources: sokkel-ui `packages/core/src/components/ApiLink.tsx`, `packages/core/sr
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, ApiLink was built (d163191) before this spec and has not been compared with it.
+- sokkel-egui: As of fc9d27e: The method at weight 400 (spec 500); the path is never cut and has no hover text; no href, open or opens; the copy button is a drawn 24 square, not button icon-xs. Ground, edge, radius, gaps and the verbs' inks match.
 - sokkel-tui: As of b99664f its reports name no such part.

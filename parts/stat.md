@@ -30,7 +30,7 @@ Sources: sokkel-ui `packages/core/src/components/Stat.tsx`, `packages/core/src/c
 - `variant` (`plain`, `tile`; `plain` by default): plain sits in whatever holds it; tile is a card of its own.
 - `href`: Where the tile leads, such as a list filtered to what it counts.
 - `onSelect`: Called on a press on the tile.
-- `emphasis` (`false` by default): Edges the tile in its dot's color at 55 percent: the count that asks for work.
+- `emphasis` (`false` by default): Edges the tile in its dot's color at 55 percent alpha, `<dot>/55` (`status-failed/55` for a failed dot), as `primary/80` is primary at 80: the count that asks for work. The dot is a color the app gives, so no paint resolves it; a renderer draws the dot's color at that alpha.
 - `size` (`md`, `lg`; `md` by default): lg draws the number at text.statistic-hero: the one hero figure, larger than its neighbors.
 
 ## Sizes
@@ -71,5 +71,5 @@ None: every word is the app's.
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, Stat was built (d163191) before this spec, with size lg and tiles of equal height in a row; not compared with this spec.
+- sokkel-egui: As of fc9d27e: No public plain stat (only inside KpiRow), and that one has no dot or change and its value takes page-title tracking; the tile has no change and is always a control; the change sits 8 after the value, not 4 from its arrow; the accessible name is the label alone. The tile's paints match.
 - sokkel-tui: As of b99664f its reports name no such part.

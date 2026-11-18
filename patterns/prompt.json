@@ -7,8 +7,8 @@
         "sokkel-ui": {"state": "built", "as_of": "7f043d4"},
         "sokkel-egui": {
             "state": "missing",
-            "as_of": "1a87987",
-            "note": "No prompt yet; an app draws a dialog with a field itself."
+            "as_of": "fc9d27e",
+            "note": "No prompt yet; DialogShell, ConfirmDialog's busy and TextField exist."
         },
         "sokkel-tui": {
             "state": "partial",
@@ -162,7 +162,7 @@
             "renderer": "sokkel-egui",
             "what": "not built",
             "spec": "This spec.",
-            "today": "As of 1a87987, no prompt: an app draws a Dialog with a field in its body."
+            "today": "As of fc9d27e: no prompt. DialogShell with why, ConfirmDialog's busy and TextField exist; no SecretField, no status slot, no busy and failed flow."
         },
         {"renderer": "sokkel-tui", "what": "not built", "spec": "This spec.", "today": "As of 64f4b19, no prompt."}
     ]

@@ -20,7 +20,6 @@ Sources: sokkel-ui `packages/core/src/components/ChoiceList.tsx`, `packages/core
 - `value`: The chosen value.
 - `onValueChange`: Called with the value chosen.
 - `label`: The list's accessible name, where no visible heading names it.
-- `labelledBy`: The id of a visible heading that names the list.
 
 ## Sizes
 
@@ -56,5 +55,7 @@ None: every word is the app's.
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, ChoiceList was built before this spec, with each theme's sample in the theme settings' list (theme_list), and has not been compared with it.
+- sokkel-ui only: `labelledBy` names the list by the id of a visible heading (`aria-labelledby`), where `label` is not given.
+
+- sokkel-egui: As of fc9d27e: Each row is a Tab stop of its own (no roving focus, no arrows) and Enter also chooses; no dark input/30 ground; the radio is centered on a wrapped label rather than level with its first line; not a radio group to assistive technology. Paints and sizes match.
 - sokkel-tui: As of b99664f its reports name no such part.

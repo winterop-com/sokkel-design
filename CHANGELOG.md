@@ -7,6 +7,24 @@ of their own (D4); a change to a part is a line here under its name.
 ## Unreleased
 
 - chart: the candlestick kind, specified as it landed in sokkel-ui: the options `ohlc` (open, high, low, close, volume, style candles or bars), `averages` and `zoom`; the pieces candleRise (`good`), candleFall (`critical`), volumeRise and volumeFall (each 45 percent into `card`); the anatomy candle, OHLC bar, volume bar and average; layout candleWidth (14) and averageWidth (1.25); words `open`, `close` and `average` (`chart.open`, `chart.close`, `chart.average`).
+- Renderers: sokkel-egui as of fc9d27e, compared with the staged parts' specs: `group-label` built;
+  `unfoldable`, `choice-list`, `api-link`, `issue-count`, `server-menu`, `badge`, `stat`,
+  `description-list`, `item-card` and `sortable-grid` partial, each gap in its drift; the table's
+  editing without `cellFocus`, a number editor, band heads or aggregates (`EntryGrid` still its own
+  widget); the prompt missing. egui-wide: no message ids yet, and the code face at a plain 13 regular
+  in places rather than `mono_font` at `mono_size`.
+- table: each `cellFocus` value's paints, from sokkel-ui's `CELL_FOCUS`, and a refused cell's; the
+  active row's 2px start bar is a literal 2, not `focus-ring-width`, as sokkel-ui draws it.
+- unfoldable: its focus ring is drawn inside the row's edge, flush (`inset: all`, no offset), as
+  `ring-inset` draws it.
+- stat: `emphasis` is the dot's color at 55 percent alpha, `<dot>/55`; not a token, since the app
+  gives the dot.
+- group-label's `as` and choice-list's `labelledBy` move to `rendererSpecific` (sokkel-ui's
+  elements and ids); principle 3: a renderer that cannot select OpenType features is not held to
+  tabular figures.
+- issue-count: `layout.listWidth`, min(352, window - 32).
+- badge: kind shares `KIND_CHIP` with sokkel-ui's `Chip`, which is a part of its own and not yet in
+  the contract (open-questions).
 - prompt: sokkel-tui draws it (ff8ae76), partial: no reveal on a secret yet.
 - New parts, specified as they are in sokkel-ui 11f3a2b, where sokkel-egui built them before a spec: `group-label`, `unfoldable` (with `forced`), `choice-list`, `badge` (its variants and `kind`), `stat` (`plain` and `tile`, size `lg`), `description-list` (`side`, `stacked` and `row`, `columns`, size `sm`), `api-link`, `issue-count`, `server-menu`, `item-card` and `sortable-grid`; open-questions' staged list is done.
 - table: the options `editing` and `cellFocus`; an entry grid is this table grouped, banded and editable, not a part of its own.

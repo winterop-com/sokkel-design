@@ -50,7 +50,12 @@ The full list is in the JSON. These shape the look:
   `band`, `aggregate`, `fill`, `edit`.
 - `editing` (`tableEditing` from `table-editing`): the cells of columns with `edit` edit, each
   saved on its own; `cellFocus` (`underline` by default, `ring`, `soft`, `row`) marks the active
-  cell while the table has the focus.
+  cell while the focus is anywhere in the table (a press as well as a key), each inside the cell
+  (`CELL_FOCUS` in `table-editing`, inset box-shadows): `underline` a line 2 tall in `ring` along
+  its foot; `ring` a ring 2 wide in `ring` inside its edge; `soft` the cell on `hover` with a ring 1
+  wide in `border-strong` inside its edge; `row` a line 1 tall in `border-strong` along its foot and
+  the cell's row on `hover`. A cell whose save was refused is on `critical/8` with a line 2 tall in
+  `critical` along its foot, whatever the value.
 
 ### An entry grid is this table
 
@@ -100,7 +105,7 @@ unsorted, so sorting it never wraps its head.
 | sorted | the head's ink `foreground`, an arrow up or down (14) after its name |
 | selected | row ground `secondary`, kept under the pointer; card ring 2 `primary`; the bar says `{count} selected` |
 | opened | row ground `secondary`; card ring 2 `ring/60` |
-| active (with keyboard focus) | row: a 2px `ring` bar inside its start edge; card: ring 2 `ring` |
+| active (with keyboard focus) | row: a 2px `ring` bar inside its start edge (a literal 2, not `focus-ring-width`); card: ring `focus-ring-width` `ring` |
 | head active (with keyboard focus) | the head the keys chose in the head row: a 2px `ring` outline 2 off around its name, as a focused button; the active row's mark waits meanwhile |
 | stacked | cards: ground `card`, edge `border`, `radius-surface`; a card's detail on `panel-ground` |
 | empty | `words.empty` ("Nothing here.") in `muted-foreground`, under the heads; an app's own `empty` stands alone without them unless a search or tools may have emptied it |
@@ -167,6 +172,10 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
   foot; words as fields. A grid of numbers by row and column (`EntryGrid`) is its own widget where
   the web draws a grouped, banded, editable `DataTable`. Not yet: trees, and its own loading and
   failed states (it is wrapped in `PageState`).
+- **sokkel-egui, editing:** as of fc9d27e the active cell moves and edits (Enter, F2 or a character
+  opens it, Tab saves, Escape drops), but there is no `cellFocus` (always a 2 ring plus a row wash),
+  no number editor, and no band heads or aggregates. `EntryGrid` stays a widget of its own (inputs
+  always open, a Tab stop per cell, a save per keystroke) until those land, then becomes this table.
 - **sokkel-tui:** as of 555b9ae: the table and list variants, the bar, groups, trees, details, row
   actions, paging, editing (text only), column resize, and heads that wrap to two rows where they
   must (`layout.headLines`). Not yet: date and select editors, reordering, the grid, and its words
