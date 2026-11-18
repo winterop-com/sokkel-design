@@ -36,7 +36,7 @@ Decided **a**: no version per part. Each part and pattern says its status, now a
 ### 5. Patterns: the shell now
 
 Decided: the shell now, other patterns when an egui app needs them. Recorded in the README and
-`patterns/shell.md`.
+`patterns/shell.md`. The prompt followed once sokkel-ui had one (`patterns/prompt.md`, c6).
 
 ### 6. How a new app starts the same way on each target
 
@@ -154,10 +154,9 @@ From the proposal's sections c4 to c7, answered in this round:
   status line, the actions and the dismiss. Done.
 - **c6, a masked field:** `parts/secret-field`, sokkel-ui's `SecretField` as it is: masked with a
   Show and Hide reveal, sealed with Replace and Cancel; `mask` in `glyphs.json`. The `Prompt`
-  pattern stays open: sokkel-ui has no prompt (one field in a dialog, Submit and Cancel), so the
-  contract has nothing to specify yet. **Question:** should sokkel-ui get one (a `PromptDialog` on
-  `DialogShell` with one field, Enter submitting), and the contract then a pattern? Recommendation:
-  yes, when an app asks for one value in a dialog; until then a dialog with a field is the app's.
+  pattern: resolved. sokkel-ui has `PromptDialog` (on `DialogShell` with one field, a `TextField`
+  or with `secret` a `SecretField`, Enter submitting, its busy and failed states the dialog's), and
+  the contract `patterns/prompt`. Done.
 - **c7, health states:** sokkel-ui #687 added `ok` (good), `warn` (warning), `fail` and `error`
   (critical) beside the run states, known to every status part without a map; `index.json`'s
   `statuses` holds the vocabulary (each state's color and ink, the run and health states, which are
