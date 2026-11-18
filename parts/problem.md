@@ -61,4 +61,4 @@ one-row buttons after one blank row.
 ## Where the other renderers differ today
 
 - sokkel-egui (1a87987): Problem was built before this spec and has not been compared against it.
-- sokkel-tui (64f4b19): no problem yet.
+- sokkel-tui (b99664f): no problem yet.

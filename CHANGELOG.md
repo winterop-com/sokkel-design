@@ -4,6 +4,10 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Renderers: sokkel-tui as of b99664f (contract 0.31.0): banner on its own paints (`banner.{tone}.rest.container`), the side panel and the detail pane on `side-panel.base.rest.panel`, the secret field's mask and the chart family's stale, swatch and spark-levels glyphs from `glyphs.json`; not yet message ids, the status vocabulary, the shell's rule of 0.31.0, the secret field's reveal, the side panel's tabs and head, problem, json-tree and the new fields. The table as of 555b9ae: heads wrap to two rows (`layout.headLines`). Banner's paints drift is gone.
+
 ## 0.32.1
 
 - table (cells): a head wraps to two rows where it must (layout.headLines); a content column starts at its whole head and gives way to its head's longest word as the table runs short, as sokkel-tui draws it.

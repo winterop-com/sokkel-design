@@ -88,7 +88,7 @@ with its actions at the row's end.
 
 - sokkel-egui, as of 1a87987: SidePanel and the Shell's panel, PanelSection and GroupLabel are
   built, from before this spec, and not yet compared with it.
-- sokkel-tui, as of 64f4b19: a side panel (`Shell::panel`) sits at the content's end on the sidebar
-  ground behind an edge. It covers the page below md (90 columns), where this spec covers it below
-  lg. The detail pane for it is built (`DetailPane`, `PaneSection`). Its head, close, resize and
-  words are not reported.
+- sokkel-tui, as of b99664f: a side panel (`Shell::panel`) sits at the content's end on
+  `side-panel.base.rest.panel` behind an edge. It covers the page below md (90 columns), where this
+  spec covers it below lg. The detail pane for it is built (`DetailPane`, `PaneSection`). Not yet:
+  its tabs and its head; its close, resize and words are not reported.

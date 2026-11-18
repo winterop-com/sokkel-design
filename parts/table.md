@@ -155,9 +155,10 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
   foot; words as fields. A grid of numbers by row and column (`EntryGrid`) is its own widget where
   the web draws a grouped, banded, editable `DataTable`. Not yet: trees, and its own loading and
   failed states (it is wrapped in `PageState`).
-- **sokkel-tui:** as of 64f4b19: the table and list variants, the bar, groups, trees, details, row
-  actions, paging, editing (text only) and column resize. Not yet: date and select editors,
-  reordering, and the grid.
+- **sokkel-tui:** as of 555b9ae: the table and list variants, the bar, groups, trees, details, row
+  actions, paging, editing (text only), column resize, and heads that wrap to two rows where they
+  must (`layout.headLines`). Not yet: date and select editors, reordering, the grid, and its words
+  keyed by their message ids.
 - **sokkel-ui, counts:** formatted with `en-US` in `WORDS`.
 
 ## Group heads

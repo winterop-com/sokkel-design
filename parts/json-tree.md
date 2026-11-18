@@ -64,4 +64,4 @@ and `focus-ring-end` in `ring` beside a node or the step. Density changes nothin
 ## Where the other renderers differ today
 
 - sokkel-egui, as of 1a87987: JsonTree is built, from before this spec, and not yet compared with it.
-- sokkel-tui, as of 64f4b19: there is no JSON tree.
+- sokkel-tui, as of b99664f: there is no JSON tree.

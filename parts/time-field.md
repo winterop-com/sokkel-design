@@ -83,4 +83,4 @@ start.
   clear button, `readOnly` or `disabled`, Alt+ArrowDown or list keys, and it does not read `930`,
   `9.30` or a period word. Its unreadable word is one sentence with the example, its error is said
   under the field, and its list rows are control tall with the chosen one on `primary`.
-- sokkel-tui, as of 64f4b19: no time field.
+- sokkel-tui, as of b99664f: no time field.

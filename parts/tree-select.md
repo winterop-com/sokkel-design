@@ -84,4 +84,4 @@ search, a clear button and a `Tree`; choosing closes it. Not there: multiple cho
 the count and the dash; `loadChildren`, `search` and `trails`; `unavailable`; `optional`;
 `defaultQuery` and `open` held from outside; and the words beyond `placeholder`, `search` and `clear`.
 
-sokkel-tui has no tree select yet (64f4b19).
+sokkel-tui has no tree select yet (b99664f).
