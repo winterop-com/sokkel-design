@@ -53,4 +53,4 @@ The why follows under it after the calculator icon, the formula on a line of its
 
 - sokkel-egui, as of d163191: `ComputedField` was built before this spec and has not been compared
   with it. It has no `numeric` option.
-- sokkel-tui, as of 64f4b19: no computed field.
+- sokkel-tui, as of b99664f: no computed field.

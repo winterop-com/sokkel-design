@@ -62,8 +62,7 @@ the top bar while it shows, and no row while there is none.
 
 - sokkel-egui (1a87987): Banner with its actions and the shell's banner slot were built before this
   spec and have not been compared against it.
-- sokkel-tui (64f4b19): four tones, one row in the shell's slot under the top bar, the page a row
-  lower while it shows, the words in the status line when cut. It paints with its own reading of
-  other parts' paints (critical on page-state's failed frame, warning on its failed+warning frame,
-  info and good on a card), since the contract had no banner paints. It should now read the
-  banner's own flat forms. Whether it draws actions and a dismiss is not reported.
+- sokkel-tui (b99664f): four tones on the banner's own paints (`banner.{tone}.rest.container`), one
+  row in the shell's slot under the top bar, the page a row lower while it shows, the words in the
+  status line when cut. Whether it draws actions and a dismiss is not reported, and its words are
+  not keyed by their message ids yet.

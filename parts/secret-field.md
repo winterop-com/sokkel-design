@@ -85,6 +85,6 @@ it has focus. Sealed, the row is `key-round`, eight `mask` glyphs and the set wo
 ## Where sokkel-egui and sokkel-tui differ today
 
 - sokkel-egui, as of 1a87987: no secret field.
-- sokkel-tui, as of 64f4b19: parts/text-field's `masked` option draws each character as the
-  `bullet` glyph, where the spec has `mask`; there is no reveal, no sealed state, no Replace or
-  Cancel, and no set note.
+- sokkel-tui, as of b99664f: parts/text-field's `masked` option draws each character as the
+  `mask` glyph; there is no Show and Hide reveal, no sealed state, no Replace or Cancel, and no set
+  note, and its words are not keyed by their message ids yet.

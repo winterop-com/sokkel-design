@@ -91,5 +91,5 @@ linked. Each reads the look above; what each draws of its own is for later round
   draws the box alone.
 - **sokkel-egui:** draws charts with its painter. As of 1a87987 the chart look is not built as a
   whole; StatPanel and TimeSeriesPanel draw their own.
-- **sokkel-tui:** as of 64f4b19 the look is drawn for the time series panel only (axes, grid, labels,
-  the legend); the other kinds are not built.
+- **sokkel-tui:** as of b99664f the look is drawn for the time series panel only (axes, grid, labels,
+  the legend), its glyphs read from `glyphs.json`; the other kinds are not built.

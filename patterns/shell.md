@@ -160,6 +160,9 @@ sections. Actions follow their context: on Runs the button is "New", not "New ru
   in the corner. Settings is not a route: egui has no URL, so the dialog is open
   state the app holds.
   The page's scroll gutter is 11, where the spec says `scrollbar-width` (10).
-- **sokkel-tui:** as of 64f4b19, the frame drawn from the spec in cells, with the side panel and the
-  banner's slot. Not yet: what lies under the drawer flattened under its scrim (T2), and the panel's
-  toggle as this spec draws it.
+- **sokkel-tui:** as of b99664f, the frame drawn from the spec in cells, with the side panel (on
+  `side-panel.base.rest.panel`) and the banner's slot (on the banner's paints). Not yet: the shell's
+  rule of 0.31.0 (light and dark chosen only in Settings › Appearance and the command palette,
+  principle 9), the status vocabulary (`index.json` `statuses`), words keyed by their message ids,
+  what lies under the drawer flattened under its scrim (T2), and the panel's toggle as this spec
+  draws it.

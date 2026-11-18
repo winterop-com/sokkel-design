@@ -87,4 +87,4 @@ that answers with its issue. Not there: `count`, `disabled`, `onIssueChange`, th
 typed input's end (the issue is handed back to the app), the code face on the typed input, and words
 beyond `other`, `typed` and `placeholder` (the labels and sentences are fixed in `periods.rs`).
 
-sokkel-tui has no period picker yet (64f4b19).
+sokkel-tui has no period picker yet (b99664f).

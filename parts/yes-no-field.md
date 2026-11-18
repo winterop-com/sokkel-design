@@ -58,4 +58,4 @@ before its word) follow after a gap of 1.
 
 - sokkel-egui, as of d163191: `YesNoField` was built before this spec and has not been compared with
   it. It takes one error, said under the field, and no issues or disabled.
-- sokkel-tui, as of 64f4b19: no yes-no field.
+- sokkel-tui, as of b99664f: no yes-no field.

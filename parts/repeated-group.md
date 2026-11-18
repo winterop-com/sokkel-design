@@ -84,4 +84,4 @@ Remove, which goes at `min`. Not there: `requiredMark` word, `error` and `issues
 mark, `onMove` with Move up, Move down and the grip, `max`, `readOnly`, Add left out without
 `onAdd`, and the words `moveUp`, `moveDown`, `required` and the issue words.
 
-sokkel-tui has no repeated group yet (64f4b19).
+sokkel-tui has no repeated group yet (b99664f).

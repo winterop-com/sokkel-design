@@ -45,5 +45,5 @@ As of 1a87987 there is no detail pane.
 
 ## Where sokkel-tui differs today
 
-As of 64f4b19, `DetailPane` and `PaneSection` are drawn in the side panel, not yet compared against
-this spec.
+As of b99664f, `DetailPane` and `PaneSection` are drawn in the side panel on
+`side-panel.base.rest.panel`, not yet compared against this spec.
