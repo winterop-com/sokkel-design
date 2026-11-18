@@ -6,6 +6,7 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- table (cells): a head wraps to two rows where it must (layout.headLines); a content column starts at its whole head and gives way to its head's longest word as the table runs short, as sokkel-tui draws it.
 - table: a sortable content column keeps room for its sort arrow (18) while unsorted, so sorting it never wraps its head and grows the head row.
 
 ## 0.32.0
