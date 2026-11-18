@@ -526,7 +526,7 @@ export function resolveTokens(tokens: TokenSource, sokkelUi: { repo: string; com
     const keys: [string, string][] = [
         ...Object.keys(tidevann.light).map((key): [string, string] => [key, key]),
         ...Object.keys(tokens.theme)
-            .filter((key) => key.startsWith('radius-') || key.startsWith('spacing-') || key.startsWith('breakpoint-'))
+            .filter((key) => key.startsWith('radius-') || key.startsWith('spacing-') || key.startsWith('breakpoint-') || key.startsWith('leading-'))
             .map((key): [string, string] => [key, key]),
         ...Object.keys(tokens.theme)
             .filter((key) => key.startsWith('color-') && !(key.slice('color-'.length) in tidevann.light))
