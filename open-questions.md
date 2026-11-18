@@ -287,7 +287,7 @@ noted so it has a home meanwhile:
 | `SortableGrid` | built: drag to reorder | The drag-and-drop family |
 | `EntryGrid` | built (68c156c) as its own widget | The web draws it with `DataTable` grouped, banded and editable: a `table` option rather than a part |
 | `Unfoldable` | built, `forced` (1a87987) | |
-| `ChoiceList` | built, with theme samples (1a87987) | Settings' theme list (`themeSettings`' `themeList`) |
+| `ChoiceList` | built, with theme samples (1a87987) | Settings' theme list (`useThemeSettings`' `themeList`) |
 | `Badge` (`kind`) | built as `ChipTone::Kind` | A chip part |
 | `Stat` (size lg) | built, equal-height tiles | A stat part beside `stat-panel` |
 | `DescriptionList` (`columns`) | built, two columns stacked | With `detail-pane` |
