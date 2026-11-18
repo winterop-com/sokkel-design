@@ -49,4 +49,4 @@ Sources: sokkel-ui `packages/core/src/components/MessageComposer.tsx` (`MessageC
 
 ## Where sokkel-egui differs today
 
-As of 9038006 there is no message composer.
+As of 1a87987 there is no message composer.

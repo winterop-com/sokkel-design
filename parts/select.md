@@ -134,4 +134,4 @@ check on the chosen one. The differences:
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no swatches, detail under the label or alignItemWithTrigger.
+Built as of 64f4b19, with swatches, details and `alignItemWithTrigger`.

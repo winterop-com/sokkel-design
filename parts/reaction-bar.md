@@ -57,4 +57,4 @@ count not grouped: `thumbs up, 1200`). The full list's words are parts/emoji-pic
 
 ## Where sokkel-egui differs today
 
-As of 9038006 there is no reaction bar or reaction chips.
+As of 1a87987 there is no reaction bar or reaction chips.

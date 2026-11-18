@@ -7,6 +7,36 @@ of their own (D4); a change to a part is a line here under its name.
 ## Unreleased
 
 - themes: terminal, phosphor and phosphor-bright set their capital table heads at `text-sm`, the cells' size; capitals with tracking already stand a step above the rows.
+- Message ids: every spec's words carry their id in sokkel-ui's catalogs, `messages` (`{ id, en,
+  with? }` by word, `null` where the catalog holds none), the English an ICU MessageFormat string
+  as the catalog holds it. The resolver writes sokkel-ui's catalogs at the pin as one,
+  `messages/en.json`, and `resolve --check` holds it; `check.py` fails a word without an entry, an
+  id the catalog lacks, and English that is not the catalog's. Principle 24: renderers key their
+  strings by these ids and read the same catalogs, so one translation serves all three. The site
+  shows each word's id and ICU English. The words with no catalog message are findings in
+  open-questions.md.
+- shell, principle 9: light and dark are chosen only in Settings › Appearance and the command
+  palette; the account menu's Appearance entry opens Settings there; never a scheme toggle in the
+  top bar or the account menu (owner's decision; sokkel-ui #685).
+- Status vocabulary: `index.json`'s `statuses`, the run states and the health states (`ok` good,
+  `warn` warning, `fail` and `error` critical, sokkel-ui #687) every status part knows, each
+  color's dot and ink tokens, the live state; `colorDepth.ansi16.paints` maps the run states'
+  tokens by hue. `check.py` holds them.
+- New parts, specified as they are in sokkel-ui b1cf984: `banner` (four tones painted so their
+  opaque forms resolve, with cells), `side-panel` (with its panel section), `problem`,
+  `json-tree`, `secret-field` (masked, the Show and Hide reveal, sealed with Replace), and the
+  fields `yes-no-field`, `time-field`, `computed-field`, `repeated-group`, `period-picker` and
+  `tree-select`; the rest of what egui built before a spec is staged in open-questions.md.
+- Cells for the chart family (sokkel-tui c4): `dashboard-panel`, `stat-panel`,
+  `time-series-panel` and `chart`; glyphs `spark-levels`, `stale`, `swatch` and `mask`, icons
+  `circle-check`, `eye`, `eye-off`, `key-round` and `maximize`.
+- Renderers: sokkel-egui as of 1a87987 (run-timeline built from its spec but for the handle's keys
+  and touch hold; table grouping, details, row heights and the column-head role; section flat;
+  the field frame with the issue mark, inputs 32 tall, the 33 drift gone; select codes and a
+  placeholder; the shell's panel and banner); sokkel-tui as of 64f4b19 (button, text-field,
+  page-header, section, dialog, select, stat-panel and time-series-panel built; table, rail,
+  dropdown-menu, command-palette, dashboard-panel, chart, detail-pane and the shell partial).
+- The pin moves to sokkel-ui b1cf984 (tokens unchanged; the catalogs and the health states).
 
 ## 0.30.1
 

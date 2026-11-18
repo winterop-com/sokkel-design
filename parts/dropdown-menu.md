@@ -117,4 +117,4 @@ rows, the `accent` highlight under the pointer, and start or end alignment. The 
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no radio groups; one submenu level.
+As of 64f4b19, drawn from the spec in cells, with radio rows; one submenu level.

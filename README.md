@@ -11,13 +11,15 @@ It has the same shape as sokkel-api: one contract, an implementation per stack, 
 them. The contract decides and each renderer stays idiomatic. When a renderer drifts, a check fails
 in that renderer's CI before any app sees it.
 
-It covers thirty-one parts (button, text field, table, rail, top bar, status line, page header,
+It covers forty-two parts (button, text field, table, rail, top bar, status line, page header,
 section, page state, select, dropdown menu, tooltip, dialog, settings dialog, command palette, run
 timeline, clip timeline, emoji picker, reaction bar, composer, message composer, call bar, letter,
-detail pane, board item panel, code editor, date field, and the chart family's first: chart,
-dashboard panel, stat panel, time series panel) and one pattern (the shell), at contract
-version 0.29.3, which moves in lockstep with sokkel-ui
-(`CHANGELOG.md`). sokkel-ui checks its components against a pinned copy of the specs
+detail pane, board item panel, code editor, date field, banner, side panel, problem, JSON tree,
+secret field, yes/no field, time field, computed field, repeated group, period picker, tree select,
+and the chart family's first: chart, dashboard panel, stat panel, time series panel) and one
+pattern (the shell), at the contract version `index.json` names, which moves in lockstep with
+sokkel-ui (`CHANGELOG.md`). Every word a part says carries its message id, and the contract carries
+sokkel-ui's ICU catalogs (`messages/en.json`), so one translation serves every renderer. sokkel-ui checks its components against a pinned copy of the specs
 (`src/parts.test.ts`); sokkel-egui builds its widgets from them and takes its resolved tokens and
 paints from `tokens/tokens.resolved.json`; sokkel-tui does the same in a terminal, reading the paints'
 opaque forms, each part's cells and `glyphs.json`. Each part says how far each renderer has built
@@ -27,7 +29,8 @@ it (`renderers`).
 
 | Layer | What it holds | Here |
 |---|---|---|
-| Foundations | Tokens: themes in light and dark, the derived surfaces, density levels, the parts tokens, text roles, the radius ladder, the focus and invalid rings, motion, layers, elevations, breakpoints and form-factor widths, the sixteen ANSI colors. For cells: the grid in columns, the check sizes, text roles in cells, color depths and glyphs | sokkel-ui's `tokens.json` at the commit `sokkel-ui.json` pins, resolved into `tokens/tokens.resolved.json`; `index.json` (`renderers`, `cells`, `colorDepth`); `glyphs.json` |
+| Foundations | Tokens: themes in light and dark, the derived surfaces, density levels, the parts tokens, text roles, the radius ladder, the focus and invalid rings, motion, layers, elevations, breakpoints and form-factor widths, the sixteen ANSI colors. The status vocabulary: the run and health states every status part knows, each in a color. For cells: the grid in columns, the check sizes, text roles in cells, color depths and glyphs | sokkel-ui's `tokens.json` at the commit `sokkel-ui.json` pins, resolved into `tokens/tokens.resolved.json`; `index.json` (`renderers`, `cells`, `colorDepth`, `statuses`); `glyphs.json` |
+| Words | Every word's English as an ICU MessageFormat string by its message id, `<part>.<word>`: sokkel-ui's catalogs, one per package, as one | `messages/en.json`, from the pinned commit; each spec's `messages` |
 | Principles | Rules every renderer keeps, whatever its toolkit | `principles.md` |
 | Parts | One spec per part: anatomy, options, sizes per density, states, tokens per state, keyboard, words | `parts/<id>.md` + `parts/<id>.json` |
 | Patterns | Parts arranged into a whole: the app frame first | `patterns/<id>.md` + `patterns/<id>.json` |
@@ -42,7 +45,8 @@ sokkel-design/
     README.md  principles.md  specimens.md  specimens.json  open-questions.md  CHANGELOG.md
     index.json                  contract version, renderers, breakpoints, widths, cells, color depth, every part and pattern with its status
     glyphs.json                 each glyph a part draws in cells, Unicode and ASCII, and icons with their Nerd Font form
-    sokkel-ui.json              the sokkel-ui commit whose tokens.json the contract reads
+    sokkel-ui.json              the sokkel-ui commit whose tokens.json and catalogs the contract reads
+    messages/en.json            sokkel-ui's English catalogs at that commit, every word's ICU message by its id
     schema/part.schema.json     JSON Schema 2020-12 for parts/*.json and patterns/*.json
     schema/paints.schema.json   the resolved paints renderers read
     parts/      button  text-field  table  rail  top-bar  status-line   (.md + .json)
@@ -53,6 +57,9 @@ sokkel-design/
                 composer  message-composer
                 call-bar  letter  detail-pane  board-item-panel
                 code-editor  date-field
+                banner  side-panel  problem  json-tree
+                secret-field  yes-no-field  time-field  computed-field
+                repeated-group  period-picker  tree-select
                 chart  dashboard-panel  stat-panel  time-series-panel   (the chart family)
     patterns/   shell                                               (.md + .json)
     tokens/     tokens.resolved.json: the tokens and the paints, for renderers that read no CSS
@@ -84,6 +91,7 @@ section c).
 | `variants` / `pieces` | A paint map per variant (button) or per anatomy piece (text field, table): `state -> { ground, edge, ink, ring, ... }`. A state left out paints as `rest` |
 | `keyboard` | A list of `{ keys, does, when }` |
 | `words` | `key -> English default`, the same keys in every renderer; a count takes `{ "one": ..., "other": ... }` |
+| `messages` | For every word, by its key: `{ id, en, with? }`, its message id in sokkel-ui's catalogs and its English there as an ICU MessageFormat string (`with` the values a word fixes where it is one form of a message that takes more, as a select's other branch); `null` where the catalog holds no message for it. See "Words by message id" |
 | `samples` | For each word that interpolates or counts: `[{ "with": { "count": 0 }, "says": "0 rows" }, ...]`, what it says at zero, one and many and with each value it interpolates |
 | `appText` | Text the app gives (a label, a reason), never defaulted |
 | `rendererSpecific` | What only one renderer does, by repo. A look only one renderer can draw (the web's blur under a dialog's backdrop) is said here and kept out of every paint, so no renderer is held to it |
@@ -135,6 +143,20 @@ says at zero, one and many (1200, so the sample shows whether the thousands are 
 each value it interpolates. sokkel-ui's parts test calls each function with each sample's values
 and compares; `check.py` fails such a word without samples. A count the part never says of zero (a
 form's issue count, which is not drawn at zero) is sampled at one and many.
+
+**Words by message id.** sokkel-ui gives every word a message id, `<part>.<word>`: the part's
+words constant in camel case and the word's key (`DATA_TABLE_WORDS.rows` is `dataTable.rows`), a
+nested word its path (`emojiPicker.groups.recent`). A word a part takes from another part keeps that
+part's id (`field.required`, `issueCount.errors`), so it is translated once. Each package's English
+catalog (`packages/<package>/messages/en.json`) holds every word as an ICU MessageFormat string: a
+count is a plural (`{count, plural, one {# row} other {# rows}}`), a choice a select, numbers and
+dates `{count, number}` and `{at, date, ::MMMd}`. The resolver writes them as one,
+`messages/en.json`, from the pinned commit; each spec's `messages` names each word's id and its
+English as the catalog holds it, and `check.py` fails an id the catalog lacks, English that is not
+the catalog's, and a word with no entry. Renderers key their strings by these ids and read the same
+catalogs, an app's translation spread over the English one, so one translation serves all three
+(principle 24). A word whose catalog entry is missing (`null`) is a phrase that formats rather than
+says; `open-questions.md` lists them.
 
 **Rules for writing a spec** (the egui side's section e, made rules):
 1. **Today's behavior, cited.** A spec states what sokkel-ui does now, with file and prop. A change
@@ -224,17 +246,18 @@ their opaque forms.
 | | sokkel-ui (React, CSS) | sokkel-egui (Rust, egui) | sokkel-tui (Rust, ratatui) |
 |---|---|---|---|
 | Tokens | `scripts/build-tokens.ts` writes `tokens.css`, `themes/*.css` and `theme-list.ts` from `tokens.json`; the browser settles `var()`, `color-mix()` and `calc()` | sokkel-design's resolver settles every value to plain sRGB hex, px, numbers, ms, easing curves, elevation layers and text roles in `tokens/tokens.resolved.json`, which `tokens.rs` embeds | The same resolved file, at a pinned sokkel-design commit; colors from the paints' `flat` and `faded` forms, at the terminal's depth (`colorDepth`) |
-| Parts | Components keep their idiom (Tailwind classes, Base UI). A test reads `parts/*.json` and checks what can be read from code: words equal the component's defaults, each paint expression's class, the sizes in its class strings, the keys it binds | Widgets read sizes and words from the spec and colors from `paints`, so most drift cannot be written; kittest checks state paint and keys | Widgets read words and keys from the spec, rows and columns from `cells`, glyphs from `glyphs.json`; tests draw into a buffer |
+| Parts | Components keep their idiom (Tailwind classes, Base UI). A test reads `parts/*.json` and checks what can be read from code: words equal the component's defaults, each word's message id and its English in the catalogs, each paint expression's class, the sizes in its class strings, the keys it binds | Widgets read sizes and words from the spec and colors from `paints`, so most drift cannot be written; kittest checks state paint and keys | Widgets read words and keys from the spec, rows and columns from `cells`, glyphs from `glyphs.json`; tests draw into a buffer |
+| Words | `LocaleProvider` and `useWords`: a part's own `words`, then the app's catalog, then English | Each word looked up by its message id in the app's catalog over `messages/en.json`, formatted by an ICU MessageFormat library in the app's locale | The same as egui |
 | Specimens | The story at each specimen's path, captured by Playwright | The egui story at the same path, captured by egui_kittest | The same path drawn into a buffer at the check sizes, as text and SVG |
 
 **Drift checks.**
 
 | Side | Check | Fails when |
 |---|---|---|
-| sokkel-design | `check.py` (schema, references, words, samples, statuses, renderers, surfaces, cells, glyphs) | A part file breaks the schema, names a token the pinned sokkel-ui lacks, paints a state the part does not list, or leaves a counted or templated word without samples; a stable part sokkel-ui has not built; a piece stands on a surface that is not opaque in every theme; a part names a glyph `glyphs.json` lacks; the index's cells or color depth are incomplete; the resolved file was made from another commit than the pin |
-| sokkel-design | `resolve --check`, `verify-colors` (CI, `.github/workflows/contract.yaml`) | The resolved file (tokens and paints) is not what the pinned `tokens.json` and the specs make; a resolved token color, paint color (its flat and faded forms included) or elevation is off from Chromium's by more than 2/255 (46709 today: 13 themes, both schemes) |
+| sokkel-design | `check.py` (schema, references, words, message ids, samples, statuses, renderers, surfaces, cells, glyphs) | A part file breaks the schema, names a token the pinned sokkel-ui lacks, paints a state the part does not list, or leaves a counted or templated word without samples; a word has no message id, or one the pinned catalogs lack, or English that is not the catalog's; a stable part sokkel-ui has not built; a piece stands on a surface that is not opaque in every theme; a part names a glyph `glyphs.json` lacks; the index's cells or color depth are incomplete; the resolved file was made from another commit than the pin |
+| sokkel-design | `resolve --check`, `verify-colors` (CI, `.github/workflows/contract.yaml`) | The resolved file (tokens and paints) is not what the pinned `tokens.json` and the specs make, or `messages/en.json` is not the pinned catalogs; a resolved token color, paint color (its flat and faded forms included) or elevation is off from Chromium's by more than 2/255 (80768 today: 16 themes, both schemes) |
 | sokkel-ui | `bun run tokens --check` | The CSS is not what `tokens.json` makes |
-| sokkel-ui | `parts.test.ts` | A component's word default or sample, paint class, size or key binding is not the spec's |
+| sokkel-ui | `parts.test.ts` | A component's word default or sample, a word's message id or its English in the catalog, paint class, size or key binding is not the spec's |
 | sokkel-egui | `make tokens-check` (exists) | The embedded resolved file is not the contract's |
 | sokkel-egui | `tests/parts.rs` (new) | A widget's measured size, state paint or key handling is not the spec's |
 | sokkel-tui | `make tokens-check` (exists) | The embedded resolved file is not the contract's at the pinned commit |
@@ -283,7 +306,7 @@ colors. The only token lookups left are those outside a spec's paints (`tokens.c
 ## Versions and status
 
 **One contract version, in lockstep with sokkel-ui** (D3, D4). `index.json`'s `version` is the
-sokkel-ui release the contract ships in: 0.29.3 now. Before 1.0 a breaking change moves the minor,
+sokkel-ui release the contract ships in. Before 1.0 a breaking change moves the minor,
 as sokkel-ui's does. sokkel-egui and sokkel-tui state the sokkel-ui version whose contract it meets. Parts have
 no version of their own; `CHANGELOG.md` says what each version changed, part by part.
 
@@ -300,8 +323,8 @@ What lands in sokkel-ui is the new normal: a part added or changed there is spec
 same round, as it landed (its words, options, sizes, paints and keys), and is `stable` from the
 start, never a draft. Where egui has not built it yet, its spec says so in a `drift` entry for
 sokkel-egui and in `renderers`, and egui builds it from the spec. Today `section` and `text-field` are drafts from
-before that rule (egui has not built Section, nor the field's issue mark and frame); every other
-part and the shell are stable.
+before that rule; egui has since built Section and the field's frame with its issue mark, and each
+becomes stable once compared side by side. Every other part and the shell are stable.
 
 ## Plans
 
@@ -328,7 +351,7 @@ From the egui side (proposal, section a). Each step is a spec here first, then a
 | 3 | DataTable, the list variant first | `parts/table` (stable) |
 | 4 | Select, Dialog with SettingsDialog, DropdownMenu, Tooltip, CommandPalette | `parts/select`, `parts/dropdown-menu`, `parts/tooltip`, `parts/dialog` (with ConfirmDialog), `parts/settings-dialog`, `parts/command-palette` (stable); the settings route in `patterns/shell` |
 | 5 | The field family: number, date and select fields | `parts/text-field` (draft) sets the frame they share; `parts/select` holds the select field's control; `parts/date-field` (stable) |
-| 6 | Toast, Callout, Banner | To come |
+| 6 | Toast, Callout, Banner | `parts/banner` (stable); toast and callout to come |
 | 7 | Add-ons (charts, maps), as the patterns ask | Charts begun: `parts/chart`, `parts/dashboard-panel`, `parts/stat-panel`, `parts/time-series-panel` (stable); the rest of the family is staged in `open-questions.md`. Maps to come |
 | - | The code editor | `parts/code-editor` (stable) |
 

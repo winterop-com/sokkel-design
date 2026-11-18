@@ -110,6 +110,35 @@ These were found while writing the specs. Nothing was changed.
 | sokkel-ui `DashboardPanel`, `StatPanel` | The panel's tools keep their focus outline `focus-ring-offset` off, the stat tile's tools none; the panel's edge is `border-strong`, the tile's `border` | **Decided:** one: the panel's `border-strong` edge and its tools' focus outline, `focus-ring-offset` off. Done in sokkel-ui (`parts/stat-panel`) |
 | sokkel-ui `StatPanel` | The target meter's track and fill are `bg-current` (the reading's run-time tone) at 15 percent and in full, with no token | **Decided:** the track is `muted` (`on-fill` at 25 percent on a filled tile); the fill keeps the reading's run-time color. Done in sokkel-ui (`parts/stat-panel`, `track`) |
 
+### Words and their message ids (found while giving every spec word its id)
+
+| Where | Finding | Question |
+|---|---|---|
+| sokkel-ui catalogs | A count's ICU message groups thousands (`{count, plural, one {# row} other {# rows}}` says "1,200 rows"), while the English defaults, as functions, do not ("1200 rows", which the specs' samples hold). With a `LocaleProvider` and `en.json`, the same word reads two ways | Group thousands in the English defaults too (`Intl.NumberFormat` in the locale), and move the samples to "1,200"? Recommendation: yes, the catalog is the one source every renderer reads |
+| sokkel-ui `SCHEMA_WORDS.say` | A schema issue's words (`parts/code-editor`, `issue.*`) are one function of the issue, with no catalog message (`null` in `SCHEMA_MESSAGES`), so a catalog cannot translate them | Give each issue kind a message (`schema.issue.required`, ...) or one select on the kind? Recommendation: one message per kind |
+| sokkel-ui `LETTER_WORDS.to` | Joins the names itself; no catalog message | An ICU list (`to {names, list}`)? The library's ICU subset would need `list` |
+| sokkel-ui charts `usePanelFields` | The data view's column names (`parts/time-series-panel`'s `category`, `series`, `value`) are inline defaults with no words part, so they have no ids | A `PANEL_FIELDS` part with ids? Recommendation: yes |
+| sokkel-ui `SecretField` | `setWhen` and `replaceLabel` format rather than say (`null` messages) | As above: messages with an argument (`Set {when}`, `Replace {label}`)? |
+| sokkel-ui `JsonTree`, `TreeSelect` | `jsonTree.keys` and `treeSelect.selected` write the count with `String(count)` ("1200 keys", "1200 chosen") where the catalog groups it | The same question as the first row |
+| sokkel-ui `RepeatedGroup` | `item` formats rather than says (a 0-based index; the spec writes `Item {place}` from 1), and Move up and Remove join it by hand, two ways ("Move up: Item 1", "Remove Item 1"), so neither is one translatable message | Messages with the item as an argument (`Move {item} up`, `Remove {item}`)? |
+| sokkel-ui `PeriodLabel` | Month names and period types are a list and a record, so the spec gives each entry its own word (`monthNames.0` to `.11`, `types.daily`), as their ids already are | Keep that shape in specs for list words? Recommendation: yes, it matches the ids |
+
+Every other spec word has its id and its English in the catalog (`messages` in each spec). A word
+listed here is `null` in its spec's `messages` until sokkel-ui gives it a message.
+
+### Found while specifying this round's parts
+
+| Where | Finding | Question |
+|---|---|---|
+| sokkel-ui `SecretField` | With focus, an invalid or warning field that is not `bare` keeps its `critical/80` (`warning/80`) edge and shows the plain 1px `ring` ring: `ISSUE_WITHIN_EDGE` applies only when `bare`, and Field's `focus-visible` edge rule never matches the frame, a div. Every other typed field shows the full edge and the invalid ring | Apply `ISSUE_WITHIN_EDGE[tone]` always, as `TypedField` does? Recommendation: yes; the spec states today's look until then |
+| sokkel-ui `YesNoField`, `PeriodPicker` | Field puts its issue edge (and `pr-9`) on its first child, which here is a wrapper with no border: the edge is never drawn, and on PeriodPicker the padding squeezes the picker | Give these fields the issue edge on their control? |
+| sokkel-ui `RepeatedGroup` | Move up on the first row and Move down on the last are disabled and out of the tab order with no reason, against principle 13 | Keep them reachable with a reason, or leave them out? |
+| sokkel-ui `TreeSelect` | `actions` is among its words (from `TreeWords`) but never said: it gives its tree no row actions; the search's clear button has no focus look of its own | Drop the word; give the clear button the frame's focus look |
+| sokkel-ui `Problem` | Its mark is in the plain tone (`critical`, `warning`) where Banner and page-state use the `-ink` inks; it rounds only its physical right corners (`rounded-r-control`) and rules its physical left | One ink for marks; logical sides? |
+| sokkel-ui `JsonTree` | A folded list's count is a bare number with no word | Say it as `keys` does? |
+| sokkel-ui `SidePanel` | It stands on `sidebar` but takes the page's `foreground` ink, not `sidebar-foreground` (they differ in steel) | Use `sidebar-foreground`? |
+
+
 ## Open for the terminal
 
 From sokkel-tui's proposal (`sokkel-tui/docs/proposals/sokkel-design-tui.md`, section c). What the
@@ -121,6 +150,34 @@ part names (`alsoStandsOn`, `flatOn`, `fadedOn`; the button first), every combin
 resolved (`page-state`'s warning frame among them), glyphs for a critical section's heavy rule and
 the graph tone's dot grid, and, from c3, cells notes for the dialog, the menus, the select, the
 palette and the settings dialog. T1 to T5 are decided and written in.
+
+### C4 to C7. The dashboard, the banner, a masked field, health states
+
+From the proposal's sections c4 to c7, answered in this round:
+
+- **c4, the dashboard in cells:** written as the chart family's `cells` (`parts/dashboard-panel`,
+  `parts/stat-panel`, `parts/time-series-panel`, `parts/chart`), as sokkel-tui reads them: the grid
+  of twelve by its own width (wide from 122 columns, tablet-wide from 76), the panel's one-row head
+  and its tools 3 columns each, the spinner in the content's place while loading, the stat tile's
+  rows by what it holds, the meter on `rule-heavy`, the sparkline in `spark-levels`, lines in braille
+  and one area in blocks. `glyphs.json` holds `spark-levels`, `stale` and `swatch`. Done.
+- **c5, a banner part:** `parts/banner`, with its four tones painted as sokkel-ui draws them (the
+  tone at 12 percent over the surface, its edge at 35, its ink), so the resolver writes their opaque
+  `flat` forms; its `cells` say one row, the tone's mark, the words cut short and said whole in the
+  status line, the actions and the dismiss. Done.
+- **c6, a masked field:** `parts/secret-field`, sokkel-ui's `SecretField` as it is: masked with a
+  Show and Hide reveal, sealed with Replace and Cancel; `mask` in `glyphs.json`. The `Prompt`
+  pattern stays open: sokkel-ui has no prompt (one field in a dialog, Submit and Cancel), so the
+  contract has nothing to specify yet. **Question:** should sokkel-ui get one (a `PromptDialog` on
+  `DialogShell` with one field, Enter submitting), and the contract then a pattern? Recommendation:
+  yes, when an app asks for one value in a dialog; until then a dialog with a field is the app's.
+- **c7, health states:** sokkel-ui #687 added `ok` (good), `warn` (warning), `fail` and `error`
+  (critical) beside the run states, known to every status part without a map; `index.json`'s
+  `statuses` holds the vocabulary (each state's color and ink, the run and health states, which are
+  live), and `colorDepth.ansi16.paints` maps the run states' own tokens by hue. Done. **Question:**
+  `fail` and `error` share critical, told apart by their words; should `error` (the check could not
+  run) take a color of its own? Recommendation: no until an app asks: a check that cannot run needs
+  the same attention.
 
 ### T1. The sixteen-color paints
 
@@ -223,6 +280,30 @@ contract.
 | `TimeRangePicker`'s `times` and `clock` | No range part yet; `parts/date-field` (stable) now holds the date field it opens | Specify the range picker with the dashboard's time range (charts, stage 3 below)? |
 | `CodeEditor`'s `onFollowLink`, `activeLine: 'always'` and required-key snippets | `parts/code-editor` (stable) | Done |
 | `Tree`'s `openOnChoose`; `Markdown`'s `live` and `highlight`; `TrackList`'s `href` and windowing | None of these is specified | Leave them out until an egui or terminal app needs one? |
+
+### Parts sokkel-ui has, staged
+
+The rule is that what lands in sokkel-ui is specified here in the same round. sokkel-egui built
+these sokkel-ui parts before they had a spec; this round specified the most used (`banner`,
+`side-panel` with its panel section, `problem`, `json-tree`, and the fields egui built:
+`yes-no-field`, `time-field`, `computed-field`, `repeated-group`, `period-picker`, `tree-select`,
+with `secret-field` for the terminal's c6). The rest are staged for the next round, egui's state
+noted so it has a home meanwhile:
+
+| sokkel-ui part | sokkel-egui (as of) | Note |
+|---|---|---|
+| `GroupLabel` | built (1a87987) | A label over a group of controls; may go into `side-panel`'s or a form's spec |
+| `IssueCount` | built (d163191), errors only | The count beside a form's verb (principle 12); its words are in `parts/text-field` (`issueCount.*`). A form pattern would hold it |
+| `ApiLink` | built (d163191) | |
+| `ServerMenu` | built: dot, name, version, a menu of state, facts, Check again, the app's items; no checks tooltip | |
+| `ItemCard` | built: title, code, status, description, facts, selected | |
+| `SortableGrid` | built: drag to reorder | The drag-and-drop family |
+| `EntryGrid` | built (68c156c) as its own widget | The web draws it with `DataTable` grouped, banded and editable: a `table` option rather than a part |
+| `Unfoldable` | built, `forced` (1a87987) | |
+| `ChoiceList` | built, with theme samples (1a87987) | Settings' theme list (`themeSettings`' `themeList`) |
+| `Badge` (`kind`) | built as `ChipTone::Kind` | A chip part |
+| `Stat` (size lg) | built, equal-height tiles | A stat part beside `stat-panel` |
+| `DescriptionList` (`columns`) | built, two columns stacked | With `detail-pane` |
 
 ### The chart family, staged
 

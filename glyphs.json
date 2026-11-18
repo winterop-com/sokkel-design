@@ -81,7 +81,32 @@
             "ascii": "#",
             "means": "A scroller's thumb, in its own column (scrollbar-width keeps the room)."
         },
-        "scroll-track": {"unicode": "│", "ascii": "|", "means": "A scroller's track."}
+        "scroll-track": {"unicode": "│", "ascii": "|", "means": "A scroller's track."},
+        "mask": {
+            "unicode": "•",
+            "ascii": "*",
+            "means": "One character of a masked value (a secret field's input while hidden, a sealed secret's dots): one cell each, the value never on screen."
+        },
+        "spark-levels": {
+            "unicode": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],
+            "ascii": ["_", ".", "-", "=", "+", "*", "#", "@"],
+            "means": "A sparkline's eight levels, lowest first: each value one cell, at the level its share of the line's range gives it, in the reading's color (stat-panel's spark, a stat's trend)."
+        },
+        "stale": {
+            "unicode": "◷",
+            "ascii": "!",
+            "means": "A panel's or a tile's stale mark: its data is older than it should be (dashboard-panel, stat-panel), its words in the status line on focus."
+        },
+        "swatch": {
+            "unicode": "■",
+            "ascii": "#",
+            "means": "A series' or a value's color in a legend (a chart's legend, a threshold legend), in that color."
+        },
+        "rule-start": {
+            "unicode": "▎",
+            "ascii": "|",
+            "means": "A rule down a block's start, in each of its rows' first column: a problem's 2px rule in its tone."
+        }
     },
     "box": {
         "$description": "Box corners and sides. The radius ladder is one bit in cells: a corner role above 0 draws rounded, 0 square.",
@@ -155,6 +180,15 @@
             "unicode": "⠋",
             "ascii": "|",
             "note": "Drawn as the spinner glyph's frames wherever it turns; this form is its still frame."
-        }
+        },
+        "circle-check": {"nerdFont": "U+EBA4", "nerdFontName": "nf-cod-pass", "unicode": "✓", "ascii": "*"},
+        "eye": {"nerdFont": "U+EA70", "nerdFontName": "nf-cod-eye", "unicode": "◉", "ascii": "o"},
+        "eye-off": {"nerdFont": "U+EAE7", "nerdFontName": "nf-cod-eye_closed", "unicode": "◎", "ascii": "-"},
+        "key-round": {"nerdFont": "U+EB11", "nerdFontName": "nf-cod-key", "unicode": "⚿", "ascii": "k"},
+        "maximize": {"nerdFont": "U+EB4C", "nerdFontName": "nf-cod-screen_full", "unicode": "⤢", "ascii": "+"},
+        "clock": {"nerdFont": "U+EB7C", "nerdFontName": "nf-cod-watch", "unicode": "◷", "ascii": "@"},
+        "eraser": {"nerdFont": "U+EABF", "nerdFontName": "nf-cod-clear_all", "unicode": "⌫", "ascii": "x"},
+        "calculator": {"nerdFont": "U+EB64", "nerdFontName": "nf-cod-symbol_operator", "unicode": "=", "ascii": "="},
+        "chevrons-up-down": {"nerdFont": "U+EAF5", "nerdFontName": "nf-cod-fold", "unicode": "↕", "ascii": "~"}
     }
 }

@@ -174,9 +174,22 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Charts/Frame/Legend table | full | the legend as a table of each series' min, max, avg and current |
 | Patterns/Dashboard panels/Time series | full | lines over fading areas, percentiles with a dashed threshold line in critical and a legend table, stacked areas, and steps |
 | Charts/Scorecard/Solid | pair | thresholdLegend as one strip (bar layout) under a scorecard |
+| Patterns/Feedback/Banner | full | a critical banner with actions and the dismiss, a warning one, and an info one with actions: each tone's wash, its rule under it and its ink |
+| Patterns/Feedback/Problem | pair | problems with a title, a detail with code, the technical words folded away, and actions |
+| Patterns/Side panel/Tabs | full | a run's Details, Log and Outputs as the panel's tabs, the log shown |
+| Patterns/Data/JSON tree | pair | a record drawn as a JSON tree |
+| Primitives/Inputs/Secret field/Not set | full | a masked input with Show |
+| Primitives/Inputs/Secret field/Set | pair | a secret already set: sealed, when it was set, and Replace |
+| Primitives/Inputs/Time field/Plain | full | the time field as its Plain story draws it |
+| Primitives/Inputs/Time field/Open | pair | the time field open, as its Open story draws it |
+| Patterns/Answers/Unanswered | full | a yes or no question not answered yet |
+| Patterns/Answers/Computed | pair | a value the form works out, read only |
+| Patterns/Repeated group/Steps | full | a repeated group of steps, each a row the reader can add, remove and reorder |
+| Patterns/Period picker/Every type | pair | a period picker for each type of period |
+| Patterns/Tree/Tree select, open | pair | the tree select for one place open, its list unfolded at the chosen one |
 
-That is 117 stories across the full matrix (1404 captures) and 96 captures across the pair matrix
-(192), **1596 per side**.
+That is 123 stories across the full matrix (1476 captures) and 103 captures across the pair matrix
+(206), **1682 per side**.
 
 ## How a state is reached
 

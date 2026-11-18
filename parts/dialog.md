@@ -125,4 +125,4 @@ destructive answer, busy. The differences:
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no header bar, status slot or nested shade.
+Built as of 64f4b19, with the header bar, the status row and the nested shade.

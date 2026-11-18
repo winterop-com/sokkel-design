@@ -92,4 +92,6 @@ app's `StatusProvider` may change at run time; it is not a spec paint (principle
 
 ## Where sokkel-egui differs today
 
-As of 9038006 there is no run timeline.
+As of 1a87987, `RunTimeline` is built from this spec, but for the handle's keys and touch: Left and
+Right do not shift a pending run's handle, and a touch drags at once rather than after its 300 ms
+hold.

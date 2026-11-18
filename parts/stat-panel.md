@@ -70,5 +70,8 @@ value is written by `format`, else by `formatValue` in en-US (`3,526`, `99.3`).
 
 ## Where sokkel-egui differs today
 
-As of b7e1763 `StatPanel` draws the target meter: `target(value, range)`, a 6 tall track, a tick at
-the target, Target and its value under it, and the tile 144 tall. The rest of the tile is not built.
+As of 1a87987 `StatPanel` draws the target meter: `target(value, range)`, a 6 tall track, a tick at
+the target, Target and its value under it, and the tile 144 tall; stat tiles at size lg keep one
+height in a row. The rest of the tile is not built.
+
+sokkel-tui draws it in cells as of 64f4b19, as the cells notes here say (proposal c4).

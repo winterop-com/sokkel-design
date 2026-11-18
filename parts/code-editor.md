@@ -148,7 +148,7 @@ CodeMirror's own words (the find bar, the fold marks) are passed through `phrase
 
 ## Where sokkel-egui differs today
 
-As of b7e1763 there is no code editor.
+As of 1a87987 there is no code editor.
 
 ## Folding's keys
 

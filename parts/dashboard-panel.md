@@ -72,4 +72,11 @@ not load., `retry` Retry, `stale` Not up to date. The panel's own words object i
 
 ## Where sokkel-egui differs today
 
-As of b7e1763 there is no dashboard panel frame.
+As of 1a87987 there is no dashboard panel frame.
+
+## Where sokkel-tui differs today
+
+As of 64f4b19, drawn in cells as proposal c4 reads it (and the cells notes here say): the grid by its
+own width, the head with the subtitle, the stale mark and the tools, the body padded or flush, the
+foot; loading, empty, failed with Retry, and stale. Not yet: the expanded dialog and the panel
+menu's own menu.
