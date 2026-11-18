@@ -1414,11 +1414,102 @@
             "matrix": "pair",
             "canvas": [960, 480],
             "shows": "ThresholdLegend as one strip (bar layout) under a scorecard."
+        },
+        {
+            "id": "Patterns/Feedback/Banner",
+            "part": "banner",
+            "matrix": "full",
+            "canvas": [960, 360],
+            "shows": "A critical banner with actions and the dismiss, a warning one, and an info one with actions: each tone's wash, its rule under it and its ink."
+        },
+        {
+            "id": "Patterns/Feedback/Problem",
+            "part": "problem",
+            "matrix": "pair",
+            "canvas": [720, 360],
+            "shows": "Problems with a title, a detail with code, the technical words folded away, and actions."
+        },
+        {
+            "id": "Patterns/Side panel/Tabs",
+            "part": "side-panel",
+            "matrix": "full",
+            "canvas": [960, 640],
+            "shows": "A run's Details, Log and Outputs as the panel's tabs, the log shown."
+        },
+        {
+            "id": "Patterns/Data/JSON tree",
+            "part": "json-tree",
+            "matrix": "pair",
+            "canvas": [720, 480],
+            "shows": "A record drawn as a JSON tree."
+        },
+        {
+            "id": "Primitives/Inputs/Secret field/Not set",
+            "part": "secret-field",
+            "matrix": "full",
+            "canvas": [480, 140],
+            "shows": "A masked input with Show."
+        },
+        {
+            "id": "Primitives/Inputs/Secret field/Set",
+            "part": "secret-field",
+            "matrix": "pair",
+            "canvas": [480, 140],
+            "shows": "A secret already set: sealed, when it was set, and Replace."
+        },
+        {
+            "id": "Primitives/Inputs/Time field/Plain",
+            "part": "time-field",
+            "matrix": "full",
+            "canvas": [480, 240],
+            "shows": "The time field as its Plain story draws it."
+        },
+        {
+            "id": "Primitives/Inputs/Time field/Open",
+            "part": "time-field",
+            "matrix": "pair",
+            "canvas": [480, 360],
+            "shows": "The time field open, as its Open story draws it."
+        },
+        {
+            "id": "Patterns/Answers/Unanswered",
+            "part": "yes-no-field",
+            "matrix": "full",
+            "canvas": [480, 160],
+            "shows": "A yes or no question not answered yet."
+        },
+        {
+            "id": "Patterns/Answers/Computed",
+            "part": "computed-field",
+            "matrix": "pair",
+            "canvas": [480, 160],
+            "shows": "A value the form works out, read only."
+        },
+        {
+            "id": "Patterns/Repeated group/Steps",
+            "part": "repeated-group",
+            "matrix": "full",
+            "canvas": [720, 480],
+            "shows": "A repeated group of steps, each a row the reader can add, remove and reorder."
+        },
+        {
+            "id": "Patterns/Period picker/Every type",
+            "part": "period-picker",
+            "matrix": "pair",
+            "canvas": [720, 480],
+            "shows": "A period picker for each type of period."
+        },
+        {
+            "id": "Patterns/Tree/Tree select, open",
+            "part": "tree-select",
+            "matrix": "pair",
+            "canvas": [720, 480],
+            "shows": "The tree select for one place open, its list unfolded at the chosen one."
         }
     ],
     "count": {
-        "full": "117 stories x 12 appearances = 1404",
-        "pair": "96 captures x 2 appearances = 192",
-        "perSide": 1596
+        "full": "123 stories x 12 appearances = 1476",
+        "pair": "103 captures x 2 appearances = 206",
+        "perSide": 1682
     }
 }

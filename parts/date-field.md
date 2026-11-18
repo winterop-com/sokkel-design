@@ -68,10 +68,7 @@ Enter {min} or later, `over` Enter {max} or earlier, `use` Use {bound}, `pick` C
 
 ## Where sokkel-egui differs today
 
-As of b7e1763, `DateField` draws the date-only form: `YYYY-MM-DD` typed or picked from a calendar,
-and an error under the field. The differences:
-1. **Not built:** other formats, `min` and `max` with their issue and its action, the clear button,
-   `today` and `weekStartsOn`, Alt+ArrowDown, and the issue mark.
-2. **Where a problem is said:** a line under the field, so the form changes height, where the spec
-   has parts/text-field's issue mark.
-3. **Control height:** 33 at regular since egui 0.37, where the spec says `density.control` (32).
+As of d163191, `DateField` draws the date-only form (`YYYY-MM-DD` typed or picked from a calendar)
+through `Field`: the required mark, the description, the help and the issue mark at the control's
+end. Not built: other formats, `min` and `max` with their issue and its action, the clear button,
+`today` and `weekStartsOn`, and Alt+ArrowDown. Its input is 32 tall with its edge since 68c156c.

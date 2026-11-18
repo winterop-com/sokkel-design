@@ -49,10 +49,11 @@ private `WORDS`.
 
 ## Where the renderers differ from the spec today
 
-- **sokkel-egui:** as of b7e1763 it draws the mark, a target line across the chart; the fills,
+- **sokkel-egui:** as of 1a87987 it draws the mark, a target line across the chart; the fills,
   stacking, steps, dashed references, the legend and its table, `ThresholdLegend` and the frame are
   not built.
-- **sokkel-tui:** missing as of 933b2da.
+- **sokkel-tui:** built as of 64f4b19: lines in braille, one series' area in blocks, stacked and
+  stepped series, dashed references, the legend as a row or a table, as the cells notes here say.
 
 ## Marks
 

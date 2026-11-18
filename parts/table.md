@@ -134,17 +134,20 @@ head, the columns menu, a stacked line and the resize handle's name) and each ro
 
 ## Where the renderers differ from the spec today
 
-- **sokkel-egui:** as of 9038006 it has rows at `density.row`, drawing only those in view; heads in
-  `table-head-*` that sort (ascending, descending, as given) and resize by their edge with a 64
+- **sokkel-egui:** as of 1a87987 it has rows at `density.row` (or a height set, or auto, a cell of two
+  lines), drawing only those in view; heads in `text.column-head` and `table-head-ink` that sort (ascending, descending, as given) and resize by their edge with a 64
   minimum; selection with a head checkbox and a "{count} selected" bar with Clear; an opened row on
   `secondary`; zebra from `table-zebra`; the Table and List variants (the list head at
   `density.panel-head`); stacked cards below its width (compact and labeled); row actions as a
-  menu; paging with a page size; cell editing (text, date, select); row reorder by its grip;
-  keyboard row navigation and the head row by keys; the toolbar line and the foot; words as fields.
-  Not yet: grouping, trees, detail rows, and its own loading and failed states (it is wrapped in
-  `PageState`).
-- **sokkel-tui:** as of 7bf2ece the table variant only: no bar, list variant, groups, trees,
-  details, row actions, paging, editing, resize, reorder or grid.
+  menu, inside the row's padding when the table fits its room (`minWidth` auto); a row's chevron and
+  its detail row; grouping by a column; paging with a page size; cell editing (text, date, select);
+  row reorder by its grip; keyboard row navigation and the head row by keys; the toolbar line and the
+  foot; words as fields. A grid of numbers by row and column (`EntryGrid`) is its own widget where
+  the web draws a grouped, banded, editable `DataTable`. Not yet: trees, and its own loading and
+  failed states (it is wrapped in `PageState`).
+- **sokkel-tui:** as of 64f4b19: the table and list variants, the bar, groups, trees, details, row
+  actions, paging, editing (text only) and column resize. Not yet: date and select editors,
+  reordering, and the grid.
 - **sokkel-ui, counts:** formatted with `en-US` in `WORDS`.
 
 ## Group heads

@@ -186,4 +186,5 @@ ArrowUp, Enter and Escape. Its 384 and 34 match sokkel-ui's. The differences:
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no app search or results, two-line rows or foot.
+As of 64f4b19, drawn from the spec in cells, with the app's search and results, two-line rows and the
+foot. Not yet: See all, and `minQuery` and `debounce` as the app's options.

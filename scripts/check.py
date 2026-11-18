@@ -1,4 +1,4 @@
-"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth (the sixteen-color role map and what lies under a layer included), glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
+"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, each word's message id and English against messages/en.json (sokkel-ui's catalogs at the pin), the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth (the sixteen-color role map and what lies under a layer included), its status vocabulary, glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
 import json, re, sys
 from pathlib import Path
 import jsonschema
@@ -22,6 +22,8 @@ every_set = [(th, sc, RESOLVED['themes'][th][sc]) for th in RESOLVED['themes'] f
 glyphs = json.load(open(ROOT / index.get('glyphs', 'glyphs.json')))
 glyph_names = {k for k in glyphs['glyphs']} | {k for k in glyphs['icons'] if not k.startswith('$')} | {'box'}
 renderer_ids = [r['id'] for r in index.get('renderers', [])]
+catalog_path = ROOT / 'messages' / 'en.json'
+catalog = json.load(open(catalog_path)) if catalog_path.exists() else None
 
 problems = []
 made = RESOLVED.get('sokkelUi', {})
@@ -64,6 +66,18 @@ for token, index16 in index.get('colorDepth', {}).get('ansi16', {}).get('paints'
     if index16 not in ('default', 'reverse') and index16 not in ansi: problems.append(f'index.json: colorDepth.ansi16.paints.{token} {index16} is neither default, reverse nor an ansi-* token')
 if set(index.get('colorDepth', {}).get('underLayer', {})) - {'$description'} != {'truecolor', 'ansi256', 'ansi16', 'none'}:
     problems.append('index.json: colorDepth.underLayer does not say each depth')
+
+st = index.get('statuses', {})
+for name, look in st.get('colors', {}).items():
+    for field in ('color', 'ink'):
+        if look.get(field) not in colors: problems.append(f"index.json: statuses.colors.{name}.{field} {look.get(field)} is not a color in every resolved theme and scheme")
+for family in ('run', 'health'):
+    for state, color in st.get(family, {}).items():
+        if state.startswith('$'): continue
+        if color not in st.get('colors', {}): problems.append(f'index.json: statuses.{family}.{state} {color} is not one of statuses.colors')
+for state in st.get('live', []):
+    if state not in st.get('run', {}) and state not in st.get('health', {}): problems.append(f'index.json: statuses.live {state} is not a state')
+if 'status-dot' not in glyphs['glyphs']: problems.append('glyphs.json: statuses draw status-dot, which it lacks')
 
 def ascii_ok(v): return all(isinstance(x, str) and x and all(32 <= ord(c) < 127 for c in x) for x in (v if isinstance(v, list) else [v]))
 for name, glyph in glyphs['glyphs'].items():
@@ -188,6 +202,16 @@ for f in sorted(list((ROOT / 'parts').glob('*.json')) + list((ROOT / 'patterns')
     for k, v in d.get('breakpoints', {}).items():
         at = v['width'].split()[1]
         if not at.isdigit(): length_ok(at, f'{name}: breakpoints.{k}.width')
+    messages = d.get('messages', {})
+    if catalog is None: problems.append('messages/en.json is missing: run bun scripts/resolve.ts')
+    else:
+        for k in d['words']:
+            if k not in messages: problems.append(f'{name}: words.{k} has no messages entry (its message id, or null where the catalog holds none)')
+        for k, m in messages.items():
+            if k not in d['words']: problems.append(f'{name}: messages.{k} is not a word'); continue
+            if m is None: continue
+            if m['id'] not in catalog: problems.append(f"{name}: messages.{k}: {m['id']} is not in sokkel-ui's catalogs at the pin")
+            elif catalog[m['id']] != m['en']: problems.append(f"{name}: messages.{k}: the English is {m['en']!r}, the catalog says {catalog[m['id']]!r}")
     samples = d.get('samples', {})
     for k, word in d['words'].items():
         if slots(word) and k not in samples: problems.append(f'{name}: words.{k} interpolates or counts, and has no samples')
@@ -199,7 +223,7 @@ for f in sorted(list((ROOT / 'parts').glob('*.json')) + list((ROOT / 'patterns')
             missing = wanted - set(sample['with'])
             if missing: problems.append(f'{name}: samples.{k}[{i}] leaves out {", ".join(sorted(missing))}')
     paints = [key for key in RESOLVED.get('paints', {}).get('tidevann', {}).get('light', {}) if key.startswith(d['id'] + '.')]
-    summary[str(name)] = {'status': d['status'], 'renderers': '/'.join(ren.get(r, {}).get('state', '?')[0] for r in renderer_ids), 'cells': 'cells' in d, 'states': len(d['states']), 'paints': len(paints), 'keys': len(d['keyboard']), 'words': len(d['words']), 'samples': sum(len(v) for v in samples.values())}
+    summary[str(name)] = {'status': d['status'], 'renderers': '/'.join(ren.get(r, {}).get('state', '?')[0] for r in renderer_ids), 'cells': 'cells' in d, 'states': len(d['states']), 'paints': len(paints), 'keys': len(d['keyboard']), 'words': len(d['words']), 'ids': sum(1 for m in messages.values() if m), 'samples': sum(len(v) for v in samples.values())}
 
 for entry in listed.values():
     if not (ROOT / entry['file']).exists(): problems.append(f"index.json: {entry['file']} does not exist")

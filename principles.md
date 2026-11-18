@@ -80,8 +80,11 @@ never draws one itself.
 
 **Rule.** An app's preferences open only as the settings dialog over the page the reader is on, on
 `#/settings`. It is never a page and never set into the layout. Back returns to that page. Reset to
-defaults resets the shown section. **Why.** Settings are a detour, not a place. Closing them puts the
-reader back where they were. **Renderer.** On the web, a hash route drawn as an overlay
+defaults resets the shown section. Light and dark are one of its settings: the scheme is chosen in
+Settings › Appearance and in the command palette only, the account menu's Appearance entry opens
+Settings there, and no top bar or account menu holds a scheme toggle. **Why.** Settings are a
+detour, not a place. Closing them puts the reader back where they were. The look has one home, so no
+two toggles disagree. **Renderer.** On the web, a hash route drawn as an overlay
 (`useOverlayRoute` in sokkel-ui). In a native app, an app state with a back stack.
 
 ### 10. A missing value is a quiet dash
@@ -233,3 +236,18 @@ control has keyboard focus, and its keys after them. A field's issues are said t
 while its control has focus. **Why.** A tip under a pointer that never moves is never seen, and a
 reason no one can read is a dead end. **Renderer.** The status line takes the focused control's tip
 in its note's place and gives the note back when focus moves on.
+
+### 24. One catalog translates every renderer
+
+**Rule.** Every word a part says has a message id, `<part>.<word>` (`dataTable.rows`,
+`callBar.leave`), and its English is an ICU MessageFormat string in sokkel-ui's catalogs, which the
+contract carries as `messages/en.json` at the pinned commit. Each spec's `messages` names the id
+and the English of each of its words. Renderers key their strings by these ids and read the same
+ICU catalogs, an app's translation spread over the English one, so one translation serves all
+three. A word a part takes from another part keeps that part's id (`field.required`), so it is
+translated once. **Why.** An app that ships in another language translates the library once, not
+once per renderer, and a renderer's words cannot drift from the web's. **Renderer.** sokkel-ui
+resolves words through `LocaleProvider` and `useWords` (a part's own `words`, then the catalog,
+then English). sokkel-egui and sokkel-tui look each word up by its id in the catalog the app gives,
+falling back to `messages/en.json`, and format it with an ICU MessageFormat library in the app's
+locale (plurals by the locale's rules, `{count, number}` grouped as the locale groups).

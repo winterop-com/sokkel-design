@@ -76,4 +76,4 @@ Emoji groups, `label` Emoji. The emoji's names come from the data set.
 
 ## Where sokkel-egui differs today
 
-As of 9038006 there is no emoji picker.
+As of 1a87987 there is no emoji picker.

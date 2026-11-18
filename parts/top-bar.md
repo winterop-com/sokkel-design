@@ -105,4 +105,4 @@ button match sokkel-ui within a point. The differences:
 4. **Not built:** crumbs as links, code crumbs, `trailEnds: ancestor` and the back chevron, and the
    phone layout.
 
-sokkel-tui draws it from the spec in cells, as of 7bf2ece.
+sokkel-tui draws it from the spec in cells, as of 64f4b19.

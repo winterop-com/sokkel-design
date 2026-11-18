@@ -127,4 +127,4 @@ focus, and the heights read the density's control sizes, so those are off this l
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no inGroup.
+Built as of 64f4b19: every variant and state, icon buttons, and `inGroup`.

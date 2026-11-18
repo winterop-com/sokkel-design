@@ -41,4 +41,9 @@ None: every word is the app's (the titles, the terms and values, the verbs).
 
 ## Where sokkel-egui differs today
 
-As of 9038006 there is no detail pane.
+As of 1a87987 there is no detail pane.
+
+## Where sokkel-tui differs today
+
+As of 64f4b19, `DetailPane` and `PaneSection` are drawn in the side panel, not yet compared against
+this spec.

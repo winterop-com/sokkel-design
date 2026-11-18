@@ -124,4 +124,4 @@ row's end. The differences:
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no lead, aside, `wordsOnly` or `singleLine`.
+Built as of 64f4b19, with the lead, the aside, `wordsOnly` and `singleLine`.

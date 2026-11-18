@@ -12,6 +12,9 @@ pins (open questions, D1). The TypeScript scripts run with bun and need no insta
   spec's `standsOn`) and `faded` form (drawn at a fading state's opacity), for a renderer that cannot
   blend, and the same over each other surface a spec names in `alsoStandsOn` (`flatOn`, `fadedOn`).
   Every combination a spec paints is resolved, whether or not its `states` lists it.
+  From the same commit it writes `messages/en.json`: every package's English catalog
+  (`packages/<package>/messages/en.json`) as one, each word's ICU message by its id, which the
+  specs' `messages` name and `check.py` holds them to.
   - `bun scripts/resolve.ts`: from the pinned commit, fetched over git into `.sokkel-ui/` (ignored).
   - `bun scripts/resolve.ts --ref main`: moves the pin to a branch, tag or commit, then resolves.
   - `bun scripts/resolve.ts --from ../sokkel-ui`: from a sokkel-ui checkout as it stands, its
@@ -29,7 +32,7 @@ pins (open questions, D1). The TypeScript scripts run with bun and need no insta
   names a token the pinned sokkel-ui lacks fails), painted states, word samples (a word that
   interpolates or counts must have them), each status against `index.json`, the index's version,
   the resolved paints against `schema/paints.schema.json`, each part's `renderers` (a stable part
-  sokkel-ui has built), its `standsOn` and `alsoStandsOn` (opaque surfaces in every theme), its `cells` and the glyphs
+  sokkel-ui has built), each word's message id and English against `messages/en.json`, the status vocabulary, its `standsOn` and `alsoStandsOn` (opaque surfaces in every theme), its `cells` and the glyphs
   they name, `index.json`'s `renderers`, `cells` and `colorDepth`, and `glyphs.json`'s forms, and
   that the resolved file was made from
   the pinned commit. Run it as `uv run --with jsonschema python scripts/check.py`.

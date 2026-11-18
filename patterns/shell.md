@@ -95,6 +95,16 @@ sokkel-egui has every item, its behavior and its accessibility included, not onl
 The other patterns (forms with their issue count, list beside detail, dashboards) come when an egui
 app needs them (D5).
 
+## Light and dark
+
+The scheme, light or dark, is chosen in two places only: Settings › Appearance, beside the theme and
+the density, and the command palette's appearance commands. The account menu's Appearance entry
+opens Settings at Appearance; the menu holds no Light, Dark or System rows of its own. No renderer
+puts a scheme toggle in the top bar or in the account menu (owner's decision, 2026-11-17). In
+sokkel-ui, `themeSettings` draws the Appearance section, `appearanceCommands` gives the palette its
+commands, and `AccountMenu`'s `onAppearance` opens the settings there (#685 removed its `scheme`
+rows).
+
 ## The settings route
 
 Settings are only ever a dialog over the page the reader is on, on `#/settings`. They are never a
@@ -138,14 +148,18 @@ sections. Actions follow their context: on Runs the button is "New", not "New ru
 
 ## Where the renderers differ from the spec today
 
-- **sokkel-egui:** as of 9038006, `Shell` lays out the `Rail`, the `TopBar` and the `StatusLine`
+- **sokkel-egui:** as of 1a87987, `Shell` lays out the `Rail`, the `TopBar` and the `StatusLine`
   (each with its own spec and drift) with the rail's foot cell level with the status line, and it
   has `PageHeader`, `PageState` and `Section` (each with its own spec and drift), `SettingsDialog`
   with the appearance settings and setting rows, `Dialog`, `Select` and the tooltip,
   `DropdownMenu`, `CommandPalette` on Mod+K, and the drawer on a phone; since egui 0.37 (24af75f)
   every widget names itself to a screen reader. `examples/runs` and `examples/tasks` are working
-  apps on it, with settings over the page on Mod+comma and from the rail. Still to build: the panel
-  and its toggle, and the banner. Settings is not a route: egui has no URL, so the dialog is open
+  apps on it, with settings over the page on Mod+comma and from the rail. The side panel
+  (`Shell::panel`, parts/side-panel) and the banner in its slot (parts/banner) are built, and the
+  account menu offers Appearance with no scheme rows (5a0158e). Still to build: the panel's toggle
+  in the corner. Settings is not a route: egui has no URL, so the dialog is open
   state the app holds.
   The page's scroll gutter is 11, where the spec says `scrollbar-width` (10).
-- **sokkel-tui:** as of 7bf2ece, the frame drawn from the spec in cells, with no panel.
+- **sokkel-tui:** as of 64f4b19, the frame drawn from the spec in cells, with the side panel and the
+  banner's slot. Not yet: what lies under the drawer flattened under its scrim (T2), and the panel's
+  toggle as this spec draws it.

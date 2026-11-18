@@ -59,4 +59,4 @@ and in all),
 
 ## Where sokkel-egui differs today
 
-As of 9038006 there is no board item panel or checklist.
+As of 1a87987 there is no board item panel or checklist.

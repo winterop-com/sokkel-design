@@ -145,5 +145,5 @@ phone. Its head, entry rows and group titles match sokkel-ui within a point. The
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no parents or flyouts, descriptions, strip, body,
-resize or reorder.
+As of 64f4b19, drawn from the spec in cells, with parents and their flyouts, descriptions, status
+dots, the strip and resizing by the edge. Not yet: the body and reordering.

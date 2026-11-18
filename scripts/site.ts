@@ -732,7 +732,7 @@ function darkText(o: Json): string {
 
 const KNOWN_KEYS = new Set([
     '$schema', 'id', 'kind', 'status', 'renderers', 'summary', 'sources', 'anatomy', 'standsOn', 'alsoStandsOn', 'options', 'sizes', 'layout', 'cells',
-    'states', 'variants', 'pieces', 'breakpoints', 'routes', 'keyboard', 'words', 'samples', 'appText', 'rendererSpecific', 'drift',
+    'states', 'variants', 'pieces', 'breakpoints', 'routes', 'keyboard', 'words', 'messages', 'samples', 'appText', 'rendererSpecific', 'drift',
 ])
 
 function sourceLink(repo: string, path: string): string {
@@ -930,14 +930,23 @@ function partPage(entry: (typeof entries)[number]) {
 
     const words = spec.words as Record<string, string | { one: string; other: string }> | undefined
     const samples = (spec.samples ?? {}) as Record<string, { with: Json; says: string }[]>
+    const messages = (spec.messages ?? {}) as Record<string, { id: string; en: string; with?: Json } | null>
+    const messageCell = (k: string) => {
+        const m = messages[k]
+        if (m === undefined) return ''
+        if (m === null) return '<span class="quiet">none in the catalog</span>'
+        const fixed = m.with ? ` <span class="quiet">with ${esc(Object.entries(m.with).map(([a, b]) => `${a} ${String(b)}`).join(', '))}</span>` : ''
+        return `<div><code>${esc(m.id)}</code>${fixed}</div><div class="quiet"><code>${esc(m.en)}</code></div>`
+    }
     if (words && Object.keys(words).length) {
         add(
             'words',
             'Words',
             table(
-                ['Key', 'English default', 'Says'],
+                ['Key', 'Message id and ICU English', 'English default', 'Says'],
                 Object.entries(words).map(([k, w]) => [
                     `<code>${esc(k)}</code>`,
+                    messageCell(k),
                     typeof w === 'string' ? `<q>${esc(w)}</q>` : `<div><span class="quiet">one</span> <q>${esc(w.one)}</q></div><div><span class="quiet">other</span> <q>${esc(w.other)}</q></div>`,
                     (samples[k] ?? [])
                         .map((s) => `<div class="sample"><span class="quiet">${esc(Object.entries(s.with).map(([a, b]) => `${a} ${b}`).join(', '))}</span> <q>${esc(s.says)}</q></div>`)

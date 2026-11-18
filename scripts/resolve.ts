@@ -1,7 +1,9 @@
 /**
  * Resolve sokkel-ui's tokens and the specs' paints into tokens/tokens.resolved.json, the plain values
  * a renderer that reads no CSS draws with: tokens.json read at the sokkel-ui commit sokkel-ui.json
- * pins (scripts/sokkel-ui.ts), and every part and pattern index.json lists.
+ * pins (scripts/sokkel-ui.ts), and every part and pattern index.json lists. From the same commit it
+ * writes messages/en.json, every package's English catalog (`packages/<package>/messages/en.json`)
+ * as one: each word's ICU message by its id, which the specs' `messages` name.
  *
  *   bun scripts/resolve.ts                          write the resolved file from the pinned commit
  *   bun scripts/resolve.ts --ref main               move the pin to a branch, tag or commit, and write it from there
@@ -12,14 +14,15 @@
  * a value written in a form the evaluator does not know yet, which would otherwise only show as a
  * renderer asking for a token that is not there.
  */
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
-import { join } from 'node:path'
+import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs'
+import { dirname, join } from 'node:path'
 
 import { paintsOf, type ResolvedPaint, type Spec } from './paints.ts'
 import { resolveTokens, schemes, unresolved, type TokenSource } from './resolve-tokens.ts'
 import { ROOT, sokkelUi } from './sokkel-ui.ts'
 
 const TARGET = join(ROOT, 'tokens', 'tokens.resolved.json')
+const CATALOG = join(ROOT, 'messages', 'en.json')
 const index = JSON.parse(readFileSync(join(ROOT, 'index.json'), 'utf8')) as {
     tokens: { cssOnly: string[] }
     parts: { file: string }[]
@@ -86,6 +89,26 @@ function written(value: unknown, indent = ''): string {
 }
 const resolved = `${written(result)}\n`
 const count = Object.values(result.paints).reduce((sum, theme) => sum + Object.keys(theme.light).length + Object.keys(theme.dark).length, 0)
+/** Every package's English catalog as one, by id, sorted as sokkel-ui sorts its own. */
+function catalogOf(): string {
+    const merged: Record<string, string> = {}
+    for (const pkg of source.list('packages')) {
+        let text: string
+        try {
+            if (!source.list(`packages/${pkg}`).includes('messages')) continue
+            text = source.read(`packages/${pkg}/messages/en.json`)
+        } catch {
+            continue
+        }
+        for (const [id, message] of Object.entries(JSON.parse(text) as Record<string, string>)) {
+            if (id in merged) throw new Error(`${id} is in two packages' catalogs`)
+            merged[id] = message
+        }
+    }
+    const sorted = Object.fromEntries(Object.entries(merged).sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0)))
+    return `${JSON.stringify(sorted, null, 4)}\n`
+}
+const catalog = catalogOf()
 const said = `sokkel-ui at ${source.commit}${source.checkout === undefined ? '' : ` (${source.checkout})`}`
 
 if (process.argv.includes('--check')) {
@@ -93,8 +116,14 @@ if (process.argv.includes('--check')) {
         console.error(`${TARGET} is not what ${said}'s tokens and the specs make: run bun scripts/resolve.ts`)
         process.exit(1)
     }
-    console.log(`tokens/tokens.resolved.json matches ${said} and the specs: ${String(count)} paints`)
+    if (!existsSync(CATALOG) || readFileSync(CATALOG, 'utf8') !== catalog) {
+        console.error(`${CATALOG} is not ${said}'s catalogs: run bun scripts/resolve.ts`)
+        process.exit(1)
+    }
+    console.log(`tokens/tokens.resolved.json matches ${said} and the specs: ${String(count)} paints; messages/en.json its catalogs`)
 } else {
     writeFileSync(TARGET, resolved)
-    console.log(`wrote tokens/tokens.resolved.json from ${said}: ${String(count)} paints`)
+    mkdirSync(dirname(CATALOG), { recursive: true })
+    writeFileSync(CATALOG, catalog)
+    console.log(`wrote tokens/tokens.resolved.json from ${said}: ${String(count)} paints; messages/en.json: ${String(Object.keys(JSON.parse(catalog)).length)} messages`)
 }

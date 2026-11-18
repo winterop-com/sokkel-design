@@ -78,13 +78,13 @@ actions, which follow their context.
 
 ## Where sokkel-egui differs today
 
-As of 9038006, `Section` is built (`crates/core/src/widgets/section.rs`), with the meta, the
-actions, a description the head grows to hold, and `flush`. The differences:
+As of 1a87987, `Section` is built (`crates/core/src/widgets/section.rs`), with the meta, the
+actions, a description the head grows to hold, `flush` and the flat variant. The differences:
 1. **Insets:** 16 across the head and round the body at both densities, as `Card` padded them. The
    spec says `density.panel-pad` (12 / 8).
-2. **Not built:** the flat variant, the tones critical and graph, and `fill`.
+2. **Not built:** the tones critical and graph, and `fill`.
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no `fill`. A critical section's top line is the
+Built as of 64f4b19, `fill` included. A critical section's top line is the
 heavy rule (`rule-heavy`), and the graph tone's dot grid `grid-dot` (`glyphs.json`).

@@ -102,15 +102,14 @@ hint, description, help, fallback, placeholder and every issue's text.
 
 ## Where the renderers differ from the spec today
 
-sokkel-egui:
-1. **The error is a line under the field** (in `critical-ink`, replacing the help), so the form
-   changes height. The spec puts it behind a mark at the control's end.
-2. Width 280 unless set; the spec fills the room given.
-3. Not built: hint, description, fallback, required marks, the warning tone, issue actions,
-   multiline, mono, numeric, read only, the phone sizes.
+sokkel-egui, as of 1a87987:
+1. Width 280 unless set; the spec fills the room given.
+2. Not built: `keyHint`, the fallback, the warning tone, issue actions, multiline, mono, numeric,
+   read only, the phone sizes.
 
-4. **Height:** since egui 0.37 (b7e1763) a text input is 33 tall at regular, where the spec says
-   `density.control` (32).
+Since d163191 the field draws through `Field`: the required mark, the hint, the description, the
+help and the issue mark at the control's end, and fields line up across a `Columns` row. Inputs are
+32 tall with their edge since 68c156c, as `density.control` says.
 
 Its invalid focus ring (3px, `critical` at 20 / 40
 percent, on focus only) is the spec's.
@@ -123,4 +122,5 @@ invalid ring (`invalid-ring`, `invalid-ring-width`) on focus only, in both schem
 
 ## Where sokkel-tui differs today
 
-As of 7bf2ece, drawn from the spec in cells, with no multiline, inRow or busy.
+Built as of 64f4b19: the frame, the issue mark and its popover, multiline, `inRow`, busy and read only.
+A masked control is parts/secret-field's.

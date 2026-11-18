@@ -76,4 +76,4 @@ parts/reaction-bar's, passed through `words.reactionBar`.
 
 ## Where sokkel-egui differs today
 
-As of 9038006 there is no call bar.
+As of 1a87987 there is no call bar.

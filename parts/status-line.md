@@ -71,4 +71,4 @@ tones, and the live dot. The differences:
 3. **Room:** the note takes up to half the row. The spec keeps up to 70 percent for the facts and
    cuts the note first.
 
-sokkel-tui draws it from the spec in cells, as of 7bf2ece.
+sokkel-tui draws it from the spec in cells, as of 64f4b19.
