@@ -267,29 +267,15 @@ contract.
 | `CodeEditor`'s `onFollowLink`, `activeLine: 'always'` and required-key snippets | `parts/code-editor` (stable) | Done |
 | `Tree`'s `openOnChoose`; `Markdown`'s `live` and `highlight`; `TrackList`'s `href` and windowing | None of these is specified | Leave them out until an egui or terminal app needs one? |
 
-### Parts sokkel-ui has, staged
+### Parts sokkel-ui has, specified
 
-The rule is that what lands in sokkel-ui is specified here in the same round. sokkel-egui built
-these sokkel-ui parts before they had a spec; this round specified the most used (`banner`,
-`side-panel` with its panel section, `problem`, `json-tree`, and the fields egui built:
-`yes-no-field`, `time-field`, `computed-field`, `repeated-group`, `period-picker`, `tree-select`,
-with `secret-field` for the terminal's c6). The rest are staged for the next round, egui's state
-noted so it has a home meanwhile:
-
-| sokkel-ui part | sokkel-egui (as of) | Note |
-|---|---|---|
-| `GroupLabel` | built (1a87987) | A label over a group of controls; may go into `side-panel`'s or a form's spec |
-| `IssueCount` | built (d163191), errors only | The count beside a form's verb (principle 12); its words are in `parts/text-field` (`issueCount.*`). A form pattern would hold it |
-| `ApiLink` | built (d163191) | |
-| `ServerMenu` | built: dot, name, version, a menu of state, facts, Check again, the app's items; no checks tooltip | |
-| `ItemCard` | built: title, code, status, description, facts, selected | |
-| `SortableGrid` | built: drag to reorder | The drag-and-drop family |
-| `EntryGrid` | built (68c156c) as its own widget | The web draws it with `DataTable` grouped, banded and editable: a `table` option rather than a part |
-| `Unfoldable` | built, `forced` (1a87987) | |
-| `ChoiceList` | built, with theme samples (1a87987) | Settings' theme list (`useThemeSettings`' `themeList`) |
-| `Badge` (`kind`) | built as `ChipTone::Kind` | A chip part |
-| `Stat` (size lg) | built, equal-height tiles | A stat part beside `stat-panel` |
-| `DescriptionList` (`columns`) | built, two columns stacked | With `detail-pane` |
+The parts sokkel-egui built before they had a spec are all specified now, as they are in sokkel-ui
+11f3a2b: `group-label`, `unfoldable`, `choice-list`, `badge` (with `kind`), `stat` (with size
+`lg`), `description-list` (with `columns`), `api-link`, `issue-count`, `server-menu`, `item-card`
+and `sortable-grid`, each with egui's state in its `renderers` and `drift`. `Badge`, `Stat` and
+`DescriptionList` had no spec of their own to extend, so each is a part. `EntryGrid` is no part:
+sokkel-ui draws it as `parts/table` grouped, banded and editable, and the table spec now names
+`editing` and `cellFocus`.
 
 ### The chart family, staged
 

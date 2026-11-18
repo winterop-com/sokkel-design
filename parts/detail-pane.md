@@ -18,7 +18,7 @@ Sources: sokkel-ui `packages/core/src/components/DetailPane.tsx` (`DetailPane`, 
 | heading | An `h3`: `text.xs` at 500, uppercase, tracked wide, in `faint`, the small heading every group shares |
 | heading row | With the section's actions: at least 28 tall, the actions at its end, 4 apart |
 | summary | A sentence over the facts, `text.sm` |
-| facts | Terms (`text.xs`, `muted-foreground`) beside values (`text.sm`), 12 between, the pairs 8 apart; a missing value a dash in `faint` |
+| facts | Terms (`text.xs`, `muted-foreground`) beside values (`text.sm`), 12 between, the pairs 8 apart; a missing value a dash in `faint`: [`description-list`](description-list.md) side by side |
 | content | The app's own: a preview, a run's steps, a change |
 | actions | The thing's verbs on a line, padded 16 by 12, 8 apart, wrapping |
 
