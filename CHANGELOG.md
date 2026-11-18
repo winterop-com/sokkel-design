@@ -4,6 +4,10 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.31.2
+
+- No contract changes: the release fixes a graph's first fit, which the contract does not cover.
+
 ## 0.31.1
 
 - tokens: `leading-*` tokens (`leading-code`, 24 px at the default) are resolved into the lengths; they were left out.
