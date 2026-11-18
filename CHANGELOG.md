@@ -7,6 +7,11 @@ of their own (D4); a change to a part is a line here under its name.
 ## Unreleased
 
 - Renderers: sokkel-tui as of b99664f (contract 0.31.0): banner on its own paints (`banner.{tone}.rest.container`), the side panel and the detail pane on `side-panel.base.rest.panel`, the secret field's mask and the chart family's stale, swatch and spark-levels glyphs from `glyphs.json`; not yet message ids, the status vocabulary, the shell's rule of 0.31.0, the secret field's reveal, the side panel's tabs and head, problem, json-tree and the new fields. The table as of 555b9ae: heads wrap to two rows (`layout.headLines`). Banner's paints drift is gone.
+- prompt: a new pattern, a dialog that asks for one value (sokkel-ui's `PromptDialog`): parts/dialog
+  at sm with one text field or secret field, Cancel and Submit, Enter submitting, the app's check as
+  the field's issue, busy while the value is taken and the failure said in the status slot. Words
+  `promptDialog.*`. The pin moves to sokkel-ui 7f043d4 (tokens unchanged). Resolves the Prompt
+  question in open-questions (c6).
 
 ## 0.32.1
 

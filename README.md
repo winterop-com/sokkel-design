@@ -16,8 +16,8 @@ section, page state, select, dropdown menu, tooltip, dialog, settings dialog, co
 timeline, clip timeline, emoji picker, reaction bar, composer, message composer, call bar, letter,
 detail pane, board item panel, code editor, date field, banner, side panel, problem, JSON tree,
 secret field, yes/no field, time field, computed field, repeated group, period picker, tree select,
-and the chart family's first: chart, dashboard panel, stat panel, time series panel) and one
-pattern (the shell), at the contract version `index.json` names, which moves in lockstep with
+and the chart family's first: chart, dashboard panel, stat panel, time series panel) and two
+patterns (the shell, and the prompt: a dialog asking for one value), at the contract version `index.json` names, which moves in lockstep with
 sokkel-ui (`CHANGELOG.md`). Every word a part says carries its message id, and the contract carries
 sokkel-ui's ICU catalogs (`messages/en.json`), so one translation serves every renderer. sokkel-ui checks its components against a pinned copy of the specs
 (`src/parts.test.ts`); sokkel-egui builds its widgets from them and takes its resolved tokens and
@@ -327,8 +327,8 @@ stable too; their `drift` says what each renderer has not compared yet.
 
 ## Plans
 
-- **Patterns (D5).** The shell now; other patterns (forms with their issue count, list beside detail,
-  dashboards) when an egui app needs them.
+- **Patterns (D5).** The shell and the prompt now; other patterns (forms with their issue count,
+  list beside detail, dashboards) when an egui app needs them.
 - **One app shape (D6).** The plan is one app shape as data, which every target reads: the places,
   the route ids, the settings sections, the palette's commands, the shortcuts, the words and the
   appearance keys, with a starter in each renderer's `examples/`. Its schema and fixtures come when
