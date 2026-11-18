@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.31.0
 
 - Status: nothing in the contract is a draft. `section` and `text-field` are stable, their drift
   saying what egui and the terminal have not compared yet; the schema and `check.py` take `stable`
