@@ -101,7 +101,7 @@ The scheme, light or dark, is chosen in two places only: Settings › Appearance
 the density, and the command palette's appearance commands. The account menu's Appearance entry
 opens Settings at Appearance; the menu holds no Light, Dark or System rows of its own. No renderer
 puts a scheme toggle in the top bar or in the account menu (owner's decision, 2026-11-17). In
-sokkel-ui, `themeSettings` draws the Appearance section, `appearanceCommands` gives the palette its
+sokkel-ui, `useThemeSettings` draws the Appearance section, `appearanceCommands` gives the palette its
 commands, and `AccountMenu`'s `onAppearance` opens the settings there (#685 removed its `scheme`
 rows).
 
