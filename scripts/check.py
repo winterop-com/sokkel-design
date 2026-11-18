@@ -1,4 +1,4 @@
-"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, each word's message id and English against messages/en.json (sokkel-ui's catalogs at the pin), the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth (the sixteen-color role map and what lies under a layer included), its status vocabulary, glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
+"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, each word's message id and English against messages/en.json (sokkel-ui's catalogs at the pin), the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth (the sixteen-color role map and what lies under a layer included), its status vocabulary, each icon's Nerd Font codepoint against vendor/nerd-fonts.json, glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
 import json, re, sys
 from pathlib import Path
 import jsonschema
@@ -93,6 +93,14 @@ for name, icon in glyphs['icons'].items():
     m = re.match(r'^U\+([0-9A-F]{4,5})$', icon.get('nerdFont', ''))
     if not m or not (0xE000 <= int(m.group(1), 16) <= 0xF8FF or int(m.group(1), 16) >= 0xF0000): problems.append(f'glyphs.json: icons.{name}.nerdFont is not a private-use codepoint')
     if not icon.get('unicode') or not ascii_ok(icon.get('ascii', '')): problems.append(f'glyphs.json: icons.{name} needs a unicode form and a printable ASCII one')
+nerd_path = ROOT / 'vendor' / 'nerd-fonts.json'
+nerd = json.load(open(nerd_path))['codepoints'] if nerd_path.exists() else None
+if nerd is None: problems.append('vendor/nerd-fonts.json is missing: run python3 scripts/nerd-fonts.py <tag>')
+for name, icon in glyphs['icons'].items():
+    if name.startswith('$') or nerd is None: continue
+    known = nerd.get(icon.get('nerdFontName', ''))
+    if known is None: problems.append(f"glyphs.json: icons.{name}.nerdFontName {icon.get('nerdFontName')} is not a glyph of the vendored Nerd Fonts")
+    elif known != icon.get('nerdFont'): problems.append(f"glyphs.json: icons.{name}.nerdFont is {icon.get('nerdFont')}, Nerd Fonts puts {icon['nerdFontName']} at {known}")
 missing_sources = [k for sc in ('light', 'dark') for k, v in RESOLVED.get('paintSources', {}).get(sc, {}).items() if 'standsOn' not in v]
 if missing_sources: problems.append(f'tokens.resolved.json: {len(missing_sources)} paint sources say no standsOn: run bun scripts/resolve.ts')
 
@@ -150,6 +158,7 @@ for f in sorted(list((ROOT / 'parts').glob('*.json')) + list((ROOT / 'patterns')
     entry = listed.get(d['id'])
     if entry is None: problems.append(f'{name}: not listed in index.json')
     elif entry.get('status') != d['status']: problems.append(f"{name}: status {d['status']}, index.json says {entry.get('status')}")
+    if d['status'] != 'stable': problems.append(f"{name}: status {d['status']}: nothing in the contract is a draft")
     ren = d.get('renderers', {})
     if d['status'] == 'stable' and ren.get('sokkel-ui', {}).get('state') == 'missing':
         problems.append(f'{name}: stable, and sokkel-ui has not built it (renderers)')

@@ -48,13 +48,14 @@ Add shows with `onAdd` below `max`; Remove with `onRemove` above `min`; Move up 
 | rest | the row box `border` edge on no ground; the title in the page's ink |
 | hover | Add, a Move or a Remove: `hover` ground in `foreground` (parts/button's ghost) |
 | focus (keyboard) | parts/button's focus outline on a button or the grip |
-| shut | Move up on the first row, Move down on the last: `disabled-opacity`, out of the tab order |
+| shut | Move up on the first row, Move down on the last: `disabled-opacity`, still reached by Tab, saying why (`words.first`, `words.last`) in its tooltip and to a screen reader (principle 13) |
 | invalid / warning | the issue mark in `critical-ink` or `warning-ink` beside the title |
 | dragging | inside a `RepeatedDrag`: the row lifts and the others move aside |
 
 ## Keyboard
 
-- Tab reaches Add, the issue mark, then each row's grip, Move up, Move down, Remove and fields.
+- Tab reaches Add, the issue mark, then each row's grip, Move up, Move down, Remove and fields; a
+  shut Move too, which says why.
 - Enter or Space on Add, a Move or a Remove presses it.
 - Inside a `RepeatedDrag`, with a grip focused, ArrowUp and ArrowDown move the row a place, the focus
   following it; Space or Enter picks it up and puts it down; Escape puts a dragged row back.
@@ -62,10 +63,10 @@ Add shows with `onAdd` below `max`; Remove with `onRemove` above `min`; Move up 
 ## Words
 
 `add` Add, `remove` Remove, `moveUp` Move up, `moveDown` Move down, `item` Item {place},
-`required` required, and the issue words `issueCritical` Error: and `issueWarning` Warning:
-(message ids `issue.*`). `item` is a function in sokkel-ui of the row's index from 0, so its catalog
-entry is null: it formats rather than says. Move up is named `words.moveUp: words.item`, Remove
-`words.remove words.item`.
+`itemAction` {action}: {item}, `first` Already first, `last` Already last, `required` required,
+and the issue words `issueCritical` Error: and `issueWarning` Warning: (message ids `issue.*`).
+`item` takes the row's place counted from 1. Every row control is named one way, `itemAction` of its
+action and the row's name: "Move up: Item 2", "Move down: Item 2", "Remove: Item 2".
 
 ## Cells
 

@@ -64,9 +64,9 @@ Sources: sokkel-ui `packages/core/src/components/TreeSelect.tsx` (`TreeSelect`, 
 ## Words
 
 `placeholder` Choose, `search` Search, `clear` Clear, `empty` Nothing matches., `selected` {count}
-chosen, `actions` Actions, `loading` Loading, `failed` This level did not load., `retry` Try again,
+chosen, `loading` Loading, `failed` This level did not load., `retry` Try again,
 `searching` Searching, `searchFailed` The search did not answer. Each has its own `treeSelect.*`
-id. `actions` is Tree's row-menu word, never said here, since a tree select gives its rows no menu.
+id.
 
 ## Cells
 

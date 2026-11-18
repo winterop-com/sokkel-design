@@ -49,12 +49,11 @@ with it, sealed where `useSchemaForm`'s `sealed` says a secret is set.
 | replacing | The empty input, the reveal and Cancel; focus moves into the input |
 | shown | The secret as text; the reveal says `words.hide` and is pressed |
 | disabled | `input/50` ground at `disabled-opacity`, no buttons, cursor not-allowed |
-| invalid | `critical/80` edge; with focus it stays `critical/80` and takes the frame's 1px `ring` ring |
-| warning | `warning/80` edge; with focus as invalid |
+| invalid | `critical/80` edge; with focus the invalid ring (`invalid-ring`, `invalid-ring-width`) round the frame |
+| warning | `warning/80` edge; with focus a 1px `warning/25` ring |
 
-The invalid and warning edges with focus differ from the other typed fields (parts/date-field): the
-field's box puts the issue's edge on its first child (`FIELD_EDGE`), and the frame takes the full
-edge and the invalid ring (`ISSUE_WITHIN_EDGE`) only when `bare`. The spec states what it draws.
+The frame wears the issue's edge and ring itself (`ISSUE_WITHIN_EDGE`), in a field or bare, as the
+other typed fields do (parts/date-field).
 
 ## Keyboard
 

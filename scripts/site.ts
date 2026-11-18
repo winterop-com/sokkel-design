@@ -557,7 +557,7 @@ function partsIndex() {
 <header class="page-head">
 <p class="eyebrow">Specs</p>
 <h1>Parts and patterns</h1>
-<p class="lede">Each part has one spec: its anatomy, options, sizes per density, states, paints per state, keys and words. <strong>Stable</strong>: as it landed in sokkel-ui, or drawn from its spec and compared side by side. <strong>Draft</strong>: it may still change shape. Each renderer says how far it has built the part (<strong>built</strong>, <strong>partial</strong> or <strong>missing</strong>), as of a commit of its own repository.</p>
+<p class="lede">Each part has one spec: its anatomy, options, sizes per density, states, paints per state, keys and words. Every part is <strong>stable</strong>: the contract holds it as sokkel-ui draws it. Each renderer says how far it has built the part (<strong>built</strong>, <strong>partial</strong> or <strong>missing</strong>), as of a commit of its own repository.</p>
 </header>
 <section class="block"><h2>Parts</h2>${table(head('Part'), rows(parts), 'index stack')}</section>
 ${patterns.length ? `<section class="block"><h2>Patterns</h2>${table(head('Pattern'), rows(patterns), 'index stack')}</section>` : ''}`

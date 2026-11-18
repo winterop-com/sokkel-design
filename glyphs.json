@@ -142,7 +142,7 @@
         }
     },
     "icons": {
-        "$description": "By the Lucide name sokkel-ui draws, kebab-cased. `nerdFont` is the codicon's codepoint in Nerd Fonts (its name in `nerdFontName`).",
+        "$description": "By the Lucide name sokkel-ui draws, kebab-cased. `nerdFont` is the codicon's codepoint in Nerd Fonts (its name in `nerdFontName`). Each name and codepoint is the one Nerd Fonts publishes, checked against vendor/nerd-fonts.json (scripts/nerd-fonts.py).",
         "search": {"nerdFont": "U+EA6D", "nerdFontName": "nf-cod-search", "unicode": "⌕", "ascii": "/"},
         "x": {"nerdFont": "U+EA76", "nerdFontName": "nf-cod-close", "unicode": "×", "ascii": "x"},
         "check": {"nerdFont": "U+EAB2", "nerdFontName": "nf-cod-check", "unicode": "✓", "ascii": "*"},

@@ -53,7 +53,7 @@ the bar) or `onAddReaction` (the app's own), `bar`.
 ## Words
 
 `label` Reactions, `more` More reactions, `react` Add a reaction, `count` {label}, {count} (the
-count not grouped: `thumbs up, 1200`). The full list's words are parts/emoji-picker's.
+count grouped: `thumbs up, 1,200`). The full list's words are parts/emoji-picker's.
 
 ## Where sokkel-egui differs today
 

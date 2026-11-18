@@ -43,6 +43,9 @@ pins (open questions, D1). The TypeScript scripts run with bun and need no insta
   resolved paints with their opaque forms; the parts index shows each renderer's state.
   Its stylesheet and page script are in `site/`. `bun scripts/site.ts`; `.github/workflows/pages.yaml`
   runs it on main and publishes `_site/` to GitHub Pages.
+- `nerd-fonts.py <tag>`: vendors the codicons of Nerd Fonts' published `glyphnames.json` at a
+  release tag into `vendor/nerd-fonts.json` (v3.5.1 now), which `check.py` holds every icon's
+  `nerdFontName` and `nerdFont` codepoint to, so they cannot drift.
 - `fmt.py <files>`: formats JSON with 4-space indents, keeping an object or array on one line when it
   fits in 120 columns.
 

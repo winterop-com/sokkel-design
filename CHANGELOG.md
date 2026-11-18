@@ -6,6 +6,22 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- Status: nothing in the contract is a draft. `section` and `text-field` are stable, their drift
+  saying what egui and the terminal have not compared yet; the schema and `check.py` take `stable`
+  alone, and the README says what status means.
+- Words: counts group their thousands in every sample ("1,200 errors"), as sokkel-ui's English and
+  ICU now both do; ids for the words that had none (`letter.to`, `secretField.replaceLabel`,
+  `repeatedGroup.item`, `schema.*` for code-editor's issues, `panel.*` for time-series-panel's
+  column names); json-tree `items`; repeated-group `itemAction`, `first`, `last`; tree-select loses
+  `actions`; period-picker's year messages write it without groups.
+- Parts follow sokkel-ui's fixes: secret-field's issue edge and invalid ring in a field;
+  yes-no-field's edge on its choice; period-picker's `fieldInvalid` on its trigger; repeated-group's
+  shut Moves reachable with a reason; problem's mark in its tone's ink; side-panel in
+  `sidebar-foreground`; tree-select's Clear with the focus outline.
+- glyphs: every icon's Nerd Font name and codepoint checked against Nerd Fonts v3.5.1's
+  `glyphnames.json`, vendored as `vendor/nerd-fonts.json` (`scripts/nerd-fonts.py`); all were right.
+- The pin moves to sokkel-ui f9b9c45.
+
 - themes: terminal, phosphor and phosphor-bright set their capital table heads at `text-sm`, the cells' size; capitals with tracking already stand a step above the rows.
 - Message ids: every spec's words carry their id in sokkel-ui's catalogs, `messages` (`{ id, en,
   with? }` by word, `null` where the catalog holds none), the English an ICU MessageFormat string

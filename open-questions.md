@@ -30,7 +30,7 @@ Decided **a** before 1.0: `index.json`'s `version` is the sokkel-ui release the 
 
 ### 4. Parts: one contract version, a status, a changelog
 
-Decided **a**: no version per part. Each part and pattern says `draft` or `stable` (README,
+Decided **a**: no version per part. Each part and pattern says its status, now always `stable` (README,
 "Status"), and `CHANGELOG.md` has a line for each change. Done.
 
 ### 5. Patterns: the shell now
@@ -110,34 +110,21 @@ These were found while writing the specs. Nothing was changed.
 | sokkel-ui `DashboardPanel`, `StatPanel` | The panel's tools keep their focus outline `focus-ring-offset` off, the stat tile's tools none; the panel's edge is `border-strong`, the tile's `border` | **Decided:** one: the panel's `border-strong` edge and its tools' focus outline, `focus-ring-offset` off. Done in sokkel-ui (`parts/stat-panel`) |
 | sokkel-ui `StatPanel` | The target meter's track and fill are `bg-current` (the reading's run-time tone) at 15 percent and in full, with no token | **Decided:** the track is `muted` (`on-fill` at 25 percent on a filled tile); the fill keeps the reading's run-time color. Done in sokkel-ui (`parts/stat-panel`, `track`) |
 
-### Words and their message ids (found while giving every spec word its id)
+### Words and their message ids, and this round's findings
 
-| Where | Finding | Question |
-|---|---|---|
-| sokkel-ui catalogs | A count's ICU message groups thousands (`{count, plural, one {# row} other {# rows}}` says "1,200 rows"), while the English defaults, as functions, do not ("1200 rows", which the specs' samples hold). With a `LocaleProvider` and `en.json`, the same word reads two ways | Group thousands in the English defaults too (`Intl.NumberFormat` in the locale), and move the samples to "1,200"? Recommendation: yes, the catalog is the one source every renderer reads |
-| sokkel-ui `SCHEMA_WORDS.say` | A schema issue's words (`parts/code-editor`, `issue.*`) are one function of the issue, with no catalog message (`null` in `SCHEMA_MESSAGES`), so a catalog cannot translate them | Give each issue kind a message (`schema.issue.required`, ...) or one select on the kind? Recommendation: one message per kind |
-| sokkel-ui `LETTER_WORDS.to` | Joins the names itself; no catalog message | An ICU list (`to {names, list}`)? The library's ICU subset would need `list` |
-| sokkel-ui charts `usePanelFields` | The data view's column names (`parts/time-series-panel`'s `category`, `series`, `value`) are inline defaults with no words part, so they have no ids | A `PANEL_FIELDS` part with ids? Recommendation: yes |
-| sokkel-ui `SecretField` | `setWhen` and `replaceLabel` format rather than say (`null` messages) | As above: messages with an argument (`Set {when}`, `Replace {label}`)? |
-| sokkel-ui `JsonTree`, `TreeSelect` | `jsonTree.keys` and `treeSelect.selected` write the count with `String(count)` ("1200 keys", "1200 chosen") where the catalog groups it | The same question as the first row |
-| sokkel-ui `RepeatedGroup` | `item` formats rather than says (a 0-based index; the spec writes `Item {place}` from 1), and Move up and Remove join it by hand, two ways ("Move up: Item 1", "Remove Item 1"), so neither is one translatable message | Messages with the item as an argument (`Move {item} up`, `Remove {item}`)? |
-| sokkel-ui `PeriodLabel` | Month names and period types are a list and a record, so the spec gives each entry its own word (`monthNames.0` to `.11`, `types.daily`), as their ids already are | Keep that shape in specs for list words? Recommendation: yes, it matches the ids |
-
-Every other spec word has its id and its English in the catalog (`messages` in each spec). A word
-listed here is `null` in its spec's `messages` until sokkel-ui gives it a message.
-
-### Found while specifying this round's parts
-
-| Where | Finding | Question |
-|---|---|---|
-| sokkel-ui `SecretField` | With focus, an invalid or warning field that is not `bare` keeps its `critical/80` (`warning/80`) edge and shows the plain 1px `ring` ring: `ISSUE_WITHIN_EDGE` applies only when `bare`, and Field's `focus-visible` edge rule never matches the frame, a div. Every other typed field shows the full edge and the invalid ring | Apply `ISSUE_WITHIN_EDGE[tone]` always, as `TypedField` does? Recommendation: yes; the spec states today's look until then |
-| sokkel-ui `YesNoField`, `PeriodPicker` | Field puts its issue edge (and `pr-9`) on its first child, which here is a wrapper with no border: the edge is never drawn, and on PeriodPicker the padding squeezes the picker | Give these fields the issue edge on their control? |
-| sokkel-ui `RepeatedGroup` | Move up on the first row and Move down on the last are disabled and out of the tab order with no reason, against principle 13 | Keep them reachable with a reason, or leave them out? |
-| sokkel-ui `TreeSelect` | `actions` is among its words (from `TreeWords`) but never said: it gives its tree no row actions; the search's clear button has no focus look of its own | Drop the word; give the clear button the frame's focus look |
-| sokkel-ui `Problem` | Its mark is in the plain tone (`critical`, `warning`) where Banner and page-state use the `-ink` inks; it rounds only its physical right corners (`rounded-r-control`) and rules its physical left | One ink for marks; logical sides? |
-| sokkel-ui `JsonTree` | A folded list's count is a bare number with no word | Say it as `keys` does? |
-| sokkel-ui `SidePanel` | It stands on `sidebar` but takes the page's `foreground` ink, not `sidebar-foreground` (they differ in steel) | Use `sidebar-foreground`? |
-
+**Done** (owner's standing instruction to fix them; sokkel-ui #689, #690, #691): every English
+count word groups its thousands as the ICU messages do ("1,200 errors"), and a number in a plain ICU
+argument is written in the locale, a year with `::group-off`; the specs' samples say "1,200". The
+words that had no catalog message have one: `letter.to` (the recipients listed in the locale),
+`secretField.replaceLabel` (given the label as it reads mid-sentence), `repeatedGroup.item` (the
+place from 1) with `itemAction`, `first` and `last`, every schema issue (`schema.*`, `sayIssue`),
+and the panel's column names (`panel.*`). `secretField.setWhen` takes the live relative time (a
+node) and `schemaForm.say` an issue and a schema, so they still format, `null` in their specs.
+SecretField wears the issue edge and the invalid ring in a field; YesNoField draws the issue's edge
+on its choice and PeriodPicker on its trigger (`data-field-edge="own"`); RepeatedGroup's shut Moves
+stay reachable and say why; TreeSelect drops `actions` and its Clear has the focus outline;
+Problem's mark is in its tone's ink on its logical sides; SidePanel writes in `sidebar-foreground`;
+JsonTree says a folded list's `items`.
 
 ## Open for the terminal
 
