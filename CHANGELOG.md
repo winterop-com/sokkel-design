@@ -6,6 +6,9 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- New parts, specified as they are in sokkel-ui 11f3a2b, where sokkel-egui built them before a spec: `group-label`, `unfoldable` (with `forced`), `choice-list`, `badge` (its variants and `kind`), `stat` (`plain` and `tile`, size `lg`), `description-list` (`side`, `stacked` and `row`, `columns`, size `sm`), `api-link`, `issue-count`, `server-menu`, `item-card` and `sortable-grid`; open-questions' staged list is done.
+- table: the options `editing` and `cellFocus`; an entry grid is this table grouped, banded and editable, not a part of its own.
+- detail-pane: its facts are `description-list` in the side layout.
 - Renderers: sokkel-tui as of b99664f (contract 0.31.0): banner on its own paints (`banner.{tone}.rest.container`), the side panel and the detail pane on `side-panel.base.rest.panel`, the secret field's mask and the chart family's stale, swatch and spark-levels glyphs from `glyphs.json`; not yet message ids, the status vocabulary, the shell's rule of 0.31.0, the secret field's reveal, the side panel's tabs and head, problem, json-tree and the new fields. The table as of 555b9ae: heads wrap to two rows (`layout.headLines`). Banner's paints drift is gone.
 - prompt: a new pattern, a dialog that asks for one value (sokkel-ui's `PromptDialog`): parts/dialog
   at sm with one text field or secret field, Cancel and Submit, Enter submitting, the app's check as

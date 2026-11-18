@@ -48,6 +48,18 @@ The full list is in the JSON. These shape the look:
   up to `maxWidth`, 320 by default, and never narrower than its head's longest word), `align`,
   `sortValue`, `hideable`, `resizable`, `stack` (`lead`, `line`, `primary`, `secondary`, `none`),
   `band`, `aggregate`, `fill`, `edit`.
+- `editing` (`tableEditing` from `table-editing`): the cells of columns with `edit` edit, each
+  saved on its own; `cellFocus` (`underline` by default, `ring`, `soft`, `row`) marks the active
+  cell while the table has the focus.
+
+### An entry grid is this table
+
+A grid of counts entered by row and column (a form's tally, sokkel-egui's `EntryGrid`) is no part
+of its own: sokkel-ui draws it as this table with `groupBy` and each group's `aggregate` in its
+head, columns under `band` heads, editable number columns (`editing`, each cell saved on its own),
+and labeled cards with a field per column below `stackBelow`. Every piece it draws is already
+specified here (group heads, bands, editing, stacking), so a renderer that draws it as a widget of
+its own still meets this spec, not another.
 
 ## Sizes per density
 
