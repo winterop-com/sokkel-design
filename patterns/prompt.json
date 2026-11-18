@@ -12,8 +12,8 @@
         },
         "sokkel-tui": {
             "state": "partial",
-            "as_of": "11f3f43",
-            "note": "Rest, empty, invalid, busy and failed as specified, with the five words and the keys. A secret is masked but has no Show/Hide reveal yet (waits on secret-field). Below md the dialog is a sheet, where the spec keeps a box sized to its content."
+            "as_of": "ff8ae76",
+            "note": "Rest, empty, invalid, busy and failed as specified, with the five words and the keys, a box sized to its content at every width. A secret is masked but has no Show/Hide reveal yet (waits on secret-field)."
         }
     },
     "summary": "A dialog that asks for one value: parts/dialog at sm, its title what is asked and an optional line under it, one field in its body (parts/text-field, or parts/secret-field for a secret), and Cancel and Submit. Enter in the field submits. Submit is shut while the field is empty, and while the app's check refuses the value, whose issue the field shows as fields show issues. While the app takes the value the dialog is busy as a dialog's confirm is; when taking it fails, the dialog stays open and says why in its status slot, a problem line, and the value stays to try again. Taken, the dialog closes.",
