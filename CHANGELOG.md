@@ -7,6 +7,9 @@ of their own (D4); a change to a part is a line here under its name.
 ## Unreleased
 
 - shell: sokkel-ui's appearance rows are `useThemeSettings`, a hook (was `themeSettings`).
+- table: a head wider than its column wraps between its words onto a second line, the head row
+  growing to hold it, and is cut only past two lines (`layout.headLines`), its whole name on hover; it
+  was cut on one line. A `content` column is never narrower than its head's longest word.
 
 ## 0.31.2
 

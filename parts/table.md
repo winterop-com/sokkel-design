@@ -44,9 +44,10 @@ The full list is in the JSON. These shape the look:
   `empty`.
 - Made explicit: `inSection` (today `Section` around a `framed={false}` table, the section head as
   tall as the table head).
-- Columns: `width` (a grid track, or `content`: as wide as its widest cell up to `maxWidth`, 320 by
-  default), `align`, `sortValue`, `hideable`, `resizable`, `stack` (`lead`, `line`, `primary`,
-  `secondary`, `none`), `band`, `aggregate`, `fill`, `edit`.
+- Columns: `width` (a grid track, or `content`: as wide as its widest cell and its head on one line
+  up to `maxWidth`, 320 by default, and never narrower than its head's longest word), `align`,
+  `sortValue`, `hideable`, `resizable`, `stack` (`lead`, `line`, `primary`, `secondary`, `none`),
+  `band`, `aggregate`, `fill`, `edit`.
 
 ## Sizes per density
 
@@ -68,6 +69,14 @@ with a title line 24 and lines 20 (primary 22, facts 24); a line that edits is 3
 (48) below 768, and the cards are placed at the height it is drawn at. A stacked line's name is at most 192. A
 placeholder bar is 12 tall at 60 percent of its cell. Text is `text.body` in rows and
 `text.column-head` in the head, one text step above the cells (16 / 24 at 500 over 15 / 22).
+
+A head's name wider than its column wraps between its words onto a second line, lined up as its
+column is (at the end for an end-aligned one, its sort arrow beside it), and the head row grows to
+hold it: one line fills the row height, padded by half of what the row leaves over the line, so a
+head row whose names all fit stays at 40 (36 for a list). Only past two lines is a name cut, with an
+ellipsis, its whole name on hover; a name never breaks inside a word, and a word wider than its
+column is cut with an ellipsis. The head is never made smaller to fit. A `content` column is never
+narrower than its head's longest word.
 
 ## States and tokens
 
