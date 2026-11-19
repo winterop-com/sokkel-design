@@ -12,6 +12,13 @@ math and diagrams), `PlainMarkdown.tsx` (without them), `MermaidDiagram.tsx` (th
 `ui/code-block.tsx` (a fence's frame and copy), and `lib/wiki-links.ts`, `lib/highlighter.tsx`,
 `lib/math.ts`, `lib/markdown-html.ts`.
 
+## Text and tree
+
+A text is read once into its tree, and the tree is drawn. The tree holds what the text says (mdast
+with the nodes linked notes add, [`markdown/README.md`](../markdown/README.md)); what the app allows
+is held as it is drawn. `tree` draws a tree read elsewhere, such as on a server that reads each note
+once for every renderer, exactly as the text would draw: sokkel-ui's tests hold the two the same.
+
 ## What is drawn for each kind of node
 
 | Node | Drawn as |
@@ -71,7 +78,7 @@ marker leaves a quote. Each box is 12 across and 10 down, its icon 16 and 10 fro
 
 ## Options
 
-`scale` (`message`, `document`), `inlineCode` (`chip`, `plain`, `wash`), `frontmatter` (`hide`,
+`content` or `tree`, `scale` (`message`, `document`), `inlineCode` (`chip`, `plain`, `wash`), `frontmatter` (`hide`,
 `show`, `markdown`), `streaming`, `caret`, `allowHtml`, `images`, `linkSchemes`, `resolveUrl`,
 `inline`, `headingOffset`, `anchors`, `math`, `measure`, `parts`, `partMarker`, `links`, `live`,
 `highlight`, `onLink` and `words`, as the JSON says. `live={false}` draws every link as its words,

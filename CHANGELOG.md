@@ -6,6 +6,12 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## 0.33.0
 
+- The markdown tree: a text is read once into a tree every renderer draws. `markdown/README.md`
+  says what it holds (mdast with `yaml` and its properties, `callout`, `calloutTitle`, `wikiLink`,
+  `embed`, `tag`, `highlight` and `part`; syntax only, the app's policy held as it is drawn),
+  `schema/markdown-tree.schema.json` its shape, and `markdown/fixtures/` nine texts and the trees
+  they read into, which `check.py` holds to the schema and every reader must match. markdown-view:
+  the option `tree`.
 - markdown-view: a new part, specified as it is in sokkel-ui a2afcc0: what is drawn for each kind of
   node, the heading roles at the `message` and `document` scales (no new prose roles: headings take
   the page's own), the five callout kinds' paints and the further markers drawn as each, titled and
