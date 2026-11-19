@@ -4,6 +4,15 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.33.0
+
+- markdown-view: a new part, specified as it is in sokkel-ui a2afcc0: what is drawn for each kind of
+  node, the heading roles at the `message` and `document` scales (no new prose roles: headings take
+  the page's own), the five callout kinds' paints and the further markers drawn as each, titled and
+  folded callouts, the diagram frame, frontmatter (`hide`, `show`, `markdown`), comments never
+  drawn, `==highlights==`, `![[...]]` embeds, `resolveUrl`, and `live` and `highlight`, which
+  open-questions listed as unspecified. Its words are the callouts' titles (`markdown.*`).
+
 ## 0.32.2
 
 - chart: the candlestick kind, specified as it landed in sokkel-ui: the options `ohlc` (open, high, low, close, volume, style candles or bars), `averages` and `zoom`; the pieces candleRise (`good`), candleFall (`critical`), volumeRise and volumeFall (each 45 percent into `card`); the anatomy candle, OHLC bar, volume bar and average; layout candleWidth (14) and averageWidth (1.25); words `open`, `close` and `average` (`chart.open`, `chart.close`, `chart.average`).

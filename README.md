@@ -11,13 +11,13 @@ It has the same shape as sokkel-api: one contract, an implementation per stack, 
 them. The contract decides and each renderer stays idiomatic. When a renderer drifts, a check fails
 in that renderer's CI before any app sees it.
 
-It covers fifty-three parts (button, text field, table, rail, top bar, status line, page header,
+It covers fifty-four parts (button, text field, table, rail, top bar, status line, page header,
 section, page state, select, dropdown menu, tooltip, dialog, settings dialog, command palette, run
 timeline, clip timeline, emoji picker, reaction bar, composer, message composer, call bar, letter,
 detail pane, board item panel, code editor, date field, banner, side panel, problem, JSON tree,
 secret field, yes/no field, time field, computed field, repeated group, period picker, tree select,
 group label, unfoldable, choice list, badge, stat, description list, API link, issue count, server
-menu, item card, sortable grid,
+menu, item card, sortable grid, markdown view,
 and the chart family's first: chart, dashboard panel, stat panel, time series panel) and two
 patterns (the shell, and the prompt: a dialog asking for one value), at the contract version `index.json` names, which moves in lockstep with
 sokkel-ui (`CHANGELOG.md`). Every word a part says carries its message id, and the contract carries
@@ -63,7 +63,7 @@ sokkel-design/
                 secret-field  yes-no-field  time-field  computed-field
                 repeated-group  period-picker  tree-select
                 group-label  unfoldable  choice-list  badge  stat  description-list
-                api-link  issue-count  server-menu  item-card  sortable-grid
+                api-link  issue-count  server-menu  item-card  sortable-grid  markdown-view
                 chart  dashboard-panel  stat-panel  time-series-panel   (the chart family)
     patterns/   shell                                               (.md + .json)
     tokens/     tokens.resolved.json: the tokens and the paints, for renderers that read no CSS
