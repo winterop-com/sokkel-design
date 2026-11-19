@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.32.2
 
 - chart: the candlestick kind, specified as it landed in sokkel-ui: the options `ohlc` (open, high, low, close, volume, style candles or bars), `averages` and `zoom`; the pieces candleRise (`good`), candleFall (`critical`), volumeRise and volumeFall (each 45 percent into `card`); the anatomy candle, OHLC bar, volume bar and average; layout candleWidth (14) and averageWidth (1.25); words `open`, `close` and `average` (`chart.open`, `chart.close`, `chart.average`).
 - Renderers: sokkel-egui as of fc9d27e, compared with the staged parts' specs: `group-label` built;
