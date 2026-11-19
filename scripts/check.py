@@ -1,4 +1,4 @@
-"""Check sokkel-design's specs: JSON Schema, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, each word's message id and English against messages/en.json (sokkel-ui's catalogs at the pin), the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth (the sixteen-color role map and what lies under a layer included), its status vocabulary, each icon's Nerd Font codepoint against vendor/nerd-fonts.json, glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
+"""Check sokkel-design's specs: JSON Schema, the markdown tree's schema and fixtures, each key's kind of name against tokens/tokens.resolved.json, painted states, word samples, the index's version and statuses, each part's renderers, each word's message id and English against messages/en.json (sokkel-ui's catalogs at the pin), the surfaces its pieces stand on, its cells and glyphs, the index's cell grid and color depth (the sixteen-color role map and what lies under a layer included), its status vocabulary, each icon's Nerd Font codepoint against vendor/nerd-fonts.json, glyphs.json, and that the resolved file was made from the sokkel-ui commit sokkel-ui.json pins."""
 import json, re, sys
 from pathlib import Path
 import jsonschema
@@ -234,6 +234,18 @@ for f in sorted(list((ROOT / 'parts').glob('*.json')) + list((ROOT / 'patterns')
     paints = [key for key in RESOLVED.get('paints', {}).get('tidevann', {}).get('light', {}) if key.startswith(d['id'] + '.')]
     summary[str(name)] = {'status': d['status'], 'renderers': '/'.join(ren.get(r, {}).get('state', '?')[0] for r in renderer_ids), 'cells': 'cells' in d, 'states': len(d['states']), 'paints': len(paints), 'keys': len(d['keyboard']), 'words': len(d['words']), 'ids': sum(1 for m in messages.values() if m), 'samples': sum(len(v) for v in samples.values())}
 
+# The markdown tree: its schema, and each fixture's text read into a tree the schema holds.
+tree_schema = json.load(open(ROOT / 'schema/markdown-tree.schema.json'))
+jsonschema.Draft202012Validator.check_schema(tree_schema)
+tree_check = jsonschema.Draft202012Validator(tree_schema)
+fixtures = ROOT / 'markdown' / 'fixtures'
+texts_md = {p.stem for p in fixtures.glob('*.md')}
+trees_json = {p.stem for p in fixtures.glob('*.json')}
+for stem in sorted(texts_md ^ trees_json): problems.append(f'markdown/fixtures/{stem}: a text without its tree, or a tree without its text')
+for stem in sorted(trees_json):
+    for e in tree_check.iter_errors(json.load(open(fixtures / f'{stem}.json'))):
+        problems.append(f'markdown/fixtures/{stem}.json: {"/".join(map(str, e.path))}: {e.message[:160]}')
+
 for entry in listed.values():
     if not (ROOT / entry['file']).exists(): problems.append(f"index.json: {entry['file']} does not exist")
 total = sum(v['paints'] for v in summary.values())
@@ -242,6 +254,7 @@ print(json.dumps(summary))
 print(f"contract {index.get('version')}; sokkel-ui at {pin['commit'][:12]}; paints per theme and scheme: {total}; resolved: {resolved_total}")
 spec = json.load(open(ROOT / 'specimens.json'))
 print('specimens:', len(spec['specimens']), 'entries;', len({s['id'] for s in spec['specimens']}), 'story paths')
+print('markdown fixtures:', len(trees_json))
 print('problems:', len(problems))
 for p in problems: print(' -', p)
 sys.exit(1 if problems else 0)

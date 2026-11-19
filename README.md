@@ -37,6 +37,7 @@ it (`renderers`).
 | Parts | One spec per part: anatomy, options, sizes per density, states, tokens per state, keyboard, words | `parts/<id>.md` + `parts/<id>.json` |
 | Patterns | Parts arranged into a whole: the app frame first | `patterns/<id>.md` + `patterns/<id>.json` |
 | Specimens | The fixed list of Storybook story paths every renderer draws, compared by eye | `specimens.md` + `specimens.json` |
+| Markdown tree | What a markdown text reads into, so a server reads a note once and every renderer draws the same tree: mdast with the nodes linked notes add, its schema, and texts with the trees they must read into | `markdown/README.md`, `schema/markdown-tree.schema.json`, `markdown/fixtures/` |
 
 The `.md` file is for people: it explains the part and cites where sokkel-ui does each thing. The
 `.json` file is what a renderer tests against. When the two disagree, the JSON wins and the `.md` is
@@ -51,6 +52,8 @@ sokkel-design/
     messages/en.json            sokkel-ui's English catalogs at that commit, every word's ICU message by its id
     schema/part.schema.json     JSON Schema 2020-12 for parts/*.json and patterns/*.json
     schema/paints.schema.json   the resolved paints renderers read
+    schema/markdown-tree.schema.json   what a markdown text reads into
+    markdown/   README.md (the tree) and fixtures/ (texts and the trees they read into)
     parts/      button  text-field  table  rail  top-bar  status-line   (.md + .json)
                 page-header  section  page-state
                 select  dropdown-menu  tooltip
