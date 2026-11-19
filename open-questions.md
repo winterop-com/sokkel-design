@@ -266,7 +266,8 @@ contract.
 | `TimeRangePicker`'s `times` and `clock` | No range part yet; `parts/date-field` (stable) now holds the date field it opens | Specify the range picker with the dashboard's time range (charts, stage 3 below)? |
 | `CodeEditor`'s `onFollowLink`, `activeLine: 'always'` and required-key snippets | `parts/code-editor` (stable) | Done |
 | `Chip` (its tones, hues, sizes, toggles, removal and menu), with `StatusChip`, `FilterChip` and `TagChips` on it | No chip part; `parts/badge` is a badge, which shares only the kind hues (`KIND_CHIP`) with a chip. sokkel-egui's `Chip` is sokkel-ui's `Chip`, and its `Badge` the badge | Specify `chip` as a part of its own, and when? |
-| `Tree`'s `openOnChoose`; `Markdown`'s `live` and `highlight`; `TrackList`'s `href` and windowing | None of these is specified | Leave them out until an egui or terminal app needs one? |
+| `Tree`'s `openOnChoose`; `TrackList`'s `href` and windowing | None of these is specified | Leave them out until an egui or terminal app needs one? |
+| `Markdown`'s `live` and `highlight` | **Decided:** specified in `parts/markdown-view` with the rest of the markdown view | Done |
 
 ### Parts sokkel-ui has, specified
 
