@@ -77,5 +77,5 @@ Sources: sokkel-ui `packages/core/src/components/ItemCard.tsx`, `packages/core/s
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, ItemCard was built (d163191) before this spec, with the title, the code, the status, the description, the facts and selected; not compared with this spec.
+- sokkel-egui: As of fc9d27e: Always a control; no titleLines cap or hover text; no media, icon tile, menu or href; selected is a 2px stroke with no check; the status one line and the description not capped; facts split the width equally rather than fitting columns of at least 80.
 - sokkel-tui: As of b99664f its reports name no such part.

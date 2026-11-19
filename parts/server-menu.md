@@ -72,5 +72,5 @@ Sources: sokkel-ui `packages/core/src/components/ServerMenu.tsx`, `packages/core
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, ServerMenu was built (d163191) before this spec: the dot, the name, the version, a menu of the state, the facts, Check again and the app's items. Not yet: the checks' tooltip; not compared with this spec.
+- sokkel-egui: As of fc9d27e: No environment, states, quiet, checks or checkedAt, recheck, onPress, defaultOpen or tooltip; the name is neither cut nor hidden below md; the version chip is not text.badge at 500 in the code face; the check icon does not turn while checking; no ArrowDown to open. The face, the dot, the menu and the facts match.
 - sokkel-tui: As of b99664f its reports name no such part.

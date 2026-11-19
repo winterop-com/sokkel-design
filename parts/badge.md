@@ -13,7 +13,7 @@ Sources: sokkel-ui `packages/core/src/components/ui/badge.tsx`, `packages/core/s
 ## Options
 
 - `variant` (`default`, `secondary`, `destructive`, `outline`, `ghost`, `link`; `default` by default): How loud it is: default on primary, secondary on secondary, destructive on a destructive wash, outline only edged, ghost bare, link in primary.
-- `kind` (`blue`, `green`, `jade`, `pink`, `teal`, `violet`): One of the kind colors, laid over the variant: the color's wash at 12 percent, its edge at 30, its ink. kindOf(name) picks one steadily from a name, so the same value always wears the same color.
+- `kind` (`blue`, `green`, `jade`, `pink`, `teal`, `violet`): One of the kind colors, laid over the variant: the color's wash at 12 percent, its edge at 30, its ink. kindOf(name) picks one steadily from a name, so the same value always wears the same color. The same paints as a `Chip`'s kind hue (`KIND_CHIP`); `Chip`, with its tones, sizes, toggles and menu, is a part of its own in sokkel-ui, not yet in the contract, and a badge is not a chip.
 - `children`: The words, with an icon before or after them.
 
 ## Sizes
@@ -50,5 +50,5 @@ None: every word is the app's.
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, Badge was built before this spec, its kind as ChipTone::Kind (d163191); not compared with this spec.
+- sokkel-egui: As of fc9d27e: No kind on the badge (its paints are on Chip as ChipTone::Kind); no ghost or link hover; never drawn as a link; no icon after the words. The six variants and their sizes match.
 - sokkel-tui: As of b99664f its reports name no such part.

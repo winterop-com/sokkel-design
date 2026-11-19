@@ -36,7 +36,10 @@ foreground or the head ink a theme names, never weaker than its rows: body cells
 value (a stacked card's) labels it rather than heads a column, and may stay small and quiet.
 **Why.** Type stays one system across parts and themes, and a heading reads as one over what it heads. **Renderer.** sokkel-ui uses the
 `text-<role>` classes. sokkel-egui uses `TextRole::rich`, the weight on the variable face's
-`wght` axis. Mono is sized by x-height (`mono-x-height`) in both.
+`wght` axis. Mono is sized by x-height (`mono-x-height`) in both. Where a spec says tabular
+figures, sokkel-ui sets `tabular-nums`; a renderer that cannot select a face's OpenType features
+(egui) draws the face's own figures and is not held to tabular ones, and a terminal's cells line
+them up anyway.
 
 ### 4. Density is a setting, two levels
 

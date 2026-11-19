@@ -8,11 +8,10 @@ Sources: sokkel-ui `packages/core/src/components/GroupLabel.tsx`.
 
 | Piece | What it is |
 |---|---|
-| label | The heading's words, in capitals, tracked wide, at text.xs and 500, in faint. An element of the app's choosing (as), a p by default. |
+| label | The heading's words, in capitals, tracked wide, at text.xs and 500, in faint. |
 
 ## Options
 
-- `as` (`p`, `h2`, `h3`, `h4`, `span`, `div`; `p` by default): The element it is drawn as, by where it sits in the page's outline: a heading where it heads a section, a p or a span where it only labels.
 - `children`: The heading's words.
 
 ## States and tokens
@@ -30,5 +29,7 @@ None: every word is the app's.
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, GroupLabel was built before this spec and has not been compared with it.
+- sokkel-ui only: `as` picks the element it is drawn as (`p` by default; `h2`, `h3`, `h4`, `span`, `div`) by where it sits in the page's outline. A renderer with no elements of its own marks a heading its own way, if at all.
+
+- sokkel-egui: As of fc9d27e, drawn from this spec.
 - sokkel-tui: As of b99664f its reports name no such part.

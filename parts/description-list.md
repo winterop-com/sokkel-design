@@ -48,5 +48,5 @@ None: every word is the app's.
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, DescriptionList was built (d163191) before this spec, with columns 2 in the stacked layout; not compared with this spec.
+- sokkel-egui: As of fc9d27e: Stacked by default (spec: side, terms 96 wide); no row layout, size sm, termWidth auto, numeric, wide or the missing value's dash; columns only when stacked and kept below md; side has no 12 gap and a long term runs over its value; the value's line is 22, not 20.
 - sokkel-tui: As of b99664f its reports name no such part.

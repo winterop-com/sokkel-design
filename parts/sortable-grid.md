@@ -53,5 +53,5 @@ Sources: sokkel-ui `packages/core/src/components/Sortable.tsx (SortableGrid, Sor
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, SortableGrid was built (d163191) before this spec, dragging to reorder; not compared with this spec.
+- sokkel-egui: As of fc9d27e: The placeholder at 0.5 (spec 0.4); no lifted copy, and the others do not move aside (a bar marks where it lands); Escape does not put it back; no keys, no move and moved words, no handle, kind or disabled. The columns match.
 - sokkel-tui: As of b99664f its reports name no such part.

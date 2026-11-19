@@ -10,7 +10,7 @@ Sources: sokkel-ui `packages/core/src/components/IssueMark.tsx (IssueCount, ISSU
 |---|---|
 | face | The control: control-sm tall, a 1px edge and a faint wash in the worst issue's tone, rounded by radius-control, text.xs at 500 in tabular figures. A button when there is a list to open, else a status. Its name says every count in words (words.errors, words.warnings), joined by a comma. |
 | figure | One kind's count after its mark (a circled alert for errors, a triangle for warnings), 14 square, 4 apart, padded 8 across, in the kind's ink. The warnings' figure follows the errors' behind a rule in its ink at 25 percent. |
-| list | The popup above the face, at its start: the issues one under the other, 4 apart, padded 6, at most 352 wide (less the window's 32). |
+| list | The popup above the face, at its start: the issues one under the other, 4 apart, padded 6, layout.listWidth wide at most. |
 | entry | One issue, a button: its mark (16, 2 down) and, 8 after it, the field's label in text.xs and muted-foreground over the issue's words in text.sm. Choosing it shuts the list, goes to the field and opens its mark. |
 
 ## Options
@@ -26,6 +26,7 @@ Sources: sokkel-ui `packages/core/src/components/IssueMark.tsx (IssueCount, ISSU
 - figure: padX `8`, gap `4`
 - list: padX `6`, padY `6`, gap `4`
 - entry: padX `8`, padY `6`, gap `8`
+- layout.listWidth: `352`. min(352, window - 32): 352, less where the window is narrower than 384 (`w-[min(22rem,calc(100vw-2rem))]`).
 
 ## States and tokens
 
@@ -61,5 +62,5 @@ Sources: sokkel-ui `packages/core/src/components/IssueMark.tsx (IssueCount, ISSU
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 1a87987, IssueCount was built (d163191) before this spec, errors only, and has not been compared with it.
+- sokkel-egui: As of fc9d27e: no count without a list (the count is the list's length, with no critical or warning options), so a count with nothing to open cannot be shown; no warnings tone or rule; the accessible name is English in code and says no counts together; no focus ring; no keys (focus to the first issue, the arrows, Escape back); entries a fixed 40 tall and not cut; the list a fixed 352 wide, not layout.listWidth. The face's paints match.
 - sokkel-tui: As of b99664f its reports name no such part.

@@ -265,6 +265,7 @@ contract.
 | `CheckboxField`'s `dot` and `quiet` | No checkbox or field-family part beyond `text-field` | Should `text-field`'s frame grow a checkbox and switch field (their label, help, `dot` and `quiet`), or should they be a part of their own? `board-item-panel` names `quiet` through its checklist meanwhile |
 | `TimeRangePicker`'s `times` and `clock` | No range part yet; `parts/date-field` (stable) now holds the date field it opens | Specify the range picker with the dashboard's time range (charts, stage 3 below)? |
 | `CodeEditor`'s `onFollowLink`, `activeLine: 'always'` and required-key snippets | `parts/code-editor` (stable) | Done |
+| `Chip` (its tones, hues, sizes, toggles, removal and menu), with `StatusChip`, `FilterChip` and `TagChips` on it | No chip part; `parts/badge` is a badge, which shares only the kind hues (`KIND_CHIP`) with a chip. sokkel-egui's `Chip` is sokkel-ui's `Chip`, and its `Badge` the badge | Specify `chip` as a part of its own, and when? |
 | `Tree`'s `openOnChoose`; `Markdown`'s `live` and `highlight`; `TrackList`'s `href` and windowing | None of these is specified | Leave them out until an egui or terminal app needs one? |
 
 ### Parts sokkel-ui has, specified
