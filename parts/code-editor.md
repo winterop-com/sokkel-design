@@ -87,7 +87,9 @@ at `text.xs`, `md` at `text.sm` on `leading-code`, `lg` at `text.base`), `readOn
 `lineNumbers`, `activeLine` (`true`, `false`, `always`), `wrap`, `marks`, `completions`,
 `languageWords`, `links`, `onFollowLink`, `hover`, `onRun`, `keys`, `search` with `defaultSearch`,
 `folding`, `bracketColors`, `indentGuides`, `schema` with `deferred` and `resolveSchema`, `reveal`,
-`onProblems`, `onDocument`, `invalid`, `placeholder`, `label`, `id`, `phrases`, `words`.
+`onProblems`, `onDocument`, `yamlVersion` (`1.2`, `1.1`: the YAML version plain values are read
+by, for the schema check, hover, completion and `onDocument`), `invalid`, `placeholder`, `label`,
+`id`, `phrases`, `words`.
 
 **Schema completion.** With a schema, a JSON or YAML document's property names and enum values are
 offered while typing, the required ones first; a key with a default goes in with the default

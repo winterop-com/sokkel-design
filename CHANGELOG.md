@@ -25,6 +25,7 @@ of their own (D4); a change to a part is a line here under its name.
 - issue-count: `layout.listWidth`, min(352, window - 32).
 - badge: kind shares `KIND_CHIP` with sokkel-ui's `Chip`, which is a part of its own and not yet in
   the contract (open-questions).
+- code-editor: the option `yamlVersion` (`1.2`, `1.1`), the YAML version a document's plain values are read by; 1.1 reads yes/no/on/off as booleans and 010 as octal, as a YAML 1.1 server does.
 - prompt: sokkel-tui draws it (ff8ae76), partial: no reveal on a secret yet.
 - New parts, specified as they are in sokkel-ui 11f3a2b, where sokkel-egui built them before a spec: `group-label`, `unfoldable` (with `forced`), `choice-list`, `badge` (its variants and `kind`), `stat` (`plain` and `tile`, size `lg`), `description-list` (`side`, `stacked` and `row`, `columns`, size `sm`), `api-link`, `issue-count`, `server-menu`, `item-card` and `sortable-grid`; open-questions' staged list is done.
 - table: the options `editing` and `cellFocus`; an entry grid is this table grouped, banded and editable, not a part of its own.
