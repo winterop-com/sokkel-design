@@ -17,7 +17,12 @@ Sources: sokkel-ui `packages/maps/src/MapCompass.tsx`, `packages/maps/src/contro
 
 ## Sizes
 
-- button: height `density.control-sm`, width `density.control-sm`, radius `radius-control`. 
+- button: height `density.control-sm`, width `density.control-sm`, radius `radius-control`, radiusMax `12`. 
+
+## States
+
+- rest: The bearing shown.
+- hover: The pointer is over it.
 
 ## Keyboard
 

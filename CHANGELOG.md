@@ -6,6 +6,11 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- Tracking, as sokkel-ui draws it at b05ad7e: the map overlays `zone-layer`, `coverage-layer` and
+  `link-layer`; the core parts `track-glyph`, `freshness`, `track-card`, `track-roster`, `task-card` and
+  `playback-timeline`; the theme `darkroom` (red ink on near-black for red-lit rooms). `map-ruler`,
+  `map-compass` and `map-follow` corrected: radiusMax 12, the outline button's dark edge, and
+  `text.badge` for their chips and banner. The pin on sokkel-ui moves to b05ad7e.
 - Maps for tracking, specified as sokkel-ui-maps draws them (982188f): `track-layer` (heading-turned
   symbols per kind, affiliation colors `track-friend`, `track-hostile`, `track-neutral`,
   `track-unknown`, `track-pending`, fading trails, labels, the selection ring, clustering), `map-ruler`,
