@@ -18,10 +18,16 @@ Sources: sokkel-ui `packages/maps/src/MapCoordinates.tsx`, `packages/maps/src/ge
 - `format` (`decimal`, `dms`): Decimal degrees, or degrees, minutes and seconds.
 - `scale`: Draws the scale bar.
 - `unit` (`km`, `mi`, `nmi`): The scale bar's unit; meters below a kilometer.
+- `formatPosition`: Writes the cursor's position in place of format, for a reference system the map does not know, such as MGRS from the tracking add-on's toMgrs.
 
 ## Sizes
 
 - container: padX `8`, padY `4`, gap `12`, text `text.xs`, radius `radius-control`. 
+
+## States
+
+- rest: The pointer is on the map: its position.
+- offscreen: The pointer is off the map: words.offscreen.
 
 ## Words
 
