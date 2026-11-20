@@ -59,23 +59,23 @@ media type. A language may also be a CodeMirror `LanguageSupport` or a named str
 
 | Token group | Color |
 |---|---|
-| keywords (definition, modifier, control, module) | `code-keyword` |
+| keywords (definition, modifier, control, module); markdown callout markers | `code-keyword` |
 | operators | `code-operator` |
-| punctuation, separators, brackets; markdown list marks | `code-punctuation` |
+| punctuation, separators, brackets; markdown list marks and the frontmatter's `---` lines | `code-punctuation` |
 | strings, characters; markdown inline code | `code-string` |
 | regular expressions, escapes | `code-regexp` |
 | numbers | `code-number` |
 | booleans, null, atoms, named constants | `code-constant` |
-| comments (italic); markdown quotes | `code-comment` |
+| comments (italic); markdown quotes and HTML comments | `code-comment` |
 | functions, macros | `code-function` |
 | special variables, self (`$`, `@` names) | `code-variable` |
 | types, classes, namespaces | `code-type` |
-| property names (JSON and YAML keys) | `code-property` |
+| property names (JSON and YAML keys, markdown frontmatter keys) | `code-property` |
 | tag names | `code-tag` |
 | attribute names, labels | `code-attribute` |
 | headings (600) | `code-heading` |
-| links, addresses, `[[links]]`, `#tags` | `code-link` |
-| inserted, deleted | `code-inserted`, `code-deleted` |
+| links, addresses, `[[links]]`, `![[embeds]]` | `code-link`; markdown `#tags` `code-attribute` |
+| inserted (and markdown `==highlights==`), deleted | `code-inserted`, `code-deleted` |
 | invalid | `code-invalid` |
 
 Strong text is drawn at 600, emphasis italic, strikethrough struck, all in the text's ink.

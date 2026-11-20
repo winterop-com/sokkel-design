@@ -6,11 +6,32 @@
     "eachFile": "{slug}--{each}--{theme}-{scheme}-{density}.png",
     "matrices": {
         "full": {
-            "themes": ["tidevann", "paper", "contrast"],
-            "schemes": ["light", "dark"],
-            "densities": ["regular", "compact"]
+            "themes": [
+                "tidevann",
+                "paper",
+                "contrast"
+            ],
+            "schemes": [
+                "light",
+                "dark"
+            ],
+            "densities": [
+                "regular",
+                "compact"
+            ]
         },
-        "pair": {"themes": ["tidevann"], "schemes": ["light", "dark"], "densities": ["regular"]}
+        "pair": {
+            "themes": [
+                "tidevann"
+            ],
+            "schemes": [
+                "light",
+                "dark"
+            ],
+            "densities": [
+                "regular"
+            ]
+        }
     },
     "steps": {
         "hover": "The pointer rests over the target's center. Web: locator.hover(). egui_kittest: the node's hover().",
@@ -23,7 +44,14 @@
     "targets": "A target is a role and a name, as a screen reader would find it: button:Run now, textbox:Job name, row:2, table. Playwright's getByRole and egui_kittest's AccessKit queries both find it.",
     "content": "An existing story's content is what sokkel-ui's story draws (its data and its doc comment); the egui story at the same path draws the same. A story marked new does not exist yet: sokkel-ui adds it under the real title, from the fixtures here.",
     "fixtures": {
-        "button": {"label": "Run now", "icon": "play", "iconButton": {"label": "Refresh", "icon": "refresh-cw"}},
+        "button": {
+            "label": "Run now",
+            "icon": "play",
+            "iconButton": {
+                "label": "Refresh",
+                "icon": "refresh-cw"
+            }
+        },
         "field": {
             "label": "Job name",
             "value": "nightly-export",
@@ -36,38 +64,84 @@
         }
     },
     "specimens": [
-        {"id": "Primitives/Actions/Button/Variants", "part": "button", "matrix": "full", "canvas": [720, 360]},
+        {
+            "id": "Primitives/Actions/Button/Variants",
+            "part": "button",
+            "matrix": "full",
+            "canvas": [
+                720,
+                360
+            ]
+        },
         {
             "id": "Primitives/Actions/Button/States",
             "part": "button",
             "matrix": "full",
-            "canvas": [720, 200],
+            "canvas": [
+                720,
+                200
+            ],
             "shows": "disabled, disabled outline, invalid, busy."
         },
-        {"id": "Primitives/Actions/Button/Busy", "part": "button", "matrix": "full", "canvas": [720, 200]},
-        {"id": "Primitives/Actions/Button/Reason", "part": "button", "matrix": "full", "canvas": [720, 200]},
+        {
+            "id": "Primitives/Actions/Button/Busy",
+            "part": "button",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ]
+        },
+        {
+            "id": "Primitives/Actions/Button/Reason",
+            "part": "button",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ]
+        },
         {
             "id": "Primitives/Actions/Button/Sizes",
             "part": "button",
             "new": true,
             "matrix": "full",
-            "canvas": [720, 240],
+            "canvas": [
+                720,
+                240
+            ],
             "shows": "Rows xs, sm, default, lg; columns label, icon and label, icon at the end, icon only (as an icon button of that row's size). fixtures.button.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 768 every size but xs is a finger tall; xs keeps its drawn size and takes a finger's hit area."
                 }
             ]
         },
-        {"id": "Primitives/Actions/Icon button/Variants", "part": "button", "matrix": "full", "canvas": [720, 320]},
+        {
+            "id": "Primitives/Actions/Icon button/Variants",
+            "part": "button",
+            "matrix": "full",
+            "canvas": [
+                720,
+                320
+            ]
+        },
         {
             "id": "Primitives/Actions/Button/Variants",
             "part": "button",
             "matrix": "pair",
-            "canvas": [720, 360],
+            "canvas": [
+                720,
+                360
+            ],
             "each": [
                 "hover-default",
                 "hover-outline",
@@ -89,21 +163,66 @@
             "id": "Primitives/Actions/Button/Reason",
             "part": "button",
             "matrix": "pair",
-            "canvas": [720, 200],
-            "each": ["focus"],
-            "steps": [{"do": "keyFocus", "target": "the first button"}],
+            "canvas": [
+                720,
+                200
+            ],
+            "each": [
+                "focus"
+            ],
+            "steps": [
+                {
+                    "do": "keyFocus",
+                    "target": "the first button"
+                }
+            ],
             "shows": "A reasoned button with keyboard focus: the focus ring and the reason in its tooltip."
         },
-        {"id": "Primitives/Inputs/Text field/Plain", "part": "text-field", "matrix": "full", "canvas": [480, 120]},
-        {"id": "Primitives/Inputs/Text field/With help", "part": "text-field", "matrix": "full", "canvas": [480, 140]},
-        {"id": "Primitives/Inputs/Text field/Error", "part": "text-field", "matrix": "full", "canvas": [480, 140]},
-        {"id": "Primitives/Inputs/Text field/Multiline", "part": "text-field", "matrix": "full", "canvas": [480, 220]},
+        {
+            "id": "Primitives/Inputs/Text field/Plain",
+            "part": "text-field",
+            "matrix": "full",
+            "canvas": [
+                480,
+                120
+            ]
+        },
+        {
+            "id": "Primitives/Inputs/Text field/With help",
+            "part": "text-field",
+            "matrix": "full",
+            "canvas": [
+                480,
+                140
+            ]
+        },
+        {
+            "id": "Primitives/Inputs/Text field/Error",
+            "part": "text-field",
+            "matrix": "full",
+            "canvas": [
+                480,
+                140
+            ]
+        },
+        {
+            "id": "Primitives/Inputs/Text field/Multiline",
+            "part": "text-field",
+            "matrix": "full",
+            "canvas": [
+                480,
+                220
+            ]
+        },
         {
             "id": "Primitives/Inputs/Text field/States",
             "part": "text-field",
             "new": true,
             "matrix": "full",
-            "canvas": [720, 360],
+            "canvas": [
+                720,
+                360
+            ],
             "shows": "Empty with its placeholder, disabled, read only, a warning. fixtures.field."
         },
         {
@@ -111,18 +230,35 @@
             "part": "text-field",
             "new": true,
             "matrix": "full",
-            "canvas": [480, 320],
+            "canvas": [
+                480,
+                320
+            ],
             "shows": "An invalid field with its popover open (issueOpen): the error, its detail and its action. fixtures.field."
         },
         {
             "id": "Primitives/Inputs/Text field/Plain",
             "part": "text-field",
             "matrix": "pair",
-            "canvas": [480, 120],
-            "each": ["hover", "focus"],
+            "canvas": [
+                480,
+                120
+            ],
+            "each": [
+                "hover",
+                "focus"
+            ],
             "steps": [
-                {"when": "hover", "do": "hover", "target": "the input"},
-                {"when": "focus", "do": "keyFocus", "target": "the input"}
+                {
+                    "when": "hover",
+                    "do": "hover",
+                    "target": "the input"
+                },
+                {
+                    "when": "focus",
+                    "do": "keyFocus",
+                    "target": "the input"
+                }
             ],
             "shows": "Hover (no look of its own today) and focus."
         },
@@ -130,78 +266,134 @@
             "id": "Primitives/Inputs/Text field/Error",
             "part": "text-field",
             "matrix": "pair",
-            "canvas": [480, 140],
-            "each": ["focus"],
-            "steps": [{"do": "keyFocus", "target": "the input"}],
+            "canvas": [
+                480,
+                140
+            ],
+            "each": [
+                "focus"
+            ],
+            "steps": [
+                {
+                    "do": "keyFocus",
+                    "target": "the input"
+                }
+            ],
             "shows": "invalid+focus: the critical edge and the 3px ring, which shows only with focus."
         },
         {
             "id": "Patterns/Data table/Sorted",
             "part": "table",
             "matrix": "full",
-            "canvas": [1280, 600],
+            "canvas": [
+                1280,
+                600
+            ],
             "shows": "500 runs sorted by duration, longest first."
         },
         {
             "id": "Patterns/Data table/Selection",
             "part": "table",
             "matrix": "full",
-            "canvas": [1280, 600],
+            "canvas": [
+                1280,
+                600
+            ],
             "shows": "Three runs selected and the selection bar."
         },
         {
             "id": "Patterns/Data table/Stack width",
             "part": "table",
             "matrix": "full",
-            "canvas": [720, 720],
+            "canvas": [
+                720,
+                720
+            ],
             "shows": "A list below its stack width (64rem of its own box): every row a card."
         },
         {
             "id": "Patterns/Data table/Empty",
             "part": "table",
             "matrix": "full",
-            "canvas": [960, 240],
+            "canvas": [
+                960,
+                240
+            ],
             "shows": "A search that matches nothing: the heads and the words."
         },
         {
             "id": "Patterns/Data table/Loading",
             "part": "table",
             "matrix": "full",
-            "canvas": [960, 360],
+            "canvas": [
+                960,
+                360
+            ],
             "shows": "Placeholder rows, the pulse stopped."
         },
         {
             "id": "Patterns/Data table/Stacked cards",
             "part": "table",
             "matrix": "full",
-            "canvas": [720, 640],
+            "canvas": [
+                720,
+                640
+            ],
             "shows": "Runs as stacked cards: a state dot leads each title and opens the run as the card does; a note on one line leaves its card that much shorter."
         },
         {
             "id": "Patterns/Data table/Bands",
             "part": "table",
             "matrix": "pair",
-            "canvas": [1280, 480],
+            "canvas": [
+                1280,
+                480
+            ],
             "shows": "Columns in bands, a rule where each band starts and ends, and the list's own search field in its bar (searchBy)."
         },
         {
             "id": "Patterns/States/In a table",
             "part": "table",
             "matrix": "full",
-            "canvas": [960, 280],
+            "canvas": [
+                960,
+                280
+            ],
             "shows": "A refused read said in a table's place: the heading, the diagnostic, the problems, Try again."
         },
         {
             "id": "Patterns/Data table/Sorted",
             "part": "table",
             "matrix": "pair",
-            "canvas": [1280, 600],
-            "each": ["hover", "active"],
+            "canvas": [
+                1280,
+                600
+            ],
+            "each": [
+                "hover",
+                "active"
+            ],
             "steps": [
-                {"when": "hover", "do": "hover", "target": "row:2"},
-                {"when": "active", "do": "keyFocus", "target": "table"},
-                {"when": "active", "do": "key", "key": "ArrowDown"},
-                {"when": "active", "do": "key", "key": "ArrowDown"}
+                {
+                    "when": "hover",
+                    "do": "hover",
+                    "target": "row:2"
+                },
+                {
+                    "when": "active",
+                    "do": "keyFocus",
+                    "target": "table"
+                },
+                {
+                    "when": "active",
+                    "do": "key",
+                    "key": "ArrowDown"
+                },
+                {
+                    "when": "active",
+                    "do": "key",
+                    "key": "ArrowDown"
+                }
             ],
             "shows": "The pointer over the second row; keyboard focus on the table with the third row active."
         },
@@ -209,53 +401,85 @@
             "id": "Patterns/Rail/Expanded",
             "part": "rail",
             "matrix": "full",
-            "canvas": [320, 720],
+            "canvas": [
+                320,
+                720
+            ],
             "shows": "Titled groups, Runs active with its bar and count, counts at the rows' ends, a dot on Jobs, the account in the foot."
         },
         {
             "id": "Patterns/Rail/Collapsed",
             "part": "rail",
             "matrix": "full",
-            "canvas": [320, 720],
+            "canvas": [
+                320,
+                720
+            ],
             "shows": "The icons alone: counts over the icons, a dot on Jobs, rules in the group titles' places, the mark that expands it."
         },
         {
             "id": "Patterns/Rail/Described",
             "part": "rail",
             "matrix": "full",
-            "canvas": [320, 720],
+            "canvas": [
+                320,
+                720
+            ],
             "shows": "A second line under each label, Runs active with its count level with the label, a long line wrapping."
         },
         {
             "id": "Patterns/Rail/Nested",
             "part": "rail",
             "matrix": "full",
-            "canvas": [320, 720],
+            "canvas": [
+                320,
+                720
+            ],
             "shows": "Parents: Evaluate unfolded over the active Compare, Services folded with a page of its own beside its chevron."
         },
         {
             "id": "Patterns/Rail/Counts",
             "part": "rail",
             "matrix": "full",
-            "canvas": [320, 720],
+            "canvas": [
+                320,
+                720
+            ],
             "shows": "The strip variant: each place an icon over its label, counts at the icons' corners from 3 to 99+, a dot on Files."
         },
         {
             "id": "Patterns/Rail/Places above",
             "part": "rail",
             "matrix": "full",
-            "canvas": [320, 720],
+            "canvas": [
+                320,
+                720
+            ],
             "shows": "A body's tree under the places, both shown at once, with no row back to the places."
         },
         {
             "id": "Patterns/Rail/Expanded",
             "part": "rail",
             "matrix": "pair",
-            "canvas": [320, 720],
-            "each": ["hover", "edge"],
+            "canvas": [
+                320,
+                720
+            ],
+            "each": [
+                "hover",
+                "edge"
+            ],
             "steps": [
-                {"when": "hover", "do": "hover", "target": "link:Schedules"},
-                {"when": "edge", "do": "keyFocus", "target": "separator:Resize the navigation"}
+                {
+                    "when": "hover",
+                    "do": "hover",
+                    "target": "link:Schedules"
+                },
+                {
+                    "when": "edge",
+                    "do": "keyFocus",
+                    "target": "separator:Resize the navigation"
+                }
             ],
             "shows": "The pointer over an entry; keyboard focus on the edge, its line drawn."
         },
@@ -263,12 +487,20 @@
             "id": "Patterns/Top bar/Current",
             "part": "top-bar",
             "matrix": "full",
-            "canvas": [1280, 400],
+            "canvas": [
+                1280,
+                400
+            ],
             "shows": "The trail ending at the current screen (harbor, Runs, Run 1842) and the palette's button, in the shell.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 768 the menu button, the last crumb alone, and the palette's button as a finger-square icon."
                 }
@@ -278,12 +510,20 @@
             "id": "Patterns/Top bar/Ancestors",
             "part": "top-bar",
             "matrix": "full",
-            "canvas": [1280, 400],
+            "canvas": [
+                1280,
+                400
+            ],
             "shows": "The trail ending at the screen above: every crumb a link and a chevron after the last.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 768 the last crumb alone, after a back chevron, as the way back."
                 }
@@ -293,11 +533,25 @@
             "id": "Patterns/Top bar/Current",
             "part": "top-bar",
             "matrix": "pair",
-            "canvas": [1280, 400],
-            "each": ["hover", "focus"],
+            "canvas": [
+                1280,
+                400
+            ],
+            "each": [
+                "hover",
+                "focus"
+            ],
             "steps": [
-                {"when": "hover", "do": "hover", "target": "button:Search"},
-                {"when": "focus", "do": "keyFocus", "target": "button:Search"}
+                {
+                    "when": "hover",
+                    "do": "hover",
+                    "target": "button:Search"
+                },
+                {
+                    "when": "focus",
+                    "do": "keyFocus",
+                    "target": "button:Search"
+                }
             ],
             "shows": "The palette's button under the pointer (border-strong, foreground) and with keyboard focus (the ring edge and a 1px ring)."
         },
@@ -305,26 +559,40 @@
             "id": "Patterns/Status line/Tones",
             "part": "status-line",
             "matrix": "full",
-            "canvas": [960, 400],
+            "canvas": [
+                960,
+                400
+            ],
             "shows": "A live note with its pulsing dot and a code fact, a quiet note, a warning, an error, and facts alone."
         },
         {
             "id": "Patterns/Page header/Actions",
             "part": "page-header",
             "matrix": "full",
-            "canvas": [960, 160],
+            "canvas": [
+                960,
+                160
+            ],
             "shows": "A listing's head: Jobs with 5 jobs on its baseline, Import and New at the row's end, New last."
         },
         {
             "id": "Patterns/Page header/Details",
             "part": "page-header",
             "matrix": "full",
-            "canvas": [960, 240],
+            "canvas": [
+                960,
+                240
+            ],
             "shows": "One thing's page: Nightly export over its code, a sentence, a line of facts, and three actions with Run last.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "The header has no room for the actions beside the title: they wrap under it, then onto lines of their own."
                 }
@@ -334,12 +602,20 @@
             "id": "Patterns/Page header/Folding",
             "part": "page-header",
             "matrix": "full",
-            "canvas": [960, 200],
+            "canvas": [
+                960,
+                200
+            ],
             "shows": "Sync inventory with five items before Run, all in the row at this width.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "The items fold into More from the last while Run stays, and the title keeps its width."
                 }
@@ -349,75 +625,110 @@
             "id": "Patterns/Sections/Boxed",
             "part": "section",
             "matrix": "full",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "A job's overview in the shell: Graph, Recent runs (its count and actions in the head) and Details, each a box with a head bar."
         },
         {
             "id": "Patterns/Sections/Flat",
             "part": "section",
             "matrix": "full",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "The same page with flat sections: headings over rules, the content on the page's ground."
         },
         {
             "id": "Patterns/Sections/Critical",
             "part": "section",
             "matrix": "full",
-            "canvas": [960, 640],
+            "canvas": [
+                960,
+                640
+            ],
             "shows": "A failed run's box: the critical rule across its top and the warning mark before its title, with Retry; under it the run on the graph's dot grid."
         },
         {
             "id": "Patterns/States/Page state",
             "part": "page-state",
             "matrix": "full",
-            "canvas": [960, 960],
+            "canvas": [
+                960,
+                960
+            ],
             "shows": "Loading; refused with its diagnostic; refused with Try again; missing; not answering; empty in one line; and an empty state with its way in."
         },
         {
             "id": "Patterns/States/Secondary read",
             "part": "page-state",
             "matrix": "full",
-            "canvas": [960, 360],
+            "canvas": [
+                960,
+                360
+            ],
             "shows": "A run's facts, and under them its artifacts' read failing in the warning tone, with Try again."
         },
         {
             "id": "Patterns/States/Failed page",
             "part": "page-state",
             "matrix": "pair",
-            "canvas": [960, 240],
+            "canvas": [
+                960,
+                240
+            ],
             "shows": "A run's record that failed to load: the failure headed as the page's h1, with Try again."
         },
         {
             "id": "Primitives/Inputs/Select/Variants",
             "part": "select",
             "matrix": "full",
-            "canvas": [720, 200],
+            "canvas": [
+                720,
+                200
+            ],
             "shows": "The default and sm triggers holding failed, and one showing its placeholder, each as wide as its widest label."
         },
         {
             "id": "Primitives/Inputs/Select/States",
             "part": "select",
             "matrix": "full",
-            "canvas": [720, 200],
+            "canvas": [
+                720,
+                200
+            ],
             "shows": "A disabled select, an invalid one with its placeholder, and one with no options yet."
         },
         {
             "id": "Primitives/Inputs/Select/Quiet",
             "part": "select",
             "matrix": "full",
-            "canvas": [720, 200],
+            "canvas": [
+                720,
+                200
+            ],
             "shows": "The quiet trigger at default and sm, holding Newest first."
         },
         {
             "id": "Primitives/Inputs/Select/Open",
             "part": "select",
             "matrix": "full",
-            "canvas": [480, 400],
+            "canvas": [
+                480,
+                400
+            ],
             "shows": "The list open over the run states, failed chosen with its check.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 768 the trigger and every row are a finger tall."
                 }
@@ -427,32 +738,55 @@
             "id": "Primitives/Inputs/Select field/Icons and details",
             "part": "select",
             "matrix": "full",
-            "canvas": [480, 240],
+            "canvas": [
+                480,
+                240
+            ],
             "shows": "Worker chosen with its icon before its label, and Four chosen, whose detail shows only in the list."
         },
         {
             "id": "Primitives/Inputs/Select field/Two-line options",
             "part": "select",
             "matrix": "full",
-            "canvas": [480, 240],
+            "canvas": [
+                480,
+                240
+            ],
             "shows": "The chosen option's detail after its label in the trigger (chosenDetail)."
         },
         {
             "id": "Themes/Theme picker/Basic",
             "part": "select",
             "matrix": "full",
-            "canvas": [480, 320],
+            "canvas": [
+                480,
+                320
+            ],
             "shows": "The theme select with the chosen theme's swatch before its name, then the scheme and the density."
         },
         {
             "id": "Primitives/Inputs/Select/Variants",
             "part": "select",
             "matrix": "pair",
-            "canvas": [720, 200],
-            "each": ["hover", "focus"],
+            "canvas": [
+                720,
+                200
+            ],
+            "each": [
+                "hover",
+                "focus"
+            ],
             "steps": [
-                {"when": "hover", "do": "hover", "target": "the first combobox"},
-                {"when": "focus", "do": "keyFocus", "target": "the first combobox"}
+                {
+                    "when": "hover",
+                    "do": "hover",
+                    "target": "the first combobox"
+                },
+                {
+                    "when": "focus",
+                    "do": "keyFocus",
+                    "target": "the first combobox"
+                }
             ],
             "shows": "The field trigger under the pointer (a look only in dark) and with keyboard focus (the ring edge and a 1px ring)."
         },
@@ -460,34 +794,64 @@
             "id": "Primitives/Inputs/Select/Open",
             "part": "select",
             "matrix": "pair",
-            "canvas": [480, 400],
-            "each": ["highlight"],
-            "steps": [{"do": "hover", "target": "option:running"}],
+            "canvas": [
+                480,
+                400
+            ],
+            "each": [
+                "highlight"
+            ],
+            "steps": [
+                {
+                    "do": "hover",
+                    "target": "option:running"
+                }
+            ],
             "shows": "The pointer over running: the accent wash and its ink."
         },
         {
             "id": "Primitives/Overlays/Tooltip/Opened",
             "part": "tooltip",
             "matrix": "full",
-            "canvas": [480, 200],
+            "canvas": [
+                480,
+                200
+            ],
             "shows": "The box above an icon button, Run import-orders now, with its arrow."
         },
         {
             "id": "Primitives/Overlays/Tooltip/With Shortcut",
             "part": "tooltip",
             "matrix": "full",
-            "canvas": [480, 200],
+            "canvas": [
+                480,
+                200
+            ],
             "shows": "A box under its button holding the key P after its words."
         },
         {
             "id": "Primitives/Overlays/Tooltip/Trigger",
             "part": "tooltip",
             "matrix": "pair",
-            "canvas": [480, 200],
-            "each": ["hover", "focus"],
+            "canvas": [
+                480,
+                200
+            ],
+            "each": [
+                "hover",
+                "focus"
+            ],
             "steps": [
-                {"when": "hover", "do": "hover", "target": "button:Run"},
-                {"when": "focus", "do": "keyFocus", "target": "button:Run"}
+                {
+                    "when": "hover",
+                    "do": "hover",
+                    "target": "button:Run"
+                },
+                {
+                    "when": "focus",
+                    "do": "keyFocus",
+                    "target": "button:Run"
+                }
             ],
             "shows": "The box once the pointer has rested past the delay, and at once with keyboard focus."
         },
@@ -495,12 +859,20 @@
             "id": "Primitives/Menus/DropdownMenu/Row Actions",
             "part": "dropdown-menu",
             "matrix": "full",
-            "canvas": [720, 400],
+            "canvas": [
+                720,
+                400
+            ],
             "shows": "A job's actions under an icon trigger, lined up at its end: icons, a shortcut, a submenu row, and a destructive Delete after a separator.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 768 every row is a finger tall."
                 }
@@ -510,32 +882,55 @@
             "id": "Primitives/Menus/DropdownMenu/Items",
             "part": "dropdown-menu",
             "matrix": "full",
-            "canvas": [480, 480],
+            "canvas": [
+                480,
+                480
+            ],
             "shows": "Check rows, a radio group under labels, an inset row, a disabled row with its keys and a destructive row; the plain rows stepped in past the gutter."
         },
         {
             "id": "Primitives/Menus/DropdownMenu/Checks",
             "part": "dropdown-menu",
             "matrix": "full",
-            "canvas": [720, 400],
+            "canvas": [
+                720,
+                400
+            ],
             "shows": "Checks and plain rows in one menu, as wide as its longest row."
         },
         {
             "id": "Primitives/Menus/DropdownMenu/Submenus",
             "part": "dropdown-menu",
             "matrix": "full",
-            "canvas": [720, 480],
+            "canvas": [
+                720,
+                480
+            ],
             "shows": "Two levels of submenus open, a radio group and checks inside them."
         },
         {
             "id": "Primitives/Menus/DropdownMenu/Row Actions",
             "part": "dropdown-menu",
             "matrix": "pair",
-            "canvas": [720, 400],
-            "each": ["highlight", "destructive"],
+            "canvas": [
+                720,
+                400
+            ],
+            "each": [
+                "highlight",
+                "destructive"
+            ],
             "steps": [
-                {"when": "highlight", "do": "hover", "target": "menuitem:Edit"},
-                {"when": "destructive", "do": "hover", "target": "menuitem:Delete"}
+                {
+                    "when": "highlight",
+                    "do": "hover",
+                    "target": "menuitem:Edit"
+                },
+                {
+                    "when": "destructive",
+                    "do": "hover",
+                    "target": "menuitem:Delete"
+                }
             ],
             "shows": "Edit under the pointer in the accent; Delete under the pointer on its destructive wash."
         },
@@ -543,12 +938,20 @@
             "id": "Patterns/Dialogs/Confirm",
             "part": "dialog",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "A ConfirmDialog, 384 wide: Delete import-orders?, its detail, Cancel and a destructive Delete in the footer band.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 640 a ConfirmDialog stays a box sized to its content (phone fit)."
                 }
@@ -558,40 +961,60 @@
             "id": "Patterns/Dialogs/Rename",
             "part": "dialog",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "A sm dialog with one prefilled field; Rename shut at half opacity while the name is unchanged."
         },
         {
             "id": "Patterns/Dialogs/Busy",
             "part": "dialog",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "Stop 8 runs working: its spinner before Stopping 8 runs, Cancel disabled."
         },
         {
             "id": "Patterns/Dialogs/Run log",
             "part": "dialog",
             "matrix": "full",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "An xl dialog with nothing to confirm: the corner close, the log in the body, Copy and Download alone in the footer."
         },
         {
             "id": "Patterns/Dialogs/Nested",
             "part": "dialog",
             "matrix": "full",
-            "canvas": [960, 640],
+            "canvas": [
+                960,
+                640
+            ],
             "shows": "Remove the validate step? over the editing dialog, which wears the nested shade."
         },
         {
             "id": "Patterns/Dialogs/Long content",
             "part": "dialog",
             "matrix": "pair",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "Release notes taller than the window: the body scrolls under a footer that stays.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 640 the dialog is a full-screen sheet with square corners, its footer at the foot."
                 }
@@ -601,21 +1024,39 @@
             "id": "Patterns/Dialogs/Rename",
             "part": "dialog",
             "matrix": "pair",
-            "canvas": [960, 480],
-            "each": ["reason"],
-            "steps": [{"do": "keyFocus", "target": "button:Rename"}],
+            "canvas": [
+                960,
+                480
+            ],
+            "each": [
+                "reason"
+            ],
+            "steps": [
+                {
+                    "do": "keyFocus",
+                    "target": "button:Rename"
+                }
+            ],
             "shows": "The shut confirm with keyboard focus: its reason, The name is unchanged., in the library's tooltip (principle 13)."
         },
         {
             "id": "Apps/Settings/Dialog",
             "part": "settings-dialog",
             "matrix": "full",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "The settings dialog on General: the head, the column with its search and grouped sections, General's rows, and the footer with Reset to defaults, the note and Done.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 640 it fills the screen, in General with Back in the head."
                 }
@@ -625,32 +1066,55 @@
             "id": "Apps/Settings/Search",
             "part": "settings-dialog",
             "matrix": "full",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "run in the search: the column keeps the sections with a match, the pane General's matching rows."
         },
         {
             "id": "Apps/Settings/No reset",
             "part": "settings-dialog",
             "matrix": "full",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "Account, a section with reset false: the footer keeps the note and Done, with no Reset to defaults."
         },
         {
             "id": "Apps/Settings/Synced",
             "part": "settings-dialog",
             "matrix": "full",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "The app's own footer note, when the settings last synced, and a reset of every setting."
         },
         {
             "id": "Apps/Settings/Dialog",
             "part": "settings-dialog",
             "matrix": "pair",
-            "canvas": [1280, 800],
-            "each": ["entry", "confirming"],
+            "canvas": [
+                1280,
+                800
+            ],
+            "each": [
+                "entry",
+                "confirming"
+            ],
             "steps": [
-                {"when": "entry", "do": "hover", "target": "button:Theme"},
-                {"when": "confirming", "do": "click", "target": "button:Reset to defaults"}
+                {
+                    "when": "entry",
+                    "do": "hover",
+                    "target": "button:Theme"
+                },
+                {
+                    "when": "confirming",
+                    "do": "click",
+                    "target": "button:Reset to defaults"
+                }
             ],
             "shows": "Theme under the pointer (the hover ground, the foreground ink); Reset to defaults pressed: the ConfirmDialog asks Reset General to its defaults? over the settings, which wear the nested shade."
         },
@@ -658,12 +1122,20 @@
             "id": "Patterns/Command palette/Long",
             "part": "command-palette",
             "matrix": "full",
-            "canvas": [960, 720],
+            "canvas": [
+                960,
+                720
+            ],
             "shows": "Many commands in their groups with icons, hints, codes and keys; the list scrolls and fades at its foot; the first row active.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 768 the search and every row are a finger tall."
                 }
@@ -673,12 +1145,20 @@
             "id": "Patterns/Command palette/Summaries",
             "part": "command-palette",
             "matrix": "full",
-            "canvas": [960, 720],
+            "canvas": [
+                960,
+                720
+            ],
             "shows": "A meta at each row's end in the code face; import-orders' no upload step in the critical ink (metaTone).",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 640 each meta folds under its label."
                 }
@@ -688,32 +1168,55 @@
             "id": "Patterns/Command palette/Chooser",
             "part": "command-palette",
             "matrix": "full",
-            "canvas": [960, 720],
+            "canvas": [
+                960,
+                720
+            ],
             "shows": "Runs to compare: two-line rows with a critical second line and status dots, and a one-line row's hint in the warning ink."
         },
         {
             "id": "Patterns/Command palette/Foot",
             "part": "command-palette",
             "matrix": "full",
-            "canvas": [960, 720],
+            "canvas": [
+                960,
+                720
+            ],
             "shows": "The strip at the foot: Tidevann's mark and name, Open beside Enter, Command palette beside its keys."
         },
         {
             "id": "Patterns/Command palette/No match",
             "part": "command-palette",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "invoices in the search: No command matches."
         },
         {
             "id": "Patterns/Command palette/Refused",
             "part": "command-palette",
             "matrix": "pair",
-            "canvas": [960, 720],
-            "each": ["active", "refused"],
+            "canvas": [
+                960,
+                720
+            ],
+            "each": [
+                "active",
+                "refused"
+            ],
             "steps": [
-                {"when": "active", "do": "hover", "target": "option:Cancel the run"},
-                {"when": "refused", "do": "click", "target": "option:Rerun nightly-export"}
+                {
+                    "when": "active",
+                    "do": "hover",
+                    "target": "option:Cancel the run"
+                },
+                {
+                    "when": "refused",
+                    "do": "click",
+                    "target": "option:Rerun nightly-export"
+                }
             ],
             "shows": "A row under the pointer on the muted wash; Rerun chosen: its row busy until the promise settles (900 ms), then the palette still open with the refusal under the rows in the critical ink."
         },
@@ -721,34 +1224,58 @@
             "id": "Patterns/Shell/Search field",
             "part": "shell",
             "matrix": "full",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "The whole frame: rail, top bar with its search and trail, page, foot."
         },
         {
             "id": "Patterns/Shell/Search field",
             "part": "shell",
             "matrix": "pair",
-            "canvas": [1280, 800],
-            "each": ["phone"],
-            "steps": [{"do": "resize", "width": 390}],
+            "canvas": [
+                1280,
+                800
+            ],
+            "each": [
+                "phone"
+            ],
+            "steps": [
+                {
+                    "do": "resize",
+                    "width": 390
+                }
+            ],
             "shows": "The frame at 390: the menu button, the last crumb, the palette as an icon."
         },
         {
             "id": "Patterns/Shell/Drawer",
             "part": "shell",
             "matrix": "pair",
-            "canvas": [390, 844],
+            "canvas": [
+                390,
+                844
+            ],
             "shows": "The drawer open below 768."
         },
         {
             "id": "Apps/Settings/Navbar",
             "part": "shell",
             "matrix": "pair",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 768 the dialog fills the screen and opens on its list."
                 }
@@ -759,12 +1286,20 @@
             "id": "Patterns/Run timeline/Month",
             "part": "run-timeline",
             "matrix": "full",
-            "canvas": [1280, 480],
+            "canvas": [
+                1280,
+                480
+            ],
             "shows": "Thirty days of jobs: the legend, day ticks, each run a mark in its state's color, runs after now hollow, the Now line and its tab.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 640 the names' column is 112 and the ticks thin out to fit."
                 }
@@ -774,18 +1309,36 @@
             "id": "Patterns/Run timeline/Day",
             "part": "run-timeline",
             "matrix": "full",
-            "canvas": [1280, 480],
+            "canvas": [
+                1280,
+                480
+            ],
             "shows": "One day: each run a bar as long as it took, the hours along the ruler."
         },
         {
             "id": "Patterns/Run timeline/Shift",
             "part": "run-timeline",
             "matrix": "pair",
-            "canvas": [1280, 560],
-            "each": ["rest", "hover", "focus"],
+            "canvas": [
+                1280,
+                560
+            ],
+            "each": [
+                "rest",
+                "hover",
+                "focus"
+            ],
             "steps": [
-                {"when": "hover", "do": "hover", "target": "button:nightly-export"},
-                {"when": "focus", "do": "keyFocus", "target": "button:Upcoming runs of sync-inventory"}
+                {
+                    "when": "hover",
+                    "do": "hover",
+                    "target": "button:nightly-export"
+                },
+                {
+                    "when": "focus",
+                    "do": "keyFocus",
+                    "target": "button:Upcoming runs of sync-inventory"
+                }
             ],
             "shows": "sync-inventory chosen: its lane on accent, its name's primary edge, the dashed handle over its upcoming runs and the hint in the legend; another lane's name under the pointer; the handle with keyboard focus."
         },
@@ -793,26 +1346,40 @@
             "id": "Apps/Workspace/Schedules",
             "part": "run-timeline",
             "matrix": "pair",
-            "canvas": [1280, 800],
+            "canvas": [
+                1280,
+                800
+            ],
             "shows": "The timeline in an app's schedules page, a lane chosen and its runs ready to shift."
         },
         {
             "id": "Patterns/Clip timeline/Two tracks",
             "part": "clip-timeline",
             "matrix": "full",
-            "canvas": [1280, 240],
+            "canvas": [
+                1280,
+                240
+            ],
             "shows": "A video track and its sound, read-only: the corner's timecode, the ruler's ticks, a video clip and an audio clip with its waveform, the playhead."
         },
         {
             "id": "Patterns/Clip timeline/Editor",
             "part": "clip-timeline",
             "matrix": "full",
-            "canvas": [1280, 480],
+            "canvas": [
+                1280,
+                480
+            ],
             "shows": "Four tracks with their toggles, clips in each kind's color, a title dashed, chosen clips outlined.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 640 the headers' column is 112 and the lanes scroll sideways inside the box."
                 }
@@ -822,33 +1389,50 @@
             "id": "Patterns/Clip timeline/Locked tracks",
             "part": "clip-timeline",
             "matrix": "full",
-            "canvas": [1280, 400],
+            "canvas": [
+                1280,
+                400
+            ],
             "shows": "A locked track's shaded lane; a hidden and a muted track's clips at half strength."
         },
         {
             "id": "Patterns/Clip timeline/Close zoom",
             "part": "clip-timeline",
             "matrix": "full",
-            "canvas": [1280, 240],
+            "canvas": [
+                1280,
+                240
+            ],
             "shows": "Close in: ticks a few frames apart with minor ticks between, the lanes scrolled to the playhead."
         },
         {
             "id": "Patterns/Clip timeline/Short room",
             "part": "clip-timeline",
             "matrix": "pair",
-            "canvas": [1280, 640],
+            "canvas": [
+                1280,
+                640
+            ],
             "shows": "Less height than the tracks need: the ruler pinned at the top, the headers at the start and the corner over both."
         },
         {
             "id": "Patterns/Emoji picker/Inline",
             "part": "emoji-picker",
             "matrix": "full",
-            "canvas": [480, 520],
+            "canvas": [
+                480,
+                520
+            ],
             "shows": "Recent first, then the groups under their headings, the tone button, the first tab current.",
             "also": [
                 {
                     "each": "cell",
-                    "steps": [{"do": "hover", "target": "button:thumbs up"}],
+                    "steps": [
+                        {
+                            "do": "hover",
+                            "target": "button:thumbs up"
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "A cell under the pointer on the hover wash."
                 }
@@ -858,42 +1442,68 @@
             "id": "Patterns/Emoji picker/Search",
             "part": "emoji-picker",
             "matrix": "full",
-            "canvas": [480, 520],
+            "canvas": [
+                480,
+                520
+            ],
             "shows": "heart in the search: Search results, those named for it first, no tab current."
         },
         {
             "id": "Patterns/Emoji picker/No match",
             "part": "emoji-picker",
             "matrix": "full",
-            "canvas": [480, 520],
+            "canvas": [
+                480,
+                520
+            ],
             "shows": "No emoji found."
         },
         {
             "id": "Patterns/Emoji picker/Skin tone",
             "part": "emoji-picker",
             "matrix": "full",
-            "canvas": [480, 520],
+            "canvas": [
+                480,
+                520
+            ],
             "shows": "The medium tone chosen: the tone button's hand and the people and hands in it; no Recent."
         },
         {
             "id": "Patterns/Emoji picker/Popover",
             "part": "emoji-picker",
             "matrix": "pair",
-            "canvas": [720, 560],
+            "canvas": [
+                720,
+                560
+            ],
             "shows": "The picker in a popover over its trigger, on the popup's look."
         },
         {
             "id": "Patterns/Reaction bar/Quick",
             "part": "reaction-bar",
             "matrix": "full",
-            "canvas": [720, 160],
+            "canvas": [
+                720,
+                160
+            ],
             "shows": "The default quick reactions and the more button on the popup's look.",
             "also": [
                 {
-                    "each": ["hover", "focus"],
+                    "each": [
+                        "hover",
+                        "focus"
+                    ],
                     "steps": [
-                        {"when": "hover", "do": "hover", "target": "button:thumbs up"},
-                        {"when": "focus", "do": "keyFocus", "target": "button:red heart"}
+                        {
+                            "when": "hover",
+                            "do": "hover",
+                            "target": "button:thumbs up"
+                        },
+                        {
+                            "when": "focus",
+                            "do": "keyFocus",
+                            "target": "button:red heart"
+                        }
                     ],
                     "matrix": "pair",
                     "why": "A reaction on the hover wash; one with keyboard focus."
@@ -904,40 +1514,60 @@
             "id": "Patterns/Reaction bar/Selected",
             "part": "reaction-bar",
             "matrix": "full",
-            "canvas": [720, 160],
+            "canvas": [
+                720,
+                160
+            ],
             "shows": "Two reactions given, pressed: the primary wash and ring."
         },
         {
             "id": "Patterns/Reaction bar/Toolbar",
             "part": "reaction-bar",
             "matrix": "full",
-            "canvas": [720, 120],
+            "canvas": [
+                720,
+                120
+            ],
             "shows": "An app's short list at sm, unframed."
         },
         {
             "id": "Patterns/Reaction bar/More",
             "part": "reaction-bar",
             "matrix": "pair",
-            "canvas": [720, 560],
+            "canvas": [
+                720,
+                560
+            ],
             "shows": "The more button open: the full picker over the bar, Recent first."
         },
         {
             "id": "Patterns/Reaction bar/Reaction counts",
             "part": "reaction-bar",
             "matrix": "full",
-            "canvas": [720, 200],
+            "canvas": [
+                720,
+                200
+            ],
             "shows": "Chips under a message: thumbs up 3, yours (primary), party popper 1, and the add button."
         },
         {
             "id": "Patterns/Composer/States",
             "part": "composer",
             "matrix": "full",
-            "canvas": [960, 720],
+            "canvas": [
+                960,
+                720
+            ],
             "shows": "Stacked: empty with Send shut, holding text with files and a picture, busy with Stop, and disabled.",
             "also": [
                 {
                     "each": "within",
-                    "steps": [{"do": "click", "target": "textbox:Ask anything"}],
+                    "steps": [
+                        {
+                            "do": "click",
+                            "target": "textbox:Ask anything"
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Focus in the text: the edge and the 1 wide ring in ring."
                 }
@@ -947,12 +1577,20 @@
             "id": "Patterns/Composer/Inline",
             "part": "composer",
             "matrix": "full",
-            "canvas": [960, 720],
+            "canvas": [
+                960,
+                720
+            ],
             "shows": "Inline: the empty pill, a short question still a pill, a question that wraps and one with a file, both opened into the box.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 768 the pill is a finger tall and its buttons finger squares; the wrapping question opens sooner."
                 }
@@ -962,28 +1600,48 @@
             "id": "Patterns/Composer/Uploads",
             "part": "composer",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "Files on their way up: a ring at 40 percent, a spinner, a picture at half strength; a recording and a video ready; Send waiting."
         },
         {
             "id": "Patterns/Composer/Mentions",
             "part": "composer",
             "matrix": "pair",
-            "canvas": [960, 560],
+            "canvas": [
+                960,
+                560
+            ],
             "shows": "The people suggested at the caret after an @."
         },
         {
             "id": "Patterns/Message composer/Empty",
             "part": "message-composer",
             "matrix": "full",
-            "canvas": [960, 240],
+            "canvas": [
+                960,
+                240
+            ],
             "shows": "The toolbar hidden: add, the text style toggle, emoji and mention, Send faint and shut.",
             "also": [
                 {
-                    "each": ["hover", "focus"],
+                    "each": [
+                        "hover",
+                        "focus"
+                    ],
                     "steps": [
-                        {"when": "hover", "do": "hover", "target": "button:Emoji"},
-                        {"when": "focus", "do": "keyFocus", "target": "button:Attach"}
+                        {
+                            "when": "hover",
+                            "do": "hover",
+                            "target": "button:Emoji"
+                        },
+                        {
+                            "when": "focus",
+                            "do": "keyFocus",
+                            "target": "button:Attach"
+                        }
                     ],
                     "matrix": "pair",
                     "why": "An action under the pointer; add with keyboard focus."
@@ -994,12 +1652,20 @@
             "id": "Patterns/Message composer/Formatting",
             "part": "message-composer",
             "matrix": "full",
-            "canvas": [960, 320],
+            "canvas": [
+                960,
+                320
+            ],
             "shows": "The toolbar's groups and rules over a draft, Write and Preview at its end, the text style toggle pressed, Send on primary.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Narrower than 448 the groups that do not fit go behind More, and Write and Preview become one Preview action."
                 }
@@ -1009,42 +1675,70 @@
             "id": "Patterns/Message composer/Code languages",
             "part": "message-composer",
             "matrix": "pair",
-            "canvas": [960, 640],
+            "canvas": [
+                960,
+                640
+            ],
             "shows": "The code block's menu open over the button."
         },
         {
             "id": "Patterns/Message composer/JSON preview",
             "part": "message-composer",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "Preview: a json fence drawn as a sent message draws it."
         },
         {
             "id": "Patterns/Message composer/Thread reply",
             "part": "message-composer",
             "matrix": "full",
-            "canvas": [960, 320],
+            "canvas": [
+                960,
+                320
+            ],
             "shows": "Also send to with the channel, and the schedule chevron beside Send."
         },
         {
             "id": "Patterns/Call bar/Plain",
             "part": "call-bar",
             "matrix": "full",
-            "canvas": [720, 160],
+            "canvas": [
+                720,
+                160
+            ],
             "shows": "Every control at rest on the floating bar: microphone and camera with their chevrons, share, reactions, raise hand, more and Leave as a pill.",
             "also": [
                 {
-                    "each": ["hover", "focus"],
+                    "each": [
+                        "hover",
+                        "focus"
+                    ],
                     "steps": [
-                        {"when": "hover", "do": "hover", "target": "button:Share screen"},
-                        {"when": "focus", "do": "keyFocus", "target": "button:Mute"}
+                        {
+                            "when": "hover",
+                            "do": "hover",
+                            "target": "button:Share screen"
+                        },
+                        {
+                            "when": "focus",
+                            "do": "keyFocus",
+                            "target": "button:Mute"
+                        }
                     ],
                     "matrix": "pair",
                     "why": "A control on the hover wash; one with keyboard focus."
                 },
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 576 of room: share and raise hand in more, Leave round."
                 }
@@ -1054,54 +1748,80 @@
             "id": "Patterns/Call bar/Muted and off",
             "part": "call-bar",
             "matrix": "full",
-            "canvas": [720, 160],
+            "canvas": [
+                720,
+                160
+            ],
             "shows": "The microphone muted and the camera off in the critical tone, their chevrons too; share and raise hand pressed."
         },
         {
             "id": "Patterns/Call bar/Device menu",
             "part": "call-bar",
             "matrix": "pair",
-            "canvas": [720, 440],
+            "canvas": [
+                720,
+                440
+            ],
             "shows": "The microphone's chevron open: microphones and speakers under their headings, the ones in use checked."
         },
         {
             "id": "Patterns/Call bar/Reactions",
             "part": "call-bar",
             "matrix": "pair",
-            "canvas": [720, 260],
+            "canvas": [
+                720,
+                260
+            ],
             "shows": "The reactions toggle pressed, the reaction bar standing over the call bar."
         },
         {
             "id": "Patterns/Call bar/More menu",
             "part": "call-bar",
             "matrix": "pair",
-            "canvas": [720, 480],
+            "canvas": [
+                720,
+                480
+            ],
             "shows": "More open: the app's rows, captions checked."
         },
         {
             "id": "Patterns/Call bar/Docked",
             "part": "call-bar",
             "matrix": "full",
-            "canvas": [720, 160],
+            "canvas": [
+                720,
+                160
+            ],
             "shows": "Docked: a strip on the background with a rule on top, no popup look."
         },
         {
             "id": "Patterns/Call bar/Over a call",
             "part": "call-bar",
             "matrix": "pair",
-            "canvas": [960, 600],
+            "canvas": [
+                960,
+                600
+            ],
             "shows": "The bar floating over a call's tiles, with shortcuts bound."
         },
         {
             "id": "Patterns/Letter/Folded",
             "part": "letter",
             "matrix": "full",
-            "canvas": [720, 160],
+            "canvas": [
+                720,
+                160
+            ],
             "shows": "A folded letter from linus: picture, name, time and its first words on one line.",
             "also": [
                 {
                     "each": "focus",
-                    "steps": [{"do": "keyFocus", "target": "button:linus"}],
+                    "steps": [
+                        {
+                            "do": "keyFocus",
+                            "target": "button:linus"
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "The head's keyboard focus ring."
                 }
@@ -1111,12 +1831,20 @@
             "id": "Patterns/Letter/Open",
             "part": "letter",
             "matrix": "full",
-            "canvas": [720, 480],
+            "canvas": [
+                720,
+                480
+            ],
             "shows": "grace's letter open: the address beside the name, to me, linus, margaret, the paperclip before the time, the plan and two files.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Below 640 the address goes and the body is not indented."
                 }
@@ -1126,42 +1854,68 @@
             "id": "Patterns/Letter/Thread",
             "part": "letter",
             "matrix": "full",
-            "canvas": [720, 640],
+            "canvas": [
+                720,
+                640
+            ],
             "shows": "Three letters: the first folded, the second open, the latest open with a head that is no button."
         },
         {
             "id": "Patterns/Detail pane/Facts",
             "part": "detail-pane",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "A run's facts in the side panel: Job, State (failed), Started by, Started, Duration."
         },
         {
             "id": "Patterns/Detail pane/Sections",
             "part": "detail-pane",
             "matrix": "full",
-            "canvas": [960, 600],
+            "canvas": [
+                960,
+                600
+            ],
             "shows": "The run's facts, its steps as a timeline, then Run again and Edit the job."
         },
         {
             "id": "Patterns/Detail pane/Summary",
             "part": "detail-pane",
             "matrix": "pair",
-            "canvas": [960, 600],
+            "canvas": [
+                960,
+                600
+            ],
             "shows": "An audit event: a sentence over its facts, and the schedule change as a diff."
         },
         {
             "id": "Patterns/Board item panel/Checklist",
             "part": "board-item-panel",
             "matrix": "full",
-            "canvas": [960, 360],
+            "canvas": [
+                960,
+                360
+            ],
             "shows": "Checklist 2/4: the bar half full, two steps done (struck through, quiet), two to do.",
             "also": [
                 {
-                    "each": ["hover", "focus"],
+                    "each": [
+                        "hover",
+                        "focus"
+                    ],
                     "steps": [
-                        {"when": "hover", "do": "hover", "target": "checkbox:Add a validate rule for zero rows"},
-                        {"when": "focus", "do": "keyFocus", "target": "checkbox:Reproduce with the 1 November feed"}
+                        {
+                            "when": "hover",
+                            "do": "hover",
+                            "target": "checkbox:Add a validate rule for zero rows"
+                        },
+                        {
+                            "when": "focus",
+                            "do": "keyFocus",
+                            "target": "checkbox:Reproduce with the 1 November feed"
+                        }
                     ],
                     "matrix": "pair",
                     "why": "A step's row on the hover wash; a box with keyboard focus."
@@ -1172,19 +1926,30 @@
             "id": "Patterns/Board item panel/Item",
             "part": "board-item-panel",
             "matrix": "full",
-            "canvas": [960, 720],
+            "canvas": [
+                960,
+                720
+            ],
             "shows": "HRB-142 in full: code over title, In progress chip and two labels, description, fields, checklist and activity."
         },
         {
             "id": "Primitives/Inputs/Date field/Plain",
             "part": "date-field",
             "matrix": "full",
-            "canvas": [480, 400],
+            "canvas": [
+                480,
+                400
+            ],
             "shows": "A date with a value, an empty optional one with its format as the placeholder, a required one and one read only.",
             "also": [
                 {
                     "each": "focus",
-                    "steps": [{"do": "keyFocus", "target": "textbox:First run"}],
+                    "steps": [
+                        {
+                            "do": "keyFocus",
+                            "target": "textbox:First run"
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "The ring edge and ring with focus in the frame."
                 }
@@ -1194,33 +1959,50 @@
             "id": "Primitives/Inputs/Date field/Formats",
             "part": "date-field",
             "matrix": "full",
-            "canvas": [480, 320],
+            "canvas": [
+                480,
+                320
+            ],
             "shows": "The same day as YYYY-MM-DD, DD.MM.YYYY and MM/DD/YYYY."
         },
         {
             "id": "Primitives/Inputs/Date field/Bounds",
             "part": "date-field",
             "matrix": "full",
-            "canvas": [480, 320],
+            "canvas": [
+                480,
+                320
+            ],
             "shows": "A date before min, said at once by the critical edge and the issue mark; one within the bounds."
         },
         {
             "id": "Primitives/Inputs/Date field/Open",
             "part": "date-field",
             "matrix": "pair",
-            "canvas": [480, 480],
+            "canvas": [
+                480,
+                480
+            ],
             "shows": "The calendar open on the chosen day: the day filled, today marked, the days outside the bounds shut."
         },
         {
             "id": "Patterns/Dashboard panels/Stat tiles",
             "part": "stat-panel",
             "matrix": "full",
-            "canvas": [1280, 400],
+            "canvas": [
+                1280,
+                400
+            ],
             "shows": "Values inked by thresholds, tiles filled by them, a trend behind the value, a change with what it is against, one with no data; a title cut short.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "Tiles two to a row."
                 }
@@ -1230,40 +2012,60 @@
             "id": "Patterns/Dashboard panels/Panel menus",
             "part": "dashboard-panel",
             "matrix": "pair",
-            "canvas": [1280, 560],
+            "canvas": [
+                1280,
+                560
+            ],
             "shows": "A panel's and a tile's menu buttons in their heads; one menu open at the button's end."
         },
         {
             "id": "Patterns/Dashboard panels/Panel states",
             "part": "dashboard-panel",
             "matrix": "full",
-            "canvas": [1280, 480],
+            "canvas": [
+                1280,
+                480
+            ],
             "shows": "No data, a failed query with Retry and the raw message folded away, and figures kept but stale, on a stat tile, a panel and a chart panel."
         },
         {
             "id": "Patterns/Dashboard panels/Chart panels",
             "part": "dashboard-panel",
             "matrix": "full",
-            "canvas": [1280, 720],
+            "canvas": [
+                1280,
+                720
+            ],
             "shows": "Chart panels in the frame: heads with titles and subtitles, the tools, padded content."
         },
         {
             "id": "Patterns/Dashboard panels/Figure hierarchy",
             "part": "stat-panel",
             "matrix": "pair",
-            "canvas": [1280, 640],
+            "canvas": [
+                1280,
+                640
+            ],
             "shows": "The three hierarchy options side by side: inked values, a fill only past a threshold, a quiet strip over plain tiles."
         },
         {
             "id": "Patterns/Editor/Code editor",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 640],
+            "canvas": [
+                960,
+                640
+            ],
             "shows": "Editors in fields: YAML with a line that fails the check, a read-only JSON record, plain text without line numbers.",
             "also": [
                 {
                     "each": "focus",
-                    "steps": [{"do": "keyFocus", "target": "textbox:Definition"}],
+                    "steps": [
+                        {
+                            "do": "keyFocus",
+                            "target": "textbox:Definition"
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "The ring/80 edge and the caret's line shaded."
                 }
@@ -1273,12 +2075,20 @@
             "id": "Patterns/Editor/One line",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [720, 160],
+            "canvas": [
+                720,
+                160
+            ],
             "shows": "A query on one line at a control's height.",
             "also": [
                 {
                     "each": "phone",
-                    "steps": [{"do": "resize", "width": 390}],
+                    "steps": [
+                        {
+                            "do": "resize",
+                            "width": 390
+                        }
+                    ],
                     "matrix": "pair",
                     "why": "A finger tall below md."
                 }
@@ -1288,63 +2098,90 @@
             "id": "Patterns/Editor/Folding",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "A JSON record with the fold gutter and search."
         },
         {
             "id": "Patterns/Editor/Search",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "A read-only run log at sm, the find bar open with matches washed, the current one stronger."
         },
         {
             "id": "Patterns/Editor/Marks at paths",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "Findings underlined on their values in the tones, dots in the lint gutter."
         },
         {
             "id": "Patterns/Editor/jq",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 400],
+            "canvas": [
+                960,
+                400
+            ],
             "shows": "A jq filter: keywords, strings, fields and variables colored, a ranged error underlined."
         },
         {
             "id": "Patterns/Editor/Languages",
             "part": "code-editor",
             "matrix": "pair",
-            "canvas": [960, 640],
+            "canvas": [
+                960,
+                640
+            ],
             "shows": "SQL, shell and Jinja, each loaded on first use."
         },
         {
             "id": "Patterns/Editor/Schema",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 560],
+            "canvas": [
+                960,
+                560
+            ],
             "shows": "YAML checked against a schema: issues underlined with messages."
         },
         {
             "id": "Patterns/Editor/Markdown",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 560],
+            "canvas": [
+                960,
+                560
+            ],
             "shows": "A note at lg, wrapped: headings, emphasis, code, lists, quotes, links, [[links]] and #tags colored."
         },
         {
             "id": "Patterns/Editor/Caret line",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 400],
+            "canvas": [
+                960,
+                400
+            ],
             "shows": "activeLine always beside the default: the caret's line shaded without focus."
         },
         {
             "id": "Foundations/Code colors/Languages",
             "part": "code-editor",
             "matrix": "full",
-            "canvas": [960, 720],
+            "canvas": [
+                960,
+                720
+            ],
             "shows": "Every code-* color across the sample languages."
         },
         {
@@ -1352,35 +2189,58 @@
             "part": "stat-panel",
             "new": true,
             "matrix": "full",
-            "canvas": [1280, 320],
+            "canvas": [
+                1280,
+                320
+            ],
             "shows": "Readings toward a target: the meter under each value, the reading filled in, a tick at the target and its value written out; one over its target, one with its own range, one with no data and no meter."
         },
         {
             "id": "Charts/Chart/Stacked",
             "part": "chart",
             "matrix": "full",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "Runs per job stacked by state in each run state's status color (statuses)."
         },
         {
             "id": "Charts/Chart/Palette",
             "part": "chart",
             "matrix": "pair",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "Series and slices in an app's palette in place of the theme's order."
         },
         {
             "id": "Charts/Line/Two series",
             "part": "chart",
             "matrix": "full",
-            "canvas": [960, 400],
+            "canvas": [
+                960,
+                400
+            ],
             "shows": "Two lines over the day, the axes, grid and the legend under the chart.",
             "also": [
                 {
-                    "each": ["hover", "focus"],
+                    "each": [
+                        "hover",
+                        "focus"
+                    ],
                     "steps": [
-                        {"when": "hover", "do": "hover", "target": "button:Runs"},
-                        {"when": "focus", "do": "keyFocus", "target": "button:Runs"}
+                        {
+                            "when": "hover",
+                            "do": "hover",
+                            "target": "button:Runs"
+                        },
+                        {
+                            "when": "focus",
+                            "do": "keyFocus",
+                            "target": "button:Runs"
+                        }
                     ],
                     "matrix": "pair",
                     "why": "A legend entry on the hover wash, its series emphasized; one with keyboard focus."
@@ -1391,125 +2251,496 @@
             "id": "Charts/Frame/Legend list",
             "part": "chart",
             "matrix": "full",
-            "canvas": [720, 360],
+            "canvas": [
+                720,
+                360
+            ],
             "shows": "The legend as a wrapped row, one series switched off: hollow swatch, struck label, 60 percent."
         },
         {
             "id": "Charts/Frame/Legend table",
             "part": "chart",
             "matrix": "full",
-            "canvas": [720, 400],
+            "canvas": [
+                720,
+                400
+            ],
             "shows": "The legend as a table of each series' min, max, avg and current."
         },
         {
             "id": "Patterns/Dashboard panels/Time series",
             "part": "time-series-panel",
             "matrix": "full",
-            "canvas": [1280, 720],
+            "canvas": [
+                1280,
+                720
+            ],
             "shows": "Lines over fading areas, percentiles with a dashed threshold line in critical and a legend table, stacked areas, and steps."
         },
         {
             "id": "Charts/Scorecard/Solid",
             "part": "time-series-panel",
             "matrix": "pair",
-            "canvas": [960, 480],
+            "canvas": [
+                960,
+                480
+            ],
             "shows": "ThresholdLegend as one strip (bar layout) under a scorecard."
         },
         {
             "id": "Patterns/Feedback/Banner",
             "part": "banner",
             "matrix": "full",
-            "canvas": [960, 360],
+            "canvas": [
+                960,
+                360
+            ],
             "shows": "A critical banner with actions and the dismiss, a warning one, and an info one with actions: each tone's wash, its rule under it and its ink."
         },
         {
             "id": "Patterns/Feedback/Problem",
             "part": "problem",
             "matrix": "pair",
-            "canvas": [720, 360],
+            "canvas": [
+                720,
+                360
+            ],
             "shows": "Problems with a title, a detail with code, the technical words folded away, and actions."
         },
         {
             "id": "Patterns/Side panel/Tabs",
             "part": "side-panel",
             "matrix": "full",
-            "canvas": [960, 640],
+            "canvas": [
+                960,
+                640
+            ],
             "shows": "A run's Details, Log and Outputs as the panel's tabs, the log shown."
         },
         {
             "id": "Patterns/Data/JSON tree",
             "part": "json-tree",
             "matrix": "pair",
-            "canvas": [720, 480],
+            "canvas": [
+                720,
+                480
+            ],
             "shows": "A record drawn as a JSON tree."
         },
         {
             "id": "Primitives/Inputs/Secret field/Not set",
             "part": "secret-field",
             "matrix": "full",
-            "canvas": [480, 140],
+            "canvas": [
+                480,
+                140
+            ],
             "shows": "A masked input with Show."
         },
         {
             "id": "Primitives/Inputs/Secret field/Set",
             "part": "secret-field",
             "matrix": "pair",
-            "canvas": [480, 140],
+            "canvas": [
+                480,
+                140
+            ],
             "shows": "A secret already set: sealed, when it was set, and Replace."
         },
         {
             "id": "Primitives/Inputs/Time field/Plain",
             "part": "time-field",
             "matrix": "full",
-            "canvas": [480, 240],
+            "canvas": [
+                480,
+                240
+            ],
             "shows": "The time field as its Plain story draws it."
         },
         {
             "id": "Primitives/Inputs/Time field/Open",
             "part": "time-field",
             "matrix": "pair",
-            "canvas": [480, 360],
+            "canvas": [
+                480,
+                360
+            ],
             "shows": "The time field open, as its Open story draws it."
         },
         {
             "id": "Patterns/Answers/Unanswered",
             "part": "yes-no-field",
             "matrix": "full",
-            "canvas": [480, 160],
+            "canvas": [
+                480,
+                160
+            ],
             "shows": "A yes or no question not answered yet."
         },
         {
             "id": "Patterns/Answers/Computed",
             "part": "computed-field",
             "matrix": "pair",
-            "canvas": [480, 160],
+            "canvas": [
+                480,
+                160
+            ],
             "shows": "A value the form works out, read only."
         },
         {
             "id": "Patterns/Repeated group/Steps",
             "part": "repeated-group",
             "matrix": "full",
-            "canvas": [720, 480],
+            "canvas": [
+                720,
+                480
+            ],
             "shows": "A repeated group of steps, each a row the reader can add, remove and reorder."
         },
         {
             "id": "Patterns/Period picker/Every type",
             "part": "period-picker",
             "matrix": "pair",
-            "canvas": [720, 480],
+            "canvas": [
+                720,
+                480
+            ],
             "shows": "A period picker for each type of period."
         },
         {
             "id": "Patterns/Tree/Tree select, open",
             "part": "tree-select",
             "matrix": "pair",
-            "canvas": [720, 480],
+            "canvas": [
+                720,
+                480
+            ],
             "shows": "The tree select for one place open, its list unfolded at the chosen one."
+        },
+        {
+            "id": "Primitives/Display/Badge/Variants",
+            "part": "badge",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "Each badge variant at rest."
+        },
+        {
+            "id": "Primitives/Display/Badge/Kinds",
+            "part": "badge",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "Badges in each kind hue."
+        },
+        {
+            "id": "Patterns/Data/Stats",
+            "part": "stat",
+            "matrix": "full",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Plain stats in a row: label, value, trend and dot."
+        },
+        {
+            "id": "Patterns/Data/Stat tiles",
+            "part": "stat",
+            "matrix": "full",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Stats as tiles, a large one among them."
+        },
+        {
+            "id": "Patterns/Data/Description list",
+            "part": "description-list",
+            "matrix": "full",
+            "canvas": [
+                720,
+                480
+            ],
+            "shows": "Facts side by side, stacked and in a row; a missing value as a faint dash."
+        },
+        {
+            "id": "Patterns/Data/Dense",
+            "part": "description-list",
+            "matrix": "pair",
+            "canvas": [
+                480,
+                480
+            ],
+            "shows": "Size sm in a narrow inspector."
+        },
+        {
+            "id": "Patterns/States/Unfoldable",
+            "part": "unfoldable",
+            "matrix": "full",
+            "canvas": [
+                720,
+                480
+            ],
+            "shows": "Rows that unfold to their detail, one open."
+        },
+        {
+            "id": "Primitives/Inputs/Choice list/Described",
+            "part": "choice-list",
+            "matrix": "full",
+            "canvas": [
+                720,
+                480
+            ],
+            "shows": "Choices with a description under each, one chosen."
+        },
+        {
+            "id": "Patterns/API link/Methods",
+            "part": "api-link",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "An API path under each method."
+        },
+        {
+            "id": "Patterns/Validation/Counts",
+            "part": "issue-count",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "Issue counts: errors, warnings, both."
+        },
+        {
+            "id": "Patterns/Server menu/Up",
+            "part": "server-menu",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "The server menu closed, the server up."
+        },
+        {
+            "id": "Patterns/Server menu/Open",
+            "part": "server-menu",
+            "matrix": "pair",
+            "canvas": [
+                720,
+                480
+            ],
+            "shows": "The server menu open on its servers."
+        },
+        {
+            "id": "Patterns/Server menu/Degraded",
+            "part": "server-menu",
+            "matrix": "pair",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "The server menu with the server degraded."
+        },
+        {
+            "id": "Patterns/Cards/Plain",
+            "part": "item-card",
+            "matrix": "full",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Item cards at rest: title, description, meta."
+        },
+        {
+            "id": "Patterns/Cards/Selectable",
+            "part": "item-card",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Item cards to choose from, one chosen."
+        },
+        {
+            "id": "Patterns/Drag and drop/Sortable grid",
+            "part": "sortable-grid",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "A grid of tiles in the reader's order."
+        },
+        {
+            "id": "Patterns/Prompt dialog/Open",
+            "part": "prompt",
+            "matrix": "full",
+            "canvas": [
+                720,
+                480
+            ],
+            "shows": "The prompt asking for one value, open."
+        },
+        {
+            "id": "Patterns/Prompt dialog/Validation",
+            "part": "prompt",
+            "matrix": "pair",
+            "canvas": [
+                720,
+                480
+            ],
+            "shows": "The prompt refusing a value, its message under the field."
+        },
+        {
+            "id": "Patterns/Prompt dialog/Secret",
+            "part": "prompt",
+            "matrix": "pair",
+            "canvas": [
+                720,
+                480
+            ],
+            "shows": "The prompt asking for a secret, its value hidden."
+        },
+        {
+            "id": "Charts/Candlestick/Candles",
+            "part": "chart",
+            "matrix": "full",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Candles rising in good and falling in critical."
+        },
+        {
+            "id": "Charts/Candlestick/With volume",
+            "part": "chart",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Candles over volume bars."
+        },
+        {
+            "id": "Charts/Candlestick/OHLC bars",
+            "part": "chart",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Readings as open, high, low and close bars."
+        },
+        {
+            "id": "Patterns/Docs/Callouts",
+            "part": "markdown-view",
+            "matrix": "full",
+            "canvas": [
+                960,
+                640
+            ],
+            "shows": "Each callout kind from its marker, and a plain quote."
+        },
+        {
+            "id": "Patterns/Docs/Titled callouts",
+            "part": "markdown-view",
+            "matrix": "full",
+            "canvas": [
+                960,
+                640
+            ],
+            "shows": "Callouts titled by their first line, folded closed and open, further markers drawn as the nearest kind, an unknown one left a quote."
+        },
+        {
+            "id": "Patterns/Docs/Vault note",
+            "part": "markdown-view",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                720
+            ],
+            "shows": "A note as a vault writes it: frontmatter left out, a comment not drawn, titled and folded callouts, a note embed, an image embed at a width, a highlight, Rust."
+        },
+        {
+            "id": "Patterns/Docs/Linked notes",
+            "part": "markdown-view",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Links between notes, one to a missing note faint, and tags as chips."
+        },
+        {
+            "id": "Patterns/Docs/Embeds",
+            "part": "markdown-view",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                640
+            ],
+            "shows": "A note's section drawn by the app, a note as a framed link, an image at a width, a file."
+        },
+        {
+            "id": "Patterns/Docs/Properties",
+            "part": "markdown-view",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                480
+            ],
+            "shows": "Frontmatter left out, and shown as YAML above the note."
+        },
+        {
+            "id": "Patterns/Docs/Untrusted text",
+            "part": "markdown-view",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                640
+            ],
+            "shows": "Text held to the app's rules: images as text, only listed schemes live, headings moved down."
+        },
+        {
+            "id": "Patterns/Docs/From a tree",
+            "part": "markdown-view",
+            "matrix": "pair",
+            "canvas": [
+                960,
+                640
+            ],
+            "shows": "A note drawn from its tree beside the tree."
+        },
+        {
+            "id": "Primitives/Display/Group label/Over groups",
+            "part": "group-label",
+            "matrix": "full",
+            "canvas": [
+                480,
+                480
+            ],
+            "shows": "Labels over groups of entries, as a rail and a panel set them."
+        },
+        {
+            "id": "Primitives/Display/Group label/On surfaces",
+            "part": "group-label",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "The label on the page, a card, a well and an inset."
         }
     ],
     "count": {
-        "full": "123 stories x 12 appearances = 1476",
-        "pair": "103 captures x 2 appearances = 206",
-        "perSide": 1682
+        "full": "140 stories x 12 appearances = 1680",
+        "pair": "118 captures x 2 appearances = 236",
+        "perSide": 1916
     }
 }
