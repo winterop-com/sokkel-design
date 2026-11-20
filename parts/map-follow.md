@@ -21,7 +21,11 @@ Sources: sokkel-ui `packages/maps/src/MapFollow.tsx`.
 
 ## Sizes
 
-- banner: padX `8`, padY `2`, gap `6`, icon `14`, text `text.xs`, radius `radius-control`. 
+- banner: padX `8`, padY `2`, gap `6`, icon `14`, text `text.badge`, radius `radius-control`. 
+
+## States
+
+- rest: The map follows.
 
 ## Words
 

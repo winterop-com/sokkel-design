@@ -24,8 +24,14 @@ Sources: sokkel-ui `packages/maps/src/MapRuler.tsx`, `packages/maps/src/control.
 
 ## Sizes
 
-- button: height `density.control-sm`, width `density.control-sm`, radius `radius-control`. 
-- chip: padX `6`, padY `2`, text `text.xs`, radius `radius-control`. 
+- button: height `density.control-sm`, width `density.control-sm`, radius `radius-control`, radiusMax `12`. 
+- chip: padX `6`, padY `2`, text `text.badge`, radius `radius-control`. 
+
+## States
+
+- rest: The ruler is off: only its button.
+- on: The ruler is on: presses on the map measure rather than select, and the pointer is a crosshair.
+- hover: The pointer is over the button.
 
 ## Keyboard
 
