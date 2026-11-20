@@ -8,9 +8,10 @@ of their own (D4); a change to a part is a line here under its name.
 
 - chip: a chosen hue chip's paints, as sokkel-ui draws them: its ink's wash at 20 percent, edged in
   its ink.
-- Renderers: sokkel-egui as of abba973: `chip` built; `table`'s selection keys and a tree's indent in
-  stacked rows and cards built, the table partial for a chosen look on labeled cards and a range
-  across groups.
+- Renderers: sokkel-egui as of abba973: `chip` built, a chosen hue from its resolved paints. As of
+  5532f68: `table` built, with the chosen look on labeled cards, the labeled list and the card grid,
+  and a range taken in the order drawn when grouped (group by group, folded groups left out), as
+  sokkel-ui's is.
 
 ## 0.33.1
 
