@@ -6,6 +6,8 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- The markdown tree: a reader asked to keep positions places the nodes notes add (links, embeds,
+  tags, highlights) on what was written for each, and each text cut from another on its own words.
 - Renderers: sokkel-egui as of cb26531: `group-label`, `badge`, `stat`, `api-link`, `unfoldable`,
   `choice-list`, `issue-count`, `server-menu`, `item-card` and `sortable-grid` built, and the prompt
   pattern; `description-list` partial for `numeric` alone; `table` partial for EntryGrid and a band's

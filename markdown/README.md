@@ -16,7 +16,10 @@ HTML is read are decided when the tree is drawn, by each renderer, from the app'
 It is [mdast](https://github.com/syntax-tree/mdast): CommonMark and GitHub-flavored markdown
 (tables, task items, strikethrough, footnotes, autolinks) and math (`math`, `inlineMath`), with the
 nodes below. Every node is a plain object: no `data`, and `position` only where a reader is asked to
-keep it. Text next to text is one node. A renderer given a tree draws no node's `data`, which in
+keep it. Asked to keep it, a reader places the nodes notes add too: a `wikiLink`, `embed`, `tag` or
+`highlight` spans what was written for it (`[[...]]`, `![[...]]`, `#tag`, `==...==`), escapes and
+character references included, and a text cut from another keeps its own words' place; the words
+a link or embed shows are made from it and have none. Text next to text is one node. A renderer given a tree draws no node's `data`, which in
 mdast can name any element and property to draw: what is drawn comes from the node types alone. Link references stay references, resolved by their
 `definition` when drawn, as mdast has them.
 
