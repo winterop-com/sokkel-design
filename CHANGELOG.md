@@ -6,6 +6,12 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- `map-coordinates` takes `formatPosition` and `map-go-to` takes `parse`, so an app writes and reads
+  positions in a reference system the map does not know (MGRS). `track-layer` takes `bands`, colors by
+  band name, painted in place of the affiliation's.
+- Corrections from sokkel-ui's checks: `track-card`'s name and `task-card`'s title are `text.sm` at 500;
+  `track-roster`'s arrows move the active row and Enter picks it, as the table's do; a zone's label
+  yields to a track's label, and a link's chip to both.
 - Tracking, as sokkel-ui draws it at b05ad7e: the map overlays `zone-layer`, `coverage-layer` and
   `link-layer`; the core parts `track-glyph`, `freshness`, `track-card`, `track-roster`, `task-card` and
   `playback-timeline`; the theme `darkroom` (red ink on near-black for red-lit rooms). `map-ruler`,

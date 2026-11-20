@@ -25,11 +25,18 @@ Sources: sokkel-ui `packages/maps/src/TrackLayer.tsx`, `packages/maps/src/layer.
 - `transition`: How long a track glides from where it was to where it is, in milliseconds, easing out; 0 moves it at once. A track turns the short way round.
 - `visible`: Draws the layer.
 - `interactive`: Tracks answer the pointer and presses; a press selects one as the map's selection.
+- `bands`: Colors by band name. A track whose band the layer names is painted (symbol and trail) in that band's color in place of its affiliation's, as an altitude-colored flight map needs.
 
 ## Sizes
 
 - symbol: width `24`, height `24`. The size option; the shapes are drawn in a 48 square at twice the pixel.
 - label: padX `4`, text `text.2xs`, radius `radius-mini`. 0.75 of the size plus 4 right of the track's point.
+
+## States
+
+- rest: A track drawn.
+- hover: The pointer is over the track: its ring shows.
+- selected: The map's selected track: ringed and filled in the selection color, its label marked.
 
 ## Words
 

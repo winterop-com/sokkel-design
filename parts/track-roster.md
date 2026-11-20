@@ -33,8 +33,8 @@ Sources: sokkel-ui `packages/core/src/components/TrackRoster.tsx`, `packages/cor
 ## Keyboard
 
 - /: Focuses the search.
-- ArrowUp, ArrowDown: Moves between rows and group heads, as the table does.
-- Enter (the list has focus): Picks the active track (onSelect), or folds the active group.
+- ArrowUp, ArrowDown: Moves the active row, as the table does; the group heads are no stops of theirs.
+- Enter (the list has focus): Picks the active track (onSelect).
 
 ## Words
 

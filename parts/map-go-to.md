@@ -17,10 +17,16 @@ Sources: sokkel-ui `packages/maps/src/MapGoTo.tsx`, `packages/maps/src/geodesy.t
 - `corner` (`top-left`, `top-right`, `bottom-left`, `bottom-right`): Where it stands.
 - `zoom`: The zoom it flies to, unless the map is in closer already.
 - `onGo`: Called with each position it goes to.
+- `parse`: Reads what is written into a position in place of latitude, longitude, such as an MGRS reference through the tracking add-on's parseMgrs; nothing for text that is no position.
 
 ## Sizes
 
 - container: width `224`, padX `4`, padY `4`, gap `4`, radius `radius-surface`. 
+
+## States
+
+- rest: The field, empty or holding a position.
+- invalid: What it holds is not a position: marked and said.
 
 ## Keyboard
 
