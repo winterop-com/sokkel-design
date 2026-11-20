@@ -6,6 +6,9 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- Renderers: sokkel-egui as of 3ffb400: `description-list` built (`numeric` through tabular figures);
+  `table`'s editing, band heads and aggregates built and EntryGrid gone, the table partial for trees
+  and its own loading and failed states; every code-face use through its code font.
 - The markdown tree: a reader asked to keep positions places the nodes notes add (links, embeds,
   tags, highlights) on what was written for each, and each text cut from another on its own words.
 - Renderers: sokkel-egui as of cb26531: `group-label`, `badge`, `stat`, `api-link`, `unfoldable`,
