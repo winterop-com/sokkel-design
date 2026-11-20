@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.33.1
 
 - Renderers: sokkel-egui as of 84556df: `table`'s trees and its own loading and failed states built;
   the table partial for Shift and Cmd/Ctrl selection and a tree's indent in the stacked and card views.
