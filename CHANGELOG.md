@@ -6,6 +6,8 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- Renderers: sokkel-egui as of 84556df: `table`'s trees and its own loading and failed states built;
+  the table partial for Shift and Cmd/Ctrl selection and a tree's indent in the stacked and card views.
 - chip: a part of its own, specified as sokkel-ui draws it: tones (neutral, good, critical, warning,
   info, outline, absent), hues (the chart palette's five and the kind colors), sizes default and
   control, mono, an icon, a button (`onSelect`, a toggle with `selected`), a link (`href`, `external`),
