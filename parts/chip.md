@@ -70,6 +70,17 @@ Sources: sokkel-ui `packages/core/src/components/Chip.tsx`, `packages/core/src/l
 - hue-pink at rest: ground `kind-pink/12`, edge `kind-pink/30`, ink `kind-pink-ink`.
 - hue-teal at rest: ground `kind-teal/12`, edge `kind-teal/30`, ink `kind-teal-ink`.
 - hue-violet at rest: ground `kind-violet/12`, edge `kind-violet/30`, ink `kind-violet-ink`.
+- hue-1 at selected: ground `chart-1/20`, edge `chart-1`, ink `chart-1`.
+- hue-2 at selected: ground `chart-2/20`, edge `chart-2`, ink `chart-2`.
+- hue-3 at selected: ground `chart-3/20`, edge `chart-3`, ink `chart-3`.
+- hue-4 at selected: ground `chart-4/20`, edge `chart-4`, ink `chart-4`.
+- hue-5 at selected: ground `chart-5/20`, edge `chart-5`, ink `chart-5`.
+- hue-blue at selected: ground `kind-blue-ink/20`, edge `kind-blue-ink`, ink `kind-blue-ink`.
+- hue-green at selected: ground `kind-green-ink/20`, edge `kind-green-ink`, ink `kind-green-ink`.
+- hue-jade at selected: ground `kind-jade-ink/20`, edge `kind-jade-ink`, ink `kind-jade-ink`.
+- hue-pink at selected: ground `kind-pink-ink/20`, edge `kind-pink-ink`, ink `kind-pink-ink`.
+- hue-teal at selected: ground `kind-teal-ink/20`, edge `kind-teal-ink`, ink `kind-teal-ink`.
+- hue-violet at selected: ground `kind-violet-ink/20`, edge `kind-violet-ink`, ink `kind-violet-ink`.
 - face at rest: underline `False`.
 - face at hover: underline `True`.
 - remove at rest: opacity `0.7`.
@@ -95,5 +106,4 @@ Sources: sokkel-ui `packages/core/src/components/Chip.tsx`, `packages/core/src/l
 
 ## Where each renderer stands
 
-- sokkel-egui: As of 3ffb400: a Chip widget exists (with ChipTone::Kind for kind paints); not yet read against this spec.
 - sokkel-tui: As of b99664f its reports name no such part.
