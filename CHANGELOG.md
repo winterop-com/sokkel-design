@@ -6,6 +6,11 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- call-bar: the reactions open in the bar's own surface, a tray over its controls, rather than a
+  popover over the call: the floating bar grows upward, its corners half a control and its pad while
+  open. Its menus and the reactions' full list stand 12 above the bar (`menuOffset`, in place of
+  `popoverEdge`), cornered as the open bar is, the menus padded 8. `reactionsPopover` is gone; `tray`
+  holds the gap.
 - chip: a chosen hue chip's paints, as sokkel-ui draws them: its ink's wash at 20 percent, edged in
   its ink.
 - Renderers: sokkel-egui as of abba973: `chip` built, a chosen hue from its resolved paints. As of
