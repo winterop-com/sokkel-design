@@ -4,6 +4,14 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- chip: a chosen hue chip's paints, as sokkel-ui draws them: its ink's wash at 20 percent, edged in
+  its ink.
+- Renderers: sokkel-egui as of abba973: `chip` built; `table`'s selection keys and a tree's indent in
+  stacked rows and cards built, the table partial for a chosen look on labeled cards and a range
+  across groups.
+
 ## 0.33.1
 
 - Renderers: sokkel-egui as of 84556df: `table`'s trees and its own loading and failed states built;
