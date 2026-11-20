@@ -4,6 +4,14 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Renderers: sokkel-egui as of cb26531: `group-label`, `badge`, `stat`, `api-link`, `unfoldable`,
+  `choice-list`, `issue-count`, `server-menu`, `item-card` and `sortable-grid` built, and the prompt
+  pattern; `description-list` partial for `numeric` alone; `table` partial for EntryGrid and a band's
+  text gap.
+- stat: the trend sits 8 under the number in all, the column's gap of 4 and 4 more, as sokkel-ui draws it.
+
 ## 0.33.0
 
 - The markdown tree: an escaped `=` (`\=\=`) neither opens nor closes a highlight, and a
