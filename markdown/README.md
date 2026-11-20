@@ -30,14 +30,15 @@ mdast can name any element and property to draw: what is drawn comes from the no
 | `embed` | `kind: image`, `target`, `alt`, `width`?, `height`? | `![[file.png\|300]]` or `\|300x200`; other words after the bar are its alt text, else the target is |
 | `embed` | `kind: file`, `target`, children | `![[file.pdf]]`: any other file ending but `.md` |
 | `tag` | `tag` | `#tag` after the start, a space or an opening mark: letters, digits, `_`, `-` and `/`, at least one of them not a digit |
-| `highlight` | children | `==words==` on one line, a non-space after the opening `==` and before the closing one; its words may run through inline nodes (`==a **b** c==`), the two `==` in texts of the same parent |
+| `highlight` | children | `==words==` on one line, a non-space after the opening `==` and before the closing one; its words may run through inline nodes (`==a **b** c==`), the two `==` in texts of the same parent; an `=` written escaped (`\=`) neither opens nor closes one |
 | `part` | `id` | `<!-- part:ID -->` (or another word a reader is given); a block where its parent holds blocks, inline in a sentence |
 
 Callout markers draw as the five kinds: `note`, `info`, `todo`, `abstract`, `summary`, `tldr`,
 `example`, `quote` and `cite` as note; `tip`, `hint`, `success`, `check` and `done` as tip;
 `important`, `question`, `help` and `faq` as important; `warning` and `attention` as warning;
 `caution`, `danger`, `error`, `failure`, `fail`, `missing` and `bug` as caution. Any other marker
-leaves a quote.
+leaves a quote, a word every object of the renderer's language has (`constructor`, `toString`)
+included.
 
 Image file endings: apng, avif, bmp, gif, jpg, jpeg, png, svg and webp.
 
