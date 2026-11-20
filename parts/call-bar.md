@@ -2,8 +2,8 @@
 
 The controls of a video or audio call, as a round bar floating over the call's picture or a strip
 docked across its foot: the microphone and the camera, each with a chevron opening the app's lists
-of devices; sharing the screen; reactions, a toggle that stands the reaction bar
-(parts/reaction-bar) over the bar; raising a hand; more, the app's own rows; and Leave. A muted
+of devices; sharing the screen; reactions, a toggle that opens the reaction bar
+(parts/reaction-bar) in the bar's own surface, above its controls; raising a hand; more, the app's own rows; and Leave. A muted
 microphone and a camera off are drawn in the critical tone; sharing, a raised hand and open
 reactions are drawn pressed. Each control is offered only when its handler is given, and one menu is
 open at a time. The bar measures its own room and moves its less needed controls into more as it
@@ -11,19 +11,20 @@ narrows, so it never widens the page. The structured spec is [`call-bar.json`](c
 
 Sources: sokkel-ui `packages/core/src/components/CallBar.tsx` (`CallBar`, `CALL_BAR_WORDS`,
 `CALL_BAR_SHORTCUTS`, `CallDeviceList`, `CallBarItem`, `CallBarMenu`), with `ui/button.tsx`,
-`ui/dropdown-menu.tsx`, `ui/popover.tsx`, `ui/tooltip.tsx` and `ReactionBar.tsx`.
+`ui/dropdown-menu.tsx`, `ui/tooltip.tsx` and `ReactionBar.tsx`.
 
 ## Anatomy
 
 | Piece | What it is |
 |---|---|
 | frame | As wide as its container, centering the bar; docked, a strip on `background` with a 1px `border` rule on top, 12 across and 8 down |
-| bar | A toolbar, controls 8 apart; floating, the popup's look (`popover`, a 1px `border-strong` edge, `elevation-pop`), fully round, padded 6 |
+| bar | Its tray over a toolbar, 6 apart, controls 8 apart; floating, the popup's look (`popover`, a 1px `border-strong` edge, `elevation-pop`), padded 6, fully round, or cornered half a control and its pad while the tray is open |
+| tray | While the reactions are open, the reaction bar in the bar's own surface over its controls; focus to its first reaction, Escape or a press outside closes it |
 | control | A circle `density.control-lg` square, a ghost button on `muted`, icon 16, a finger square below 768 |
 | microphone, camera | Toggles; with device lists, joined to their chevron as one round control |
 | devices | The chevron, 24 wide (at least 32 below 768), an up chevron 14, opening a menu of radio groups under headings |
 | share, hand | Pressed toggles, in a wide room only |
-| reactions | A pressed toggle while the reaction bar stands over it, in a popover padded 4 |
+| reactions | A pressed, expanded toggle while the tray is open |
 | more | An ellipsis opening the moved controls and the app's rows |
 | leave | On `critical`; a pill with its icon and Leave, 16 in, in a wide room; round otherwise |
 | tooltip | Each control's name above it, with its keys for the microphone and the camera |
@@ -63,7 +64,9 @@ The docked strip's controls stand on `background`, the floating bar's on `popove
   the last.
 - Enter or Space presses a control.
 - With `shortcuts`: Mod+D mutes or unmutes, Mod+E turns the camera off or on, in a text input too.
-- Escape closes an open menu or the reaction bar, focus back on its control.
+- Escape closes an open menu or the tray, focus back on its control.
+
+The devices and more menus and the reactions' full list stand 12 above the bar (`menuOffset`), cornered as the open bar is; the menus are padded 8.
 
 ## Words
 
