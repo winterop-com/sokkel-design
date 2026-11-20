@@ -2438,6 +2438,88 @@
             "shows": "Badges in each kind hue."
         },
         {
+            "id": "Patterns/Chip/Tones",
+            "part": "chip",
+            "matrix": "full",
+            "canvas": [
+                720,
+                120
+            ],
+            "shows": "Every tone: neutral, good, critical, warning, info, outline and absent (dashed)."
+        },
+        {
+            "id": "Patterns/Chip/Hues",
+            "part": "chip",
+            "matrix": "full",
+            "canvas": [
+                720,
+                120
+            ],
+            "shows": "The chart palette's five hues, each edged faintly in its color."
+        },
+        {
+            "id": "Patterns/Chip/Kind hues",
+            "part": "chip",
+            "matrix": "full",
+            "canvas": [
+                720,
+                120
+            ],
+            "shows": "Each kind color as a chip's hue."
+        },
+        {
+            "id": "Patterns/Chip/Control size",
+            "part": "chip",
+            "matrix": "full",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "Chips that stand alone as controls: a link, a state, and toggles with one on."
+        },
+        {
+            "id": "Patterns/Chip/Interactive",
+            "part": "chip",
+            "matrix": "pair",
+            "canvas": [
+                720,
+                200
+            ],
+            "shows": "Tags that filter by themselves, each with a remove button, and toggles by tone.",
+            "also": [
+                {
+                    "each": [
+                        "hover",
+                        "focus"
+                    ],
+                    "steps": [
+                        {
+                            "when": "hover",
+                            "do": "hover",
+                            "target": "button:Filter by harbor"
+                        },
+                        {
+                            "when": "focus",
+                            "do": "keyFocus",
+                            "target": "button:Remove harbor"
+                        }
+                    ],
+                    "matrix": "pair",
+                    "why": "A face underlined under the pointer; the remove button with keyboard focus."
+                }
+            ]
+        },
+        {
+            "id": "Patterns/Chip/Toggles",
+            "part": "chip",
+            "matrix": "full",
+            "canvas": [
+                720,
+                240
+            ],
+            "shows": "Toggles each turned on and off by itself: those on edged in their ink over a stronger wash."
+        },
+        {
             "id": "Patterns/Data/Stats",
             "part": "stat",
             "matrix": "full",

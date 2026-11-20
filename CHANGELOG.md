@@ -6,6 +6,11 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- chip: a part of its own, specified as sokkel-ui draws it: tones (neutral, good, critical, warning,
+  info, outline, absent), hues (the chart palette's five and the kind colors), sizes default and
+  control, mono, an icon, a button (`onSelect`, a toggle with `selected`), a link (`href`, `external`),
+  a menu's trigger (`menu`, `menuAlign`) and a remove button (`onRemove`); no press reaches a row or
+  card around it. Words `remove` and `newTab` (`chip.remove`, `chip.newTab`). Six specimens.
 - Renderers: sokkel-egui as of 3ffb400: `description-list` built (`numeric` through tabular figures);
   `table`'s editing, band heads and aggregates built and EntryGrid gone, the table partial for trees
   and its own loading and failed states; every code-face use through its code font.

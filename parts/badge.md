@@ -13,7 +13,7 @@ Sources: sokkel-ui `packages/core/src/components/ui/badge.tsx`, `packages/core/s
 ## Options
 
 - `variant` (`default`, `secondary`, `destructive`, `outline`, `ghost`, `link`; `default` by default): How loud it is: default on primary, secondary on secondary, destructive on a destructive wash, outline only edged, ghost bare, link in primary.
-- `kind` (`blue`, `green`, `jade`, `pink`, `teal`, `violet`): One of the kind colors, laid over the variant: the color's wash at 12 percent, its edge at 30, its ink. kindOf(name) picks one steadily from a name, so the same value always wears the same color. The same paints as a `Chip`'s kind hue (`KIND_CHIP`); `Chip`, with its tones, sizes, toggles and menu, is a part of its own in sokkel-ui, not yet in the contract, and a badge is not a chip.
+- `kind` (`blue`, `green`, `jade`, `pink`, `teal`, `violet`): One of the kind colors, laid over the variant: the color's wash at 12 percent, its edge at 30, its ink. kindOf(name) picks one steadily from a name, so the same value always wears the same color. The same paints as a chip's kind hue (`KIND_CHIP`, [chip](chip.md)); a badge is not a chip.
 - `children`: The words, with an icon before or after them.
 
 ## Sizes

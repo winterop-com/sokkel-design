@@ -189,6 +189,12 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Tree/Tree select, open | pair | the tree select for one place open, its list unfolded at the chosen one |
 | Primitives/Display/Badge/Variants | full | each badge variant at rest |
 | Primitives/Display/Badge/Kinds | full | badges in each kind hue |
+| Patterns/Chip/Tones | full | every tone, absent dashed |
+| Patterns/Chip/Hues | full | the chart palette's five hues |
+| Patterns/Chip/Kind hues | full | each kind color as a hue |
+| Patterns/Chip/Control size | full | chips standing alone as controls, a toggle on |
+| Patterns/Chip/Interactive | pair; with hover and focus | tags that filter, each with a remove button |
+| Patterns/Chip/Toggles | full | toggles, those on edged in their ink |
 | Patterns/Data/Stats | full | plain stats in a row: label, value, trend and dot |
 | Patterns/Data/Stat tiles | full | stats as tiles, a large one among them |
 | Patterns/Data/Description list | full | facts side by side, stacked and in a row; a missing value as a faint dash |
