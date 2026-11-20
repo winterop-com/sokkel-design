@@ -6,6 +6,9 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- `coverage-layer` takes `sweep` (a turning beam with a phosphor trail), `link-layer` takes `arc` (links
+  lifted into arcs) and `flow` with a per-link `rate` (light running along each link, faster and
+  brighter the busier), and `zone-layer` takes `glow`. Each holds still under reduced motion.
 - `map-coordinates` takes `formatPosition` and `map-go-to` takes `parse`, so an app writes and reads
   positions in a reference system the map does not know (MGRS). `track-layer` takes `bands`, colors by
   band name, painted in place of the affiliation's.
