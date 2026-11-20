@@ -6,6 +6,8 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## 0.33.0
 
+- The markdown tree: an escaped `=` (`\=\=`) neither opens nor closes a highlight, and a
+  marker that is a word every object has (`[!constructor]`) leaves a quote (fixture `escapes`).
 - The markdown tree: a renderer draws no node's `data` from a tree it is given; frontmatter keys may
   be in any script and up to four words (`created at`), a key written twice keeps its last value
   (fixture `frontmatter-keys`).
