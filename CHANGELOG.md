@@ -4,6 +4,13 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Maps for tracking, specified as sokkel-ui-maps draws them (982188f): `track-layer` (heading-turned
+  symbols per kind, affiliation colors `track-friend`, `track-hostile`, `track-neutral`,
+  `track-unknown`, `track-pending`, fading trails, labels, the selection ring, clustering), `map-ruler`,
+  `map-coordinates`, `map-go-to`, `map-follow` and `map-compass`. The pin on sokkel-ui moves to
+  982188f for the tokens and words.
 ## 0.33.2
 
 - call-tile: nothing in a tile is selectable, so a press, a double press or a drag on it never
