@@ -16,12 +16,13 @@ HTML is read are decided when the tree is drawn, by each renderer, from the app'
 It is [mdast](https://github.com/syntax-tree/mdast): CommonMark and GitHub-flavored markdown
 (tables, task items, strikethrough, footnotes, autolinks) and math (`math`, `inlineMath`), with the
 nodes below. Every node is a plain object: no `data`, and `position` only where a reader is asked to
-keep it. Text next to text is one node. Link references stay references, resolved by their
+keep it. Text next to text is one node. A renderer given a tree draws no node's `data`, which in
+mdast can name any element and property to draw: what is drawn comes from the node types alone. Link references stay references, resolved by their
 `definition` when drawn, as mdast has them.
 
 | Node | Fields | Read from |
 |---|---|---|
-| `yaml` | `value`, `properties`? | The frontmatter: `---` on the first line, closed by `---` or `...` on a line of its own, every line between reading as YAML properties (blank, a comment, indented, a list item, or a key and a colon). First in the root. `properties` is the YAML read as JSON values when it is a mapping |
+| `yaml` | `value`, `properties`? | The frontmatter: `---` on the first line, closed by `---` or `...` on a line of its own, every line between reading as YAML properties (blank, a comment, indented, a list item, or a key and a colon). First in the root, its `value` with `\n` line ends whatever the text was written with. `properties` is the YAML read as JSON values when it is a mapping |
 | `callout` | `kind`, `marker`, `fold`?, children | A quote whose first line starts `[!marker]`: the marker lowercased, the kind it draws as, `+` (open) or `-` (closed) after it |
 | `calloutTitle` | children | The rest of the marker's line, first in its callout. A further marker with nothing written after it is titled with its own word, capitalized (`Todo`); one of the five kinds with nothing written has no title, and a renderer says the kind's word |
 | `wikiLink` | `target`, `heading`?, `label`?, children | `[[target#heading\|label]]`; the children are the words shown: the label, else the target, with ` › ` and the heading |
@@ -29,7 +30,7 @@ keep it. Text next to text is one node. Link references stay references, resolve
 | `embed` | `kind: image`, `target`, `alt`, `width`?, `height`? | `![[file.png\|300]]` or `\|300x200`; other words after the bar are its alt text, else the target is |
 | `embed` | `kind: file`, `target`, children | `![[file.pdf]]`: any other file ending but `.md` |
 | `tag` | `tag` | `#tag` after the start, a space or an opening mark: letters, digits, `_`, `-` and `/`, at least one of them not a digit |
-| `highlight` | children | `==words==` on one line, a non-space after the opening `==` and before the closing one |
+| `highlight` | children | `==words==` on one line, a non-space after the opening `==` and before the closing one; its words may run through inline nodes (`==a **b** c==`), the two `==` in texts of the same parent |
 | `part` | `id` | `<!-- part:ID -->` (or another word a reader is given); a block where its parent holds blocks, inline in a sentence |
 
 Callout markers draw as the five kinds: `note`, `info`, `todo`, `abstract`, `summary`, `tldr`,

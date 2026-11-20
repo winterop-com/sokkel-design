@@ -6,6 +6,20 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## 0.33.0
 
+- The markdown tree: a renderer draws no node's `data` from a tree it is given; frontmatter keys may
+  be in any script and up to four words (`created at`), a key written twice keeps its last value
+  (fixture `frontmatter-keys`).
+- The markdown tree: a highlight's words may run through inline nodes (`==a **b** c==`); the
+  frontmatter's `value` has `\n` line ends; five more fixtures (highlights across inline nodes, empty,
+  `...`-closed and unreadable frontmatter, and nesting: a callout in a list item, links and embeds in
+  table cells and headings, a callout title with a link and a highlight).
+- code-editor: the markdown language colors vault syntax with the colors it has: the frontmatter's
+  `---` lines as punctuation and its keys as properties, callout markers as keywords, `![[embeds]]`
+  as links, `==highlights==` as inserted, and HTML comments (over lines too) as comments.
+- Specimens for the parts specified since 2026-11-17 and for the markdown view: badge, stat,
+  description-list, unfoldable, choice-list, api-link, issue-count, server-menu, item-card,
+  sortable-grid, group-label (from its new stories), the prompt, the candlestick chart, and eight
+  markdown stories (140 full, 118 pair).
 - The markdown tree: a text is read once into a tree every renderer draws. `markdown/README.md`
   says what it holds (mdast with `yaml` and its properties, `callout`, `calloutTitle`, `wikiLink`,
   `embed`, `tag`, `highlight` and `part`; syntax only, the app's policy held as it is drawn),

@@ -187,9 +187,41 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Repeated group/Steps | full | a repeated group of steps, each a row the reader can add, remove and reorder |
 | Patterns/Period picker/Every type | pair | a period picker for each type of period |
 | Patterns/Tree/Tree select, open | pair | the tree select for one place open, its list unfolded at the chosen one |
+| Primitives/Display/Badge/Variants | full | each badge variant at rest |
+| Primitives/Display/Badge/Kinds | full | badges in each kind hue |
+| Patterns/Data/Stats | full | plain stats in a row: label, value, trend and dot |
+| Patterns/Data/Stat tiles | full | stats as tiles, a large one among them |
+| Patterns/Data/Description list | full | facts side by side, stacked and in a row; a missing value as a faint dash |
+| Patterns/Data/Dense | pair | size sm in a narrow inspector |
+| Patterns/States/Unfoldable | full | rows that unfold to their detail, one open |
+| Primitives/Inputs/Choice list/Described | full | choices with a description under each, one chosen |
+| Patterns/API link/Methods | full | an API path under each method |
+| Patterns/Validation/Counts | full | issue counts: errors, warnings, both |
+| Patterns/Server menu/Up | full | the server menu closed, the server up |
+| Patterns/Server menu/Open | pair | the server menu open on its servers |
+| Patterns/Server menu/Degraded | pair | the server menu with the server degraded |
+| Patterns/Cards/Plain | full | item cards at rest: title, description, meta |
+| Patterns/Cards/Selectable | pair | item cards to choose from, one chosen |
+| Patterns/Drag and drop/Sortable grid | pair | a grid of tiles in the reader's order |
+| Patterns/Prompt dialog/Open | full | the prompt asking for one value, open |
+| Patterns/Prompt dialog/Validation | pair | the prompt refusing a value, its message under the field |
+| Patterns/Prompt dialog/Secret | pair | the prompt asking for a secret, its value hidden |
+| Charts/Candlestick/Candles | full | candles rising in good and falling in critical |
+| Charts/Candlestick/With volume | pair | candles over volume bars |
+| Charts/Candlestick/OHLC bars | pair | readings as open, high, low and close bars |
+| Patterns/Docs/Callouts | full | each callout kind from its marker, and a plain quote |
+| Patterns/Docs/Titled callouts | full | callouts titled by their first line, folded closed and open, further markers drawn as the nearest kind, an unknown one left a quote |
+| Patterns/Docs/Vault note | pair | a note as a vault writes it: frontmatter left out, a comment not drawn, titled and folded callouts, a note embed, an image embed at a width, a highlight, Rust |
+| Patterns/Docs/Linked notes | pair | links between notes, one to a missing note faint, and tags as chips |
+| Patterns/Docs/Embeds | pair | a note's section drawn by the app, a note as a framed link, an image at a width, a file |
+| Patterns/Docs/Properties | pair | frontmatter left out, and shown as YAML above the note |
+| Patterns/Docs/Untrusted text | pair | text held to the app's rules: images as text, only listed schemes live, headings moved down |
+| Patterns/Docs/From a tree | pair | a note drawn from its tree beside the tree |
+| Primitives/Display/Group label/Over groups | full | labels over groups of entries, as a rail and a panel set them |
+| Primitives/Display/Group label/On surfaces | full | the label on the page, a card, a well and an inset |
 
-That is 123 stories across the full matrix (1476 captures) and 103 captures across the pair matrix
-(206), **1682 per side**.
+That is 140 stories across the full matrix (1680 captures) and 118 captures across the pair matrix
+(236), **1916 per side**.
 
 ## How a state is reached
 
