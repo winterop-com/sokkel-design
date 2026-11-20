@@ -6,6 +6,11 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- call-tile: a part of its own, as sokkel-ui's CallTile draws it: a 16:9 tile on terminal-foreground at
+  10 percent, video filling it or the picture centered at 16 percent of its width (64 to 160), the
+  name at its foot on terminal at 70 percent with the muted and raised-hand marks. Words `muted` and
+  `handRaised` (`callTile.muted`, `callTile.handRaised`). Four specimens. The pin on sokkel-ui moves
+  to b615777.
 - call-bar: the reactions open in the bar's own surface, a tray over its controls, rather than a
   popover over the call: the floating bar grows upward, its corners half a control and its pad while
   open. Its menus and the reactions' full list stand 12 above the bar (`menuOffset`, in place of

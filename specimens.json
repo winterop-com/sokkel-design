@@ -1805,6 +1805,46 @@
             "shows": "The bar floating over a call's tiles, with shortcuts bound."
         },
         {
+            "id": "Patterns/Call tile/Picture",
+            "part": "call-tile",
+            "matrix": "full",
+            "canvas": [
+                960,
+                360
+            ],
+            "shows": "One person's tile: the picture centered, sized to the tile, the name at its foot."
+        },
+        {
+            "id": "Patterns/Call tile/Muted and hand raised",
+            "part": "call-tile",
+            "matrix": "full",
+            "canvas": [
+                960,
+                360
+            ],
+            "shows": "Muted and a raised hand before the names; a person with no picture in initials."
+        },
+        {
+            "id": "Patterns/Call tile/Sizes",
+            "part": "call-tile",
+            "matrix": "pair",
+            "canvas": [
+                1280,
+                240
+            ],
+            "shows": "Four small tiles: the pictures at their least, 64."
+        },
+        {
+            "id": "Patterns/Call tile/Video",
+            "part": "call-tile",
+            "matrix": "full",
+            "canvas": [
+                960,
+                360
+            ],
+            "shows": "Video (a still) filling the tile, the name at its foot."
+        },
+        {
             "id": "Patterns/Letter/Folded",
             "part": "letter",
             "matrix": "full",

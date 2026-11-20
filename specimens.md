@@ -138,6 +138,10 @@ sokkel-ui adds them under the real title, from the fixtures in `specimens.json`.
 | Patterns/Call bar/More menu | pair | the app's rows, captions checked |
 | Patterns/Call bar/Docked | full | the strip on the background, a rule on top |
 | Patterns/Call bar/Over a call | pair | the bar over a call's tiles |
+| Patterns/Call tile/Picture | full | a tile, the picture sized to it |
+| Patterns/Call tile/Muted and hand raised | full | the marks before the names; initials |
+| Patterns/Call tile/Sizes | pair | small tiles, the pictures at 64 |
+| Patterns/Call tile/Video | full | video filling the tile |
 | Patterns/Letter/Folded | full; pair with focus | a folded letter's head on one line; its focus ring |
 | Patterns/Letter/Open | full; pair at 390 | an open letter, its recipients, the paperclip; at 390 no address, no indent |
 | Patterns/Letter/Thread | full | folded, open, and the latest with a head that is no button |
