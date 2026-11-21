@@ -20,7 +20,7 @@ Sources: sokkel-ui `packages/core/src/components/TrackCard.tsx`, `packages/core/
 
 - `name`: What it is called.
 - `code`: Its id, after the name.
-- `kind` (`vessel`, `aircraft`, `vehicle`, `sensor`, `other`): Its glyph.
+- `kind` (`vessel`, `aircraft`, `vehicle`, `sensor`, `satellite`, `other`): Its glyph.
 - `affiliation` (`friend`, `hostile`, `neutral`, `unknown`, `pending`): Its color and its chip.
 - `heading`: Turns the glyph.
 - `thumbnail`: A picture at the start.

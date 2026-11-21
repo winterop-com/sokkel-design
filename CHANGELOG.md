@@ -6,6 +6,11 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- `track-layer` moves a track with a speed and a heading on between reports (`motion`, settling onto
+  each report and never moving back), draws it over a glow, breathes a halo round the selected track,
+  ripples a new one, pulses a hostile one, fades its trail along its length with a head that runs on,
+  and scales it with the zoom; each holds still under reduced motion. `satellite` is a kind of track
+  in `track-layer`, `track-glyph` (with its outline) and `track-card`, as sokkel-ui draws it at 67997fe.
 - `coverage-layer` takes `sweep` (a turning beam with a phosphor trail), `link-layer` takes `arc` (links
   lifted into arcs) and `flow` with a per-link `rate` (light running along each link, faster and
   brighter the busier), and `zone-layer` takes `glow`. Each holds still under reduced motion.
