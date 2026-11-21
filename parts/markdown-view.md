@@ -32,7 +32,7 @@ once for every renderer, exactly as the text would draw: sokkel-ui's tests hold 
 | table | Scrolls sideways inside itself; cells with a 1px `border` edge, 10 across and 4 down; the head row on `muted`, its text a column head (one step above the cells); a head row of empty cells left out |
 | code in a sentence | `chip` on `muted` (default), `plain`, or `wash` (on `secondary`, no fill in a table) |
 | fence | The code block in the `code-*` colors, with a copy. Built in: bash, css, diff, html, javascript, jq, json, jsx, markdown, python, rust, sql, tsx, typescript, xml, yaml, and ansi output |
-| diagram | A `mermaid` fence in the theme's colors, in its frame: a diagram and source toggle, a copy and an expand into a window. Bad source shows the source and `failed`; while streaming, the source |
+| diagram | A `mermaid` fence in the theme's colors, a pie's slices and an xychart's bars and lines in `chart-1` to `chart-5` in order, in its frame: a diagram and source toggle, a copy and an expand into a window. Bad source shows the source and `failed`; while streaming, the source |
 | math | `$...$`, `\(...\)`, `$$...$$`, `\[...\]` and a `math` fence; a lone `$` is math only as Pandoc reads it; a formula that does not parse is its source in the failed ink |
 | link | `primary-ink`, underlined; in-page links stay, `onLink` keeps the app's own, others open a new tab; a scheme not allowed draws the words |
 | `[[link]]` | With `links`: followed through `onOpen`, the heading after a chevron, a missing note at 60 percent |

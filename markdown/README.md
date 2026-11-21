@@ -45,10 +45,14 @@ included.
 
 Image file endings: apng, avif, bmp, gif, jpg, jpeg, png, svg and webp.
 
-What is never read into the tree: HTML comments (dropped), anything inside code (no links, tags or
-highlights there), links between notes inside a markdown link's words, `[[#heading]]` with no note.
+What is never read into the tree: HTML comments (dropped), `%%` comments (dropped: from a `%%` to
+the next, inline or over any number of lines, blank lines and blocks inside included; a `%%` inside
+code, written escaped as `\%%`, or left open with no `%%` after it stays words), anything inside code
+(no links, tags or highlights there), links between notes inside a markdown link's words,
+`[[#heading]]` with no note. What a comment leaves stands as written: `a %%x%% b` reads `a  b`, and
+a paragraph a comment leaves with no words is no paragraph.
 
-What is read as text, left for later: `%%comments%%`, inline footnotes `^[...]`, block ids `^id`.
+What is read as text, left for later: inline footnotes `^[...]`, block ids `^id`.
 A single line break is a space in the text, as CommonMark has it.
 
 ## Math
