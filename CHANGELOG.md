@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.33.4
 
 - markdown-view: `links` takes `href(target, heading)`, the address a `[[link]]` and an embed's framed
   link carry; a plain press still follows it through `onOpen`, and a press with a modifier key or the
