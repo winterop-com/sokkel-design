@@ -4,6 +4,12 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- tree-select: a branch is a node given a list of children, even an empty one, or marked as having
+  some to load; a leaf has neither. An open branch with nothing in it shows `emptyRow`, saying
+  `words.emptyBranch` (`treeSelect.emptyBranch`, Empty).
+
 ## 0.33.5
 
 - A part or pattern's `status` is `stable` or `preview`. A preview part is new in its round and

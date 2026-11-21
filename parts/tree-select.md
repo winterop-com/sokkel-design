@@ -25,11 +25,12 @@ Sources: sokkel-ui `packages/core/src/components/TreeSelect.tsx` (`TreeSelect`, 
 | clear | While something is chosen and not `optional`: an x and `words.clear`, `text.help`, quiet |
 | list | Padded 4, at most 320 tall: the Clear row (with `optional` and no search), then the tree |
 | row | 32 tall, `radius-md`, indented 16 a level from 4: toggle, icon, checkbox, label, reason, meta, 6 apart |
-| toggle | 20 square: `chevron-right` closed, turned down open; empty for a leaf |
+| toggle | 20 square: `chevron-right` closed, turned down open; empty for a leaf. A branch is a node given a list of children, even an empty one, or marked as having some to load |
 | checkbox | Multiple choice: 16, ticked when chosen, a dash when a branch holds choices |
 | match | The matched part of a label on `primary/15` in `primary-ink` |
 | reason / meta / trailPath | Small and quiet: why a row is shut, a count or code, a search result's path |
 | loadingRow / failedRow | Under a branch: a spinner and `words.loading`, or `words.failed` in `critical` with a retry |
+| emptyRow | Under an open branch with nothing in it: `words.emptyBranch`, quiet |
 | note | `words.searching`, `words.searchFailed` with a retry, or `words.empty` centered |
 
 ## Options
@@ -63,7 +64,7 @@ Sources: sokkel-ui `packages/core/src/components/TreeSelect.tsx` (`TreeSelect`, 
 
 ## Words
 
-`placeholder` Choose, `search` Search, `clear` Clear, `empty` Nothing matches., `selected` {count}
+`placeholder` Choose, `search` Search, `clear` Clear, `empty` Nothing matches., `emptyBranch` Empty, `selected` {count}
 chosen, `loading` Loading, `failed` This level did not load., `retry` Try again,
 `searching` Searching, `searchFailed` The search did not answer. Each has its own `treeSelect.*`
 id.
