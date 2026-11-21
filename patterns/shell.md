@@ -87,7 +87,7 @@ sokkel-egui has every item, its behavior and its accessibility included, not onl
 3. Section (`parts/section`), with its boxed and flat heads.
 4. Keyboard navigation through the frame: Tab order, the rail's and the lists' arrows.
 5. Focus returned to what opened a layer when it closes, and moved to the new page's heading on a
-   route change.
+   route change, with no ring there when the reader last pressed the pointer rather than a key.
 6. The shortcuts registry (Mod+K, `?`, `/`, sequences), quiet in a field and under an overlay.
 7. A back stack, settings over the page as one of its entries, Back closing it.
 8. The appearance kept: theme, scheme and density under the same keys as the web.

@@ -13,6 +13,12 @@ of their own (D4); a change to a part is a line here under its name.
   from the md breakpoint up, and a phone keeps regular. Spacing and control heights stay with the
   density.
 - shell: Settings › Appearance offers the text size beside the theme and the density.
+- markdown tree: a `%% comment %%` is dropped as an HTML comment is, inline or over several lines;
+  one inside code, written escaped (`\%%`) or left open stays words. `percent-comments` holds it.
+- markdown-view: a diagram's pie slices and xychart bars and lines take `chart-1` to `chart-5`, in
+  order.
+- shell: the heading a route change focuses shows no focus ring when the reader last pressed the
+  pointer rather than a key.
 - tree-select: a branch is a node given a list of children, even an empty one, or marked as having
   some to load; a leaf has neither. An open branch with nothing in it shows `emptyRow`, saying
   `words.emptyBranch` (`treeSelect.emptyBranch`, Empty).
