@@ -26,8 +26,8 @@ tab) and the Shell's Panel tabs stories.
 | edge | The resize edge (`ResizeHandle`, `grows={-1}`): an 8 wide hit area across the start edge. A 2 wide line in `primary` shows while it is hovered, focused or dragged. A double click puts back the default width |
 | head | `h-shell-top`, the top bar's height, with a `border-strong` rule under it. Padded 8 at its start and 48 at its end, which leaves room for the shell's toggle (8 in the sheet). It drags the window in a desktop shell |
 | title | With one tab and `soleTab="title"`, or in the sheet: an `h2` with the shown tab's label, `text.sm` at 500, padded 6 across and cut short. The panel is labelled by it |
-| tabs | Otherwise a tablist (Base UI `Tabs`), tabs 4 apart. The content is their tabpanel |
-| tab | 28 tall, padded 10 across, `radius-md`, `text.sm` in `muted-foreground`. The shown tab is on `secondary` in `foreground` at 500 |
+| tabs | Otherwise a tablist (Base UI `Tabs`), tabs 4 apart, in the room before the toggle. The content is their tabpanel. When the labels do not fit that room and every tab has an `icon`, each tab stands as its icon, named by its label, which a tooltip shows below it; when a tab has no icon they keep their labels and scroll sideways. A tab never runs under the toggle |
+| tab | 28 tall, padded 10 across, `radius-md`, `text.sm` in `muted-foreground`, on one line; as its icon, 32 wide with the icon at 16. The shown tab is on `secondary` in `foreground` at 500 |
 | content | The rest of the height, scrolling |
 | section | `PanelSection`: padded 16 by 12, its pieces 8 apart, with a 1px `border` rule under every section but the last |
 | heading | `GroupLabel` as an `h3`: `text.xs` at 500, uppercase, tracked wide, in `faint` |

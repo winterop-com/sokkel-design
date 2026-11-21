@@ -6,6 +6,14 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- side-panel: when the tabs' labels do not fit the head beside the toggle and every tab has an icon,
+  each tab stands as its icon, named by its label in a tooltip; tabs without icons scroll. A tab never
+  runs under the toggle.
+- status-line: each fact keeps its whole width but the last, which alone gives way.
+- status-wall, alert-ticker and kiosk say what they already did: the series is inset by 1 from the
+  tile's foot and top, the ticker also holds still with an interval of 0 or less, and the kiosk's
+  padding sits on an inner column that grows to the frame's height.
+
 - foundations: a text size beside the density. `index.json` lists `textSizes` (smaller, small,
   regular, large), and `tokens.resolved.json` gives each level's steps of the text scale as `textSize`
   (size over line height in px; body text 13, 14, 15 or 16) with its default under `default.textSize`.
