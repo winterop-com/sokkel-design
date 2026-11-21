@@ -24,7 +24,7 @@ Sources: sokkel-ui `packages/core/src/components/StatusWall.tsx`, `packages/core
 | unit | The figure's unit after its value, on one baseline: text.sm in muted-foreground. |
 | detail | With detail: one line at text.help in muted-foreground, cut with an ellipsis. |
 | foot | With updatedAt: the freshness (parts/freshness) at the end of a line pushed to the tile's foot. |
-| series | With series: the readings as a line across the tile's whole width, 32 tall, flush with its foot and sides: values spaced evenly, the lowest at the foot and the highest at the top, the line 1.5 thick in the status color at 70 percent over an area in it at 12 percent. Equal values, or one, are a level line through the middle. |
+| series | With series: the readings as a line across the tile's whole width, 32 tall, flush with its foot and sides: values spaced evenly, the lowest 1 above the foot and the highest 1 below the top, inset by 1 so the stroke is never cut, the line 1.5 thick in the status color at 70 percent over an area in it at 12 percent. Equal values, or one, are a level line through the middle. |
 
 ## Options
 

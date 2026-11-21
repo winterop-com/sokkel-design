@@ -2,7 +2,7 @@
 
 Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
 
-The latest alerts in one strip, one row tall, one at a time: a dot in the alert's tone, its words cut with an ellipsis, when it happened, and its place among the alerts at the end. It moves to the next alert every interval, the new one sliding in, and starts over after the last. It holds still while paused, under the pointer, with focus in it, where motion is reduced, and with one alert or none. The structured spec is [`alert-ticker.json`](alert-ticker.json).
+The latest alerts in one strip, one row tall, one at a time: a dot in the alert's tone, its words cut with an ellipsis, when it happened, and its place among the alerts at the end. It moves to the next alert every interval, the new one sliding in, and starts over after the last. It holds still while paused, under the pointer, with focus in it, where motion is reduced, with one alert or none, and with an interval of 0 or less. The structured spec is [`alert-ticker.json`](alert-ticker.json).
 
 Sources: sokkel-ui `packages/core/src/components/AlertTicker.tsx`, `packages/core/src/components/Dot.tsx`.
 
@@ -40,7 +40,7 @@ Sources: sokkel-ui `packages/core/src/components/AlertTicker.tsx`, `packages/cor
 
 - rest: An alert shown, standing still: the first frame always is.
 - moving: A new alert sliding in from below, fading in.
-- held: The ticker holding the alert shown.
+- held: The ticker holding the alert shown: paused, under the pointer, with focus in it, motion reduced, fewer than two alerts, or an interval of 0 or less.
 - empty: No alerts: the strip keeps its height and says so.
 - hover: The pointer over an alert that is a button.
 - focus: Keyboard focus on the alert shown: the focus outline inside the strip.

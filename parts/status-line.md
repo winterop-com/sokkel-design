@@ -18,7 +18,7 @@ sokkel-egui: `crates/core/src/widgets/frame.rs` (`StatusLine`, `StatusTone`).
 | strip | Drawn by the status line itself: `spacing-shell-foot` tall, `page-foot-ground` under a `page-foot-line` rule, 12 across, under the content and the panel, beside the rail's foot cell. The shell gives it the room and draws no strip of its own |
 | note | The short note at the start, in its tone's ink, on one line; cut short first |
 | live dot | With `live`: an 8 dot before the note in its ink, a second one pulsing out from it |
-| facts | `StatusItem`s at the end, 12 apart, kept to at most 70 percent of the row |
+| facts | `StatusItem`s at the end, 12 apart, kept to at most 70 percent of the row. Each keeps its whole width but the last, which alone gives way, its value cut short inside its own box, so no fact runs over the next |
 | item | An optional `label` in `faint`, then the value; with `code`, an identifier in the code face |
 
 ## Options
@@ -36,7 +36,7 @@ sokkel-egui: `crates/core/src/widgets/frame.rs` (`StatusLine`, `StatusTone`).
 | Live dot | 8 round |
 | Facts | 12 apart; label to value 6 |
 
-Nothing wraps. A long note is cut short with an ellipsis, then a long fact.
+Nothing wraps. A long note is cut short with an ellipsis, then the last fact.
 
 ## States and tokens
 

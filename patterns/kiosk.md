@@ -10,7 +10,7 @@ Sources: sokkel-ui `packages/core/src/components/Kiosk.tsx`.
 
 | Piece | What it is |
 |---|---|
-| frame | The whole height it is given, on background in foreground, padded 12 with its pieces in a column 12 apart; 16 and 16 from a room 768 wide. What does not fit scrolls down inside it; nothing scrolls sideways. A region named by label. |
+| frame | The whole height it is given, on background in foreground; inside it, an inner column padded 12 holds the pieces 12 apart, 16 and 16 from a room 768 wide, and grows to the frame's height. What does not fit scrolls down inside it; nothing scrolls sideways. A region named by label. |
 | head | One row, centered, 12 apart, wrapping onto more lines 4 apart: the mark, the title taking the room left, then the actions and the clock at its end. |
 | mark | With mark: the app's mark before the title, at its own size. |
 | title | What the wall shows: the page's heading, text.page-title, cut to one line. |
