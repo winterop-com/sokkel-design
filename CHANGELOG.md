@@ -6,6 +6,9 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- Maps: over a dark basemap in the light scheme a map wears the dark scheme, in the page's theme, so
+  its layers, labels, chips, legend and controls take the dark set's paints (README, A map's scheme).
+
 - side-panel: when the tabs' labels do not fit the head beside the toggle and every tab has an icon,
   each tab stands as its icon, named by its label in a tooltip; tabs without icons scroll. A tab never
   runs under the toggle.
