@@ -6,6 +6,10 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- `status-wall` (a wall of data sources for a screen across a room, each tile a status with its
+  figure, detail, freshness and readings over time), `alert-ticker` (the latest alerts in one strip,
+  one at a time) and the pattern `kiosk` (a wall or kiosk view's frame with no rail and no top bar),
+  as sokkel-ui draws them at f0e8943.
 - `track-layer` moves a track with a speed and a heading on between reports (`motion`, settling onto
   each report and never moving back), draws it over a glow, breathes a halo round the selected track,
   ripples a new one, pulses a hostile one, fades its trail along its length with a head that runs on,
