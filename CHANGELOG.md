@@ -4,6 +4,12 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- markdown tree: an escaped `\[[`, `\![[` and `\#` read as the words they are, never a `wikiLink`,
+  an `embed` or a `tag`, as an escaped `\=` already never opened a `highlight`; `escapes` holds them
+  at a paragraph's start, in a quote and in a list.
+
 ## 0.33.4
 
 - markdown-view: `links` takes `href(target, heading)`, the address a `[[link]]` and an embed's framed
