@@ -342,6 +342,12 @@ pieces, the periods and trails of what moves, its tokens, which states move and 
 It never gives a drawing constant (a shader's edge width, an arc's steps, a glow's blur, a fade's
 exponent); those stay in each renderer's code, so a renderer draws the meaning its own way.
 
+**A map's scheme.** Over a dark basemap in the light scheme a map wears the dark scheme, in the
+page's theme: its layers, labels, chips, legend and controls take the dark set's paints, so they read
+on the ground they stand on, as the basemap's own place names do. A light basemap in the dark scheme
+is dimmed to a dark ground, so the map keeps the page's scheme. A map part's paints are read in the
+scheme its map wears.
+
 ## Plans
 
 - **Patterns (D5).** The shell and the prompt now; other patterns (forms with their issue count,
