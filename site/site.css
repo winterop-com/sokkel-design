@@ -355,6 +355,11 @@ main {
     background: color-mix(in oklab, var(--good) 14%, transparent);
 }
 
+.badge.preview {
+    color: var(--primary);
+    background: color-mix(in oklab, var(--primary) 12%, transparent);
+}
+
 .badge.draft {
     color: var(--warning-ink);
     background: color-mix(in oklab, var(--warning) 16%, transparent);

@@ -1,5 +1,7 @@
 # Task card
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 One task on a board: what it is and its state as a chip in its tone, its elapsed time at the head's end, a line from who does it to what it is done to with their glyphs, optional facts, and a row of actions; a destructive action asks first. The structured spec is [`task-card.json`](task-card.json).
 
 Sources: sokkel-ui `packages/core/src/components/TaskCard.tsx`, `packages/core/src/components/StatusChip.tsx`, `packages/core/src/components/DescriptionList.tsx`, `packages/core/src/components/DialogShell.tsx`.

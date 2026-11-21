@@ -1,5 +1,7 @@
 # Track roster
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 The tracks a console watches as one list: a table's list (parts/table) of track-card rows gathered under their affiliations' heads, friend first, each head with its count and folding its group; its bar holds a search, filters on the affiliation, the kind and the states, and a sort menu, the list having no column heads. The track picked is drawn as chosen and shared with a map; one picked from outside unfolds its group and comes into view without taking the focus. The structured spec is [`track-roster.json`](track-roster.json).
 
 Sources: sokkel-ui `packages/core/src/components/TrackRoster.tsx`, `packages/core/src/components/DataTable.tsx`, `packages/core/src/components/TrackCard.tsx`, `packages/core/src/components/FilterBar.tsx`.

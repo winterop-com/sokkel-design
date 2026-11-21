@@ -1,5 +1,7 @@
 # Map compass
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 A compass among a map's buttons: its needle points north as the map is turned, and a press turns the map back to north. A map turns only when it is made with rotate; without it the needle stays up. The structured spec is [`map-compass.json`](map-compass.json).
 
 Sources: sokkel-ui `packages/maps/src/MapCompass.tsx`, `packages/maps/src/control.tsx`.

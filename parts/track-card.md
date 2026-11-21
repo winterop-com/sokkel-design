@@ -1,5 +1,7 @@
 # Track card
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 One tracked thing, densely: its glyph, name and id, its freshness at the head's end, and under them its affiliation as a chip (a menu of the affiliations when it can be changed), the states it is in as chips, and a quiet line of what it is doing. A thumbnail may lead it. Framed it is a card; unframed, a list's row. The structured spec is [`track-card.json`](track-card.json).
 
 Sources: sokkel-ui `packages/core/src/components/TrackCard.tsx`, `packages/core/src/components/TrackGlyph.tsx`, `packages/core/src/components/Freshness.tsx`, `packages/core/src/components/Chip.tsx`.

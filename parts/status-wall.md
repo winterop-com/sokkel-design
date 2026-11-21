@@ -1,5 +1,7 @@
 # Status wall
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 A wall of data sources for a screen across a room. Each tile is one source: its name under a quiet caption, its status as a word with a dot, one large figure with its unit, a line of detail, its freshness, and its readings over time faint along the foot. The status colors the tile's edge and a glow under it: good while up, warning while degraded, critical and slowly pulsing while down, no color and a hollow dot while unknown. The wall fills each row with as many tiles as fit and wraps, never scrolling sideways. The structured spec is [`status-wall.json`](status-wall.json).
 
 Sources: sokkel-ui `packages/core/src/components/StatusWall.tsx`, `packages/core/src/components/Dot.tsx`, `packages/core/src/components/Chip.tsx`, `packages/core/src/components/Freshness.tsx`.

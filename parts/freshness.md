@@ -1,5 +1,7 @@
 # Freshness
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 How fresh a reading is, as a console says it of a track or a sensor: Live while it is just in, then 3 s ago, 2 min ago, quieter once stale and in the warning tone once lost, the time of the reading in its tooltip. Every mark reads one shared clock. The structured spec is [`freshness.json`](freshness.json).
 
 Sources: sokkel-ui `packages/core/src/components/Freshness.tsx`, `packages/core/src/hooks/use-clock.ts`.

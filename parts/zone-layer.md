@@ -1,5 +1,7 @@
 # Zone layer
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 Areas on a map, each in its tone: its inside a light wash of the tone, diagonal lines in it or nothing, inside a solid or a dashed edge, and its label written at its middle. The zone under the pointer deepens; the selected zone is edged in the selection color. With glow, a soft blurred line in each zone's tone stands just outside its edge. The structured spec is [`zone-layer.json`](zone-layer.json).
 
 Sources: sokkel-ui `packages/maps/src/ZoneLayer.tsx`, `packages/maps/src/tone.ts`, `packages/maps/src/layer.ts (placeClear)`.
@@ -11,7 +13,7 @@ Sources: sokkel-ui `packages/maps/src/ZoneLayer.tsx`, `packages/maps/src/tone.ts
 | fill | solid: the tone at 0.18 of full, 0.24 under the pointer, 0.3 selected. hatched: diagonal lines in the tone, 1 wide every 6, rising to the right, on nothing, at 0.7 of full, 0.95 under the pointer, full selected. none: nothing, though the inside still answers the pointer. |
 | edge | Round the zone and its holes, 1.5 wide in the tone, 2 under the pointer, 2.5 selected in map-selection over a 5 wide halo in card; dashed 3 on 2 when the edge is dashed. |
 | label | The zone's label at the middle of its area (of its largest part's), centered on it: text.2xs at 500 on card at 80 percent, padded 4 across, rounded by radius-mini. A label that would cover another zone's is left out; the selected zone's never is, and is placed first, on card, ringed 1 in map-selection. |
-| glow | With glow, under the edge: a line round the zone 10 wide, blurred 8, moved 5 outward (to the side of the outline away from the inside, read from the way its outer ring runs), round-joined and round-capped, in the tone at 0.55 of full. Not animated. |
+| glow | With glow, under the edge: a soft blurred line round the zone just outside it, in the tone. Not animated. |
 
 ## Options
 

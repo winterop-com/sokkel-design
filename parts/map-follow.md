@@ -1,5 +1,7 @@
 # Map follow
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 Keeps a map centered on one moving thing, such as the selected track, while it is drawn: each new position is eased to and the camera is held, and a banner in a corner says what is followed, with a button that lets it go. Dragging the map lets it go too. The structured spec is [`map-follow.json`](map-follow.json).
 
 Sources: sokkel-ui `packages/maps/src/MapFollow.tsx`.

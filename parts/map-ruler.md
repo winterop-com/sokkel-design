@@ -1,5 +1,7 @@
 # Map ruler
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 A ruler over a map: while it is on, a press sets its first point, the line follows the pointer to where a second press sets the other, and a chip at the line's middle says the distance along the great circle and the bearing from the first point. Its button stands among the map's own. The structured spec is [`map-ruler.json`](map-ruler.json).
 
 Sources: sokkel-ui `packages/maps/src/MapRuler.tsx`, `packages/maps/src/control.tsx`, `packages/maps/src/geodesy.ts`.

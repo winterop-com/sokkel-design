@@ -1,5 +1,7 @@
 # Map coordinates
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 Where the pointer is on a map, latitude first with each hemisphere's letter, or Offscreen while it is off the map, after a scale bar of a round length that follows the zoom. It stands in a corner, the bottom left by default. The structured spec is [`map-coordinates.json`](map-coordinates.json).
 
 Sources: sokkel-ui `packages/maps/src/MapCoordinates.tsx`, `packages/maps/src/geodesy.ts`.
