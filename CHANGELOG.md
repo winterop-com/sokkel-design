@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.33.3
 
 - `status-wall` (a wall of data sources for a screen across a room, each tile a status with its
   figure, detail, freshness and readings over time), `alert-ticker` (the latest alerts in one strip,
