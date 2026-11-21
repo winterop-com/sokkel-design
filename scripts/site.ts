@@ -41,6 +41,7 @@ type Index = {
     colorDepth: Record<string, unknown>
     themes: { base: string }
     densities: string[]
+    textSizes?: string[]
     parts: Entry[]
     patterns: Entry[]
     checkWidths?: Record<string, number | number[]>
@@ -68,6 +69,7 @@ type Resolved = {
     default: { theme: string; density: string }
     themes: Record<string, Theme>
     density: Record<string, Record<string, number>>
+    textSize?: Record<string, Record<string, { size: number; lineHeight: number }>>
     paints: Record<string, Record<string, Record<string, Paint>>>
     paintSources: Record<string, Record<string, Record<string, unknown>>>
 }
@@ -465,6 +467,15 @@ function tokensPage() {
             return `<span class="shown bar measure"><i class="mark" style="width: ${Math.min(v, 320)}px"></i><span class="val">${v}</span></span>`
         }),
     ])
+    const textSizes = index.textSizes ?? []
+    const sizeSteps = Object.keys(resolved.textSize?.[textSizes[0] ?? ''] ?? {})
+    const sizeRows = sizeSteps.map((step) => [
+        `<code>text-${esc(step)}</code>`,
+        ...textSizes.map((size) => {
+            const v = resolved.textSize?.[size]?.[step]
+            return v === undefined ? '' : `${v.size} / ${v.lineHeight}`
+        }),
+    ])
     const otherRows = otherLengths.map((n) => [`<code>${esc(n)}</code>`, shown(data, `lengths.${n}`, 'num')])
     const elevations = Object.keys(base.elevations)
         .map((n) => `<li>${shown(data, `elevations.${n}`, 'shadow', { cls: 'lift', tag: 'div' })}<code class="name">${esc(n)}</code></li>`)
@@ -497,7 +508,15 @@ function tokensPage() {
     const sections: [string, string, string][] = [
         ['themes', 'Themes', `<div class="theme-grid">${themeCards}</div>`],
         ['colors', 'Colors', colors],
-        ['type', 'Type roles', `<ul class="type-list">${text}</ul>`],
+        [
+            'type',
+            'Type roles',
+            `<ul class="type-list">${text}</ul>${
+                sizeRows.length === 0
+                    ? ''
+                    : `<h3 id="text-size">Text size</h3><p class="lede small">Each step's size over its line height in px at each text size, a person's setting in the look. A role takes the step it names; a level answers from the md breakpoint up, and a phone keeps regular.</p>${table(['Step', ...textSizes.map(title)], sizeRows, 'measures')}`
+            }`,
+        ],
         [
             'spacing',
             'Spacing and density',

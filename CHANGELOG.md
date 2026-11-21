@@ -6,6 +6,13 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- foundations: a text size beside the density. `index.json` lists `textSizes` (smaller, small,
+  regular, large), and `tokens.resolved.json` gives each level's steps of the text scale as `textSize`
+  (size over line height in px; body text 13, 14, 15 or 16) with its default under `default.textSize`.
+  Regular is the theme's own sizes. A role takes the step it names at whichever level; a level answers
+  from the md breakpoint up, and a phone keeps regular. Spacing and control heights stay with the
+  density.
+- shell: Settings › Appearance offers the text size beside the theme and the density.
 - tree-select: a branch is a node given a list of children, even an empty one, or marked as having
   some to load; a leaf has neither. An open branch with nothing in it shows `emptyRow`, saying
   `words.emptyBranch` (`treeSelect.emptyBranch`, Empty).
