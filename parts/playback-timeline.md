@@ -1,5 +1,7 @@
 # Playback timeline
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 A time to look back at, such as a map's tracks an hour ago: an axis with day and hour ticks on the zone's clock, the live edge marked, a strip of activity as bars over it, and a playhead to drag or move with the keys. Play moves the time on, Step back and Step forward move it by a step, and Live returns to now; a drag or step that reaches the live edge, or ends within 8 of it, returns to live too. Its axis is the run timeline's (parts/run-timeline). The structured spec is [`playback-timeline.json`](playback-timeline.json).
 
 Sources: sokkel-ui `packages/core/src/components/PlaybackTimeline.tsx`, `packages/core/src/components/time-axis.tsx`, `packages/core/src/lib/time-axis.ts`.

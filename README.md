@@ -84,7 +84,7 @@ section c).
 
 | Key | Holds |
 |---|---|
-| `id`, `kind`, `status` | `button`; `part` or `pattern`; `stable`, the only status (see "Versions and status") |
+| `id`, `kind`, `status` | `button`; `part` or `pattern`; `stable` or `preview` (see "Versions and status") |
 | `renderers` | For `sokkel-ui`, `sokkel-egui` and `sokkel-tui`: `{ state, as_of, note }`, state `missing`, `partial` or `built`, as of a commit of that renderer's repository. `built` means drawn from the spec with nothing left in `drift` |
 | `sources` | The files each renderer draws it from today, by repo |
 | `anatomy` | Each named piece and what it is; paint and sizes refer to these names |
@@ -317,20 +317,30 @@ sokkel-ui release the contract ships in. Before 1.0 a breaking change moves the 
 as sokkel-ui's does. sokkel-egui and sokkel-tui state the sokkel-ui version whose contract it meets. Parts have
 no version of their own; `CHANGELOG.md` says what each version changed, part by part.
 
-**Status.** Nothing in the contract is a draft (owner's rule): every part and pattern is `stable`,
-in its file and in `index.json`, and `check.py` fails one that is not. `stable` means the contract
-holds it as sokkel-ui draws it; a change to it is a changelog line, and the renderers follow. Whether a
-renderer has built it and compared it side by side is not its status: that is the part's
-`renderers` and `drift`, which say what is built and what is not compared yet.
+**Status.** Nothing in the contract is a draft (owner's rule): every part and pattern is `stable`
+or `preview`, in its file and in `index.json`, and `check.py` fails any other. `stable` means the
+contract holds it as sokkel-ui draws it; a change to it is a changelog line, and the renderers
+follow. `preview` is a part new in its round: specified in full, as it landed (its words, options,
+sizes, paints and keys), but its sizes, paints and layout may still move while its looks settle.
+sokkel-ui's `parts.test` holds a preview part to its words, messages, options, keys and routes only,
+and the other renderers may wait before porting it. It becomes `stable` with a changelog line once
+its looks settle. Preview is never a reason to leave any of the spec out. Whether a renderer has
+built a part and compared it side by side is not its status: that is the part's `renderers` and
+`drift`, which say what is built and what is not compared yet.
 
 Status is the contract's; how far each renderer has built a part is that part's `renderers`, so a
-third renderer neither blocks a stable part nor is left out of it.
+third renderer neither blocks a part nor is left out of it.
 
 What lands in sokkel-ui is the new normal: a part added or changed there is specified here in the
-same round, as it landed (its words, options, sizes, paints and keys), and is `stable` from the
-start, never a draft. Where egui has not built it yet, its spec says so in a `drift` entry for
-sokkel-egui and in `renderers`, and egui builds it from the spec. `section` and `text-field`, drafts from before that rule, are
-stable too; their `drift` says what each renderer has not compared yet.
+same round, as it landed, never a draft. Where egui has not built it yet, its spec says so in a
+`drift` entry for sokkel-egui and in `renderers`, and egui builds it from the spec. `section` and
+`text-field`, drafts from before that rule, are stable too; their `drift` says what each renderer
+has not compared yet.
+
+**Map layers by meaning.** A map layer's spec gives what a reader sees and what an app sets: its
+pieces, the periods and trails of what moves, its tokens, which states move and which hold still.
+It never gives a drawing constant (a shader's edge width, an arc's steps, a glow's blur, a fade's
+exponent); those stay in each renderer's code, so a renderer draws the meaning its own way.
 
 ## Plans
 

@@ -158,10 +158,10 @@ for f in sorted(list((ROOT / 'parts').glob('*.json')) + list((ROOT / 'patterns')
     entry = listed.get(d['id'])
     if entry is None: problems.append(f'{name}: not listed in index.json')
     elif entry.get('status') != d['status']: problems.append(f"{name}: status {d['status']}, index.json says {entry.get('status')}")
-    if d['status'] != 'stable': problems.append(f"{name}: status {d['status']}: nothing in the contract is a draft")
+    if d['status'] not in ('stable', 'preview'): problems.append(f"{name}: status {d['status']}: nothing in the contract is a draft")
     ren = d.get('renderers', {})
-    if d['status'] == 'stable' and ren.get('sokkel-ui', {}).get('state') == 'missing':
-        problems.append(f'{name}: stable, and sokkel-ui has not built it (renderers)')
+    if ren.get('sokkel-ui', {}).get('state') == 'missing':
+        problems.append(f"{name}: {d['status']}, and sokkel-ui has not built it (renderers)")
     named = set(d['anatomy']) | set(d.get('variants', {})) | set(d.get('pieces', {})) | {'default'}
     for piece, surface in d.get('standsOn', {}).items():
         if piece not in named: problems.append(f'{name}: standsOn.{piece} is not a piece, a variant or default')

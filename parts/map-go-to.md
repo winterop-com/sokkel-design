@@ -1,5 +1,7 @@
 # Map go to
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 A small field over a map that takes a position as latitude, longitude (decimal degrees, with or without hemisphere letters) and flies there on Enter, holding the camera from then on. What does not read as a position is marked and said under the field. The structured spec is [`map-go-to.json`](map-go-to.json).
 
 Sources: sokkel-ui `packages/maps/src/MapGoTo.tsx`, `packages/maps/src/geodesy.ts (parseCoordinates)`.

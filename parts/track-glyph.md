@@ -1,5 +1,7 @@
 # Track glyph
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 What a tracked thing is, as a map draws it: its kind's shape filled in its affiliation's color and turned to its heading, so a list, a card and a task's line show a track as the map does. The structured spec is [`track-glyph.json`](track-glyph.json).
 
 Sources: sokkel-ui `packages/core/src/components/TrackGlyph.tsx`, `packages/core/src/lib/tracks.ts`.

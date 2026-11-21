@@ -6,6 +6,19 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- A part or pattern's `status` is `stable` or `preview`. A preview part is new in its round and
+  specified in full, as it landed, but its sizes, paints and layout may still move: sokkel-ui checks
+  its words, messages, options, keys and routes only, and the other renderers may wait before porting
+  it. Preview now: `track-layer`, `track-glyph`, `track-card`, `track-roster`, `task-card`,
+  `freshness`, `playback-timeline`, `zone-layer`, `coverage-layer`, `link-layer`, `map-ruler`,
+  `map-coordinates`, `map-go-to`, `map-follow`, `map-compass`, `status-wall`, `alert-ticker` and the
+  pattern `kiosk`.
+- Map layers are specified by meaning, not by their drawing constants. Out of `layout`:
+  `coverage-layer`'s `coneFill`, `coneFade` and `sweepEdge`; `link-layer`'s `greatCircleStep`,
+  `arcHeight`, `arcSteps`, `flowWidth` and `flowLine`; `zone-layer`'s `glowWidth` and `glowBlur`;
+  `track-layer`'s `rippleWidth` and `step`. The anatomy of the cone, sweep, line, arc, flow, glow,
+  halo, ripple, pulse and trail says what each shows, its periods and trails kept, without the shader's
+  fractions and exponents.
 - markdown tree: an escaped `\[[`, `\![[` and `\#` read as the words they are, never a `wikiLink`,
   an `embed` or a `tag`, as an escaped `\=` already never opened a `highlight`; `escapes` holds them
   at a paragraph's start, in a quote and in a list.

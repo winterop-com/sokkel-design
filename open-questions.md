@@ -30,8 +30,9 @@ Decided **a** before 1.0: `index.json`'s `version` is the sokkel-ui release the 
 
 ### 4. Parts: one contract version, a status, a changelog
 
-Decided **a**: no version per part. Each part and pattern says its status, now always `stable` (README,
-"Status"), and `CHANGELOG.md` has a line for each change. Done.
+Decided **a**: no version per part. Each part and pattern says its status, `stable` or `preview` for
+a part new in its round whose looks may still move (README, "Status"), and `CHANGELOG.md` has a line
+for each change. Done.
 
 ### 5. Patterns: the shell now
 

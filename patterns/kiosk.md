@@ -1,5 +1,7 @@
 # Kiosk
 
+Status: preview. New in its round and specified in full, as it landed; its sizes, paints and layout may still move, and renderers other than sokkel-ui may wait before porting it.
+
 The frame of a wall or kiosk view, for a screen on a wall with nobody at a keyboard: no rail and no top bar, only a head (the mark, the title, quiet actions and a large clock), a row of counters, the stage with an aside beside it, and a strip along the bottom. It fills the height it is given on the app's background and the stage takes all the room the rest leaves. In a narrow room everything stacks and the frame scrolls down, never sideways. The structured spec is [`kiosk.json`](kiosk.json).
 
 Sources: sokkel-ui `packages/core/src/components/Kiosk.tsx`.
