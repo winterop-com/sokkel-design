@@ -9,12 +9,12 @@ Sources: sokkel-ui `packages/core/src/components/TrackGlyph.tsx`, `packages/core
 | Piece | What it is |
 |---|---|
 | container | A square, 48 units on a side in its own space, drawn at its size; nothing else. |
-| shape | The kind's outline pointing north (vessel: a hull with a pointed bow; aircraft: an arrowhead with a notched tail; vehicle: a box with a point on its front; other: a triangle), filled; a sensor is a ring 5 wide of radius 14 around a dot of radius 4.5, and never turns. |
+| shape | The kind's outline pointing north (vessel: a hull with a pointed bow; aircraft: an arrowhead with a notched tail; vehicle: a box with a point on its front; satellite: a body 10 wide with a pointed nose, between two solar panels 12 wide and 16 tall, each on an arm 5 long and 4 thick; other: a triangle), filled; a sensor is a ring 5 wide of radius 14 around a dot of radius 4.5, and never turns. |
 | heading | With heading: the shape turned that many degrees clockwise from north about its center. |
 
 ## Options
 
-- `kind` (`vessel`, `aircraft`, `vehicle`, `sensor`, `other`): Which shape.
+- `kind` (`vessel`, `aircraft`, `vehicle`, `sensor`, `satellite`, `other`): Which shape.
 - `affiliation` (`friend`, `hostile`, `neutral`, `unknown`, `pending`): Fills it in track-<affiliation>; the ink around it without one.
 - `heading`: Degrees from north it points.
 - `size` (`sm`, `md`, `lg`): 14, 16 or 20 square.
@@ -41,6 +41,7 @@ Sources: sokkel-ui `packages/core/src/components/TrackGlyph.tsx`, `packages/core
 - `aircraft` (`trackNames.aircraft`): "Aircraft"
 - `vehicle` (`trackNames.vehicle`): "Vehicle"
 - `sensor` (`trackNames.sensor`): "Sensor"
+- `satellite` (`trackNames.satellite`): "Satellite"
 - `other` (`trackNames.other`): "Other"
 
 ## Where each renderer stands
