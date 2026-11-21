@@ -4,6 +4,15 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- markdown-view: `links` takes `href(target, heading)`, the address a `[[link]]` and an embed's framed
+  link carry; a plain press still follows it through `onOpen`, and a press with a modifier key or the
+  middle button is the browser's. Without it, or when it returns nothing, a link carries `#`.
+- markdown-view: a diagram is drawn whole, shrunk to fit its frame's width at any width, where it
+  shrank only until its labels reached `text.2xs` and then scrolled. In the window it keeps that
+  floor and pans where the window is narrower.
+
 ## 0.33.3
 
 - `status-wall` (a wall of data sources for a screen across a room, each tile a status with its
