@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.33.5
 
 - A part or pattern's `status` is `stable` or `preview`. A preview part is new in its round and
   specified in full, as it landed, but its sizes, paints and layout may still move: sokkel-ui checks
