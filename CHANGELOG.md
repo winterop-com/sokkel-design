@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.33.6
 
 - Maps: over a dark basemap in the light scheme a map wears the dark scheme, in the page's theme, so
   its layers, labels, chips, legend and controls take the dark set's paints (README, A map's scheme).
