@@ -6,6 +6,10 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## 0.33.6
 
+- foundations: the default text size is small (14px body text) from the md breakpoint up, under
+  `default.textSize` in `tokens.resolved.json`; phones keep the theme's own sizes, and a part's sizes
+  are still given at the theme's own scale.
+
 - Maps: over a dark basemap in the light scheme a map wears the dark scheme, in the page's theme, so
   its layers, labels, chips, legend and controls take the dark set's paints (README, A map's scheme).
 
