@@ -11,6 +11,9 @@ of their own (D4); a change to a part is a line here under its name.
   to 600), as `text` and `textSizes` give them. Every part's paints
   and words that name a weight say the new one. The code face, which is not variable, draws 450 at
   500.
+- foundations: each theme's and scheme's `numbers` in `tokens.resolved.json` names the weight scale,
+  `font-weight-medium`, `font-weight-semibold` and `font-weight-bold` (450, 500 and 600), so a renderer
+  that writes a weight outside a text role reads it by name and follows a later step.
 
 - Renderers: sokkel-egui as of ebeb584: `status-line`'s last fact alone gives way and `side-panel`'s
   tabs stand as icons when the labels do not fit, both still partial. It also draws the default text

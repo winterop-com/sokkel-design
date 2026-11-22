@@ -542,11 +542,12 @@ export function resolveTokens(tokens: TokenSource, sokkelUi: { repo: string; com
         .filter((key) => key.startsWith('text-') && key.endsWith('--line-height'))
         .map((key) => key.slice('text-'.length, -'--line-height'.length))
     // Every token by its own name, then what the utility classes name besides: the corners and
-    // spacings, and the colors a class paints that no theme sets by that name (`text-good-ink`).
+    // spacings and the weights, and the colors a class paints that no theme sets by that name
+    // (`text-good-ink`).
     const keys: [string, string][] = [
         ...Object.keys(tidevann.light).map((key): [string, string] => [key, key]),
         ...Object.keys(tokens.theme)
-            .filter((key) => key.startsWith('radius-') || key.startsWith('spacing-') || key.startsWith('breakpoint-') || key.startsWith('leading-'))
+            .filter((key) => key.startsWith('radius-') || key.startsWith('spacing-') || key.startsWith('breakpoint-') || key.startsWith('leading-') || key.startsWith('font-weight-'))
             .map((key): [string, string] => [key, key]),
         ...Object.keys(tokens.theme)
             .filter((key) => key.startsWith('color-') && !(key.slice('color-'.length) in tidevann.light))
