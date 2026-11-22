@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.34.2
 
 - rail: `collapseWith`, `button` (the default, as before) or `mark`. With `mark` the mark's tile is
   the one toggle: it collapses an expanded rail, showing the collapse icon under the pointer, and the
