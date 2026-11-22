@@ -4,6 +4,12 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Renderers: sokkel-egui on contract 0.34.3 as of cac5a03. `tree-select` as of 2959f94: a label cut
+  short gives its whole text on hover. `rail` as of 0bec480: `collapseWith` mark, with no link home
+  since it has no markHref. Its code face draws 450 at 500, as specified.
+
 ## 0.34.3
 
 - Renderers: sokkel-egui as of 435c0f2 draws the lighter weights, every weight above a role's
