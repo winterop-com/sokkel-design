@@ -4,6 +4,13 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Renderers: sokkel-egui as of ebeb584: `status-line`'s last fact alone gives way and `side-panel`'s
+  tabs stand as icons when the labels do not fit, both still partial. It also draws the default text
+  size from 768 up (as of 3eedf2d) and a map's dark scheme over a dark basemap (as of ec59998), which
+  have no renderer field of their own.
+
 ## 0.34.0
 
 - foundations (breaking): the text sizes are `small`, `normal`, `large` and `larger` (body text 13,
