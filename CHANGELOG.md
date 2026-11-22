@@ -4,6 +4,13 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- foundations: `tokens.resolved.json` gives each theme and scheme its text roles at every text size,
+  as `textSizes.<level>.<role>` beside `text` (which stays the regular level): size, line height,
+  weight and tracking, so a renderer draws the default level, or any other, without working out which
+  step a role names.
+
 ## 0.33.6
 
 - foundations: the default text size is small (14px body text) from the md breakpoint up, under
