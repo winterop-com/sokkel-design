@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- tree-select: a row's label cut short gives its whole text, and a search result's trail, as its
+  title on hover; one that fits gives none.
+
 ## 0.34.2
 
 - rail: `collapseWith`, `button` (the default, as before) or `mark`. With `mark` the mark's tile is
