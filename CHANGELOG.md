@@ -6,6 +6,12 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- foundations: text is one weight step lighter. The medium, semibold and bold weights are 450, 500
+  and 600, and every text role and `table-head-weight` moved with them (500 to 450, 600 to 500, 700
+  to 600), as `text` and `textSizes` give them. Every part's paints
+  and words that name a weight say the new one. The code face, which is not variable, draws 450 at
+  500.
+
 - Renderers: sokkel-egui as of ebeb584: `status-line`'s last fact alone gives way and `side-panel`'s
   tabs stand as icons when the labels do not fit, both still partial. It also draws the default text
   size from 768 up (as of 3eedf2d) and a map's dark scheme over a dark basemap (as of ec59998), which

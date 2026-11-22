@@ -12,7 +12,7 @@ Sources: sokkel-ui `packages/core/src/components/TrackCard.tsx`, `packages/core/
 |---|---|
 | container | A row 10 apart: the thumbnail, then a column of two lines 4 apart. Framed: on card with a border edge, rounded by radius-surface, padded 10, in card-foreground. |
 | thumbnail | With thumbnail: 40 square, rounded by radius-control, on muted, its picture covering it. |
-| head | The glyph (parts/track-glyph, md, named), the name at 500 cut with an ellipsis, the id in the code face at text.help in muted-foreground giving way first, 8 apart; the freshness (parts/freshness) at the line's end. |
+| head | The glyph (parts/track-glyph, md, named), the name at 450 cut with an ellipsis, the id in the code face at text.help in muted-foreground giving way first, 8 apart; the freshness (parts/freshness) at the line's end. |
 | chips | The affiliation as a chip with a dot in its color (parts/chip), a menu of the five affiliations with onAffiliationChange; each state an outline chip, or in its tone; then the detail at text.help in muted-foreground, 6 apart, wrapping. |
 | name | The track's name, cut with an ellipsis. |
 | code | The track's id after its name, in the code face. |

@@ -25,12 +25,12 @@ tab) and the Shell's Panel tabs stories.
 | panel | An `aside` on `sidebar`, the full height it is given, with a 1px `border-strong` edge at its start. 352 wide by default (`defaultSize`, or `width`), held between `minSize` 280 and `maxSize` 640 |
 | edge | The resize edge (`ResizeHandle`, `grows={-1}`): an 8 wide hit area across the start edge. A 2 wide line in `primary` shows while it is hovered, focused or dragged. A double click puts back the default width |
 | head | `h-shell-top`, the top bar's height, with a `border-strong` rule under it. Padded 8 at its start and 48 at its end, which leaves room for the shell's toggle (8 in the sheet). It drags the window in a desktop shell |
-| title | With one tab and `soleTab="title"`, or in the sheet: an `h2` with the shown tab's label, `text.sm` at 500, padded 6 across and cut short. The panel is labelled by it |
+| title | With one tab and `soleTab="title"`, or in the sheet: an `h2` with the shown tab's label, `text.sm` at 450, padded 6 across and cut short. The panel is labelled by it |
 | tabs | Otherwise a tablist (Base UI `Tabs`), tabs 4 apart, in the room before the toggle. The content is their tabpanel. When the labels do not fit that room and every tab has an `icon`, each tab stands as its icon, named by its label, which a tooltip shows below it; when a tab has no icon they keep their labels and scroll sideways. A tab never runs under the toggle |
-| tab | 28 tall, padded 10 across, `radius-md`, `text.sm` in `muted-foreground`, on one line; as its icon, 32 wide with the icon at 16. The shown tab is on `secondary` in `foreground` at 500 |
+| tab | 28 tall, padded 10 across, `radius-md`, `text.sm` in `muted-foreground`, on one line; as its icon, 32 wide with the icon at 16. The shown tab is on `secondary` in `foreground` at 450 |
 | content | The rest of the height, scrolling |
 | section | `PanelSection`: padded 16 by 12, its pieces 8 apart, with a 1px `border` rule under every section but the last |
-| heading | `GroupLabel` as an `h3`: `text.xs` at 500, uppercase, tracked wide, in `faint` |
+| heading | `GroupLabel` as an `h3`: `text.xs` at 450, uppercase, tracked wide, in `faint` |
 | heading row | With the section's `actions`: at least 28 tall, the actions at its end, 4 apart |
 
 ## Options
@@ -57,7 +57,7 @@ move to the strip at the screen's foot (`PanelTabStrip`) and the sheet rises fro
 | rest | Panel on `sidebar`, edge and head rule `border-strong`; title and its content in `sidebar-foreground`, the ink of the ground it stands on |
 | hover | A tab that is not shown: `hover` ground, `foreground` ink. The edge: its line |
 | focus (keyboard) | A tab: the button's focus look, a `focus-ring-width` outline in `ring`, `focus-ring-offset` off. The edge: its line |
-| selected | The shown tab: `secondary` ground, `foreground`, weight 500 |
+| selected | The shown tab: `secondary` ground, `foreground`, weight 450 |
 | dragging | The edge: its line |
 | titled | One tab, `soleTab="title"`: the heading in the tabs' place |
 | sheet | In the shell's sheet: no start edge, no resize edge, head padded 8 at its end |

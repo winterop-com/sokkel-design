@@ -10,7 +10,7 @@ Sources: sokkel-ui `packages/maps/src/MapFollow.tsx`.
 
 | Piece | What it is |
 |---|---|
-| banner | A chip in its corner, the top left by default: card at 95 percent, padded 8 before and 2 after, 2 down, rounded by radius-control, with the surface's elevation and a 1 ring in map-selection; a crosshair icon 14 square in map-selection, then words.following with the name in text.xs at 500, cut with an ellipsis, then an icon button (words.release, a cross) control-xs square, 6 apart. |
+| banner | A chip in its corner, the top left by default: card at 95 percent, padded 8 before and 2 after, 2 down, rounded by radius-control, with the surface's elevation and a 1 ring in map-selection; a crosshair icon 14 square in map-selection, then words.following with the name in text.xs at 450, cut with an ellipsis, then an icon button (words.release, a cross) control-xs square, 6 apart. |
 
 ## Options
 

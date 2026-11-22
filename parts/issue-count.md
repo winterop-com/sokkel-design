@@ -8,7 +8,7 @@ Sources: sokkel-ui `packages/core/src/components/IssueMark.tsx (IssueCount, ISSU
 
 | Piece | What it is |
 |---|---|
-| face | The control: control-sm tall, a 1px edge and a faint wash in the worst issue's tone, rounded by radius-control, text.xs at 500 in tabular figures. A button when there is a list to open, else a status. Its name says every count in words (words.errors, words.warnings), joined by a comma. |
+| face | The control: control-sm tall, a 1px edge and a faint wash in the worst issue's tone, rounded by radius-control, text.xs at 450 in tabular figures. A button when there is a list to open, else a status. Its name says every count in words (words.errors, words.warnings), joined by a comma. |
 | figure | One kind's count after its mark (a circled alert for errors, a triangle for warnings), 14 square, 4 apart, padded 8 across, in the kind's ink. The warnings' figure follows the errors' behind a rule in its ink at 25 percent. |
 | list | The popup above the face, at its start: the issues one under the other, 4 apart, padded 6, layout.listWidth wide at most. |
 | entry | One issue, a button: its mark (16, 2 down) and, 8 after it, the field's label in text.xs and muted-foreground over the issue's words in text.sm. Choosing it shuts the list, goes to the field and opens its mark. |
@@ -35,7 +35,7 @@ Sources: sokkel-ui `packages/core/src/components/IssueMark.tsx (IssueCount, ISSU
 - hover: The pointer is over the face, or over an entry.
 - focus: Keyboard focus on the face: the focus ring; on an entry, its wash.
 - open: The list is open: the face washed as under the pointer.
-- face at rest: ground `critical/8`, edge `critical/40`, radius `radius-control`, text `text.xs`, weight `500`.
+- face at rest: ground `critical/8`, edge `critical/40`, radius `radius-control`, text `text.xs`, weight `450`.
 - face at hover: ground `critical/12`.
 - face at open: ground `critical/12`.
 - face at focus: ring `{"color": "ring/50", "width": "focus-ring-width"}`.

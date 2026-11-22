@@ -11,7 +11,7 @@ Sources: sokkel-ui `packages/core/src/components/Unfoldable.tsx`.
 | unfoldable | The column: the row, then the summary while shut or the content while open, 8 apart. |
 | row | The heading row, the whole of it the control while it unfolds (a button): the chevron, then the heading; padded 4 all round and reaching 4 past the column on each side, so its words line up with the text around it. |
 | chevron | A chevron pointing at the heading, turned down while open; 14 square, in muted-foreground. While forced it is turned down in faint; a static row keeps its room empty. |
-| heading | The heading, text.sm at 500, cut to one line. |
+| heading | The heading, text.sm at 450, cut to one line. |
 | aside | Facts at the row's end, outside the button's name, such as a count: text.xs in muted-foreground, 8 apart. |
 | summary | While shut, a line under the heading saying what the folded part holds in short: text.xs in muted-foreground, under the heading's start (layout.indent), 6 up into the column's gap, one line unless wrapSummary. |
 | content | While open, what it holds, under the heading's start (layout.indent). |
@@ -43,7 +43,7 @@ Sources: sokkel-ui `packages/core/src/components/Unfoldable.tsx`.
 - focus: Keyboard focus on the row: the focus ring inside its edge.
 - open: Open: the chevron turned down, the content under the heading, no summary.
 - forced: Held open: the row is static, its chevron turned down in faint.
-- row at rest: radius `radius-md`, text `text.sm`, weight `500`.
+- row at rest: radius `radius-md`, text `text.sm`, weight `450`.
 - row at hover: ground `hover`.
 - row at focus: ring `{"color": "ring", "width": "focus-ring-width", "inset": "all"}`: drawn inside the row's edge, flush with it (`ring-focus ring-inset`, a box-shadow); `focus-ring-offset` is not used.
 - chevron at rest: ink `muted-foreground`.

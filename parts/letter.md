@@ -18,7 +18,7 @@ Sources: sokkel-ui `packages/core/src/components/Letter.tsx` (`Letter`, `LetterP
 | letter | An article padded 16 across (24 from md) and 12 down and up, 20 under an open letter, a 1px `border` rule under it |
 | head | The picture, then the name's column, 12 apart; a button with `aria-expanded` while foldable |
 | avatar | 32 round, the initials where no picture is given |
-| name | `text.sm` at 500, cut short |
+| name | `text.sm` at 450, cut short |
 | address | Open only: `text.xs` in `muted-foreground`, 8 after the name, not drawn below 640 |
 | time | At the end: `text.xs` in `muted-foreground`, tabular figures, a 14 paperclip 4 before it named `words.attached` |
 | line | `text.sm` in `muted-foreground`: the recipients while open (`words.to`), the snippet while folded |

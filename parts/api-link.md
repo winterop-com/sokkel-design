@@ -9,7 +9,7 @@ Sources: sokkel-ui `packages/core/src/components/ApiLink.tsx`, `packages/core/sr
 | Piece | What it is |
 |---|---|
 | chip | The chip: 24 tall, on a faint muted wash with a border edge, rounded by radius-chip, 8 in at its start; the method, the path, then the copy button at its end, 6 apart. As wide as it needs, at most its room. |
-| method | The method in capitals, in the code face at text.xs and 500: muted-foreground for a read (GET and the rest), warning-ink for POST, PUT and PATCH, critical-ink for DELETE. |
+| method | The method in capitals, in the code face at text.xs and 450: muted-foreground for a read (GET and the rest), warning-ink for POST, PUT and PATCH, critical-ink for DELETE. |
 | path | The path in the code face at text.xs, cut to its room with its whole text on hover. With href, a link: underlined under the pointer, an arrow after it. |
 | copy | parts/button's icon-xs copy button (CopyButton), naming words.copy and saying words.copied once pressed. |
 | arrow | With open, an arrow up and right after the path, 12 square, in muted-foreground, standing for the new tab. |
@@ -38,7 +38,7 @@ Sources: sokkel-ui `packages/core/src/components/ApiLink.tsx`, `packages/core/sr
 - open at rest: ground `muted/50`, edge `border`, ink `foreground`, radius `radius-chip`.
 - open at hover: ground `hover`.
 - open at focus: ring `{"color": "ring", "width": "focus-ring-width"}`.
-- method at rest: ink `muted-foreground`, text `text.xs`, weight `500`.
+- method at rest: ink `muted-foreground`, text `text.xs`, weight `450`.
 - method at write: ink `warning-ink`.
 - method at delete: ink `critical-ink`.
 - path at rest: text `text.xs`.

@@ -22,7 +22,7 @@ In order, start to end:
 | menu | The shell's: opens the rail as the drawer, below 768 or at every width while the rail is hidden. Named by the shell's `menu` word. It looks like the rail's collapse control |
 | mark | With `mark`: the app's mark on a 28 tile, for a screen without the rail |
 | search | With `search`: the app's search field (`SearchField`, or `Search` with its results), 224 wide (256 from 1024, at most 320), focused by `/`. Below 768 it gives way to the palette's button |
-| trail | The crumbs, taking the room left, named by `words.trail`. A crumb with `href` is a link; the current screen's is plain words at 500, marked as the page. Chevrons (14, `faint`) stand between crumbs |
+| trail | The crumbs, taking the room left, named by `words.trail`. A crumb with `href` is a link; the current screen's is plain words at 450, marked as the page. Chevrons (14, `faint`) stand between crumbs |
 | palette | The button that opens the command palette. With no search field it is field-like and 224 wide: a magnifier, the word Search and the keys in a key cap. Beside a field it shows the keys alone (as small code text) or the magnifier. Below 768 it is an icon, a finger square, with no edge or ground |
 | actions | The screen's actions, at the very end, 6 apart. The bar's order is the search, the trail, the palette's button, then the actions, 12 between those groups |
 
@@ -64,7 +64,7 @@ crumb. The mark's tile is 28. The actions stand 6 apart.
 | rest | bar: `sidebar`, rule `border-strong`. crumb: `muted-foreground`. chevrons: `faint`. palette: `field`, edge `border`, ink `muted-foreground`. keys: `muted` / `muted-foreground`. menu: `muted-foreground` |
 | hover | crumb link: `foreground`. palette: edge `border-strong`, ink `foreground`. menu: ground `hover`, ink `foreground`, as the rail's collapse control |
 | focus (keyboard) | the menu button, a crumb's link (`radius-sm`) and the palette's button: the button's own focus look, a 2px `ring` outline 2 off, as every control of the frame. Below 768 the menu button and the palette's button, finger squares in a bar barely taller, draw that outline its offset inside them (`inset` all), where the window's top edge cannot cut it |
-| current | the current crumb: `foreground` at 500 |
+| current | the current crumb: `foreground` at 450 |
 | phone (below 768) | palette: no ground, no edge, a finger square. The crumbs before the last, the chevrons and the search field are not drawn |
 
 ## Keyboard

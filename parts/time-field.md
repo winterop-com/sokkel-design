@@ -29,7 +29,7 @@ Sources: sokkel-ui `packages/core/src/components/TimeField.tsx` (`TimeField`, `T
 | clear | With an optional field that holds text: a control-xs square button with an x, `words.clear` |
 | pick | A control-xs square button with a clock, `words.pick`, opening the list |
 | list | The popup under the frame, on the popup's look: 128 wide, padded 6, at most 256 tall, the times 2 apart |
-| time | One time without seconds: 32 tall, 8 across, `text.sm`, `radius-md`; the chosen one on `secondary` at 500 |
+| time | One time without seconds: 32 tall, 8 across, `text.sm`, `radius-md`; the chosen one on `secondary` at 450 |
 
 ## Options
 
@@ -50,7 +50,7 @@ Sources: sokkel-ui `packages/core/src/components/TimeField.tsx` (`TimeField`, `T
 | warning | `warning/80` edge; with focus `warning` and a 1px `warning/25` ring |
 | frame button | `muted-foreground`; hover on `hover` in `foreground`; keyboard focus a `focus-ring-width` ring in `ring/50`; the pick button on `hover` while open |
 | list | the popup's look: `popover`, a `border-strong` edge, `radius-surface` |
-| time | hover on `hover`; chosen on `secondary` at 500; keyboard focus the outline in `ring`, `focus-ring-width` |
+| time | hover on `hover`; chosen on `secondary` at 450; keyboard focus the outline in `ring`, `focus-ring-width` |
 
 ## Keyboard
 

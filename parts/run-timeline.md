@@ -47,7 +47,7 @@ quarter of the ticks' step by default); `legend` (the states to name, or `false`
 | name | 192 wide (112 below 640), 12 by 8 |
 | track | at least 48 tall |
 | run | 16 tall, 4 wide as a mark |
-| nowLabel | 4 across, `text.2xs` at 600, a 16 line |
+| nowLabel | 4 across, `text.2xs` at 500, a 16 line |
 | handle | 4 from the track's top and bottom, 8 past the last run; grip 14 |
 | card | 8 by 4, `text.help` in the code face |
 
@@ -61,7 +61,7 @@ Nothing varies by density.
 | hover | another lane's name on `muted`, its track on `muted/50`; the handle on `primary/10` |
 | focus (keyboard) | a lane's name or the handle: the frame's focus outline in `ring`, `focus-ring-width`, drawn `focus-ring-offset` inside |
 | selected | the lane on `accent`, its name's start edge `primary`, the name keeping `accent` under the pointer |
-| total | ruled over in `border-strong`, the name in the body face at 600 |
+| total | ruled over in `border-strong`, the name in the body face at 500 |
 | upcoming | a run hollow, edged in `muted-foreground` |
 | dragging | the carried runs and the handle where the shift puts them, never before now; a dashed `border-strong` ghost at each one's place |
 | narrow | below 640 the names' column is 112 and the hint is left out |

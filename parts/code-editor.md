@@ -43,7 +43,7 @@ Two places, and the parts test reads each from its own:
 | rangeMark | A wavy underline in the tone, 0.2em under; the problem at the caret on `warning/18` |
 | lintDot | An 8 dot in the tone, in a 16 wide gutter |
 | tooltip | `popover`, 1px `border` edge, `radius-control`, `elevation-pop`, `text.xs`, padded 10 by 6; a problem's message with a 3 wide start rule in its tone |
-| completion | Mono rows 8 by 2, icon and detail in `muted-foreground`, matched letters at 600; the chosen row `accent` in `accent-foreground`; a deprecated word struck through |
+| completion | Mono rows 8 by 2, icon and detail in `muted-foreground`, matched letters at 500; the chosen row `accent` in `accent-foreground`; a deprecated word struck through |
 | foldGutter, foldPlaceholder | Fold marks padded 4, `foreground` under the pointer; a folded block on `muted` in `muted-foreground`, 6 across |
 | searchPanel | On `muted`, a 1px `border` rule under it, `text.xs`; fields on `field` with an `input` edge (`ring` on focus), buttons on `background` with a `border` edge (`accent` under the pointer); matches `warning/24`, the current `warning/48` |
 | bracket | By depth in `code-bracket-1`, `-2`, `-3` |
@@ -78,7 +78,7 @@ media type. A language may also be a CodeMirror `LanguageSupport` or a named str
 | inserted (and markdown `==highlights==`), deleted | `code-inserted`, `code-deleted` |
 | invalid | `code-invalid` |
 
-Strong text is drawn at 600, emphasis italic, strikethrough struck, all in the text's ink.
+Strong text is drawn at 500, emphasis italic, strikethrough struck, all in the text's ink.
 
 ## Options
 

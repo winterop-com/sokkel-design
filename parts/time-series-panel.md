@@ -32,7 +32,7 @@ private `WORDS`.
 | reference | A `dashed` series: a dashed line 1.25 wide, no area |
 | threshold line | Each threshold after the first, dashed 1 wide across at its value, in its color, its figure at the end |
 | legend | `list` (parts/chart's entries), `table` (`legendStats`: min, max, avg, current) or `none` |
-| threshold legend | A list (12 swatches rounded `radius-mini` with a 1 wide `foreground/15` inset ring, 16 apart) or a bar (one strip 8 tall, bands 1 apart, values under the joins); `text.xs`; a title at 500; a hatched `muted` swatch for no data |
+| threshold legend | A list (12 swatches rounded `radius-mini` with a 1 wide `foreground/15` inset ring, 16 apart) or a bar (one strip 8 tall, bands 1 apart, values under the joins); `text.xs`; a title at 450; a hatched `muted` swatch for no data |
 
 ## Options
 

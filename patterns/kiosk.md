@@ -15,7 +15,7 @@ Sources: sokkel-ui `packages/core/src/components/Kiosk.tsx`.
 | mark | With mark: the app's mark before the title, at its own size. |
 | title | What the wall shows: the page's heading, text.page-title, cut to one line. |
 | actions | With actions: quiet buttons before the clock, 4 apart, in muted-foreground. |
-| clock | With clock: the time in tabular figures, never wrapping: text.page at 600 below 768 of the room, text.statistic from it. |
+| clock | With clock: the time in tabular figures, never wrapping: text.page at 500 below 768 of the room, text.statistic from it. |
 | figures | With figures: a row of counters (parts/stat), 12 apart: as many equal columns as fit with none narrower than 144, each row filled to its ends, one column where the room is narrower. |
 | stage | All the room the rest leaves, never under 288 tall; what is put on it, such as a map, fills it edge to edge. |
 | aside | With aside: from 768 of the room, a column beside the stage at its end, 256, 320 or 384 wide and as tall as the stage, scrolling by itself; below it, under the stage at its own height. |
@@ -39,7 +39,7 @@ Sources: sokkel-ui `packages/core/src/components/Kiosk.tsx`.
 - frame: padX `12`, padY `12`, gap `12`. 16, 16 and 16 from a room 768 wide.
 - head: gap `12`, text `text.page-title`. 
 - actions: gap `4`. 
-- clock: text `text.statistic`. text.page at 600 below 768 of the room.
+- clock: text `text.statistic`. text.page at 500 below 768 of the room.
 - figures: gap `12`. 
 
 ## States

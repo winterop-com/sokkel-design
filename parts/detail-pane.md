@@ -15,7 +15,7 @@ Sources: sokkel-ui `packages/core/src/components/DetailPane.tsx` (`DetailPane`, 
 | Piece | What it is |
 |---|---|
 | section | Padded 16 by 12, its pieces 8 apart, a 1px `border` rule under it, none under the last |
-| heading | An `h3`: `text.xs` at 500, uppercase, tracked wide, in `faint`, the small heading every group shares |
+| heading | An `h3`: `text.xs` at 450, uppercase, tracked wide, in `faint`, the small heading every group shares |
 | heading row | With the section's actions: at least 28 tall, the actions at its end, 4 apart |
 | summary | A sentence over the facts, `text.sm` |
 | facts | Terms (`text.xs`, `muted-foreground`) beside values (`text.sm`), 12 between, the pairs 8 apart; a missing value a dash in `faint`: [`description-list`](description-list.md) side by side |

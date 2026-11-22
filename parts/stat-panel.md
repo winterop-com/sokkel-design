@@ -18,10 +18,10 @@ Sources: sokkel-ui `packages/core/src/components/dashboard/StatPanel.tsx` (`Stat
 | tile | At least 112 tall (144 with a target), `radius-surface`, a `border-strong` edge on `card` (the dashboard panel's); filled, the tone as a gradient in `on-fill` |
 | spark | The trend as a faint area across the foot, 45 percent of the height (a quarter with a target) |
 | head | At least 28 tall, 10 across, 4 over, 4 between: title, change, info, menu, grid tools |
-| title | `text.xs` at 500, `muted-foreground`, two lines at most |
-| delta | An arrow (14) and the change in `text.xs` at 500, then what it is against; `good`, `critical` or `muted-foreground` |
+| title | `text.xs` at 450, `muted-foreground`, two lines at most |
+| delta | An arrow (14) and the change in `text.xs` at 450, then what it is against; `good`, `critical` or `muted-foreground` |
 | tool | 20 square, `radius-md`, `muted-foreground`: info (12) and the menu (14) |
-| value | `text.statistic`, tabular; the unit 4 after at `text.sm` and 500; no data in `text.detail-title`, `muted-foreground` |
+| value | `text.statistic`, tabular; the unit 4 after at `text.sm` and 450; no data in `text.detail-title`, `muted-foreground` |
 | note | `text.xs`, `muted-foreground` |
 | meter | Under the value, 8 below it and 12 over the foot, at most 192 wide |
 | track | 6 tall, `radius-mini`, the value's ink at 15 percent, filled as far as the reading |
