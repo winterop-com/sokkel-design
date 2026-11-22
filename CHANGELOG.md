@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.34.3
 
 - Renderers: sokkel-egui as of 435c0f2 draws the lighter weights, every weight above a role's
   read from `font-weight-medium`, `-semibold` and `-bold`; `rail`'s count weight drift is closed.
