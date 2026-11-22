@@ -62,6 +62,8 @@ export interface ResolvedScheme {
     elevations: Record<string, ResolvedLayer[]>
     words: Record<string, string>
     text: Record<string, ResolvedTextRole>
+    /** Each text size's roles, as `text` gives them at regular: the role at that level's steps, from the md breakpoint up. */
+    textSizes?: Record<string, Record<string, ResolvedTextRole>>
 }
 
 export interface ResolvedTokens {
@@ -440,7 +442,7 @@ function easing(text: string): [number, number, number, number] | null {
 }
 
 /** Every value one set of variables settles, sorted by kind, and its text roles. */
-function settle(vars: Vars, keys: [name: string, variable: string][], roles: string[]): ResolvedScheme {
+function settle(vars: Vars, keys: [name: string, variable: string][], roles: string[], levels: Record<string, Vars> = {}): ResolvedScheme {
     const evaluator = new Evaluator(vars)
     const out: ResolvedScheme = { colors: {}, lengths: {}, numbers: {}, ems: {}, durations: {}, easings: {}, elevations: {}, words: {}, text: {} }
     // a word or a list of words, such as a font stack, with the variables it names written in
@@ -479,11 +481,21 @@ function settle(vars: Vars, keys: [name: string, variable: string][], roles: str
             if (text !== null) out.words[key] = text
         }
     }
+    out.text = textRoles(vars, roles)
+    if (Object.keys(levels).length > 0)
+        out.textSizes = Object.fromEntries(Object.entries(levels).map(([level, steps]) => [level, textRoles({ ...vars, ...steps }, roles)]))
+    return out
+}
+
+/** Each text role's size, line height, weight and tracking as one set of variables settles them. */
+function textRoles(vars: Vars, roles: string[]): Record<string, ResolvedTextRole> {
+    const evaluator = new Evaluator(vars)
+    const out: Record<string, ResolvedTextRole> = {}
     for (const role of roles) {
         const size = px(evaluator.variable(`text-${role}`))
         const weight = vars[`text-${role}--font-weight`] === undefined ? null : evaluator.variable(`text-${role}--font-weight`)
         const tracking = vars[`text-${role}--letter-spacing`] === undefined ? null : evaluator.variable(`text-${role}--letter-spacing`)
-        out.text[role] = {
+        out[role] = {
             size: round(size),
             lineHeight: round(px(evaluator.variable(`text-${role}--line-height`))),
             weight: weight?.kind === 'number' ? weight.n : 400,
@@ -541,14 +553,23 @@ export function resolveTokens(tokens: TokenSource, sokkelUi: { repo: string; com
             .map((key): [string, string] => [key.slice('color-'.length), key]),
     ]
 
+    // Each text size's steps, which a level sets over the theme's own; regular sets none.
+    const sizeSteps: Record<string, Vars> =
+        tokens.textSize === undefined
+            ? {}
+            : Object.fromEntries(
+                  Object.keys(tokens.textSize)
+                      .filter((key) => key !== 'default' && !key.startsWith('$'))
+                      .map((key) => [key, key === 'regular' ? {} : (tokens.textSize?.[key] as Vars)]),
+              )
     const themes: ResolvedTokens['themes'] = {}
     for (const [name, vars] of Object.entries(schemes(tokens, base))) {
         const theme = tokens.themes[name]
         themes[name] = {
             label: theme.$label ?? name.charAt(0).toUpperCase() + name.slice(1),
             ...(theme.$description === undefined ? {} : { description: theme.$description }),
-            light: settle(vars.light, keys, roles),
-            dark: settle(vars.dark, keys, roles),
+            light: settle(vars.light, keys, roles, sizeSteps),
+            dark: settle(vars.dark, keys, roles, sizeSteps),
         }
     }
 
