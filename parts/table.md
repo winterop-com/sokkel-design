@@ -85,7 +85,7 @@ select column 40, sort arrow 14, a resized column at least 64, row grip 22. Card
 with a title line 24 and lines 20 (primary 22, facts 24); a line that edits is 36, a finger and 4
 (48) below 768, and the cards are placed at the height it is drawn at. A stacked line's name is at most 192. A
 placeholder bar is 12 tall at 60 percent of its cell. Text is `text.body` in rows and
-`text.column-head` in the head, one text step above the cells (16 / 24 at 500 over 15 / 22).
+`text.column-head` in the head, one text step above the cells (16 / 24 at 450 over 15 / 22).
 
 A head's name wider than its column wraps between its words onto a second line, lined up as its
 column is (at the end for an end-aligned one, its sort arrow beside it), and the head row grows to
@@ -110,7 +110,7 @@ unsorted, so sorting it never wraps its head.
 | stacked | cards: ground `card`, edge `border`, `radius-surface`; a card's detail on `panel-ground` |
 | empty | `words.empty` ("Nothing here.") in `muted-foreground`, under the heads; an app's own `empty` stands alone without them unless a search or tools may have emptied it |
 | loading | placeholder rows under the heads: a `muted` bar per cell at row height, filling the view (three after the last row when loading more); they pulse unless motion is reduced. The table's one loading look: the bar, its search, the heads and the frame keep their places, and the bar counts nothing while the first rows load |
-| failed | in place of the rows under the heads, unframed inside the table's frame, padded `density.panel-pad` across and 12 down: a `destructive` mark, the heading by what the server answered (`refused`, `missing`, `unreachable`) at 500, the diagnostic and each problem in `text.help` `muted-foreground`, and Try again (an outline sm button). The bar and the frame stay, the bar counting nothing. While `loading` reads again, placeholder rows take its place |
+| failed | in place of the rows under the heads, unframed inside the table's frame, padded `density.panel-pad` across and 12 down: a `destructive` mark, the heading by what the server answered (`refused`, `missing`, `unreachable`) at 450, the diagnostic and each problem in `text.help` `muted-foreground`, and Try again (an outline sm button). The bar and the frame stay, the bar counting nothing. While `loading` reads again, placeholder rows take its place |
 | tone critical / warning | row ground `mix-oklab(critical 8%, card)` / `mix-oklab(warning 10%, card)`, opaque so a pinned cell keeps it |
 | muted | the cells' content at 0.6 |
 

@@ -19,7 +19,7 @@ Sources: sokkel-ui `packages/core/src/components/dashboard/DashboardGrid.tsx` (`
 |---|---|
 | panel | `card`, a 1px `border-strong` edge, `radius-surface`, clipping; its span's columns of the grid |
 | head | At least 40 tall, 12 across, 6 down, 8 between pieces, a 1px `border` rule under it |
-| title | `text.sm` at 500, cut short; the subtitle 8 after it on its baseline |
+| title | `text.sm` at 450, cut short; the subtitle 8 after it on its baseline |
 | subtitle | `text.xs`, `muted-foreground` |
 | stale | A 12 clock and since when, `text.xs`, `warning-ink` |
 | tools | At the head's end, 8 apart: expand, the menu's button, an arranged grid's tools |

@@ -8,7 +8,7 @@ Sources: sokkel-ui `packages/core/src/components/GroupLabel.tsx`.
 
 | Piece | What it is |
 |---|---|
-| label | The heading's words, in capitals, tracked wide, at text.xs and 500, in faint. |
+| label | The heading's words, in capitals, tracked wide, at text.xs and 450, in faint. |
 
 ## Options
 
@@ -17,7 +17,7 @@ Sources: sokkel-ui `packages/core/src/components/GroupLabel.tsx`.
 ## States and tokens
 
 - rest: The heading drawn.
-- label at rest: ink `faint`, text `text.xs`, weight `500`.
+- label at rest: ink `faint`, text `text.xs`, weight `450`.
 
 ## Keyboard
 

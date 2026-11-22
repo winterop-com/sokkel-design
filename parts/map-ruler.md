@@ -12,7 +12,7 @@ Sources: sokkel-ui `packages/maps/src/MapRuler.tsx`, `packages/maps/src/control.
 |---|---|
 | button | One of the map's buttons (control-sm square, outline, card ground, a ruler icon), in a corner, the top right under the map's own by default; pressed while the ruler is on: an accent ground and a primary edge. Its tooltip opens away from its corner. |
 | line | The great circle between the points, 48 steps, drawn 1.75 wide in foreground, dashed 3 on 2, over a 4 wide casing in card at 80 percent; each end a dot 3.5 in radius in foreground ringed 1.5 in card. |
-| chip | Over the line's middle, 8 above it: words.measured with the distance and the bearing, text.xs at 500 in tabular figures on card, padded 6 across and 2 down, rounded by radius-control, with the surface's elevation and a 1 ring of foreground at 10 percent. |
+| chip | Over the line's middle, 8 above it: words.measured with the distance and the bearing, text.xs at 450 in tabular figures on card, padded 6 across and 2 down, rounded by radius-control, with the surface's elevation and a 1 ring of foreground at 10 percent. |
 
 ## Options
 

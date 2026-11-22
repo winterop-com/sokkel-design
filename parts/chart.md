@@ -43,7 +43,7 @@ ECharts takes no classes, so a renderer and a test read the chart's look where s
 | step line | A scale's steps after the first, dashed across in their color (`muted-foreground` by default), the figure at the end in `chart-text-size-small` |
 | mark line | A mark, dashed down at its category, its label at the top |
 | axis pointer | A dashed `muted-foreground` line, or a 14 percent shade behind bars |
-| tooltip | `popover`, a `border` edge, `radius-md`, `elevation-pop`, 10 by 6, `text.xs`; the category at 500; rows of a 10 swatch, the name in `muted-foreground`, the figure in the code face at 500 |
+| tooltip | `popover`, a `border` edge, `radius-md`, `elevation-pop`, 10 by 6, `text.xs`; the category at 450; rows of a 10 swatch, the name in `muted-foreground`, the figure in the code face at 450 |
 | legend | A wrapping row of entries 4 apart, or a list table of min, max, avg and current |
 | legend entry | A button 24 tall (a finger below md), 6 across, `radius-md`, `text.xs` in `muted-foreground`; a 10 swatch rounded `radius-mini` |
 | missing | Left out of a tooltip; written `—` where a figure is written |

@@ -71,7 +71,7 @@ keeps the same room and centers its 1px rule in that 20 line. A group without a 
 keeps 4 above its first entry, room for the entry's focus look. Expanded entries have `radius-sm` at
 the start corners and `radius-md` at the end. A child row pads its start 38 under a parent with an
 icon, so its label stands under the parent's, and 22 in a rail of text. The chevron button is 28,
-4 from the row's end. A count over an icon is 16 tall, fully round, 11 text at 600, and 99+ above
+4 from the row's end. A count over an icon is 16 tall, fully round, 11 text at 500, and 99+ above
 99. The unread dot is 8. The edge moves 16 a press. A flyout is at least 176 wide, 12 beside a
 collapsed rail (8 beside a strip). A tooltip is the library's one (`parts/tooltip`), 8 away. The width
 eases over `motion-base` (200 ms) as far as motion allows.
@@ -80,11 +80,11 @@ eases over `motion-base` (200 ms) as far as motion allows.
 
 | State | Piece: paint |
 |---|---|
-| rest | frame: `sidebar`, ink `sidebar-foreground`, edge `border-strong`. mark: `primary` / `primary-foreground`. name: `text.detail-title` tracked -0.025em. group title: `faint`, `text.badge`. entry: ink `muted-foreground`, no ground. description: `muted-foreground`, `text.help`. count: `foreground` at 600. unread dot: `foreground`. chevron: `muted-foreground`. corner count: `critical` / `critical-foreground` at 600, ringed 2 in `sidebar` |
+| rest | frame: `sidebar`, ink `sidebar-foreground`, edge `border-strong`. mark: `primary` / `primary-foreground`. name: `text.detail-title` tracked -0.025em. group title: `faint`, `text.badge`. entry: ink `muted-foreground`, no ground. description: `muted-foreground`, `text.help`. count: `foreground` at 500. unread dot: `foreground`. chevron: `muted-foreground`. corner count: `critical` / `critical-foreground` at 500, ringed 2 in `sidebar` |
 | hover | entry, icon entry, collapse control: ground `hover`, ink `foreground`. chevron button: ground `hover`. strip entry: ink `foreground`, its tile `hover` |
 | focus (keyboard) | every control of the rail (the home link, the collapse control, the collapsed mark, an expanded, icon or strip entry, a parent's chevron button): the button's own focus look, a 2px `ring` outline 2 off. edge: its line shows |
-| active | entry: ground `sidebar-accent`, ink `sidebar-accent-foreground` at 500, a 2 wide `sidebar-primary` bar at its start; hover leaves it as it is. Its description: `sidebar-accent-foreground/75`. icon entry and strip tile: `sidebar-accent` / `sidebar-accent-foreground` |
-| holding | a parent unfolded over the active entry: ink `foreground` at 500 |
+| active | entry: ground `sidebar-accent`, ink `sidebar-accent-foreground` at 450, a 2 wide `sidebar-primary` bar at its start; hover leaves it as it is. Its description: `sidebar-accent-foreground/75`. icon entry and strip tile: `sidebar-accent` / `sidebar-accent-foreground` |
+| holding | a parent unfolded over the active entry: ink `foreground` at 450 |
 | open | a collapsed parent or a strip parent while its flyout is open: ground `hover`. An unfolded parent's chevron turns 90 degrees |
 | collapsed | icons alone; `border-strong` rules in the titles' places |
 | dragging | the edge's line shows |

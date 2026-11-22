@@ -58,7 +58,7 @@ page title and a reply's largest heading a detail title.
 | Level | `message` scale | `document` scale |
 |---|---|---|
 | h1 | `text.detail-title`, 20 above, 8 below | `text.page-title`, 24 above, 12 below |
-| h2 | `text.section-title` at 600, 16 above, 8 below | `text.detail-title`, 20 above, 8 below |
+| h2 | `text.section-title` at 500, 16 above, 8 below | `text.detail-title`, 20 above, 8 below |
 | h3 | `text.section-title`, 12 above, 6 below | `text.section-title`, 16 above, 6 below |
 | h4 | `text.head`, 12 above, 4 below | `text.head`, 12 above, 4 below |
 | h5, h6 | the body's | the body's |

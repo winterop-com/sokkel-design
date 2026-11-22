@@ -11,7 +11,7 @@ Sources: sokkel-ui `packages/core/src/components/ChoiceList.tsx`, `packages/core
 | list | The rows one under the other, 2 apart: a radio group. |
 | row | One choice, the whole of it pressable: the radio, then the label over the description; padded 10 across and 8 down, 12 between the radio and the words, rounded by radius-control. The chosen row is filled. |
 | radio | The choice's radio, 16 square and round: an edge in input, filled in primary with a dot in primary-foreground while chosen. Set at the top with a description, 2 down, level with the label's first line. |
-| label | The choice's name, text.sm at 500 where it is words; a richer row (a person, a theme's sample) as the app draws it. |
+| label | The choice's name, text.sm at 450 where it is words; a richer row (a person, a theme's sample) as the app draws it. |
 | description | A line under the label: what choosing it means, text.xs in muted-foreground. |
 
 ## Options
@@ -39,7 +39,7 @@ Sources: sokkel-ui `packages/core/src/components/ChoiceList.tsx`, `packages/core
 - radio at rest: edge `input`, dark `{"ground": "input/30"}`.
 - radio at chosen: ground `primary`, edge `primary`, ink `primary-foreground`.
 - radio at focus: ring `{"color": "ring", "width": "focus-ring-width", "offset": "focus-ring-offset"}`.
-- label at rest: text `text.sm`, weight `500`.
+- label at rest: text `text.sm`, weight `450`.
 - description at rest: ink `muted-foreground`, text `text.xs`.
 
 ## Keyboard

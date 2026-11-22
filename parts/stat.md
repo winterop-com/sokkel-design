@@ -11,9 +11,9 @@ Sources: sokkel-ui `packages/core/src/components/Stat.tsx`, `packages/core/src/c
 | container | A column, 4 apart. As a tile: on card with a border-strong edge, rounded by radius-surface, padded 16, in card-foreground; with href or onSelect the whole tile is one control under its pieces. |
 | label | What it counts, cut to one line, after the dot (8 apart): plain, text.xs in muted-foreground; as a tile, text.label in foreground. |
 | dot | With dot: the color the app gives (a status's), small in plain, large in a tile. |
-| value | The number in tabular figures, its unit and the change after it on one baseline, 8 apart; 4 more above it in a tile. plain: text.page at 600; tile: text.statistic; lg: text.statistic-hero. |
+| value | The number in tabular figures, its unit and the change after it on one baseline, 8 apart; 4 more above it in a tile. plain: text.page at 500; tile: text.statistic; lg: text.statistic-hero. |
 | unit | With unit: text.sm in muted-foreground. |
-| change | With change: an arrow up and right (or down and right for a change written with a minus), 14, then the change, text.xs at 500 in tabular figures, 2 apart: muted-foreground when good is not given, good when good, critical when not. |
+| change | With change: an arrow up and right (or down and right for a change written with a minus), 14, then the change, text.xs at 450 in tabular figures, 2 apart: muted-foreground when good is not given, good when good, critical when not. |
 | note | With note: under the number; plain, text.xs in faint; in a tile, text.help in muted-foreground, wrapping evenly. |
 | trend | With trend: a small chart under the number, 4 down, such as a sparkline. |
 
@@ -40,7 +40,7 @@ Sources: sokkel-ui `packages/core/src/components/Stat.tsx`, `packages/core/src/c
 - label: gap `8`
 - value: gap `8`
 - change: gap `2`
-- md: text `text.statistic`. A tile's number; plain, text.page at 600.
+- md: text `text.statistic`. A tile's number; plain, text.page at 500.
 - lg: text `text.statistic-hero`
 
 ## States and tokens
@@ -53,9 +53,9 @@ Sources: sokkel-ui `packages/core/src/components/Stat.tsx`, `packages/core/src/c
 - tile at rest: ground `card`, edge `border-strong`, ink `card-foreground`, radius `radius-surface`.
 - tile at hover: ground `hover`, edge `foreground/25`.
 - label at rest: ink `muted-foreground`, text `text.xs`.
-- value at rest: text `text.page`, weight `600`.
+- value at rest: text `text.page`, weight `500`.
 - unit at rest: ink `muted-foreground`, text `text.sm`.
-- change at rest: ink `muted-foreground`, text `text.xs`, weight `500`.
+- change at rest: ink `muted-foreground`, text `text.xs`, weight `450`.
 - change at good: ink `good`.
 - change at bad: ink `critical`.
 - note at rest: ink `faint`, text `text.xs`.
