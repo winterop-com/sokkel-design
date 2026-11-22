@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.34.1
 
 - foundations: text is one weight step lighter. The medium, semibold and bold weights are 450, 500
   and 600, and every text role and `table-head-weight` moved with them (500 to 450, 600 to 500, 700
