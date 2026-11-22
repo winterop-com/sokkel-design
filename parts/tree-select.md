@@ -27,6 +27,7 @@ Sources: sokkel-ui `packages/core/src/components/TreeSelect.tsx` (`TreeSelect`, 
 | row | 32 tall, `radius-md`, indented 16 a level from 4: toggle, icon, checkbox, label, reason, meta, 6 apart |
 | toggle | 20 square: `chevron-right` closed, turned down open; empty for a leaf. A branch is a node given a list of children, even an empty one, or marked as having some to load |
 | checkbox | Multiple choice: 16, ticked when chosen, a dash when a branch holds choices |
+| label | On one line, cut short with an ellipsis; once cut, its whole text (and a search result's trail) is its title |
 | match | The matched part of a label on `primary/15` in `primary-ink` |
 | reason / meta / trailPath | Small and quiet: why a row is shut, a count or code, a search result's path |
 | loadingRow / failedRow | Under a branch: a spinner and `words.loading`, or `words.failed` in `critical` with a retry |
