@@ -6,6 +6,8 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
+- Renderers: sokkel-egui as of 435c0f2 draws the lighter weights, every weight above a role's
+  read from `font-weight-medium`, `-semibold` and `-bold`; `rail`'s count weight drift is closed.
 - tree-select: a row's label cut short gives its whole text, and a search result's trail, as its
   title on hover; one that fits gives none.
 

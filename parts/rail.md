@@ -136,13 +136,12 @@ phone. Its head, entry rows and group titles match sokkel-ui within a point. The
 2. **Corners:** the active row's start corners are 2, and the hover wash is `radius-md` all round.
    The spec has `radius-sm` (3.5, floored to 3) at the start and `radius-md` at the end in every
    state.
-3. **Count weight:** 500 (`TextRole::Badge`), where the spec says 600.
-4. **Collapsed groups:** 26 from one group's last entry to the next one's first, with the rule 20
+3. **Collapsed groups:** 26 from one group's last entry to the next one's first, with the rule 20
    down. The spec keeps the title's room, 46, with the rule 26 down.
-5. **Keyboard focus:** entries paint none, where the spec draws the button's focus look.
-6. **Collapsed entry tooltip:** egui's own `on_hover_text` (`frame.rs:202`), where the spec has the
+4. **Keyboard focus:** entries paint none, where the spec draws the button's focus look.
+5. **Collapsed entry tooltip:** egui's own `on_hover_text` (`frame.rs:202`), where the spec has the
    library's one tooltip (`parts/tooltip`), 8 away.
-7. **Not built:** parents (fold, chevron, flyout), the unread and color dots, resizing and expanding
+6. **Not built:** parents (fold, chevron, flyout), the unread and color dots, resizing and expanding
    by the edge, the strip, a body, reordering, and finger-tall rows below 768.
 
 ## Where sokkel-tui differs today
