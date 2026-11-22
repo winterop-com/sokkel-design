@@ -7,8 +7,8 @@ of their own (D4); a change to a part is a line here under its name.
 ## Unreleased
 
 - foundations: text is one weight step lighter. The medium, semibold and bold weights are 450, 500
-  and 600 (`font-weight-medium`, `-semibold` and `-bold` in the resolved tokens), and every text role
-  and `table-head-weight` moved with them (500 to 450, 600 to 500, 700 to 600). Every part's paints
+  and 600, and every text role and `table-head-weight` moved with them (500 to 450, 600 to 500, 700
+  to 600), as `text` and `textSizes` give them. Every part's paints
   and words that name a weight say the new one. The code face, which is not variable, draws 450 at
   500.
 
