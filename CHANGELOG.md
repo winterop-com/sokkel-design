@@ -4,6 +4,13 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- rail: the mark is the one toggle, expanded as collapsed: it collapses an expanded rail, showing
+  the collapse icon under the pointer, and the control at the head's end is gone (a rail with no
+  mark keeps it). The name alone leads home with markHref; in the drawer, and on a rail that never
+  collapses, the mark leads home with the name as before.
+
 ## 0.34.1
 
 - foundations: text is one weight step lighter. The medium, semibold and bold weights are 450, 500
