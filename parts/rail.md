@@ -19,7 +19,7 @@ icon), `RailDrops.tsx` (reordering), `shell-context.ts` (`ShellDrawer`, `ShellRa
 | Piece | What it is |
 |---|---|
 | frame | The column, the window's full height: `sidebar` ground, a 1px edge at its end |
-| head | As tall as the top bar (`spacing-shell-top`), so the top bar's rule ends level with it. It draws no rule of its own, in the frame or in the drawer. Expanded: the mark and the name (one link home with `markHref`), then the collapse control at its end, or in the drawer the control that closes the drawer. Collapsed: the mark alone, which expands the rail and shows the expand icon under the pointer |
+| head | As tall as the top bar (`spacing-shell-top`), so the top bar's rule ends level with it. It draws no rule of its own, in the frame or in the drawer. Expanded: the mark and the name (one link home with `markHref`), then the collapse control at its end, or in the drawer the control that closes the drawer. With `collapseWith="mark"` the mark collapses the rail instead, showing the collapse icon under the pointer, the name alone is the link home, and the control at the end is gone (in the drawer, and with no mark, the head is as without it). Collapsed: the mark alone, which expands the rail and shows the expand icon under the pointer |
 | groups | A titled group's title in upper case (`GroupLabel`); a group without a title stands at the top. Collapsed, a rule takes each title's place |
 | entry | Mark (an icon, a color `dot`, or nothing in a rail of text), label, optional `description` under the label, and at its end a count, an unread dot or a parent's chevron. The active one wears a 2 wide bar at its start over a wash |
 | parent | An entry with `entries`. Expanded, a chevron at its end folds them under it, lined up under its label. A parent with a page of its own has its own chevron button; one without folds on a press anywhere on its row. Collapsed or in a strip, it opens them in a flyout beside the rail |
@@ -40,6 +40,8 @@ the same on every target. The command palette lists them too (`placeCommands`).
 - `size` with `onSizeChange`, else the rail holds its own from `defaultSize` (240), between
   `minSize` 200 and `maxSize` 360. `resizable={false}` keeps it fixed.
 - `mark`, `name`, `markHref`, `foot`.
+- `collapseWith`: `button` (the default), the control at the head's end; or `mark`, the mark's tile
+  as the toggle in both states.
 - `expanded` with `onExpandedChange`, or `defaultExpanded`. A parent holding the active entry starts
   unfolded. `defaultFlyout` names a flyout open at the start.
 - `body` with `view` (`places` or `body`) and `onViewChange`.

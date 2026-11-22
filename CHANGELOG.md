@@ -4,6 +4,13 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- rail: `collapseWith`, `button` (the default, as before) or `mark`. With `mark` the mark's tile is
+  the one toggle: it collapses an expanded rail, showing the collapse icon under the pointer, and the
+  control at the head's end is gone; the name alone leads home with markHref. In the drawer, and with
+  no mark, the head keeps its control.
+
 ## 0.34.1
 
 - foundations: text is one weight step lighter. The medium, semibold and bold weights are 450, 500
