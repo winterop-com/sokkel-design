@@ -19,7 +19,7 @@ icon), `RailDrops.tsx` (reordering), `shell-context.ts` (`ShellDrawer`, `ShellRa
 | Piece | What it is |
 |---|---|
 | frame | The column, the window's full height: `sidebar` ground, a 1px edge at its end |
-| head | As tall as the top bar (`spacing-shell-top`), so the top bar's rule ends level with it. It draws no rule of its own, in the frame or in the drawer. Expanded: the mark, which collapses the rail, and the name (a link home with `markHref`); with no mark, the collapse control at its end. In the drawer, or on a rail that never collapses, the mark and the name are one link home, and the drawer's head ends in the control that closes it. Collapsed: the mark alone, which expands the rail. Under the pointer the mark shows the panel icon (collapse or expand) |
+| head | As tall as the top bar (`spacing-shell-top`), so the top bar's rule ends level with it. It draws no rule of its own, in the frame or in the drawer. Expanded: the mark and the name (one link home with `markHref`), then the collapse control at its end, or in the drawer the control that closes the drawer. With `collapseWith="mark"` the mark collapses the rail instead, showing the collapse icon under the pointer, the name alone is the link home, and the control at the end is gone (in the drawer, and with no mark, the head is as without it). Collapsed: the mark alone, which expands the rail and shows the expand icon under the pointer |
 | groups | A titled group's title in upper case (`GroupLabel`); a group without a title stands at the top. Collapsed, a rule takes each title's place |
 | entry | Mark (an icon, a color `dot`, or nothing in a rail of text), label, optional `description` under the label, and at its end a count, an unread dot or a parent's chevron. The active one wears a 2 wide bar at its start over a wash |
 | parent | An entry with `entries`. Expanded, a chevron at its end folds them under it, lined up under its label. A parent with a page of its own has its own chevron button; one without folds on a press anywhere on its row. Collapsed or in a strip, it opens them in a flyout beside the rail |
@@ -40,6 +40,8 @@ the same on every target. The command palette lists them too (`placeCommands`).
 - `size` with `onSizeChange`, else the rail holds its own from `defaultSize` (240), between
   `minSize` 200 and `maxSize` 360. `resizable={false}` keeps it fixed.
 - `mark`, `name`, `markHref`, `foot`.
+- `collapseWith`: `button` (the default), the control at the head's end; or `mark`, the mark's tile
+  as the toggle in both states.
 - `expanded` with `onExpandedChange`, or `defaultExpanded`. A parent holding the active entry starts
   unfolded. `defaultFlyout` names a flyout open at the start.
 - `body` with `view` (`places` or `body`) and `onViewChange`.
@@ -82,7 +84,7 @@ eases over `motion-base` (200 ms) as far as motion allows.
 |---|---|
 | rest | frame: `sidebar`, ink `sidebar-foreground`, edge `border-strong`. mark: `primary` / `primary-foreground`. name: `text.detail-title` tracked -0.025em. group title: `faint`, `text.badge`. entry: ink `muted-foreground`, no ground. description: `muted-foreground`, `text.help`. count: `foreground` at 500. unread dot: `foreground`. chevron: `muted-foreground`. corner count: `critical` / `critical-foreground` at 500, ringed 2 in `sidebar` |
 | hover | entry, icon entry, collapse control: ground `hover`, ink `foreground`. chevron button: ground `hover`. strip entry: ink `foreground`, its tile `hover` |
-| focus (keyboard) | every control of the rail (the home link, the mark, the collapse control, an expanded, icon or strip entry, a parent's chevron button): the button's own focus look, a 2px `ring` outline 2 off. edge: its line shows |
+| focus (keyboard) | every control of the rail (the home link, the collapse control, the collapsed mark, an expanded, icon or strip entry, a parent's chevron button): the button's own focus look, a 2px `ring` outline 2 off. edge: its line shows |
 | active | entry: ground `sidebar-accent`, ink `sidebar-accent-foreground` at 450, a 2 wide `sidebar-primary` bar at its start; hover leaves it as it is. Its description: `sidebar-accent-foreground/75`. icon entry and strip tile: `sidebar-accent` / `sidebar-accent-foreground` |
 | holding | a parent unfolded over the active entry: ink `foreground` at 450 |
 | open | a collapsed parent or a strip parent while its flyout is open: ground `hover`. An unfolded parent's chevron turns 90 degrees |
@@ -93,7 +95,7 @@ eases over `motion-base` (200 ms) as far as motion allows.
 
 ## Keyboard
 
-- Tab reaches the mark, the home link, the head's control (in the drawer or with no mark), each entry (a parent's row, or its link and its
+- Tab reaches the home link, the head's control, each entry (a parent's row, or its link and its
   chevron button) and the edge.
 - Enter follows an entry's link. On a parent without a page of its own it folds or unfolds it, and
   on a collapsed parent it opens the flyout.

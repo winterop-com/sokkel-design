@@ -6,10 +6,10 @@ of their own (D4); a change to a part is a line here under its name.
 
 ## Unreleased
 
-- rail: the mark is the one toggle, expanded as collapsed: it collapses an expanded rail, showing
-  the collapse icon under the pointer, and the control at the head's end is gone (a rail with no
-  mark keeps it). The name alone leads home with markHref; in the drawer, and on a rail that never
-  collapses, the mark leads home with the name as before.
+- rail: `collapseWith`, `button` (the default, as before) or `mark`. With `mark` the mark's tile is
+  the one toggle: it collapses an expanded rail, showing the collapse icon under the pointer, and the
+  control at the head's end is gone; the name alone leads home with markHref. In the drawer, and with
+  no mark, the head keeps its control.
 
 ## 0.34.1
 

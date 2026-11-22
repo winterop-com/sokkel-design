@@ -27,11 +27,11 @@
     },
     "anatomy": {
         "frame": "The rail's column, the window's full height: the sidebar ground and a 1px edge at its end.",
-        "head": "As tall as the top bar, so the top bar's rule ends level with it; it draws no rule of its own, in the frame or in the drawer. Expanded: the mark, which collapses the rail, and the name (a link home with markHref); a head with no mark has the collapse control at its end instead. In the shell's drawer, or on a rail that never collapses, the mark and the name are one link home, and the drawer's head ends in the control that closes it. Collapsed: the mark alone, which expands the rail.",
-        "mark": "The app's mark on a square tile, the rail's one toggle: expanded it collapses the rail, collapsed it expands it, and under the pointer the panel icon (collapse or expand) shows in the mark's place.",
+        "head": "As tall as the top bar, so the top bar's rule ends level with it; it draws no rule of its own, in the frame or in the drawer. Expanded: the mark and the name (a link home with markHref), and at its end the collapse control, or in the shell's drawer the control that closes the drawer. With collapseWith mark, the mark collapses the rail instead, the name alone is the link home, and the control at the end is gone (in the drawer, and with no mark, the head is as without it). Collapsed: the mark alone, which is the control that expands the rail.",
+        "mark": "The app's mark on a square tile. Collapsed, under the pointer the expand icon shows in the mark's place; with collapseWith mark, expanded, the collapse icon does.",
         "name": "The app's name beside the mark, cut short with an ellipsis.",
-        "home": "The name as a link to the app's home, given markHref; where the mark is no toggle (in the drawer, or without onCollapsedChange), the mark and the name as one link.",
-        "collapse": "With no mark, the control at the expanded head's end that narrows the rail to its icons; in the drawer, the control there that closes the drawer.",
+        "home": "The mark and the name as one link to the app's home, given markHref; with collapseWith mark, the name alone.",
+        "collapse": "The control at the expanded head's end: narrows the rail to its icons, or in the drawer closes the drawer.",
         "groupTitle": "A group's title over its entries, upper case. A group without a title stands at the top.",
         "groupRule": "A collapsed rail's rule in a group title's place.",
         "entry": "One place in the expanded rail: its mark (an icon, a color dot, or nothing for a rail of text), its label, an optional description under the label, and at its end a count, an unread dot or a parent's chevron. The active one wears a bar at its start over a wash.",
@@ -70,10 +70,15 @@
             "default": false,
             "does": "Narrowed to its icons; kept by the app, which hears the reader's change in onCollapsedChange. Without onCollapsedChange the rail draws no collapse control."
         },
+        "collapseWith": {
+            "values": ["button", "mark"],
+            "default": "button",
+            "does": "What collapses the expanded rail. button: the control at the head's end. mark: the mark's tile, the toggle in both states, with the name alone the link home and no control at the end. In the drawer, and with no mark, the head keeps its control."
+        },
         "mark": {"type": "node", "does": "The app's mark on the head's tile; in a strip, the workspace's tile."},
         "markHref": {
             "type": "text",
-            "does": "Makes the expanded head's name, and a strip's tile, a link to the app's home; where the mark is no toggle, the mark leads there with the name."
+            "does": "Makes the expanded head's mark and name (the name alone with collapseWith mark), and a strip's tile, a link to the app's home."
         },
         "foot": {
             "type": "node",
@@ -284,7 +289,7 @@
             "means": "Keyboard focus on the home link, a head control, an entry or the edge.",
             "reached": "Tab",
             "on": "keyboard",
-            "sokkel-ui": "focus-visible: every control of the rail (the mark, the home link, the head's control, an expanded, icon or strip entry, a parent's chevron button) draws the button's own focus look, a 2px ring outline 2 off; the edge shows its line."
+            "sokkel-ui": "focus-visible: every control of the rail (the home link, the head's control, the collapsed mark, an expanded, icon or strip entry, a parent's chevron button) draws the button's own focus look, a 2px ring outline 2 off; the edge shows its line."
         },
         "active": {
             "means": "The entry of the place shown; a parent folded over the active entry wears it too.",
@@ -332,7 +337,7 @@
             "rest": {"ground": "primary", "ink": "primary-foreground", "radius": "radius-md"},
             "focus": {
                 "ring": {"color": "ring", "width": "focus-ring-width", "offset": "focus-ring-offset"},
-                "note": "The mark is the toggle: expanded it collapses the rail, collapsed it expands it."
+                "note": "Collapsed, the mark is the control that expands the rail; with collapseWith mark, expanded, it collapses it."
             }
         },
         "name": {
@@ -456,7 +461,7 @@
     "keyboard": [
         {
             "keys": ["Tab"],
-            "does": "Reaches the mark, the home link, the head's control (in the drawer or with no mark), each entry (a parent's row, or its link and its chevron button), and the edge."
+            "does": "Reaches the home link, the head's control, each entry (a parent's row, or its link and its chevron button), and the edge."
         },
         {
             "keys": ["Enter"],
