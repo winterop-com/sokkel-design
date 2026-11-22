@@ -28,7 +28,7 @@ export interface TokenSource {
     themes: Record<string, { $label?: string; $description?: string; light: Vars; dark: Vars }>
     derived: { light: Vars; dark: Vars }
     density: Record<string, Vars | string> & { default: string }
-    /** The text sizes: each level's steps of the text scale; `regular` is the theme's own. */
+    /** The text sizes: each level's steps of the text scale; the level that sets none is the theme's own. */
     textSize?: Record<string, Vars | string> & { default: string }
 }
 
@@ -62,7 +62,7 @@ export interface ResolvedScheme {
     elevations: Record<string, ResolvedLayer[]>
     words: Record<string, string>
     text: Record<string, ResolvedTextRole>
-    /** Each text size's roles, as `text` gives them at regular: the role at that level's steps, from the md breakpoint up. */
+    /** Each text size's roles, as `text` gives them at the theme's own sizes: the role at that level's steps, from the md breakpoint up. */
     textSizes?: Record<string, Record<string, ResolvedTextRole>>
 }
 
@@ -76,7 +76,7 @@ export interface ResolvedTokens {
     /**
      * Each text size's steps of the text scale (`2xs` to `display`), size and line height in px. A
      * role takes the step it names, at whichever level; a level answers from the md breakpoint up,
-     * and a phone keeps regular.
+     * and a phone keeps the theme's own sizes.
      */
     textSize?: Record<string, Record<string, { size: number; lineHeight: number }>>
     /** Every paint the specs name, by theme, scheme and `<part>.<variant>.<state>.<piece>` (scripts/paints.ts). */
@@ -553,14 +553,14 @@ export function resolveTokens(tokens: TokenSource, sokkelUi: { repo: string; com
             .map((key): [string, string] => [key.slice('color-'.length), key]),
     ]
 
-    // Each text size's steps, which a level sets over the theme's own; regular sets none.
+    // Each text size's steps, which a level sets over the theme's own; the theme's own level sets none.
     const sizeSteps: Record<string, Vars> =
         tokens.textSize === undefined
             ? {}
             : Object.fromEntries(
                   Object.keys(tokens.textSize)
                       .filter((key) => key !== 'default' && !key.startsWith('$'))
-                      .map((key) => [key, key === 'regular' ? {} : (tokens.textSize?.[key] as Vars)]),
+                      .map((key) => [key, tokens.textSize?.[key] as Vars]),
               )
     const themes: ResolvedTokens['themes'] = {}
     for (const [name, vars] of Object.entries(schemes(tokens, base))) {
@@ -591,8 +591,10 @@ export function resolveTokens(tokens: TokenSource, sokkelUi: { repo: string; com
     const sizes = tokens.textSize === undefined ? [] : Object.keys(tokens.textSize).filter((key) => key !== 'default' && !key.startsWith('$'))
     for (const size of sizes) {
         const own = tokens.textSize?.[size] as Vars
-        const steps = Object.keys(tokens.textSize?.smaller as Vars).filter((key) => !key.endsWith('--line-height'))
-        const vars = size === 'regular' ? tokens.theme : own
+        const steps = Object.keys(tokens.textSize?.[sizes.find((one) => Object.keys(tokens.textSize?.[one] as Vars).length > 0) ?? size] as Vars).filter(
+            (key) => !key.endsWith('--line-height'),
+        )
+        const vars = Object.keys(own).length === 0 ? tokens.theme : own
         const evaluator = new Evaluator(vars)
         textSize[size] = Object.fromEntries(
             steps.map((step) => [
