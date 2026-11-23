@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.34.5
+
+- No change to the contract: sokkel-ui's Tree cuts a long label in the middle of a narrow row
+  without losing its head, which no part spec covers.
+
 ## 0.34.4
 
 - Renderers: sokkel-egui on contract 0.34.3 as of cac5a03. `tree-select` as of 2959f94: a label cut
