@@ -25,14 +25,14 @@ mdast can name any element and property to draw: what is drawn comes from the no
 
 | Node | Fields | Read from |
 |---|---|---|
-| `yaml` | `value`, `properties`? | The frontmatter: `---` on the first line, closed by `---` or `...` on a line of its own, every line between reading as YAML properties (blank, a comment, indented, a list item, or a key and a colon). First in the root, its `value` with `\n` line ends whatever the text was written with. `properties` is the YAML read as JSON values when it is a mapping |
+| `yaml` | `value`, `properties`? | The frontmatter: `---` on the first line, closed by `---` or `...` on a line of its own, every line between reading as YAML properties (blank, a comment, indented, a list item, or a key and a colon, the key's letters read with their combining marks). First in the root, its `value` with `\n` line ends whatever the text was written with. `properties` is the YAML read as JSON values when it is a mapping |
 | `callout` | `kind`, `marker`, `fold`?, children | A quote whose first line starts `[!marker]`: the marker lowercased, the kind it draws as, `+` (open) or `-` (closed) after it |
 | `calloutTitle` | children | The rest of the marker's line, first in its callout. A further marker with nothing written after it is titled with its own word, capitalized (`Todo`); one of the five kinds with nothing written has no title, and a renderer says the kind's word |
 | `wikiLink` | `target`, `heading`?, `label`?, children | `[[target#heading\|label]]`; the children are the words shown: the label, else the target, with ` › ` and the heading; a `[` written escaped (`\[[`) opens none |
 | `embed` | `kind: note`, `target`, `heading`?, children | `![[note]]`; a block where it stands alone in a paragraph (it takes the paragraph's place), inline in a sentence; an escaped `\!` leaves the `!` a word and the `[[note]]` a link |
 | `embed` | `kind: image`, `target`, `alt`, `width`?, `height`? | `![[file.png\|300]]` or `\|300x200`; other words after the bar are its alt text, else the target is |
 | `embed` | `kind: file`, `target`, children | `![[file.pdf]]`: any other file ending but `.md` |
-| `tag` | `tag` | `#tag` after the start, a space or an opening mark: letters, digits, `_`, `-` and `/`, at least one of them not a digit; a `#` written escaped (`\#`) opens none |
+| `tag` | `tag` | `#tag` after the start, a space or an opening mark: letters with their combining marks (`#हिंदी` is one tag), digits, `_`, `-` and `/`, at least one of them not a digit; a `#` written escaped (`\#`) opens none |
 | `highlight` | children | `==words==` on one line, a non-space after the opening `==` and before the closing one; its words may run through inline nodes (`==a **b** c==`), the two `==` in texts of the same parent; an `=` written escaped (`\=`) neither opens nor closes one |
 | `part` | `id` | `<!-- part:ID -->` (or another word a reader is given); a block where its parent holds blocks, inline in a sentence |
 
@@ -59,7 +59,9 @@ A single line break is a space in the text, as CommonMark has it.
 
 A `$` is math as Pandoc reads it: a non-space after the opening `$`, a non-space before the closing
 one and no digit after it, on one line, so prices stay prices. `\(...\)` is inline math, and
-`$$...$$`, `\[...\]` and a `math` fence on lines of their own are display math.
+`$$...$$`, `\[...\]` and a `math` fence on lines of their own are display math, inside a quote or
+callout too, where the quote's markers are no part of the formula. A `$` inside an autolink or a
+raw HTML tag is neither math nor a price: it stays as written.
 
 ## Fixtures
 

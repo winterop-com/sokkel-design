@@ -4,6 +4,14 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Markdown tree: `\[...\]` on lines of their own inside a quote or callout is display math, and
+  inline math over several lines of a quote leaves the quote's markers out (fixture `math-quotes`).
+  A `$` inside an autolink or a raw HTML tag is never math and is left as written. A tag, and a
+  frontmatter key, reads letters with their combining marks, so `#हिंदी` is one tag (fixture
+  `tags-marks`).
+
 ## 0.34.7
 
 - No change to the contract: sokkel-ui's Tree puts the ellipsis of a middle cut right before
