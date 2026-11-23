@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.34.7
+
+- No change to the contract: sokkel-ui's Tree puts the ellipsis of a middle cut right before
+  the tail, with no gap, which no part spec covers.
+
 ## 0.34.6
 
 - No change to the contract: sokkel-ui's Tree cuts a long label at its end in a row too narrow to
