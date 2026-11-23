@@ -4,7 +4,7 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
-## Unreleased
+## 0.34.8
 
 - Markdown tree: `\[...\]` on lines of their own inside a quote or callout is display math, and
   inline math over several lines of a quote leaves the quote's markers out (fixture `math-quotes`).
