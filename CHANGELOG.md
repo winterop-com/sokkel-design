@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.34.9
+
+- No change to the contract: sokkel-ui's GraphCanvas keeps a dragged box where it was let go until
+  the app moves it, which no part spec covers.
+
 ## 0.34.8
 
 - Markdown tree: `\[...\]` on lines of their own inside a quote or callout is display math, and
