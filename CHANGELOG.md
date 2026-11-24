@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.35.0
+
+- No change to the contract: sokkel-ui's `styles.css` leaves out the primitives no part draws, and
+  its EditPreview pane variant shows one pane at a time on a phone; no part spec covers either.
+
 ## 0.34.9
 
 - No change to the contract: sokkel-ui's GraphCanvas keeps a dragged box where it was let go until
