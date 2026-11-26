@@ -26,7 +26,7 @@ Sources: sokkel-ui `packages/core/src/components/Chip.tsx`, `packages/core/src/l
 - `onSelect`: Makes the face a button. Its press stops at the chip.
 - `selectLabel`: The button's or the link's name and tooltip, when a press does more than the words say ("Filter by harbor"); the words by default.
 - `selected`: With onSelect, a toggle: the button says it is pressed, and the chip wears an edge in its own ink over a stronger wash.
-- `menu`: Makes the face a menu's trigger, with a chevron after the words; a press opens the items (label, icon, onSelect, disabled, destructive) in parts/dropdown-menu's menu under the chip. It takes the place of onSelect and href.
+- `menu`: Makes the face a menu's trigger, with a chevron after the words; a press opens the items (label, icon, onSelect, disabled, destructive) in parts/dropdown-menu's menu under the chip; an item with href is a link instead of onSelect, so a modified or middle click opens it in a new tab. It takes the place of onSelect and href.
 - `menuAlign` (`start`, `center`, `end`; `start` by default): Where the menu lines up under the chip.
 - `href`: Makes the face a link to what the chip names, through the app's link provider. It takes the place of onSelect.
 - `external` (`false` by default): Opens href in a new tab, safely, with the external mark after the words.

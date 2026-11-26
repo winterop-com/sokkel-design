@@ -60,7 +60,11 @@ A single line break is a space in the text, as CommonMark has it.
 A `$` is math as Pandoc reads it: a non-space after the opening `$`, a non-space before the closing
 one and no digit after it, on one line, so prices stay prices. `\(...\)` is inline math, and
 `$$...$$`, `\[...\]` and a `math` fence on lines of their own are display math, inside a quote or
-callout too, where the quote's markers are no part of the formula. A `$` inside an autolink or a
+callout too, where the quote's markers are no part of the formula. Inside a sentence `\[` and `\]`
+are escaped brackets, as CommonMark has them, so a citation's `\[45\]` or a `\[[[link]] ...\]`
+stays words and a link (fixture `math-brackets`). A renderer drawing a chat model's reply may read
+`\[...\]` inside a sentence as inline math, as models write it (sokkel-ui's `inlineBracketMath`);
+a tree is always read without it. A `$` inside an autolink or a
 raw HTML tag is neither math nor a price: it stays as written.
 
 ## Fixtures

@@ -4,6 +4,14 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Markdown tree: `\[...\]` is display math only on lines of its own; inside a sentence `\[` and `\]`
+  are escaped brackets and read as words, where they read as inline math before (fixture
+  `math-brackets`). `\(...\)` stays inline math.
+- Chip: a menu item may have `href`, which makes it a link in the menu (an anchor, so a modified or
+  middle click opens it in a new tab) in place of `onSelect`.
+
 ## 0.36.0
 
 - Rail: with `trafficLights`, the expanded head holds only its end control beside the window's
