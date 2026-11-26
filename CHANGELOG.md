@@ -4,6 +4,12 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Rail: with `trafficLights`, the expanded head holds only its end control beside the window's
+  buttons, and the mark and the name stand in a row just below it at the rail's full width, where
+  the collapsed rail's mark already stood; a long name is no longer cut short there.
+
 ## 0.35.0
 
 - No change to the contract: sokkel-ui's `styles.css` leaves out the primitives no part draws, and
