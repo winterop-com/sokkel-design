@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.37.1
+
+- No change to the contract: sokkel-ui's Tree fades a row's words under its actions button with
+  one mask rule, and its size budgets hold 0.37.0's parts, which no part spec covers.
+
 ## 0.37.0
 
 - Markdown tree: `\[...\]` is display math only on lines of its own; inside a sentence `\[` and `\]`
