@@ -4,6 +4,11 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## 0.37.3
+
+- No change to the contract: sokkel-ui's shell focuses a new page's heading without scrolling to
+  it, which no part spec covers.
+
 ## 0.37.2
 
 - Detection overlay: new, in preview. What a finder sees in a video, drawn over the picture: each
