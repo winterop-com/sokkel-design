@@ -50,7 +50,7 @@ Sources: sokkel-ui `packages/core/src/components/TagsField.tsx`, `packages/core/
 
 - `remove` (`tagsField.remove`): "Remove {tag}"
 - `duplicate` (`tagsField.duplicate`): "{tag} is in already"
-- `full` (`tagsField.full`): "Up to {max} tags"
+- `full` (`tagsField.full`): "Up to {count} tags"
 - `suggestions` (`tagsField.suggestions`): "Suggestions"
 
 ## Where each renderer stands
