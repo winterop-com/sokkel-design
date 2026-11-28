@@ -19,6 +19,8 @@ of their own (D4); a change to a part is a line here under its name.
   was found, with its confidence, label, place and time, a preview on hover and an alert ring.
 - Picture zones: new, in preview. Regions and tripwire lines over a picture, picked with a press,
   reshaped by their corners and drawn anew point by point.
+- Camera control: new, in preview. A pan, tilt and zoom pad that acts while held, a home button, and
+  the camera's presets.
 
 ## 0.37.1
 
