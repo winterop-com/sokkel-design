@@ -27,6 +27,7 @@ of their own (D4); a change to a part is a line here under its name.
   comma, with suggestions, a max, and duplicates refused.
 - Meter: new, in preview. How much of something there is on a scale, its bar good, warning or
   critical against its bounds.
+- Rating: new, in preview. A rating in stars, chosen as a radio group or shown filled to a fraction.
 
 ## 0.37.1
 
