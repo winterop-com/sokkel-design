@@ -23,6 +23,8 @@ of their own (D4); a change to a part is a line here under its name.
   the camera's presets.
 - Color field: new, in preview. A color typed as hex or rgb() or picked from an area of saturation
   and brightness, a hue strip and swatches, kept as #rrggbb.
+- Tags field: new, in preview. Several short values as chips in one field, added with Enter or a
+  comma, with suggestions, a max, and duplicates refused.
 
 ## 0.37.1
 
