@@ -4,6 +4,12 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Detection overlay: new, in preview. What a finder sees in a video, drawn over the picture: each
+  detection's box, corner brackets or marker with its tag, in its affiliation's track color, moving
+  with the video, with an optional trail and a selection the rest step back from.
+
 ## 0.37.1
 
 - No change to the contract: sokkel-ui's Tree fades a row's words under its actions button with
