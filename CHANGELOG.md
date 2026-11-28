@@ -32,6 +32,9 @@ of their own (D4); a change to a part is a line here under its name.
   cut out of a dimmed page.
 - Notification inbox: new, in preview. A bell that counts the unread and opens the list of
   notices, with Mark all as read.
+- Rail: an entry with onSelect in place of href is a press: a button with the entry's face,
+  pressed while active, changing no address.
+- Shell: paletteWidth (sm, md, lg) passes a width to its command palette, sm by default.
 
 ## 0.37.1
 
