@@ -51,7 +51,7 @@ Sources: sokkel-ui `packages/core/src/components/CameraWall.tsx`, `packages/core
 - `recording` (`cameraWall.recording`): "Recording"
 - `offline` (`cameraWall.offline`): "Offline"
 - `connecting` (`cameraWall.connecting`): "Connecting"
-- `detections` (`cameraWall.detections`): "{'one': '# detection', 'other': '# detections'}"
+- `detections` (`cameraWall.detections`): "{'one': '{count} detection', 'other': '{count} detections'}"
 - `enlarge` (`cameraWall.enlarge`): "Show {name} large"
 
 ## Where each renderer stands
