@@ -13,6 +13,8 @@ of their own (D4); a change to a part is a line here under its name.
   the picture around it, with a banner that says what is followed, or that it is lost, and lets it go.
 - Camera wall: new, in preview. Cameras side by side, each with its name, state, detection count
   and an alert ring, the focused one first and two tiles across.
+- Detection timeline: new, in preview. Where things were seen over a video: alerts on a lane of
+  their own, a lane per label, a playhead, and presses that seek.
 
 ## 0.37.1
 
