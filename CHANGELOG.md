@@ -25,6 +25,8 @@ of their own (D4); a change to a part is a line here under its name.
   and brightness, a hue strip and swatches, kept as #rrggbb.
 - Tags field: new, in preview. Several short values as chips in one field, added with Enter or a
   comma, with suggestions, a max, and duplicates refused.
+- Meter: new, in preview. How much of something there is on a scale, its bar good, warning or
+  critical against its bounds.
 
 ## 0.37.1
 
