@@ -34,7 +34,7 @@ settings route is `useOverlayRoute` in `hooks/use-overlay-route.ts`. The context
 | page state | [`parts/page-state`](../parts/page-state.md): loading, failed, empty, or the content |
 | panel | Optional: a right column, a sheet, or tabs in a strip at the foot |
 | foot | [`parts/status-line`](../parts/status-line.md): one fixed row, level with the rail's foot cell so account and status read as one bar. It draws the strip itself; the shell gives it the room |
-| overlays | [`parts/command-palette`](../parts/command-palette.md) (Mod+K), [`parts/settings-dialog`](../parts/settings-dialog.md) (`#/settings`), the shortcuts dialog (`?`) in [`parts/dialog`](../parts/dialog.md), the drawer (below 768) |
+| overlays | [`parts/command-palette`](../parts/command-palette.md) (Mod+K, as wide as `paletteWidth`: `sm` by default, `md` or `lg`), [`parts/settings-dialog`](../parts/settings-dialog.md) (`#/settings`), the shortcuts dialog (`?`) in [`parts/dialog`](../parts/dialog.md), the drawer (below 768) |
 
 The places are **data** (the rail's groups), and so are the settings sections and the palette's
 groups. The same data draws the frame on every target.
