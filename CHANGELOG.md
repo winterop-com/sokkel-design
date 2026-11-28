@@ -30,6 +30,8 @@ of their own (D4); a change to a part is a line here under its name.
 - Rating: new, in preview. A rating in stars, chosen as a radio group or shown filled to a fraction.
 - Tour: new, in preview. A guided tour of a page, a step at a time beside the part each is about,
   cut out of a dimmed page.
+- Notification inbox: new, in preview. A bell that counts the unread and opens the list of
+  notices, with Mark all as read.
 
 ## 0.37.1
 
