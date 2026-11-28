@@ -4,6 +4,12 @@ The contract's version moves in lockstep with sokkel-ui before 1.0 (open questio
 is the sokkel-ui release that ships it, and a breaking change moves the minor. Parts have no version
 of their own (D4); a change to a part is a line here under its name.
 
+## Unreleased
+
+- Markdown view: measureAlign (start, center): centered, the prose stands in a reading column in the
+  middle of the pane and a table grows past it to the pane's width; code in a table cell stays on one
+  line.
+
 ## 0.37.3
 
 - No change to the contract: sokkel-ui's shell focuses a new page's heading without scrolling to

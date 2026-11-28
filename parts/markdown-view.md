@@ -23,13 +23,13 @@ once for every renderer, exactly as the text would draw: sokkel-ui's tests hold 
 
 | Node | Drawn as |
 |---|---|
-| body | `text.sm` on relaxed lines in `foreground`; a block's first child has no space above, its last none below. With `measure`, prose stops at `reading-measure` while tables, code, diagrams, math and parts take the full width |
+| body | `text.sm` on relaxed lines in `foreground`; a block's first child has no space above, its last none below. With `measure`, prose stops at `reading-measure` while tables, code, diagrams, math and parts take the full width; with `measureAlign` `center`, the prose, code, diagrams and math stand in that column in the middle of the pane (measured at the body's size, so headings center on it too), and a table is centered, as wide as its columns ask up to the pane |
 | heading | By level and scale, below; h5 and h6 in the body's text. With `anchors`, an id from its words, a repeat numbered `-1`, `-2` |
 | paragraph | 8 above and below. A single line break is a space (CommonMark) |
 | list | Disc or decimal, 20 in, 8 above and below, items 2 apart; a task item's checkbox is read only |
 | quote | A 2 wide `border-strong` rule, 12 in, in `muted-foreground` |
 | rule | A 1px `border` rule, 16 above and below |
-| table | Scrolls sideways inside itself; cells with a 1px `border` edge, 10 across and 4 down; the head row on `muted`, its text a column head (one step above the cells); a head row of empty cells left out |
+| table | Scrolls sideways inside itself; cells with a 1px `border` edge, 10 across and 4 down; the head row on `muted`, its text a column head (one step above the cells); a head row of empty cells left out; code in a cell stays on one line, the cells' prose wrapping instead |
 | code in a sentence | `chip` on `muted` (default), `plain`, or `wash` (on `secondary`, no fill in a table) |
 | fence | The code block in the `code-*` colors, with a copy. Built in: bash, css, diff, html, javascript, jq, json, jsx, markdown, python, rust, sql, tsx, typescript, xml, yaml, and ansi output |
 | diagram | A `mermaid` fence in the theme's colors, a pie's slices and an xychart's bars and lines in `chart-1` to `chart-5` in order, in its frame: a diagram and source toggle, a copy and an expand into a window. Bad source shows the source and `failed`; while streaming, the source |
@@ -80,7 +80,7 @@ marker leaves a quote. Each box is 12 across and 10 down, its icon 16 and 10 fro
 
 `content` or `tree`, `scale` (`message`, `document`), `inlineCode` (`chip`, `plain`, `wash`), `frontmatter` (`hide`,
 `show`, `markdown`), `streaming`, `caret`, `allowHtml`, `images`, `linkSchemes`, `resolveUrl`,
-`inline`, `headingOffset`, `anchors`, `math`, `measure`, `parts`, `partMarker`, `links`, `live`,
+`inline`, `headingOffset`, `anchors`, `math`, `measure`, `measureAlign`, `parts`, `partMarker`, `links`, `live`,
 `highlight`, `onLink` and `words`, as the JSON says. `live={false}` draws every link as its words,
 and `highlight` marks a search's words: together they draw a backlink's line in the row that opens
 its note.
