@@ -9,6 +9,8 @@ of their own (D4); a change to a part is a line here under its name.
 - Detection overlay: new, in preview. What a finder sees in a video, drawn over the picture: each
   detection's box, corner brackets or marker with its tag, in its affiliation's track color, moving
   with the video, with an optional trail and a selection the rest step back from.
+- Video follow: new, in preview. Keeps a video's view on one detection, coming in on the part of
+  the picture around it, with a banner that says what is followed, or that it is lost, and lets it go.
 
 ## 0.37.1
 
