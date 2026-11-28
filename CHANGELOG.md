@@ -28,6 +28,8 @@ of their own (D4); a change to a part is a line here under its name.
 - Meter: new, in preview. How much of something there is on a scale, its bar good, warning or
   critical against its bounds.
 - Rating: new, in preview. A rating in stars, chosen as a radio group or shown filled to a fraction.
+- Tour: new, in preview. A guided tour of a page, a step at a time beside the part each is about,
+  cut out of a dimmed page.
 
 ## 0.37.1
 
