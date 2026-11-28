@@ -21,6 +21,8 @@ of their own (D4); a change to a part is a line here under its name.
   reshaped by their corners and drawn anew point by point.
 - Camera control: new, in preview. A pan, tilt and zoom pad that acts while held, a home button, and
   the camera's presets.
+- Color field: new, in preview. A color typed as hex or rgb() or picked from an area of saturation
+  and brightness, a hue strip and swatches, kept as #rrggbb.
 
 ## 0.37.1
 
