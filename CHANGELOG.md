@@ -11,6 +11,8 @@ of their own (D4); a change to a part is a line here under its name.
   with the video, with an optional trail and a selection the rest step back from.
 - Video follow: new, in preview. Keeps a video's view on one detection, coming in on the part of
   the picture around it, with a banner that says what is followed, or that it is lost, and lets it go.
+- Camera wall: new, in preview. Cameras side by side, each with its name, state, detection count
+  and an alert ring, the focused one first and two tiles across.
 
 ## 0.37.1
 
