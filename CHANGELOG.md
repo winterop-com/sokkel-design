@@ -15,6 +15,8 @@ of their own (D4); a change to a part is a line here under its name.
   and an alert ring, the focused one first and two tiles across.
 - Detection timeline: new, in preview. Where things were seen over a video: alerts on a lane of
   their own, a lane per label, a playhead, and presses that seek.
+- Detection gallery: new, in preview. Each sighting as a tile cropped from its frame around what
+  was found, with its confidence, label, place and time, a preview on hover and an alert ring.
 
 ## 0.37.1
 
