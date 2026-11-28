@@ -81,7 +81,7 @@
         "recording": "Recording",
         "offline": "Offline",
         "connecting": "Connecting",
-        "detections": {"one": "# detection", "other": "# detections"},
+        "detections": {"one": "{count} detection", "other": "{count} detections"},
         "enlarge": "Show {name} large"
     },
     "messages": {
