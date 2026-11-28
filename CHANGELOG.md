@@ -17,6 +17,8 @@ of their own (D4); a change to a part is a line here under its name.
   their own, a lane per label, a playhead, and presses that seek.
 - Detection gallery: new, in preview. Each sighting as a tile cropped from its frame around what
   was found, with its confidence, label, place and time, a preview on hover and an alert ring.
+- Picture zones: new, in preview. Regions and tripwire lines over a picture, picked with a press,
+  reshaped by their corners and drawn anew point by point.
 
 ## 0.37.1
 
