@@ -42,8 +42,8 @@ Sources: sokkel-ui `packages/core/src/components/Rating.tsx`.
 
 ## Words
 
-- `star` (`rating.star`): "{'one': '{count} of {max} star', 'other': '{count} of {max} stars'}"
-- `rated` (`rating.rated`): "Rated {value} of {max}"
+- `star` (`rating.star`): "{'one': '{count} of {total} star', 'other': '{count} of {total} stars'}"
+- `rated` (`rating.rated`): "Rated {stars} of {total}"
 
 ## Where each renderer stands
 
