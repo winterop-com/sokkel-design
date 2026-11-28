@@ -60,15 +60,15 @@
         "rated": "Rated {value} of {max}"
     },
     "messages": {
-        "star": {"id": "rating.star", "en": "{count, plural, one {# of {max} star} other {# of {max} stars}}"},
-        "rated": {"id": "rating.rated", "en": "Rated {value} of {max}"}
+        "star": {"id": "rating.star", "en": "{count, plural, one {# of {total} star} other {# of {total} stars}}"},
+        "rated": {"id": "rating.rated", "en": "Rated {stars} of {total}"}
     },
     "samples": {
         "star": [
             {"with": {"count": 1, "max": 5}, "says": "1 of 5 star"},
             {"with": {"count": 3, "max": 5}, "says": "3 of 5 stars"}
         ],
-        "rated": [{"with": {"value": "3.6", "max": 5}, "says": "Rated 3.6 of 5"}]
+        "rated": [{"with": {"stars": "3.6", "total": 5}, "says": "Rated 3.6 of 5"}]
     },
     "appText": {"label": "What the stars rate."},
     "drift": [
