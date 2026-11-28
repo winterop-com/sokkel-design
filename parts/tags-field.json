@@ -67,19 +67,19 @@
     "words": {
         "remove": "Remove {tag}",
         "duplicate": "{tag} is in already",
-        "full": "Up to {max} tags",
+        "full": "Up to {count} tags",
         "suggestions": "Suggestions"
     },
     "messages": {
         "remove": {"id": "tagsField.remove", "en": "Remove {tag}"},
         "duplicate": {"id": "tagsField.duplicate", "en": "{tag} is in already"},
-        "full": {"id": "tagsField.full", "en": "Up to {max, number} tags"},
+        "full": {"id": "tagsField.full", "en": "Up to {count, number} tags"},
         "suggestions": {"id": "tagsField.suggestions", "en": "Suggestions"}
     },
     "samples": {
         "remove": [{"with": {"tag": "harbor"}, "says": "Remove harbor"}],
         "duplicate": [{"with": {"tag": "harbor"}, "says": "harbor is in already"}],
-        "full": [{"with": {"max": 3}, "says": "Up to 3 tags"}]
+        "full": [{"with": {"count": 3}, "says": "Up to 3 tags"}]
     },
     "appText": {"label": "The field's label.", "tag": "Each tag."},
     "drift": [
